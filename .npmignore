@@ -1,0 +1,7 @@
+*.DS_Store
+.idea
+some
+node_modules
+main.js
+properties.json
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection total="128" start="0" count="10">
+    <goodFolder archived="false" parentUuid="2147a11c-ac52-440f-8f56-7ed2f1a73dfa" productCode="" name="Save the birds"
+                updated="2013-09-18T21:09:03.931+04:00" updatedBy="mvv@vensi-shop" readMode="ALL" changeMode="SELF">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>0041079c-4d17-43c8-8ed8-028640efc8db</uuid>
+        <externalcode>tgpgA84TgTm8LWMplcLjj3</externalcode>
+    </goodFolder>
+    <goodFolder archived="false" parentUuid="db46b27a-fb2a-46d4-b4be-7720d0c43f94" productCode="" name="01A26"
+                updated="2013-09-18T21:09:05.064+04:00" updatedBy="mvv@vensi-shop" readMode="ALL" changeMode="SELF">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>02ab1d5f-13d0-4672-a2a8-91e911e7c627</uuid>
+        <code>125</code>
+        <externalcode>-yvtR7aoh12CV8G6BTKjX3</externalcode>
+        <description></description>
+    </goodFolder>
+    <goodFolder archived="false" parentUuid="db46b27a-fb2a-46d4-b4be-7720d0c43f94" productCode="" name="02A26B"
+                updated="2013-09-18T21:09:05.064+04:00" updatedBy="mvv@vensi-shop" readMode="ALL" changeMode="SELF">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>07d15ed7-bbc5-41c3-bea7-9dc22ad621b0</uuid>
+        <code></code>
+        <externalcode>cKj9XFpkgCi_OPJSp8Se21</externalcode>
+        <description></description>
+    </goodFolder>
+    <goodFolder archived="false" parentUuid="09ae01d9-1114-476c-99c7-108ea4b13c71" productCode=""
+                name="Платочки для сумок" updated="2013-11-16T12:01:59.030+04:00" updatedBy="mvv@vensi-shop"
+                readMode="ALL" changeMode="SELF">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>08e8741f-3e2f-11e3-05a8-7054d21a8d1e</uuid>
+        <code></code>
+        <externalcode>o6lGKbr6j-_84gw5K6Cf-0</externalcode>
+        <description></description>
+    </goodFolder>
+</collection>

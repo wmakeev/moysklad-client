@@ -1,0 +1,60 @@
+{
+    "name": "inherit_module",
+    "elementInfos": [
+        {
+            "elementName": "el1",
+            "typeInfo": "inherit_module.el1"
+        },
+        {
+            "elementName": "el2",
+            "typeInfo": "inherit_module.el2"
+        },
+        {
+            "elementName": "el3",
+            "typeInfo": "inherit_module.el3"
+        }
+    ],
+    "typeInfos": [
+        {
+            "type": "classInfo",
+            "localName": "el1",
+            "propertyInfos": [
+                {
+                    "type": "element",
+                    "name": "id",
+                    "typeInfo": "String"
+                }
+            ]
+        },
+        {
+            "type": "classInfo",
+            "localName": "el2",
+            "propertyInfos": [
+                {
+                    "type": "element",
+                    "name": "name",
+                    "typeInfo": "String"
+                }
+            ],
+            "baseTypeInfo": "inherit_module.el1"
+        },
+        {
+            "type": "classInfo",
+            "localName": "el3",
+            "propertyInfos": [
+                {
+                    "type": "element",
+                    "name": "some",
+                    "typeInfo": "String"
+                },
+                {
+                    "type": "attribute",
+                    "name": "val",
+                    "typeInfo": "String"
+                }
+            ],
+            "baseTypeInfo": "inherit_module.el2"
+
+        }
+    ]
+}
