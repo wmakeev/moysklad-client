@@ -4,7 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
+var forEach = require('mout/array/forEach')
+    , mixIn = require('mout/mixIn')
     , logger = require('logger')
     , callbackAdapter = require('tools').callbackAdapter;
 
@@ -22,7 +23,7 @@ module.exports = {
             async: false,
             payload: null
         };
-        _options = _.extend(_options, options);
+        _options = mixIn(_options, options);
 
         var xhr = new XMLHttpRequest()
             , response
@@ -31,7 +32,7 @@ module.exports = {
         xhr.open(_options.method, _options.url, _options.async);
         xhr.setRequestHeader('Content-Type', _options.contentType);
 
-        _.each(_options.headers, function (value, key) {
+        forEach(_options.headers, function (value, key) {
             xhr.setRequestHeader(key, value);
         });
 

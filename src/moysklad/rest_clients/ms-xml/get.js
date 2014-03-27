@@ -4,8 +4,6 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
-
 
 module.exports = function (type, params, callback) {
     var _path = '/' + this.getObjectTypeName(type);
@@ -18,8 +16,8 @@ module.exports = function (type, params, callback) {
     } else {
         // GET /{type}/list
         _path += '/list';
-        if (_.size(params) > 0) {
-            _path += '/?' + _.map(params,function (value, key) {
+        if (Object.keys(params).length > 0) {
+            _path += '/?' + map(params,function (value, key) {
                 return key + '=' + encodeURIComponent(value);
             }).join('&');
         }

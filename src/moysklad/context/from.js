@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
+var forEach = require('mout/array/forEach')
     , Query = require('.').factory;
 
 //TODO Оформить синонимы как подмассив
@@ -23,7 +23,7 @@ module.exports = function (type) {
     var that = this;
 
     // set client methods to query - query.load()
-    _.each(bindingMethods, function (methodName) {
+    forEach(bindingMethods, function (methodName) {
         Query.enclose(function () {
             this[methodName] = function () {
                 var args = Array.prototype.slice(arguments);

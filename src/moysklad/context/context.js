@@ -10,7 +10,11 @@ var stampit = require('stampit');
 module.exports = stampit()
 
     // Auth
-    .enclose(require('./auth'))
+    .enclose(require('./authProvider'))
+
+    // Rest client accessor
+    //
+    .enclose(require('./restClientsAccessor'))
 
     // Methods
     //

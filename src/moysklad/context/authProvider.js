@@ -7,24 +7,24 @@
 var getBasicAuthHttpHeader = require('tools').getBasicAuthHttpHeader;
 
 module.exports = function () {
-    var auth;
+    var _auth;
 
     this.setBasicAuth = function (login, password) {
-        auth = {
+        _auth = {
             login: login,
             password: password
         }
     };
 
     this.getBasicAuthHeader = function () {
-        if (auth) {
-            return getBasicAuthHttpHeader(auth.login, auth.password);
+        if (_auth) {
+            return getBasicAuthHttpHeader(_auth.login, _auth.password);
         } else {
             return null;
         }
     };
 
     this.isAuth = function () {
-        return !!auth && !!auth.login && !!auth.password;
+        return !!_auth && !!_auth.login && !!_auth.password;
     };
 }

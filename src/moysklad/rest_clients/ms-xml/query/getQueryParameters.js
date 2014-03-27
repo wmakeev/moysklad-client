@@ -4,7 +4,10 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require ('lodash')
+var map = require('mout/array/map')
+    , forOwn = require('mout/object/forOwn')
+    , forEach = require('mout/array/forEach')
+    , mixIn = require('mout/mixIn')
     , Is = require('tools').Is;
 
 //TODO Описать параметры и скорректировать наименование
@@ -13,9 +16,9 @@ var _ = require ('lodash')
  */
 function _flattenFilter(obj, path, filter) {
 
-    if(!filter) filter = {};
+    if (!filter) filter = {};
 
-    _.forOwn(obj, function (value, key) {
+    forOwn(obj, function (value, key) {
 
         var curPath = (path ? path + '.' : '') + key;
 
@@ -23,7 +26,7 @@ function _flattenFilter(obj, path, filter) {
             filter[curPath] = [ '=' + value ];
 
         } else if (value instanceof Array) {
-            filter[curPath] = _.map(value, function (item) {
+            filter[curPath] = map(value, function (item) {
                 return '=' + item;
             });
 
@@ -55,9 +58,9 @@ module.exports = function () {
     var queryParams = {},
         filterItems = [];
 
-    _.extend(queryParams, this.getParameters());
-    _.each(_flattenFilter(this.getFilter()), function (filterValues, filterKey) {
-        _.each(filterValues, function (filterValue) {
+    mixIn(queryParams, this.getParameters());
+    forEach(_flattenFilter(this.getFilter()), function (filterValues, filterKey) {
+        forEach(filterValues, function (filterValue) {
             filterItems.push(filterKey + filterValue);
         })
     });

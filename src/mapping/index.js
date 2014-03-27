@@ -6,7 +6,8 @@
 
 //TODO Провести рефракторинг. Выделить в отдельные модули (в прототип).
 
-var _ = require('lodash')
+var forEach = require('mout/array/forEach')
+    , findIndex = require('mout/array/findIndex')
     , DOMParser = require('xmldom').DOMParser
     , XmlToJson = require('./xmlToJson');
 
@@ -29,8 +30,8 @@ function getXsdAsObject(xsd) {
     var jsonXsdFix = require('../../res/moysklad-fix.xsd');
 
     var fixXsdBlock = function (blockName) {
-        _.forEach(jsonXsdFix[blockName], function (fixEl) {
-            var elIndex = _.findIndex(jsonXsd[blockName], {
+        forEach(jsonXsdFix[blockName], function (fixEl) {
+            var elIndex = findIndex(jsonXsd[blockName], {
                 '$attribute': {
                     'name': fixEl['$attribute'].name
                 }
@@ -41,8 +42,8 @@ function getXsdAsObject(xsd) {
         });
     };
 
-    _([ 'xs:element',
-        'xs:complexType' ]).forEach(fixXsdBlock);
+    forEach([ 'xs:element',
+        'xs:complexType' ], fixXsdBlock);
 
     //Debug
     var fs = require('fs-sync');
@@ -101,7 +102,7 @@ function getSimpleTypeName(name_xsd) {
 // Enums
 function addSimpleType(element_xsd) {
     var enumValues = {};
-    _.each(element_xsd['xs:restriction']['xs:enumeration'], function (enumerationItem) {
+    forEach(element_xsd['xs:restriction']['xs:enumeration'], function (enumerationItem) {
         enumValues[enumerationItem.$attribute.value.toUpperCase()] = enumerationItem.$attribute.value;
     });
     model.enums[element_xsd.$attribute.name] = enumValues;
@@ -109,7 +110,7 @@ function addSimpleType(element_xsd) {
 
 // Elements (global)
 function addGlobalElements(elements) {
-    _.each(elements, function (element) {
+    forEach(elements, function (element) {
         model.elementInfos.push({
             elementName: element.$attribute.name,
             typeInfo: getTypeInfo(element.$attribute.type)
@@ -119,7 +120,7 @@ function addGlobalElements(elements) {
 
 // Attributes
 function addAttributes(typeInfo, attributes_xsd) {
-    _.each((attributes_xsd instanceof Array ? attributes_xsd : [attributes_xsd]), function (attributeItem) {
+    forEach((attributes_xsd instanceof Array ? attributes_xsd : [attributes_xsd]), function (attributeItem) {
         typeInfo.propertyInfos.push({
             type: 'attribute',
             name: attributeItem.$attribute.name,
@@ -133,7 +134,7 @@ function addElements(typeInfo, elements_xsd) {
     //TODO И проверить что генерация модели правильно обработает name вместо elmentName
     //TODO Добавить множественное окончание для массивов "s" - pluralize()
 
-    _.each(elements_xsd instanceof Array ? elements_xsd : [elements_xsd], function (element_xsd) {
+    forEach(elements_xsd instanceof Array ? elements_xsd : [elements_xsd], function (element_xsd) {
         var propertyInfo = {
             type: 'element'
         };
@@ -238,7 +239,7 @@ function generateMetadata(xsd) {
 
     // xs:simpleType
     model.enums = {};
-    _.each(xsd_obj['xs:simpleType'], addSimpleType);
+    forEach(xsd_obj['xs:simpleType'], addSimpleType);
 
     // xs:element
     model.elementInfos = [];
@@ -246,7 +247,7 @@ function generateMetadata(xsd) {
 
     // xs:complexType
     model.typeInfos = [];
-    _.each(xsd_obj['xs:complexType'], function (complexType) {
+    forEach(xsd_obj['xs:complexType'], function (complexType) {
         var typeInfo = {
             type: 'classInfo',
             localName: complexType.$attribute.name,
