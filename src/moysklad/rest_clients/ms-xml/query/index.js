@@ -9,9 +9,10 @@ var Query = require('./query');
 module.exports = {
 
     createQuery: function (queryObj) {
-        return Query.create().appendFilter(queryObj);
+        var query = Query.create();
+        return queryObj ? query : query.appendFilter(queryObj);
     },
 
-    factory: Query
+    Query: Query
 };
 

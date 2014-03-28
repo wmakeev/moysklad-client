@@ -4,10 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var map = require('mout/array/map')
-    , forOwn = require('mout/object/forOwn')
-    , forEach = require('mout/array/forEach')
-    , mixIn = require('mout/mixIn')
+var _ = require('lodash')
     , Is = require('tools').Is;
 
 //TODO Описать параметры и скорректировать наименование
@@ -18,7 +15,7 @@ function _flattenFilter(obj, path, filter) {
 
     if (!filter) filter = {};
 
-    forOwn(obj, function (value, key) {
+    _.forOwn(obj, function (value, key) {
 
         var curPath = (path ? path + '.' : '') + key;
 
@@ -26,7 +23,7 @@ function _flattenFilter(obj, path, filter) {
             filter[curPath] = [ '=' + value ];
 
         } else if (value instanceof Array) {
-            filter[curPath] = map(value, function (item) {
+            filter[curPath] = _.map(value, function (item) {
                 return '=' + item;
             });
 
@@ -58,12 +55,14 @@ module.exports = function () {
     var queryParams = {},
         filterItems = [];
 
-    mixIn(queryParams, this.getParameters());
-    forEach(_flattenFilter(this.getFilter()), function (filterValues, filterKey) {
-        forEach(filterValues, function (filterValue) {
+    _.extend(queryParams, this.getParameters());
+
+    _.forOwn(_flattenFilter(this.getFilter()), function (filterValues, filterKey) {
+        _.each(filterValues, function (filterValue) {
             filterItems.push(filterKey + filterValue);
         })
     });
+
     if (filterItems.length > 0) queryParams.filter = filterItems.join(';');
     return queryParams;
 };

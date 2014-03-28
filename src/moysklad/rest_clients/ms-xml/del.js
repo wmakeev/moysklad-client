@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var map = require('mout/array/map');
+var _ = require('lodash');
 
 
 module.exports = function (type, data, callback) {
@@ -22,7 +22,7 @@ module.exports = function (type, data, callback) {
                 localPart: 'collection'
             },
             value: {
-                items: map(data, function (item) {
+                items: _.map(data, function (item) {
                     return {
                         name: {
                             localPart: 'String'
@@ -40,5 +40,5 @@ module.exports = function (type, data, callback) {
 
     }
 
-    return this.fetch(_fetchOptions, callback);
+    this.fetch(_fetchOptions, callback);
 }

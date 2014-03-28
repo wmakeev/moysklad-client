@@ -19,7 +19,7 @@ module.exports = stampit()
     .enclose(require('../authable'))
 
     // Fetch
-    .enclose(require('fetch'))
+    .enclose(require('./fetch'))
 
     // Methods
     //

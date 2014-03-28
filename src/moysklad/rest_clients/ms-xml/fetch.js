@@ -4,30 +4,39 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var mixIn = require('mout/mixIn')
-    , client_properties = require('client_properties')
+var _ = require('lodash')
+    , client_properties = require('./client-properties')
+    , logger = require('logger')
     , providerResponseHandler = require('./providerResponseHandler')
-    , marshaller = require('jsonix').marshaller;
+    , marshaller = require('./jsonixContext').marshaller
+    , requestProvider = require('../../providers/default')
+    , endPoint = client_properties.baseUrl + '/rest/ms/xml';
 
-var requestProvider = require('../../providers/default'),
-    endPoint = '/rest/ms/xml' + client_properties.baseUrl;
 
 
 module.exports = function () {
     this.fetch = function (options, callback) {
         var _authProvider = this.getAuthProvider();
 
-        requestProvider.fetch(mixIn({
+        var fetchOptions = _.extend({
             // default
             contentType: 'application/xml',
-            headers: 'isAuth' in _authProvider && _authProvider.isAuth() ? {
-                Authorization: _authProvider.getBasicAuthHeader() } : {}
+            headers: {}
         }, {
             // parameters
             method: options.method,
-            url: endPoint + options.path,
-            payload: marshaller.marshalString(options.payload)
-        }), function (err, result) {
+            url: endPoint + options.path
+        });
+
+        if (_authProvider && _authProvider.isAuth())
+            fetchOptions.headers.Authorization = _authProvider.getBasicAuthHeader();
+
+        if (options.payload)
+            fetchOptions.payload = marshaller.marshalString(options.payload);
+
+        logger.time('Fetch from service time');
+        requestProvider.fetch(fetchOptions, function (err, result) {
+            logger.timeEnd('Fetch from service time');
             return providerResponseHandler(err, result, callback);
         })
     }

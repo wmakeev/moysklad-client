@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var forEach = require('mout/array/forEach')
-    , Query = require('.').factory;
+var _ = require('lodash')
+    , Query = require('../rest_clients/ms-xml/query').Query;
 
 //TODO Оформить синонимы как подмассив
 var bindingMethods = [ 'load', 'first', 'total' ];
@@ -23,7 +23,7 @@ module.exports = function (type) {
     var that = this;
 
     // set client methods to query - query.load()
-    forEach(bindingMethods, function (methodName) {
+    _.each(bindingMethods, function (methodName) {
         Query.enclose(function () {
             this[methodName] = function () {
                 var args = Array.prototype.slice(arguments);

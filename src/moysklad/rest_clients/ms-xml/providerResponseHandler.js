@@ -4,8 +4,9 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('tools').callbackAdapter
-    , unmarshaller = require('jsonix').unmarshaller
+var _ = require('lodash')
+    , callbackAdapter = require('tools').callbackAdapter
+    , unmarshaller = require('./jsonixContext').unmarshaller
     , logger = require('logger');
 
 
@@ -18,14 +19,21 @@ module.exports = function (err, result, callback) {
         logger.log('response.contentText.length - ' + result.response.contentText.length);
 
         switch (result.response.responseCode) {
+
+            // ошибка пришла ввиде XML сериализуем и обработаем ниже
             case 500:
-                // ошибка пришла ввиде XML сериализуем и обработаем ниже
                 break;
 
+            // ошибка авторизации
+            case 401:
+                return callbackAdapter(
+                    new Error('Request requires HTTP authentication'), result, callback);
+
+            // корректный ответ сервера (работаем с ним дальше)
             case 200:
-                // корректный ответ сервера
                 break;
 
+            // любой другой код ответа - ошибка
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
                 logger.log('Ответ сервера: \n' + result.response.contentText);
@@ -50,7 +58,8 @@ module.exports = function (err, result, callback) {
                 _.extend(result.obj, {
                     total: data.value.total,
                     start: data.value.start,
-                    count: data.value.count
+                    count: data.value.count,
+                    TYPE_NAME: data.value.TYPE_NAME
                 });
             } else {
                 result.obj = data.value;

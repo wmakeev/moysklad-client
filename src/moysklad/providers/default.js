@@ -4,8 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var forEach = require('mout/array/forEach')
-    , mixIn = require('mout/mixIn')
+var _ = require('lodash')
     , logger = require('logger')
     , callbackAdapter = require('tools').callbackAdapter;
 
@@ -18,12 +17,10 @@ module.exports = {
 
         var _options = {
             contentType: 'application/x-www-form-urlencoded',
-            headers: null,
             method: 'GET',
-            async: false,
-            payload: null
+            async: false
         };
-        _options = mixIn(_options, options);
+        _.extend(_options, options);
 
         var xhr = new XMLHttpRequest()
             , response
@@ -32,15 +29,15 @@ module.exports = {
         xhr.open(_options.method, _options.url, _options.async);
         xhr.setRequestHeader('Content-Type', _options.contentType);
 
-        forEach(_options.headers, function (value, key) {
+        _.forOwn(_options.headers, function (value, key) {
             xhr.setRequestHeader(key, value);
         });
 
         //TODO try only in sync mode!
         try {
-            logger.time('[Providers] XMLHttpRequest');
+            logger.time('XMLHttpRequest');
             xhr.send(_options.payload);
-            logger.timeEnd('[Providers] XMLHttpRequest');
+            logger.timeEnd('XMLHttpRequest');
         }
         catch (e) {
             err = {

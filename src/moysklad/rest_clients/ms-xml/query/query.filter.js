@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var mixIn = require('mout/mixIn')
+var _ = require('lodash')
     , Is = require('tools').Is;
 
 module.exports = function () {
@@ -25,10 +25,10 @@ module.exports = function () {
         return this;
     };
 
-    //TODO Необходимо реализовать логинку наложения фильров с учетом дерева обектов
     this.appendFilter = function (value) {
         if (Is.object(value)) {
-            mixIn(_filter, value);
+            //TODO Необходимо реализовать логинку наложения в зависимости от типа фильтра
+            _filter = _.merge(_filter, value);
         } else {
             throw new TypeError('addFilter: incorrect parameter [' + value + '], object required');
         }

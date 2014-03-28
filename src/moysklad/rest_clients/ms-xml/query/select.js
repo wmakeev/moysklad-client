@@ -7,6 +7,7 @@
 var Is = require('tools').Is;
 
 module.exports = function () {
+
     if (Is.args(arguments, Object)) {
         this.appendFilter(arguments[0]);
         return this;

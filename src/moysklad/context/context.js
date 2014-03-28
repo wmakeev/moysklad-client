@@ -25,13 +25,13 @@ module.exports = stampit()
         load: require('./load'),
 
         // Stock
-        stockByGood: require('...'),
-        stockByConsignment: require('...'),
-        stockForGood: require('...'),
-        slotReport: require('...'),
+        //stockByGood: require('...'),
+        //stockByConsignment: require('...'),
+        //stockForGood: require('...'),
+        //slotReport: require('...'),
 
         // MutualSettlement
-        mutualSettlement: require('...'),
-        customerMutualSettlement: require('...')
+        //mutualSettlement: require('...'),
+        //customerMutualSettlement: require('...')
 
     });

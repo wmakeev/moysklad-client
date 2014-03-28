@@ -4,7 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('tools').callbackAdapter;
+var callbackAdapter = require('tools').callbackAdapter
+    , _ = require('lodash');
 
 /**
  * Load. Получает сущность по идентификатору или список сущностей согласно запросу.
@@ -18,26 +19,29 @@ module.exports = function (type, query) {
     //TODO Ensure
     var args = _.toArray(arguments),
         params = {},
-        callback = typeof _.last(args) === 'function' ? _.last(args) : null;
+        callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
 
     // uuid ..
-    if (typeof query == 'string')
+    if (typeof query == 'string') {
         params.uuid = query;
-
+        // options (fileContent)
+        if (typeof args[2] === 'object') _.extend(params, args[2]);
+    }
     // .. или query
-    else if (typeof query == 'object' && 'getUrlParams' in query)
-        _.extend(params, query.getUrlParams());
-
-    // options
-    if (typeof args[2] === 'object')
-        _.extend(params, args[2]);
+    else if (typeof query == 'object' && 'getQueryParameters' in query) {
+        _.extend(params, query.getQueryParameters());
+    }
+    // .. ошибка
+    else {
+        return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
+    }
 
     var restClient = this.getRestClient('msXml'),
-        result = null;
+        obj = null;
 
     restClient.get(type, params, function (err, data) {
-        result = callbackAdapter(err, data, callback);
+        obj = callbackAdapter(err, data.obj, callback);
     });
 
-    return result;
-}
+    return obj;
+};

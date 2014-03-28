@@ -9,11 +9,12 @@ var getBasicAuthHttpHeader = require('tools').getBasicAuthHttpHeader;
 module.exports = function () {
     var _auth;
 
-    this.setBasicAuth = function (login, password) {
+    this.setAuth = function (login, password) {
         _auth = {
             login: login,
             password: password
         }
+        return this;
     };
 
     this.getBasicAuthHeader = function () {

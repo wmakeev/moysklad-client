@@ -12,5 +12,5 @@ module.exports = {
         return MsXmlClient.create();
     },
 
-    factory: MsXmlClient
+    Query: MsXmlClient
 };

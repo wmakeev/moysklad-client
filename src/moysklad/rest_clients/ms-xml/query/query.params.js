@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var mixIn = require('mout/mixIn')
+var _ = require('lodash')
     , Is = require('tools').Is;
 
 module.exports = function () {
@@ -26,6 +26,6 @@ module.exports = function () {
 
     this.setParameters = function (parameters) {
         //TODO Ensure Object
-        mixIn(_params, parameters);
+        _.extend(_params, parameters);
     }
 };
