@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('tools').callbackAdapter
+var callbackAdapter = require('../../tools').callbackAdapter
     , _ = require('lodash');
 
 /**

@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash')
-    , Is = require('tools').Is;
+    , Is = require('../../../../tools').Is;
 
 module.exports = function () {
     var _filter = {};

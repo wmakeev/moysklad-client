@@ -5,9 +5,9 @@
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('tools').callbackAdapter
+    , callbackAdapter = require('../../../tools').callbackAdapter
     , unmarshaller = require('./jsonixContext').unmarshaller
-    , logger = require('logger');
+    , logger = require('../../../logger');
 
 
 module.exports = function (err, result, callback) {

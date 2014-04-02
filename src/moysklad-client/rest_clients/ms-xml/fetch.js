@@ -6,7 +6,7 @@
 
 var _ = require('lodash')
     , client_properties = require('./client-properties')
-    , logger = require('logger')
+    , logger = require('../../../logger')
     , providerResponseHandler = require('./providerResponseHandler')
     , marshaller = require('./jsonixContext').marshaller
     , requestProvider = require('../../providers/default')

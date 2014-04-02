@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash')
-    , Is = require('tools').Is;
+    , Is = require('../../../../tools').Is;
 
 //TODO Описать параметры и скорректировать наименование
 /**

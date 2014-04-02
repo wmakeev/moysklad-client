@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var getBasicAuthHttpHeader = require('tools').getBasicAuthHttpHeader;
+var getBasicAuthHttpHeader = require('../../tools').getBasicAuthHttpHeader;
 
 /** @class */
 var AuthProvider = function () {

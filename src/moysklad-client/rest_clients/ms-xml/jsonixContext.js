@@ -5,7 +5,7 @@
  */
 
 var map               = require('../../../../res/mapping')
-    , Jsonix          = require('jsonix').Jsonix
+    , Jsonix          = require('../../jsonix').Jsonix
     , context         = new Jsonix.Context([map]);
 
 exports.marshaller    = context.createMarshaller();

@@ -4,7 +4,11 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var stampit = require('stampit');
+var stampit = require('stampit')
+    , from = require('./from')
+    , load = require('./load')
+    , authProvider = require('./authProvider')
+    , restClientsAccessor = require('./restClientsAccessor');
 
 /**
  * @class
@@ -14,11 +18,11 @@ var stampit = require('stampit');
 var Context = stampit()
 
     // Auth
-    .enclose(require('./authProvider'))
+    .enclose(authProvider)
 
     // Rest client accessor (RestClientsAccessor)
     //
-    .enclose(require('./restClientsAccessor'))
+    .enclose(restClientsAccessor)
 
     // Methods
     //
@@ -29,8 +33,8 @@ var Context = stampit()
     {
 
         // Ms
-        from: require('./from'),
-        load: require('./load'),
+        from: from,
+        load: load
 
         // Stock
         //stockByGood: require('...'),

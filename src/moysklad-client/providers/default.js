@@ -5,8 +5,8 @@
  */
 
 var _ = require('lodash')
-  , logger = require('logger')
-  , callbackAdapter = require('tools').callbackAdapter;
+  , logger = require('../../logger')
+  , callbackAdapter = require('../../tools').callbackAdapter;
 
 
 var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;

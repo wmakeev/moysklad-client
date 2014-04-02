@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var Is = require('tools').Is;
+var Is = require('../../../../tools').Is;
 
 module.exports = function () {
 
