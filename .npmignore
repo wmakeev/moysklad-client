@@ -1,6 +1,6 @@
 *.DS_Store
 .idea
-_some
+some
 node_modules
 main.js
 properties.json
