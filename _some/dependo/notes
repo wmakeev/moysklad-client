@@ -1,0 +1,2 @@
+dependo -f cjs -x '(^node_modules(/[\w.-]*){2})|(dist)' ./ > some/dependo.html
+dependo -f cjs dist/moysklad-client.browser.js > some/dependo/browser.html

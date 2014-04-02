@@ -6,19 +6,27 @@
 
 var stampit = require('stampit');
 
-
-module.exports = stampit()
+/**
+ * @class
+ * @augments RestClientsAccessor
+ * @augments AuthProvider
+ */
+var Context = stampit()
 
     // Auth
     .enclose(require('./authProvider'))
 
-    // Rest client accessor
+    // Rest client accessor (RestClientsAccessor)
     //
     .enclose(require('./restClientsAccessor'))
 
     // Methods
     //
-    .methods({
+    .methods(
+    /**
+     * @lends Context.prototype
+     */
+    {
 
         // Ms
         from: require('./from'),
@@ -35,3 +43,5 @@ module.exports = stampit()
         //customerMutualSettlement: require('...')
 
     });
+
+module.exports = Context;

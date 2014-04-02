@@ -1,3 +1,4 @@
+
 module.exports = {
 
     "xs:element": [
@@ -282,3 +283,5 @@ module.exports = {
         }
     ]
 };
+
+//module.exports = xsdFix;

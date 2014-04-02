@@ -1,0 +1,94 @@
+<good readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.694-06:00" updatedBy="mvv@vensi-shop"
+      name="Сумка женская тестовая G88017 test #9999" archived="false" parentUuid="7d85862b-7bde-47e2-9034-ae2305fb1814"
+      productCode="88017 test #9999" minPrice="0" uomUuid="26796e19-d5ea-4bd8-af81-52f58f408705" salePrice="0"
+      isSerialTrackable="false" buyPrice="0" minimumBalance="0" weight="0" volume="0">
+    <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+    <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+    <uuid>f607654a-e293-4b64-b8b1-14503542cd89</uuid>
+    <code>9999</code>
+    <externalcode>ATYWiaYTiVKdnuFx9daxi3</externalcode>
+    <description>test Fri Nov 29 2013 00:56:13 GMT+0600 (YEKT)</description>
+    <attribute readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.695-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="b4bee095-4278-4147-95e0-0328c9207be0"
+               entityValueUuid="4f990c2a-4571-4030-9e92-858e3f786003" goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>75f06826-0568-11e3-bc79-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.695-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="f4c073c5-1bcc-4d91-8b41-ed825495b677"
+               entityValueUuid="3be5bcab-a918-4b8e-ae64-cf4087dfe7ff" goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>75f06ba2-0568-11e3-d345-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.695-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="63c9f0cb-ba2c-4562-b43f-d351298323e6" booleanValue="false"
+               goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>75f06cdc-0568-11e3-5cdc-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2013-11-29T08:32:24.879-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="0008b3f4-1897-11e3-d76c-7054d21a8d1e"
+               entityValueUuid="27c68724-3279-11e3-ed12-7054d21a8d1e" goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>6d3656ba-585b-11e3-a2ec-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.695-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="71f17086-1a7f-47f1-b447-59b71351bfad"
+               entityValueUuid="d7ea8454-777a-42ac-a2c3-767fa7e8c785" goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>75f06df2-0568-11e3-fb4d-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2013-11-29T08:32:24.879-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="4700f6bd-fa82-4a91-9e8c-822616e71b0a" timeValue="2013-11-29T08:00:00-06:00"
+               goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>6d365928-585b-11e3-e1df-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2013-11-29T08:32:24.879-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="42c0f3c8-badb-4122-9c3f-7a175110f242" doubleValue="0"
+               goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>6d365a42-585b-11e3-c24b-7054d21a8d1e</uuid>
+    </attribute>
+    <attribute readMode="ALL" changeMode="SELF" updated="2014-03-15T23:52:32.695-06:00" updatedBy="mvv@vensi-shop"
+               metadataUuid="650dc6c5-eede-4035-b2e3-dd9af4ceb559" doubleValue="999"
+               goodUuid="f607654a-e293-4b64-b8b1-14503542cd89">
+        <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+        <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+        <uuid>75f06eef-0568-11e3-33d4-7054d21a8d1e</uuid>
+    </attribute>
+    <salePrices>
+        <price readMode="ALL" changeMode="ALL" priceTypeUuid="e0b4a992-f9c5-44aa-8cee-afa0257a95e6" value="0">
+            <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+            <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+            <uuid>86f3eb04-6997-4b5c-9b9b-e0fb9d2fbfa3</uuid>
+        </price>
+        <price readMode="ALL" changeMode="ALL" priceTypeUuid="15604a7f-a42e-11e2-d8d7-001b21d91495" value="0">
+            <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+            <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+            <uuid>07a9e156-bd63-11e2-6b31-001b21d91495</uuid>
+        </price>
+        <price readMode="ALL" changeMode="ALL" priceTypeUuid="15604e34-a42e-11e2-a960-001b21d91495" value="0">
+            <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+            <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+            <uuid>07a9dffb-bd63-11e2-921a-001b21d91495</uuid>
+        </price>
+    </salePrices>
+    <images>
+        <image readMode="ALL" changeMode="NONE" updated="2014-03-15T21:57:40.602-06:00" updatedBy="mvv@vensi-shop"
+               name="8016.jpg" created="2014-03-15T21:57:40.329-06:00" filename="8016.jpg"
+               miniatureUuid="7b685802-ac17-11e3-734c-002590a28eca" tinyUuid="7b43176d-ac17-11e3-a723-002590a28eca">
+            <accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+            <accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+            <uuid>7b431f02-ac17-11e3-fb1d-002590a28eca</uuid>
+            <externalcode>p6BiLLznje6tnkn568N150</externalcode>
+        </image>
+    </images>
+</good>

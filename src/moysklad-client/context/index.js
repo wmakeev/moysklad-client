@@ -8,10 +8,14 @@ var Context = require('./context');
 
 module.exports = {
 
+    /**
+     *
+     * @returns {Context}
+     */
     createClient: function () {
         var context = Context.create();
 
         return context;
     }
 
-}
+};

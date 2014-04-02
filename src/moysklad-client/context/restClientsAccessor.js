@@ -8,11 +8,17 @@ var factoryesHash = {
     msXml: require('../rest_clients/ms-xml')
 };
 
-module.exports = function () {
+/** @class */
+var RestClientsAccessor = function () {
     var _clients = {};
 
     var that = this;
 
+    /**
+     *
+     * @param name
+     * @returns {*}
+     */
     this.getRestClient = function (name) {
 
         if (!_clients[name] && factoryesHash[name]) {
@@ -23,4 +29,6 @@ module.exports = function () {
 
         return _clients[name];
     };
-}
+};
+
+module.exports = RestClientsAccessor;
