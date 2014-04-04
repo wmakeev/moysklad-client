@@ -6,17 +6,20 @@
 
 var _ = require('lodash')
     , client_properties = require('./client-properties')
-    , logger = require('../../../logger')
-    , providerResponseHandler = require('./providerResponseHandler')
-    , marshaller = require('./jsonixContext').marshaller
-    , requestProvider = require('../../providers/default')
+    , fetchProviderRespHandler = require('./providerResponseHandler')
     , endPoint = client_properties.baseUrl + '/rest/ms/xml';
 
 
-
 module.exports = function () {
+
+    // override prototype method
     this.fetch = function (options, callback) {
-        var _authProvider = this.getAuthProvider();
+        var that = this;
+
+        var _authProvider = this.getProvider('auth'),
+            _fetchProvider = this.getProvider('fetch'),
+            _marshaller = this.getProvider('marshaller'),
+            _log = this.getProvider('logger');
 
         var fetchOptions = _.extend({
             // default
@@ -32,12 +35,14 @@ module.exports = function () {
             fetchOptions.headers.Authorization = _authProvider.getBasicAuthHeader();
 
         if (options.payload)
-            fetchOptions.payload = marshaller.marshalString(options.payload);
+            fetchOptions.payload = _marshaller.marshalString(options.payload);
 
-        logger.time('Fetch from service time');
-        requestProvider.fetch(fetchOptions, function (err, result) {
-            logger.timeEnd('Fetch from service time');
-            return providerResponseHandler(err, result, callback);
+        _log.time('Fetch from service time');
+        _fetchProvider.fetch(fetchOptions, function (err, result) {
+            _log.timeEnd('Fetch from service time');
+            //TODO Может быть сделать bind? ...
+            //TODO Внути мне нужен логгер. Как получить к нему доступ? Хорошее ли это решение?
+            return fetchProviderRespHandler.call(that, err, result, callback);
         })
     }
 };

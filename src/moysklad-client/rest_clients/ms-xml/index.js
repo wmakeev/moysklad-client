@@ -4,13 +4,36 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var MsXmlClient = require('./client');
+var stampit = require('stampit');
 
-module.exports = {
+var MsXmlClient = stampit()
 
-    createClient: function () {
-        return MsXmlClient.create();
-    },
+    // State
+    //
+    //.state({})
 
-    Query: MsXmlClient
-};
+    // Properties
+    //
+
+    // Authable
+    //.enclose(require('../authable'))
+
+    // client fetch method (override prototype method) //TODO Будет ли метот в прототипе уже определен на момент инициализации этоого замыкания?
+    .enclose(require('./fetch'))
+
+    // Methods
+    //
+    .methods({
+
+        // add client methods
+        get: require('./get'),
+        put: require('./put'),
+        del: require('./del'),
+
+        // Tools
+        getObjectTypeName: function (className) {
+            return className.charAt(0).toUpperCase() + className.substring(1);
+        }
+    });
+
+module.exports = MsXmlClient;

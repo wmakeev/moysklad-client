@@ -4,6 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
+//TODO Изменить шаблоны вывода лога и добавить цвет
+
 var logger = require('tracer').console();
 
 logger.time = function (name) {

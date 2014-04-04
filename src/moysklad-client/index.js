@@ -4,4 +4,4 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-module.exports = require('./context');
+module.exports = require('./client');

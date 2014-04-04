@@ -116,6 +116,8 @@ var Base64 = {
 
 };
 
+exports.fetch = require('./fetch');
+
 exports.Base64 = Base64;
 
 exports.getBasicAuthHttpHeader = function (login, password) {
@@ -125,17 +127,7 @@ exports.getBasicAuthHttpHeader = function (login, password) {
 
 };
 
-exports.callbackAdapter = function (err, data, callback) {
-    if (callback) {
-        return callback(err, data);
-
-    } else {
-        if (err)
-            throw err;
-        else
-            return data;
-    }
-};
+exports.callbackAdapter = require('./callbackAdapter');
 
 exports.Is = {
     'args': function () {

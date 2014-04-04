@@ -1,22 +1,25 @@
 /**
- * fetchCallbackHandler
+ * providerResponseHandler
  * Date: 23.03.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('../../../tools').callbackAdapter
-    , unmarshaller = require('./jsonixContext').unmarshaller
-    , logger = require('../../../logger');
+    , callbackAdapter = require('../../../tools').callbackAdapter;
 
 
 module.exports = function (err, result, callback) {
     var data;
 
+    //TODO Подумать. Чтобы получить логгер таким образом нужно вызывать providerResponseHandler в контексте ...
+    // ... сомневаюсь в этом решении
+    var _log = this.getProvider('logger'),
+        _unmarshaller = this.getProvider('unmarshaller');
+
     if (!err) {
-        logger.log('request.url - ' + result.request.url);
-        logger.log('response.responseCode - ' + result.response.responseCode);
-        logger.log('response.contentText.length - ' + result.response.contentText.length);
+        _log.log('request.url - ' + result.request.url);
+        _log.log('response.responseCode - ' + result.response.responseCode);
+        _log.log('response.contentText.length - ' + result.response.contentText.length);
 
         switch (result.response.responseCode) {
 
@@ -36,18 +39,18 @@ module.exports = function (err, result, callback) {
             // любой другой код ответа - ошибка
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
-                logger.log('Ответ сервера: \n' + result.response.contentText);
+                _log.log('Ответ сервера: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Server response error ' + result.response.responseCode), result, callback);
         }
 
         if (result.response.contentText.length > 0) {
 
-            logger.time('Response unmarshalling time');
+            _log.time('Response unmarshalling time');
             data = result.response.contentXml ?
-                unmarshaller.unmarshalDocument(result.response.contentXml) :
-                unmarshaller.unmarshalString(result.response.contentText);
-            logger.timeEnd('Response unmarshalling time');
+                _unmarshaller.unmarshalDocument(result.response.contentXml) :
+                _unmarshaller.unmarshalString(result.response.contentText);
+            _log.timeEnd('Response unmarshalling time');
 
             result.type = data.name.localPart;
 

@@ -14,7 +14,7 @@ var AuthProvider = function () {
      *
      * @param login
      * @param password
-     * @returns {AuthProvider|Context} <code>this</code>
+     * @returns {AuthProvider|Client} <code>this</code>
      */
     this.setAuth = function (login, password) {
         _auth = {
