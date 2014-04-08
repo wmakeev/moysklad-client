@@ -5,10 +5,11 @@
  */
 
 /** @class */
-var ProvidersAccessor = function (providers) {
+var ProvidersAccessor = function (options) {
 
     return function () {
-        var that = this;
+        var that = this,
+            providers = options.providers;
 
         /**
          *

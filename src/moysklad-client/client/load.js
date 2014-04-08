@@ -36,7 +36,7 @@ module.exports = function (type, query) {
         return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
     }
 
-    var restClient = this.getRestClient('msXml'),
+    var restClient = this.getProvider('msxml'),
         obj = null;
 
     restClient.get(type, params, function (err, data) {

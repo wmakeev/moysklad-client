@@ -11,6 +11,7 @@ var _ = require('lodash')
     , createFetch = require('../../tools/fetch')
     , authProvider = require('./authProvider')
     , restClientsAccessor = require('./restClientsAccessor')
+    , msXmlClient =  require('../rest_clients/ms-xml')
     , providersAccessor = require('./providersAccessor');
 
 /**
@@ -60,18 +61,16 @@ module.exports = {
      * @returns {Client}
      */
     createClient: function (options) {
-        options = options || { providers: {} };
+        options = options || { providers: {
+
+        } };
 
         var providers = options.providers;
 
-        var client = Client
-            .enclose(restClientsAccessor(options))
-            .enclose(providersAccessor(options.providers))
+        // Ms XML client
+        providers.msxml = msXmlClient
+            .enclose(providersAccessor(options))
             .create();
-
-        // Auth
-        if (!providers.auth)
-            providers.auth = client;
 
         // Logger
         if (!providers.logger)
@@ -100,6 +99,15 @@ module.exports = {
             if (!providers.unmarshaller)
                 providers.unmarshaller = jsonixContext.unmarshaller;
         }
+
+        var client = Client
+            //.enclose(restClientsAccessor(options))
+            .enclose(providersAccessor(options))
+            .create();
+
+        // Auth
+        if (!providers.auth)
+            providers.auth = client;
 
         return client;
     }
