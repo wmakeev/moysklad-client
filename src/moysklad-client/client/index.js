@@ -10,7 +10,6 @@ var _ = require('lodash')
     , load = require('./load')
     , createFetch = require('../../tools/fetch')
     , authProvider = require('./authProvider')
-    , restClientsAccessor = require('./restClientsAccessor')
     , msXmlClient =  require('../rest_clients/ms-xml')
     , providersAccessor = require('./providersAccessor');
 
@@ -77,8 +76,7 @@ module.exports = {
             providers.logger = require('../providers/logger');
 
         // XML DOM
-        if (!providers.xmldom)
-            providers.xmldom = require('xmldom');
+        // if (!providers.xmldom) providers.xmldom = require('xmldom');
 
         // Fetch & XMLHttpRequest
         if (!providers.fetch) {
@@ -90,15 +88,11 @@ module.exports = {
         }
         
         // XML JSON procession
-        if (!providers.marshaller || !providers.unmarshaller) {
-            var jsonixContext = require('../jsonix/context');
+        if (!providers.marshaller)
+            providers.marshaller = require('../jsonix/context').marshaller;
 
-            if (!providers.marshaller)
-                providers.marshaller = jsonixContext.marshaller;
-
-            if (!providers.unmarshaller)
-                providers.unmarshaller = jsonixContext.unmarshaller;
-        }
+        if (!providers.unmarshaller)
+            providers.unmarshaller = require('../jsonix/context').unmarshaller;
 
         var client = Client
             //.enclose(restClientsAccessor(options))
