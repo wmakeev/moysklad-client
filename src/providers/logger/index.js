@@ -16,4 +16,6 @@ logger.timeEnd = function (name) {
     console.timeEnd(name);
 };
 
-module.exports = logger;
+module.exports = function () {
+    return logger;
+};

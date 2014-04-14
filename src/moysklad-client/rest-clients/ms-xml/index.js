@@ -18,7 +18,7 @@ var MsXmlClient = stampit()
     // Authable
     //.enclose(require('../authable'))
 
-    // client fetch method (override prototype method) //TODO Будет ли метот в прототипе уже определен на момент инициализации этоого замыкания?
+    // client fetch method (override prototype method)
     .enclose(require('./fetch'))
 
     // Methods
@@ -36,4 +36,12 @@ var MsXmlClient = stampit()
         }
     });
 
-module.exports = MsXmlClient;
+module.exports = function (providerAccessor) {
+
+    //TODO Думаю пока досточно просто скопировать метод без доп. абстракций
+    MsXmlClient.state({
+        getProvider: providerAccessor.getProvider
+    });
+
+    return MsXmlClient
+};

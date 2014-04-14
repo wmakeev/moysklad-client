@@ -5,4 +5,6 @@
  */
 
 
-module.exports = require('../../../vendor/jsonix/Jsonix-all');
+module.exports = function () {
+    return require('../../../vendor/jsonix/Jsonix-all');
+};

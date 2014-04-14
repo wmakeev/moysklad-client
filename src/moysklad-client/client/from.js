@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash')
-    , Query = require('../rest_clients/ms-xml/query').Query;
+    , Query = require('./../rest-clients/ms-xml/query').Query;
 
 //TODO Оформить синонимы как подмассив
 var bindingMethods = [ 'load', 'first', 'total' ];

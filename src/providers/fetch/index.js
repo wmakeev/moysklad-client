@@ -1,13 +1,15 @@
 /**
- * Default Http request provider
+ * Default Http request provider factory
  * Date: 11.01.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('./callbackAdapter');
+  , callbackAdapter = require('./../../tools/callbackAdapter');
 
-module.exports = function (xmlHttpRequest) {
+module.exports = function () {
+
+    var XMLHttpRequest = this.getProvider('xmlhttprequest').XMLHttpRequest;
 
     return {
         fetch: function (options, callback) {
@@ -19,7 +21,7 @@ module.exports = function (xmlHttpRequest) {
             };
             _.extend(_options, options);
 
-            var xhr = new xmlHttpRequest()
+            var xhr = new XMLHttpRequest()
                 , response
                 , err;
 
