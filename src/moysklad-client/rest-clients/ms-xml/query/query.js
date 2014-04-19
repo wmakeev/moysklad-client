@@ -17,11 +17,11 @@ module.exports = stampit()
     // Methods
     //
     .methods({
-        getQueryParameters: require('./getQueryParameters'),
-        start:              require('./paging').start,
-        count:              require('./paging').count,
-        select:             require('./select'),
-        showArchived:       require('./showArchived'),
-        sort:               require('./sort'),
-        sortMode:           require('./sortMode')
+        getQueryParameters: require('./methods/getQueryParameters'),
+        start:              require('./methods/paging').start,
+        count:              require('./methods/paging').count,
+        select:             require('./methods/select'),
+        showArchived:       require('./methods/showArchived'),
+        sort:               require('./methods/sort'),
+        sortMode:           require('./methods/sortMode')
     });

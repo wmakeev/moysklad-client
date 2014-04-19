@@ -1,0 +1,10 @@
+{
+    "moysklad.customerOrder": {
+        "sourceAgent": "company",
+        "targetAgent": "myCompany",
+        "sourceStore": "warehouse"
+    },
+    "moysklad.contract": {
+        "ownCompany": "myCompany"
+    }
+}

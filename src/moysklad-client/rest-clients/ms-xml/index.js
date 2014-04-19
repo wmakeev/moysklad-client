@@ -19,16 +19,16 @@ var MsXmlClient = stampit()
     //.enclose(require('../authable'))
 
     // client fetch method (override prototype method)
-    .enclose(require('./fetch'))
+    .enclose(require('./methods/fetch')) //TODO Убрать?
 
     // Methods
     //
     .methods({
 
         // add client methods
-        get: require('./get'),
-        put: require('./put'),
-        del: require('./del'),
+        get: require('./methods/get'),
+        put: require('./methods/put'),
+        del: require('./methods/del'),
 
         // Tools
         getObjectTypeName: function (className) {

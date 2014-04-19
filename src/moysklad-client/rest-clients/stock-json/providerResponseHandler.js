@@ -9,12 +9,9 @@ var _ = require('lodash')
 
 
 var providerResponseHandler = function (err, result, callback) {
-    var data;
-
     //TODO Подумать. Чтобы получить логгер таким образом нужно вызывать providerResponseHandler в контексте ...
     // ... сомневаюсь в этом решении
-    var _log = this.getProvider('logger'),
-        _unmarshaller = this.getProvider('unmarshaller');
+    var _log = this.getProvider('logger');
 
     if (!err) {
         _log.info('request.url - ' + result.request.url);
@@ -23,9 +20,12 @@ var providerResponseHandler = function (err, result, callback) {
 
         switch (result.response.responseCode) {
 
+            //TODO Прописать все ошибки в stock сервисов
+
             // ошибка пришла ввиде XML сериализуем и обработаем ниже
             case 500:
-                break;
+                return callbackAdapter(
+                    new Error('Server error 500'), result, callback);
 
             // ошибка авторизации
             case 401:
@@ -38,37 +38,18 @@ var providerResponseHandler = function (err, result, callback) {
 
             // любой другой код ответа - ошибка
             default:
-                //TODO Надо парсить Html ответа и выделять описание ошибки
+                //TODO ??? Надо парсить Html ответа и выделять описание ошибки
                 _log.log('Ответ сервера: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Server response error ' + result.response.responseCode), result, callback);
         }
 
         if (result.response.contentText.length > 0) {
+            _log.time('Response JSON parse time');
 
-            _log.time('Response unmarshalling time');
+            result.obj = JSON.parse(result.response.contentText);
 
-            data = result.response.contentXml ?
-                _unmarshaller.unmarshalDocument(result.response.contentXml) :
-                _unmarshaller.unmarshalString(result.response.contentText);
-
-            _log.timeEnd('Response unmarshalling time');
-
-            result.type = data.name.localPart;
-
-            if (result.type == 'error') return callbackAdapter(new Error(data.value.message));
-
-            if (result.type == 'collection') {
-                result.obj = _.pluck(data.value.items, 'value');
-                _.extend(result.obj, {
-                    total:      data.value.total,
-                    start:      data.value.start,
-                    count:      data.value.count,
-                    TYPE_NAME:  data.value.TYPE_NAME
-                });
-            } else {
-                result.obj = data.value;
-            }
+            _log.timeEnd('Response JSON parse time');
         }
     }
 

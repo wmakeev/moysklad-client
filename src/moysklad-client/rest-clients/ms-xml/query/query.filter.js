@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash')
-    , Is = require('../../../../tools').Is;
+    , Is = require('../../../../tools/index').Is;
 
 module.exports = function () {
     var _filter = {};
@@ -27,7 +27,7 @@ module.exports = function () {
 
     this.appendFilter = function (value) {
         if (Is.object(value)) {
-            //TODO Необходимо реализовать логинку наложения в зависимости от типа фильтра
+            //TODO Необходимо реализовать логинку наложения уловий при объединении фильров
             _filter = _.merge(_filter, value);
         } else {
             throw new TypeError('addFilter: incorrect parameter [' + value + '], object required');

@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var Is = require('../../../../tools').Is;
+var Is = require('../../../../../tools/index').Is;
 
 var addPaging = function (method, args) {
     if (Is.args(args, 'number')) {
@@ -18,10 +18,13 @@ var addPaging = function (method, args) {
 };
 
 module.exports = {
+
     start: function () {
         return addPaging.call(this, 'start', arguments);
     },
+
     count: function () {
         return addPaging.call(this, 'count', arguments);
     }
+
 };

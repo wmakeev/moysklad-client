@@ -1,16 +1,16 @@
 /**
- * fetch
- * Date: 27.03.14
+ * stock
+ * Date: 19.04.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _ = require('lodash')
-    , client_properties = require('./client-properties')
-    , fetchProviderRespHandler = require('./providerResponseHandler')
-    , endPoint = client_properties.baseUrl + '/rest/ms/xml';
+    , client_properties = require('./../../client-properties')
+    , fetchProviderRespHandler = require('./../providerResponseHandler')
+    , endPoint = client_properties.baseUrl + '/rest';
 
-
-module.exports = function () {
+//TODO Этот метод во многом повторяет аналогичный fetch из ms-xml (вероятно нужно объединитьв один)
+var fetch = function () {
 
     // override prototype method
     this.fetch = function (options, callback) {
@@ -18,31 +18,29 @@ module.exports = function () {
 
         var _authProvider = this.getProvider('auth'),
             _fetchProvider = this.getProvider('fetch'),
-            _marshaller = this.getProvider('marshaller'),
             _log = this.getProvider('logger');
 
         var fetchOptions = _.extend({
             // default
-            contentType: 'application/xml',
+            contentType: 'application/json',
             headers: {}
         }, {
             // parameters
-            method: options.method,
-            url: endPoint + options.path
+            method: 'GET',
+            url: endPoint + '/' + options.service + '/json' + options.path
         });
 
         if (_authProvider && _authProvider.isAuth())
             fetchOptions.headers.Authorization = _authProvider.getBasicAuthHeader();
 
-        if (options.payload)
-            fetchOptions.payload = _marshaller.marshalString(options.payload);
-
-        _log.time('Fetch from service time');
+        _log.time('Fetch from ' + options.service + ' service time');
         _fetchProvider.fetch(fetchOptions, function (err, result) {
-            _log.timeEnd('Fetch from service time');
+            _log.timeEnd('Fetch from ' + options.service + ' service time');
             //TODO Может быть сделать bind? ...
             //TODO Внути мне нужен логгер. Как получить к нему доступ? Хорошее ли это решение?
             return fetchProviderRespHandler.call(that, err, result, callback);
-        })
+        });
     }
 };
+
+module.exports = fetch;
