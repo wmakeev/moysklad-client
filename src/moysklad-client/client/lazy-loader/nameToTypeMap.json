@@ -4,7 +4,15 @@
         "targetAgent": "myCompany",
         "sourceStore": "warehouse"
     },
+
     "moysklad.contract": {
         "ownCompany": "myCompany"
-    }
+    },
+
+    "slot": {
+        "container": "warehouse",
+        "collection": "slots"
+    },
+
+    "metadata": "embeddedEntityMetadata.attributeMetadata"
 }

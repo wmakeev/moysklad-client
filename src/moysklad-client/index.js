@@ -16,7 +16,9 @@ module.exports = {
         var client = getClientFactory(options).create();
 
         // Auth
-        if (!options.providers || !options.providers.auth) client.addProvider('auth', client);
+        if (!options.providers || !options.providers.auth) {
+            client.addProvider('auth', client);
+        }
 
         return client;
     }

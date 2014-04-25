@@ -40,8 +40,8 @@ module.exports = function (providerAccessor) {
 
     //TODO Думаю пока досточно просто скопировать метод без доп. абстракций
     MsXmlClient.state({
-        getProvider: providerAccessor.getProvider
+        getProvider: providerAccessor.getProvider.bind(providerAccessor)
     });
 
-    return MsXmlClient
+    return MsXmlClient;
 };

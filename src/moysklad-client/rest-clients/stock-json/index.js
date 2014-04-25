@@ -30,7 +30,7 @@ module.exports = function (providerAccessor) {
 
     //TODO Думаю пока досточно просто скопировать метод без доп. абстракций
     StockJsonClient.state({
-        getProvider: providerAccessor.getProvider
+        getProvider: providerAccessor.getProvider.bind(providerAccessor)
     });
 
     return StockJsonClient

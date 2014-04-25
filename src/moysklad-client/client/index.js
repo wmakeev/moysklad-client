@@ -8,7 +8,7 @@ var _                           = require('lodash')
     , stampit                   = require('stampit')
     , Query                     = require('./../rest-clients/ms-xml/query')
     , operators                 = require('./../rest-clients/ms-xml/query/operators')
-    , authProviderBehavior      = require('./authProviderBehavior')
+    , authProviderBehavior      = require('./../../authProviderBehavior')
     , providerAccessorBehavior  = require('./../../providerAccessorBehavior');
 
 /**

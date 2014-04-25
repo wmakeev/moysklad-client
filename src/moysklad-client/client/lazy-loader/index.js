@@ -52,7 +52,7 @@ function getEntity_(type, uuid, path, batchName) {
     return this.entityHash[uuid];
 }
 
-function defineProperty_(entity, propertyName, uuid, path, batchName) {
+function defProperty_(entity, propertyName, uuid, path, batchName) {
     if (!uuid) return;
 
     if (batchName) this.addUuidToBatch(batchName, uuid);
@@ -83,24 +83,27 @@ function mapLazyLoader_(entity, path, batches) {
     //Logger.log('[mapLazyLoader_] path - %s', path);
     for (var key in entity) {
         //Logger.log('[mapLazyLoader_] key - %s', key);
-        if (entity[key] && typeof entity[key] === 'object' && !(entity[key] instanceof Date)) {
+        if (entity[key]) {
+            if (typeof entity[key] === 'object' && !(entity[key] instanceof Date)) {
 
-            if (entity instanceof Array) {
-                this.mapLazyLoader(entity[key], path, batches);
+                if (entity instanceof Array) {
+                    this.mapLazyLoader(entity[key], path, batches);
 
-            } else if (entity.hasOwnProperty(key)) {
-                this.mapLazyLoader(entity[key], path + '.' + key, batches);
+                } else if (entity.hasOwnProperty(key)) {
+                    this.mapLazyLoader(entity[key], path + '.' + key, batches);
+                }
+
+            } else if (typeof key === 'string' && key.substring(key.length - 4) == 'Uuid') {
+                propertyName = key.substring(0, key.length - 4);
+                curPath = path + '.' + propertyName;
+                //Logger.log('[mapLazyLoader_] curPath - %s', curPath);
+                curBatchName = _.find(batches, function (batchItem) {
+                    //noinspection JSReferencingMutableVariableFromClosure
+                    return curPath.slice(-batchItem.length) == batchItem; //TODO !!! Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
+                });
+
+                this.defProperty(entity, propertyName, entity[key], curPath, curBatchName);
             }
-
-        } else if (typeof key === 'string' && key.substring(key.length - 4) == 'Uuid') {
-            propertyName = key.substring(0, key.length - 4);
-            curPath = path + '.' + propertyName;
-            //Logger.log('[mapLazyLoader_] curPath - %s', curPath);
-            curBatchName = _.find(batches, function (batchItem) {
-                //noinspection JSReferencingMutableVariableFromClosure
-                return curPath.slice(-batchItem.length) == batchItem; //TODO !!! Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
-            });
-            this.defineProperty(entity, propertyName, entity[key], curPath, curBatchName);
         }
         //TODO Необходимо включить обработку полей demandsUuid (массивов идентификаторов и ссылок)
     }
@@ -117,7 +120,7 @@ var LazyLoader = stampit()
     .methods({
         getEntity: getEntity_,
         mapLazyLoader: mapLazyLoader_,
-        defineProperty: defineProperty_,
+        defProperty: defProperty_,
         addUuidToBatch: addUuidToBatch_
     });
 
@@ -130,7 +133,7 @@ var createLazyLoader = function () {
     //noinspection JSUnusedGlobalSymbols
     return {
         attach: function (obj, batches) {
-            lazyLoader.mapLazyLoader(obj, null, batches);
+            lazyLoader.mapLazyLoader(obj, obj.TYPE_NAME, batches);
             return this;
         }
     }

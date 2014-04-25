@@ -22,12 +22,19 @@ var ProviderAccessor = function (providers) {
         this.getProvider = function (name) {
 
             if (!providers[name]) {
-                var providerFactory = requireProvider(name);
+                var provider = requireProvider(name);
 
-                if (typeof providerFactory == 'function')
-                    providers[name] = providerFactory.call(this);
+                if (typeof provider == 'function')
+                    // factory
+                    providers[name] = provider.call(this);
+
+                else if (typeof provider == 'object')
+                    providers[name] = provider;
+
                 else
-                    throw new Error('Provider [' + name + '] not found.');
+                    //TODO Нужна ли при отсутствии провайдера ошибка?
+                    //throw new Error('Provider [' + name + '] not found.');
+                    return null;
             }
 
             return providers[name];
