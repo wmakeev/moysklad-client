@@ -2,5 +2,5 @@
 .idea
 some
 node_modules
-main.js
+auth.js
 properties.json

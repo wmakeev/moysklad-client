@@ -19,11 +19,11 @@ var callbackAdapter = require('../../../tools/index').callbackAdapter
  */
 var load = function (type, query) {
     //TODO Ensure
-    var args        = _.toArray(arguments)
-        , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-        , _queryParametersList
-        , _restClient  = this.getProvider('ms-xml')
-        , _obj = null;
+    var args = _.toArray(arguments)
+      , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
+      , _queryParametersList
+      , _restClient = this.getProvider('ms-xml')
+      , _obj = null;
 
     function loadPartial(paramsIndex, paging, cumulativeTotal, resultCollection, callback) {
 

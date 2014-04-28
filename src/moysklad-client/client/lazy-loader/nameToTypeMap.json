@@ -9,10 +9,5 @@
         "ownCompany": "myCompany"
     },
 
-    "slot": {
-        "container": "warehouse",
-        "collection": "slots"
-    },
-
-    "metadata": "embeddedEntityMetadata.attributeMetadata"
+    "demands": "demand"
 }
