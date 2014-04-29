@@ -36,7 +36,10 @@ var clientMethods = {
     createQuery: Query.createQuery,
 
     // LazyLoader
-    createLazyLoader: require('./lazy-loader')
+    createLazyLoader: require('./lazy-loader'),
+    
+    // Helpers
+    instanceOf: require('./methods/instanceOf')
 };
 
 /**
