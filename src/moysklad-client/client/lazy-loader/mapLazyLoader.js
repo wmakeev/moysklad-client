@@ -28,12 +28,14 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
                 && key.substring(key.length - 4) == 'Uuid' 
                 && entity.hasOwnProperty(key)) {
                 
-                // demandUuid -> demand
+                // demandsUuid -> demands
                 propertyName = key.substring(0, key.length - 4);
                 curPath = path + '.' + propertyName;
                 
                 // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
-                if (entity[key] instanceof Array) (batches = batches || []).push(curPath);
+                if (entity[key] instanceof Array) {
+                    (batches = batches || []).push(curPath);
+                }
                 
                 this.defProperty(entity, propertyName, entity[key], curPath, batches, containerEntity);
             

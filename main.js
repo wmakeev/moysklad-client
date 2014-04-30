@@ -22,6 +22,7 @@ var moysklad_test = function() {
     client.createLazyLoader().attach(order, ['good']);
     console.log('Position Consignment: ' + order.customerOrderPosition[0].consignment.name);
     console.log('Position Good: ' + order.customerOrderPosition[0].good.name);
+    console.log('Linked sourceAgent: ' + order.sourceAgent.name);
     console.log('Linked Demand: ' + order.demands[0].name);
     console.log('Linked Demand: ' + order.demands[0].name);
 };
@@ -33,5 +34,5 @@ var context_test = function() {
     console.log(test);
 }
 
-//moysklad_test();
-context_test();
+moysklad_test();
+//context_test();

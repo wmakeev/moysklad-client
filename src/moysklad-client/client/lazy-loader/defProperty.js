@@ -31,9 +31,10 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
     var that = this;
     //TODO !!! Функционал getTypeOfProperty нужно перемесить в customFetch
     //TODO Возможно получение Demands решить аналогично через customFetch, а не через batch
-    Object.defineProperty(entity, this.getTypeOfProperty(propertyName, entity), {
+    Object.defineProperty(entity, propertyName, {
         get: function () {
-            return that.getEntities(propertyName, uuids, path, batchName, batches, containerEntity);
+            var type = that.getTypeOfProperty(propertyName, entity);
+            return that.getEntities(type, uuids, path, batchName, batches, containerEntity);
         },
         enumerable: true,  //TODO false ?
         configurable: false

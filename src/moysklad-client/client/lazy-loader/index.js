@@ -27,9 +27,11 @@ var LazyLoader = stampit()
 
 var createLazyLoader = function () {
     var lazyLoader = LazyLoader
-        .state({ client: this })
+        //.state({ client: this })
         .create();
 
+    lazyLoader.client = this;
+    
     //noinspection JSUnusedGlobalSymbols
     return {
         attach: function (obj, batches) {
