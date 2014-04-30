@@ -11,7 +11,7 @@ var AuthProvider = function () {
     var _auth;
 
     /**
-     *
+     * 
      * @param login
      * @param password
      * @returns {AuthProvider|Client} <code>this</code>
