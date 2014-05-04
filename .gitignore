@@ -1,5 +1,6 @@
 *.DS_Store
 .idea
+.c9revisions
 some
 node_modules
 auth.js

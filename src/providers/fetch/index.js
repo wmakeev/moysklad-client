@@ -32,7 +32,7 @@ module.exports = function () {
                 xhr.setRequestHeader(key, value);
             });
 
-            //TODO try only in sync mode!
+            //TODO Async: try only in sync mode!
             try {
                 xhr.send(_options.payload);
             }

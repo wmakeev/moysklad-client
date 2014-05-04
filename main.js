@@ -32,7 +32,8 @@ var context_test = function() {
     var test = client.instanceOf({ TYPE_NAME: 'moysklad.customerOrder' }, 'entity');
     
     console.log(test);
-}
+
+};
 
 moysklad_test();
 //context_test();
