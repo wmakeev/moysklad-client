@@ -26,7 +26,7 @@ function getXsdAsObject(xsd) {
     xsdDomDocument = parser.parseFromString(xsd, "application/xml");
     jsonXsd = XmlToJson.ToJSON(xsdDomDocument.documentElement);
 
-    var jsonXsdFix = require('../../res/moysklad-fix.xsd');
+    var jsonXsdFix = require('../../res/mapping-xsd-fix.js');
 
     var fixXsdBlock = function (blockName) {
         _.forEach(jsonXsdFix[blockName], function (fixEl) {
@@ -205,7 +205,7 @@ function addValueElement(typeInfo, element_xsd) {
  * TODO В идеале, все "ручные" доработки модели должны преобразовываться автоматически
  */
 function preProcessXsd(xsd_obj) {
-    var xsdFix = require('../../res/moysklad-fix.xsd');
+    var xsdFix = require('../../res/mapping-xsd-fix.js');
 
     xsd_obj['xs:element'] = xsd_obj['xs:element'].concat(xsdFix['xs:element']);
     xsd_obj['xs:complexType'] = xsd_obj['xs:complexType'].concat(xsdFix['xs:complexType']);

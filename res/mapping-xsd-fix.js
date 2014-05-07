@@ -23,6 +23,16 @@ module.exports = {
             "$value": ""
         },
 
+        // Добавляем элемент id (возвращается в коллекции)
+        {
+            "$attribute": {
+                "name": "id",
+                "type": "xs:string"
+            },
+            "$count": 0,
+            "$value": ""
+        },
+
         // Добавляем элемент error
         {
             "$attribute": {

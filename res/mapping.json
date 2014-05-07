@@ -282,6 +282,9 @@
         "elementName": "uuid",
         "typeInfo": "String"
     }, {
+        "elementName": "id",
+        "typeInfo": "String"
+    }, {
         "elementName": "error",
         "typeInfo": "moysklad.error"
     }],
