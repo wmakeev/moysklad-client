@@ -7,6 +7,8 @@
 var _               = require('lodash')
   , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
+//TODO Ограничение на кол-во сохраняемых объектов в коллекции (проверить)
+
 /**
  * Save. Сохраняет сущность или список сущностей.
  *
