@@ -2590,11 +2590,16 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
 			date.setMilliseconds(Math.floor(1000 * calendar.fractionalSecond));
 		}
 
-		//		
+        // wmakeev:
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+        //
+        // The time-zone offset is the difference, in minutes, between UTC and local time.
+        // The value returned by the getTime method is the number of milliseconds since 1 January 1970 00:00:00 UTC.
+
 		if (Jsonix.Util.NumberUtils.isInteger(calendar.timezone)) {
-			return new Date(date.getTime() - (60000 * date.getTimezoneOffset()) + (calendar.timezone * 60000));
+            return new Date(date.getTime() - (60000 * date.getTimezoneOffset()) - (calendar.timezone * 60000));
 		} else {
-			return date;
+            return new Date(date.getTime() - (60000 * date.getTimezoneOffset()));
 		}
 	},
 	print : function(value) {
@@ -2607,7 +2612,7 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
 			minute : value.getMinutes(),
 			second : value.getSeconds(),
 			fractionalSecond : (value.getMilliseconds() / 1000),
-			timezone: value.getTimezoneOffset()
+			timezone: -value.getTimezoneOffset()
 		}));
 	},
 	isInstance : function(value) {
