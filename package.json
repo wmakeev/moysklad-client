@@ -29,7 +29,6 @@
     "lodash": "~2.4.1",
     "stampit": "~0.6.1",
     "xmldom": "~0.1.17",
-    "xmlhttprequest": "~1.6.0",
     "moment": "~2.5.0",
     "tracer": "~0.6.1"
   },

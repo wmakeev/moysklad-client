@@ -4,7 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var xmlhttprequest = require('xmlhttprequest');
+var xmlhttprequest = require('./../../../vendor/xmlhttprequest');
 
 module.exports = function () {
     return xmlhttprequest;

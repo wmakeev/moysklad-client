@@ -1,4 +1,5 @@
 *.DS_Store
+*.sublime*
 .idea
 .c9revisions
 some
@@ -6,4 +7,5 @@ node_modules
 main.js
 auth.js
 properties.json
+npm-debug.log
 
