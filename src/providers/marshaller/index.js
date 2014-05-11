@@ -8,5 +8,5 @@ module.exports = function () {
 
     var context = this.getProvider('jsonix/context');
 
-    return context.createMarshaller();   // XML to JSON
+    return context.createMarshaller();   // JSON to XML
 };
