@@ -26,7 +26,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
         return path.slice(-batchItem.length) == batchItem; 
     });
 
-    if (batchName) this.addUuidsToBatch(batchName, uuids);
+    if (batchName) this.batch.addUuids(batchName, uuids);
 
     var that = this;
     //TODO !!! Функционал getTypeOfProperty нужно перемесить в customFetch
@@ -37,7 +37,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
             return that.getEntities(type, uuids, path, batchName, batches, containerEntity);
         },
         enumerable: true,  //TODO false ?
-        configurable: false
+        configurable: true
     });
 }
 

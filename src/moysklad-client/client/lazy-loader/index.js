@@ -11,23 +11,23 @@ var _ = require('lodash')
 var LazyLoader = stampit()
 
     .state({
-        entityHash: {},
-        uuidBatches: {}
+        batches: {}
     })
+
+    .enclose(require('./batch'))
+
+    .enclose(require('./entityHash'))
 
     .methods({
         getEntities:        require('./getEntities'),
-        fetchEntities:      require('./fetchEntities'),
         getTypeOfProperty:  require('./getTypeOfProperty'),
         mapLazyLoader:      require('./mapLazyLoader'),
-        defProperty:        require('./defProperty'),
-        addUuidsToBatch:    require('./addUuidsToBatch'),
-        addToHash:          require('./addToHash')
+        defProperty:        require('./defProperty')
     });
 
 var createLazyLoader = function () {
     var lazyLoader = LazyLoader
-        //.state({ client: this })
+        //.state({ client: this }) // не корректно
         .create();
 
     lazyLoader.client = this;

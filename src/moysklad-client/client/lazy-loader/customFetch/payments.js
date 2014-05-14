@@ -9,7 +9,8 @@ var _ = require('lodash');
 function fetchPayments(type, uuids, containerEntity) {
     var client = this.client;
 
-    
+    // ...
+
 }
 
 module.exports = fetchPayments;

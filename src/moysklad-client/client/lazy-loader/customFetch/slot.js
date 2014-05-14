@@ -6,27 +6,29 @@
 
 var _ = require('lodash');
 
-function fetchSlots(type, uuids, containerEntity) {
+function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
     var client = this.client;
     
     var query = client.from('warehouse');
     
-    var warehouseUuid = type == 'sourceSlot' ? 
+    var warehouseUuid = (type == 'sourceSlot' ?
         containerEntity.sourceStoreUuid :
-        containerEntity.targetStoreUuid;
+        containerEntity.targetStoreUuid);
     
     var warehouses = warehouseUuid ?
         [client.load('warehouse', warehouseUuid)] :
         client.from('warehouse').load();
-    
-    //this.addToHash(warehouses);
+
+    _.forEach(warehouses, function (warehouse) {
+        this.entityHash[warehouse.uuid] = this.mapLazyLoader(warehouse, path, batches, warehouse);
+    }, this);
     
     var slots = _.reduce(warehouses, function(slots, warehouse) {
         if (warehouse.slots) slots = slots.concat(warehouse.slots);
-    }, []); 
-    
-    //TODO Т.к. не все ячейки "выйдут наружу" из этой функции их нужно добавить в Hash
-    // Для этого нужно вызывать mapLazyLoader отсюда (прокидывать параметры)
+    }, []);
+
+
+
     
     if (typeof uuids === 'string') {
         //TODO Добавляем без привязки LazyLoader'а (не критично для slot)

@@ -4,40 +4,52 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _ = require('lodash')
+  , customFetch = require('./customFetch');
 
 
 function getEntities (type, uuids, path, batchName, batches, containerEntity) {
     var client = this.client,
         entity, entities;
 
-    if (batchName && this.uuidBatches[batchName] && this.uuidBatches[batchName].length > 0) {
-        // TODO Потенциальная проблема при batch-загрузке таких сущностей как Slot и прочих через customFetch, ..
-        // где важен containerEntity
-        entities = this.fetchEntities(type, this.uuidBatches[batchName], containerEntity);
+    var that = this;
 
-        _.each(entities, function (entityItem) {
-            this.entityHash[entityItem.uuid] = this.mapLazyLoader(entityItem, path, batches, entityItem);
-        }, this);
+    if (type in customFetch) {
+        // Используем альтернативный способ получения сущностей (напр. для Slot)
+        return customFetch[type].apply(this, arguments);
 
-        this.uuidBatches[batchName] = []; // очищаем список uuid загруженных сущностей
-    }
+    } else {
 
-    if (typeof uuids === 'string') {
-        if (!this.entityHash[uuids]) {
-            entity = this.fetchEntities(type, uuids, containerEntity);
-            this.entityHash[uuids] = this.mapLazyLoader(entity, path, batches, entity);
+        if (this.batch.isExsist(batchName)) {
+
+            var batchUuids = this.batch.take(batchName);
+
+            if (batchUuids.length == 1) {
+                // Загружаем без фильтра (возможно, так быстрее)
+                entities = [client.load(type, batchUuids[0])];
+
+            } else {
+                entities = client.from(type).select({
+                    uuid: client.anyOf(batchUuids)
+                }).load();
+            }
+
+            _.forEach(entities, function (entityItem) {
+                that.entityHash.add(
+                    that.mapLazyLoader(entityItem, path, batches, entityItem)
+                );
+            });
         }
-        return this.entityHash[uuids];
-        
-    } else if (uuids instanceof Array) {
-        // В данном случае обрабатываются только массивы идентификаторов (напр. "demandsUuid"),
-        // которые загружаются через batch, поэтому, полагаем, что уже всё загружено в entityHash
-        
-        entities = _.map(uuids, function (uuid) {
-            return this.entityHash[uuid];
-        }, this);
-        return entities;
+
+        if (typeof uuids === 'string' && !this.entityHash.exist(uuids)) {
+            entity = client.load(type, uuids);
+            return this.entityHash.add(this.mapLazyLoader(entity, path, batches, entity));
+        }
+
+        // В данном случае обрабатываются только единичные сущности или массивы идентификаторов
+        // (напр. "demandsUuid"), которые загружаются через batch.
+        // Поэтому, полагаем, что всё что нужно уже присутствует в entityHash.
+        return this.entityHash.get(uuids);
     }
 }
 
