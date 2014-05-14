@@ -19,7 +19,7 @@ function _flattenFilter(obj, path, filter) {
     _.forOwn(obj, function (value, key) {
         var curPath = (path ? path + '.' : '') + key;
 
-        if (typeof value === 'string' || typeof value === 'number') {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
             filter[curPath] = [ '=' + value ];
 
         } else if (value instanceof Array) {
