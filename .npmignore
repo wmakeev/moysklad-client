@@ -5,6 +5,7 @@
 some
 node_modules
 main.js
+index.js
 auth.js
 properties.json
 npm-debug.log
