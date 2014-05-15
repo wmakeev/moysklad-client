@@ -5,11 +5,12 @@
  */
 
 var _ = require('lodash')
+  , HttpClient = require('httpclient').HttpClient
   , callbackAdapter = require('./../../tools/callbackAdapter');
 
 module.exports = function () {
 
-    var XMLHttpRequest = this.getProvider('xmlhttprequest').XMLHttpRequest;
+
 
     return {
         fetch: function (options, callback) {
@@ -21,37 +22,35 @@ module.exports = function () {
             };
             _.extend(_options, options);
 
-            var xhr = new XMLHttpRequest()
-                , response
-                , err;
-
-            xhr.open(_options.method, _options.url, _options.async);
-            xhr.setRequestHeader('Content-Type', _options.contentType);
-
-            _.forOwn(_options.headers, function (value, key) {
-                xhr.setRequestHeader(key, value);
+            var httpClient = new HttpClient({
+                method: _options.method,
+                url: _options.url
             });
 
-            //TODO Async: try only in sync mode!
+            var response, err;
+
+            httpClient.setHeader('Content-Type', _options.contentType);
+
+            _.forOwn(_options.headers, function (value, key) {
+                httpClient.setHeader(key, value);
+            });
+
             try {
-                xhr.send(_options.payload);
+                if (_options.payload) httpClient.write(_options.payload);
+                var httpResponse = httpClient.connect().read();
             }
             catch (e) {
                 err = {
-                    code: 'XMLHttpRequest Error',
+                    code: 'HttpClient Error',
                     message: e
                 };
             }
 
             if (!err) {
-                var responceCode = xhr.status;
                 response = {
-                    headers: null,
-                    contentText: xhr.responseText,
-                    contentXml: xhr.responseXML,
-                    //TODO Почему библиотека xmlhttprequest возвращает такой ответ? Это не по стандарту.
-                    responseCode: (typeof responceCode === 'number') ? responceCode : parseInt(responceCode.split('\n')[0]),
-                    responseCodeText: xhr.statusText
+                    headers:        httpResponse.headers,
+                    contentText:    httpResponse.body.read().decodeToString(),
+                    responseCode:   httpResponse.status
                 };
             }
 
