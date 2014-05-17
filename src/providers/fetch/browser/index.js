@@ -5,13 +5,14 @@
  */
 
 var _ = require('lodash')
-  , callbackAdapter = require('./../../tools/callbackAdapter');
+  , callbackAdapter = require('./../../../tools/callbackAdapter');
 
-module.exports = function () {
+var fetch = function () {
 
     var XMLHttpRequest = this.getProvider('xmlhttprequest').XMLHttpRequest;
 
     return {
+
         fetch: function (options, callback) {
 
             var _options = {
@@ -65,3 +66,5 @@ module.exports = function () {
         }
     }
 };
+
+module.exports = fetch;
