@@ -20,6 +20,7 @@ module.exports = stampit()
         getQueryParameters: require('./methods/getQueryParameters'),
         start:              require('./methods/paging').start,
         count:              require('./methods/paging').count,
+        filter:             require('./methods/filter'),
         select:             require('./methods/select'),
         showArchived:       require('./methods/showArchived'),
         sort:               require('./methods/sort'),
