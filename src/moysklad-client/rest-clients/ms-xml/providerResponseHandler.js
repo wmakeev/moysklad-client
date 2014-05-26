@@ -4,17 +4,15 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , callbackAdapter = require('../../../tools').callbackAdapter;
+var _               = require('lodash')
+  , callbackAdapter = require('../../../tools').callbackAdapter;
 
 
 var providerResponseHandler = function (err, result, callback) {
     var data;
 
-    //TODO Подумать. Чтобы получить логгер таким образом нужно вызывать providerResponseHandler в контексте ...
-    // ... сомневаюсь в этом решении
-    var _log = this.getProvider('logger'),
-        _unmarshaller = this.getProvider('unmarshaller');
+var _log            = require('project/logger'),
+    _unmarshaller   = require('project/unmarshaller').create();
 
     if (!err) {
         _log.info('request.url - ' + result.request.url);

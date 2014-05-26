@@ -6,29 +6,20 @@
 
 var stampit = require('stampit');
 
-var MsXmlClient = stampit()
-
-    // State
-    //
-    //.state({})
-
-    // Properties
-    //
+var msXmlClient = stampit()
 
     // Authable
-    //.enclose(require('../authable'))
-
-    // client fetch method (override prototype method)
-    .enclose(require('./methods/fetch')) //TODO Убрать?
+    .enclose(require('./../../../authProviderBehavior'))
 
     // Methods
     //
     .methods({
 
         // add client methods
-        get: require('./methods/get'),
-        put: require('./methods/put'),
-        del: require('./methods/del'),
+        get:    require('./methods/get'),
+        put:    require('./methods/put'),
+        del:    require('./methods/del'),
+        fetch:  require('./methods/fetch'),
 
         // Tools
         getObjectTypeName: function (className) {
@@ -36,12 +27,4 @@ var MsXmlClient = stampit()
         }
     });
 
-module.exports = function (providerAccessor) {
-
-    //TODO Думаю пока досточно просто скопировать метод без доп. абстракций
-    MsXmlClient.state({
-        getProvider: providerAccessor.getProvider.bind(providerAccessor)
-    });
-
-    return MsXmlClient;
-};
+module.exports = msXmlClient;

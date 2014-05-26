@@ -39,18 +39,22 @@ function entityHash () {
         exist: function (uuid) {
             //TODO Если будет необходимость, то возможно реализовать вариант проверки по массиву uuid
             return !!_entityHash[uuid];
-        }
+        },
 
-        /*getNotExist: function (uuids) {
+        getHash: function () {
+            return _entityHash;
+        },
+
+        filterNotExist: function (uuids) {
             if (uuids instanceof Array) {
                 return _.map(uuids, function (uuid) {
                     //Не проверяем на отсутствие сущности в Hash
-                    return _entityHash[uuid];
+                    return !_entityHash[uuid];
                 });
             } else {
-                return _entityHash[uuid];
+                return _entityHash[uuids] ? null : [uuids];
             }
-        }*/
+        }
     };
 
 }

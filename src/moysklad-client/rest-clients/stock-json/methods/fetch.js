@@ -14,11 +14,9 @@ var fetch = function () {
 
     // override prototype method
     this.fetch = function (options, callback) {
-        var that = this;
 
-        var _authProvider = this.getProvider('auth'),
-            _fetchProvider = this.getProvider('fetch'),
-            _log = this.getProvider('logger');
+        var _fetchProvider  = require('project/fetch'),
+            _log            = require('project/logger');
 
         var fetchOptions = _.extend({
             // default
@@ -30,15 +28,13 @@ var fetch = function () {
             url: endPoint + '/' + options.service + '/json' + options.path
         });
 
-        if (_authProvider && _authProvider.isAuth())
-            fetchOptions.headers.Authorization = _authProvider.getBasicAuthHeader();
+        if (this.isAuth())
+            fetchOptions.headers.Authorization = this.getBasicAuthHeader();
 
         _log.time('Fetch from ' + options.service + ' service time');
         _fetchProvider.fetch(fetchOptions, function (err, result) {
             _log.timeEnd('Fetch from ' + options.service + ' service time');
-            //TODO Может быть сделать bind? ...
-            //TODO Внути мне нужен логгер. Как получить к нему доступ? Хорошее ли это решение?
-            return fetchProviderRespHandler.call(that, err, result, callback);
+            return fetchProviderRespHandler(err, result, callback);
         });
     }
 };

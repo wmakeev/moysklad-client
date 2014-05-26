@@ -10,10 +10,6 @@ var _ = require('lodash')
 
 var LazyLoader = stampit()
 
-    .state({
-        batches: {}
-    })
-
     .enclose(require('./batch'))
 
     .enclose(require('./entityHash'))
@@ -35,13 +31,22 @@ var createLazyLoader = function () {
     //noinspection JSUnusedGlobalSymbols
     return {
         attach: function (obj, batches) {
-            //TODO Если передается массив или коллекция, то нужно привязать LazyLoader ..
-            // .. отдельно для каждого элемента, иначе не верно будет передан параметр containerEntity
+
+            if (typeof obj !== 'object')
+                throw new Error('attach: obj argument must be an object');
+
+            if (!(batches instanceof Array))
+                throw new Error('attach: batches argument must be an array');
+
             lazyLoader.mapLazyLoader(
-                obj,                            // Сущность в корой будет созданы "ленивые" свойства на основе uuid связей
-                obj.TYPE_NAME || typeof obj,    // Тип сущности
-                batches,                        // Определители свойств коллекций, для которых необъодима пакетная загрузка
-                obj.TYPE_NAME ? obj : null);    // Сущность контейнер/containerEntity (текущий объект) //TODO См. примечание выше
+                obj,                                            // Сущность в корой будет созданы "ленивые" свойства на основе uuid связей
+                obj.TYPE_NAME || 'object',                      // Путь к текущему элементу
+                batches,                                        // Определители свойств коллекций, для которых необходима пакетная загрузка
+                (obj.TYPE_NAME && !(obj instanceof Array)) ?    // Сущность контейнер/containerEntity (текущий объект)
+                    obj :
+                    null
+            );
+
             return obj;
         }
     }

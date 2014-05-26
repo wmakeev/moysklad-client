@@ -4,14 +4,15 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var requireNodeProvider = function (name) {
-    return require('./providers/' + name);
+var _providersConstructors = {
+    // Получаю модули не динамически, иначе сборщик не увидит модуль
+    'ms-xml': require('./moysklad-client/rest-clients/ms-xml'),
+    'stock-json': require('./moysklad-client/rest-clients/stock-json')
+} ;
+
+var requireProviderCtor = function (name) {
+    return _providersConstructors[name];
 };
-
-var BUNDLED = BUNDLED || false;
-
-// Механизм require будет отличатся в зависимости от того работает ли код в сборке или нет.
-var requireProvider = BUNDLED ? require : requireNodeProvider;
 
 /** @class */
 var ProviderAccessor = function (providers) {
@@ -22,17 +23,16 @@ var ProviderAccessor = function (providers) {
         this.getProvider = function (name) {
 
             if (!providers[name]) {
-                var provider = requireProvider(name);
+                var providerCtor = requireProviderCtor(name);
 
-                if (typeof provider == 'function')
-                    // factory
-                    providers[name] = provider.call(this);
+                if (typeof providerCtor == 'function')
+                    providers[name] = providerCtor.create(this);
 
-                else if (typeof provider == 'object')
-                    providers[name] = provider;
+                /*else if (typeof providerCtor == 'object')
+                    providers[name] = providerCtor;*/
 
                 else
-                    //TODO Нужна ли при отсутствии провайдера ошибка?
+                    //TODO Нужна ли ошибка при отсутствии провайдера?
                     //throw new Error('Provider [' + name + '] not found.');
                     return null;
             }

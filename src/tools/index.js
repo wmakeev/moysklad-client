@@ -116,7 +116,7 @@ var Base64 = {
 
 };
 
-exports.fetch = require('./../providers/fetch');
+//exports.fetch = require('project/fetch');
 
 exports.Base64 = Base64;
 

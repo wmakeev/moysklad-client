@@ -24,6 +24,19 @@ var AuthProvider = function () {
         return this;
     };
 
+    // В качестве источника авторизации передан другой провайдер авторизации
+    if (arguments[0] && arguments[0].getAuth) {
+        _auth = arguments[0].getAuth();
+    }
+
+    // Логин и пароль переданы в параметрах
+    else if (arguments.length == 2
+        && typeof arguments[0] === 'string'
+        && typeof arguments[1] === 'string') {
+
+        this.setAuth(arguments[0], arguments[1]);
+    }
+
     /**
      *
      * @returns {*}
@@ -35,7 +48,7 @@ var AuthProvider = function () {
         // .. посмотреть в сторону подхода Impress
 
         if (!_auth) {
-            var credentials = this.getProvider('default-auth');
+            var credentials = require('project/default-auth');
             if (credentials) {
                 _auth = credentials.getAuth();
             }

@@ -34,7 +34,7 @@ var isInstanceOf = function (entityType, superType) {
 }
 
 var instanceOf = function (entity, typeName) {
-    typeInfos = typeInfos || this.getProvider('mapping').typeInfos;
+    typeInfos = typeInfos || require('project/mapping');
     
     if (entity.TYPE_NAME) {
         var entityType = entity.TYPE_NAME.split('.')[1];

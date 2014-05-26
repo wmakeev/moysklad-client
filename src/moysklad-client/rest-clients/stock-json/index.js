@@ -6,32 +6,19 @@
 
 var stampit = require('stampit');
 
-var StockJsonClient = stampit()
+var stockJsonClient = stampit()
 
-    // State
-    //
-    //.state({})
-
-    // Properties
-    //
-
-    .enclose(require('./methods/fetch'))
+    // Authable
+    .enclose(require('./../../../authProviderBehavior'))
 
     // Methods
     //
     .methods({
 
         // add client methods
-        stock: require('./methods/stock')
+        stock: require('./methods/stock'),
+        fetch:  require('./methods/fetch')
 
     });
 
-module.exports = function (providerAccessor) {
-
-    //TODO Думаю пока досточно просто скопировать метод без доп. абстракций
-    StockJsonClient.state({
-        getProvider: providerAccessor.getProvider.bind(providerAccessor)
-    });
-
-    return StockJsonClient
-};
+module.exports = stockJsonClient;

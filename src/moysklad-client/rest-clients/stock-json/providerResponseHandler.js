@@ -7,12 +7,11 @@
 var _ = require('lodash')
     , callbackAdapter = require('../../../tools').callbackAdapter;
 
-
+//TODO Часть кода providerResponseHandler'ов не оправданно дублируется .. >
 var providerResponseHandler = function (err, result, callback) {
-    //TODO Подумать. Чтобы получить логгер таким образом нужно вызывать providerResponseHandler в контексте ...
-    // ... сомневаюсь в этом решении
-    var _log = this.getProvider('logger');
+    var _log = require('project/logger');
 
+    // .. этот кусок общий для всех
     if (!err) {
         _log.info('request.url - ' + result.request.url);
         _log.info('response.responseCode - ' + result.response.responseCode);
@@ -20,7 +19,8 @@ var providerResponseHandler = function (err, result, callback) {
 
         switch (result.response.responseCode) {
 
-            //TODO Прописать все ошибки в stock сервисов
+            //TODO Прописать все ошибки stock сервисов
+            //TODO Есть ли общие для всех ошибки (нужно ли выделять)?
 
             // ошибка пришла ввиде XML сериализуем и обработаем ниже
             case 500:

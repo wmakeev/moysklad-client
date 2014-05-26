@@ -5,7 +5,7 @@
  */
 
 var _ = require('lodash')
-    , moment = require('moment');
+  , moment = require('moment');
 
 function convertValue(value) {
 

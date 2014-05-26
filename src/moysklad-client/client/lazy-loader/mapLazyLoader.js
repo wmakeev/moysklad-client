@@ -22,30 +22,49 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     var curPath, propertyName;
     path = path || '';
 
-    for (var key in entity) {
-        if (entity[key]) {
-            if (typeof key === 'string' 
-                && key.substring(key.length - 4) == 'Uuid' 
-                && entity.hasOwnProperty(key)) {
-                
-                // demandsUuid -> demands
-                propertyName = key.substring(0, key.length - 4);
-                curPath = path + '.' + propertyName;
-                
-                // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
-                if (entity[key] instanceof Array) {
-                    (batches = batches || []).push(curPath);
-                }
-                
-                this.defProperty(entity, propertyName, entity[key], curPath, batches, containerEntity);
-            
-            } else if (typeof entity[key] === 'object' && !(entity[key] instanceof Date)) {
-                if (entity instanceof Array) {
-                    this.mapLazyLoader(entity[key], path, batches, containerEntity);
+    //TODO Нужно составить подробный алгоритм для каждого случая ..
+    // .. возможно сделать два цикла по ключам объекта и по массиву
 
-                } else if (entity.hasOwnProperty(key)) {
-                    this.mapLazyLoader(entity[key], path + '.' + key, batches, containerEntity);
+    for (var key in entity) {
+        var subEntity = entity[key];
+
+        if (subEntity && entity.hasOwnProperty(key) && !(subEntity instanceof Date)) {
+
+            // key - имя cвойства объекта
+            if (isNaN(key)) { // TODO Правильно ли сделана проверка на число?
+
+                // ".goodUuid", ".demandsUuid[]"
+                if (key.substring(key.length - 4) == 'Uuid') {
+
+                    // demandsUuid -> demands
+                    propertyName = key.substring(0, key.length - 4);
+                    curPath = path + '.' + propertyName;
+
+                    // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
+                    if (subEntity instanceof Array) {
+                        (batches = batches || []).push(curPath);
+                    }
+
+                    this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
                 }
+
+                // ".customerOrderPosition[]"
+                else if (subEntity instanceof Array) {
+                    this.mapLazyLoader(subEntity, path, batches, containerEntity);
+                }
+            }
+
+            // [[]]
+            else if (subEntity instanceof Array) {
+                this.mapLazyLoader(subEntity, path + '.object', batches, containerEntity);
+            }
+
+            // key - индекс объекта в массиве
+            else if (typeof subEntity === 'object') {
+                var typeName = subEntity.TYPE_NAME ? subEntity.TYPE_NAME.split('.')[1] : null;
+                this.mapLazyLoader(subEntity,
+                        path + '.' + (typeName || 'object'), batches,
+                        containerEntity || (subEntity.TYPE_NAME ? subEntity : null));
             }
         }
     }

@@ -27,7 +27,7 @@ module.exports = function () {
 
     this.appendFilter = function (value) {
         if (Is.object(value)) {
-            //TODO Необходимо реализовать логинку наложения уловий при объединении фильров
+            //TODO Необходимо реализовать логинку наложения условий при объединении фильров
             _filter = _.merge(_filter, value);
         } else {
             throw new TypeError('addFilter: incorrect parameter [' + value + '], object required');

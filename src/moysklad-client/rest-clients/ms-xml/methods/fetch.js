@@ -4,47 +4,40 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , client_properties = require('./../../client-properties')
-    , fetchProviderRespHandler = require('./../providerResponseHandler')
-    , endPoint = client_properties.baseUrl + '/rest/ms/xml';
+var _                           = require('lodash')
+  , client_properties           = require('./../../client-properties')
+  , fetchProviderRespHandler    = require('./../providerResponseHandler')
+  , endPoint                    = client_properties.baseUrl + '/rest/ms/xml';
 
 
-var fetch = function () {
+var fetch = function (options, callback) {
+    var that = this;
 
-    // override prototype method
-    this.fetch = function (options, callback) {
-        var that = this;
+    var _fetchProvider  = require('project/fetch')
+      , _marshaller     = require('project/marshaller').create()
+      , _log            = require('project/logger');
 
-        var _authProvider = this.getProvider('auth'),
-            _fetchProvider = this.getProvider('fetch'),
-            _marshaller = this.getProvider('marshaller'),
-            _log = this.getProvider('logger');
+    var fetchOptions = _.extend({
+        // default
+        contentType: 'application/xml',
+        headers: {}
+    }, {
+        // parameters
+        method: options.method,
+        url: endPoint + options.path
+    });
 
-        var fetchOptions = _.extend({
-            // default
-            contentType: 'application/xml',
-            headers: {}
-        }, {
-            // parameters
-            method: options.method,
-            url: endPoint + options.path
-        });
+    if (this.isAuth())
+        fetchOptions.headers.Authorization = this.getBasicAuthHeader();
 
-        if (_authProvider && _authProvider.isAuth())
-            fetchOptions.headers.Authorization = _authProvider.getBasicAuthHeader();
+    if (options.payload)
+        fetchOptions.payload = _marshaller.marshalString(options.payload);
 
-        if (options.payload)
-            fetchOptions.payload = _marshaller.marshalString(options.payload);
-
-        _log.time('Fetch from service time');
-        _fetchProvider.fetch(fetchOptions, function (err, result) {
-            _log.timeEnd('Fetch from service time');
-            //TODO Может быть сделать bind? ...
-            //TODO Внути мне нужен логгер. Как получить к нему доступ? Хорошее ли это решение?
-            return fetchProviderRespHandler.call(that, err, result, callback);
-        });
-    }
+    _log.time('Fetch from service time');
+    _fetchProvider.fetch(fetchOptions, function (err, result) {
+        _log.timeEnd('Fetch from service time');
+        return fetchProviderRespHandler(err, result, callback);
+    });
 };
 
 module.exports = fetch;
