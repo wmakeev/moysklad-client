@@ -15,37 +15,34 @@ var requireProviderCtor = function (name) {
 };
 
 /** @class */
-var ProviderAccessor = function (providers) {
-    providers = providers || {};
+var ProviderAccessor = function () {
+    var _providers = {};
 
-    return function () {
+    this.getProvider = function (name) {
 
-        this.getProvider = function (name) {
+        if (!_providers[name]) {
+            var providerCtor = requireProviderCtor(name);
 
-            if (!providers[name]) {
-                var providerCtor = requireProviderCtor(name);
+            if (typeof providerCtor == 'function')
+                _providers[name] = providerCtor.create(null, this);
 
-                if (typeof providerCtor == 'function')
-                    providers[name] = providerCtor.create(this);
+            /*else if (typeof providerCtor == 'object')
+             providers[name] = providerCtor;*/
 
-                /*else if (typeof providerCtor == 'object')
-                    providers[name] = providerCtor;*/
-
-                else
-                    //TODO Нужна ли ошибка при отсутствии провайдера?
-                    //throw new Error('Provider [' + name + '] not found.');
-                    return null;
-            }
-
-            return providers[name];
-        };
-
-        this.addProvider = function (name, provider) {
-
-            if (name && provider) providers[name] = provider;
-            return this;
+            else
+            //TODO Нужна ли ошибка при отсутствии провайдера?
+            //throw new Error('Provider [' + name + '] not found.');
+                return null;
         }
+
+        return _providers[name];
     };
+
+    this.addProvider = function (name, provider) {
+
+        if (name && provider) _providers[name] = provider;
+        return this;
+    }
 };
 
 module.exports = ProviderAccessor;

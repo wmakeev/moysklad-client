@@ -47,8 +47,19 @@ var clientMethods = {
  */
 var Client = stampit()
 
+    // Options
+    .state({
+        options: {
+            filterLimit: 50,
+            allowNotFilterOperators: false
+        }
+    })
+
     // Auth
     .enclose(authProviderBehavior)
+
+    // Providers accessor
+    .enclose(providerAccessorBehavior)
 
     // Rest client accessor (RestClientsAccessor)
     //
@@ -59,19 +70,4 @@ var Client = stampit()
     .methods(clientMethods)
     .methods(operators);
 
-module.exports = {
-
-    getClientFactory: function (options) {
-        options = _.defaults(options, {
-            providers: {},
-            filterLimit: 50,
-            allowNotFilterOperators: false
-        });
-
-        Client
-            .state({ options: _.omit(options, 'providers') })
-            .enclose(providerAccessorBehavior(options.providers));
-
-        return Client;
-    }
-};
+module.exports = Client;

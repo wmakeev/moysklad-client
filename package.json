@@ -16,8 +16,6 @@
     "moysklad",
     "warehouse",
     "erp",
-    "rest",
-    "api",
     "client"
   ],
   "devDependencies": {

@@ -4,22 +4,11 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var getClientFactory = require('./client').getClientFactory;
+var client = require('./client');
 
 module.exports = {
 
-    createClient: function (options) {
-        options = options || {
-            providers: {}
-        };
-
-        var client = getClientFactory(options).create();
-
-        // Auth
-        if (!options.providers || !options.providers.auth) {
-            client.addProvider('auth', client);
-        }
-
-        return client;
+    createClient: function () {
+        return client.apply(this, [null].concat(Array.prototype.slice.call(arguments, 0)));
     }
 };

@@ -6,9 +6,14 @@
 
 var getBasicAuthHttpHeader = require('./tools').getBasicAuthHttpHeader;
 
+var logger = require('project/logger');
+
 /** @class */
 var AuthProvider = function () {
-    var _auth;
+    var _auth = {
+        login: null,
+        password: null
+    };
 
     /**
      * 
@@ -17,15 +22,15 @@ var AuthProvider = function () {
      * @returns {AuthProvider|Client} <code>this</code>
      */
     this.setAuth = function (login, password) {
-        _auth = {
-            login: login,
-            password: password
-        };
+        _auth.login = login;
+        _auth.password = password;
+
         return this;
     };
 
     // В качестве источника авторизации передан другой провайдер авторизации
     if (arguments[0] && arguments[0].getAuth) {
+        // копируем ссылку на объект
         _auth = arguments[0].getAuth();
     }
 
@@ -43,14 +48,11 @@ var AuthProvider = function () {
      */
     this.getAuth = function () {
 
-        //TODO Нужно переообдумать способ авторизации по умолчанию для различных сред ..
-        // .. авторизация должна быть уникальна для каждого экземпляра клиента
-        // .. посмотреть в сторону подхода Impress
-
-        if (!_auth) {
+        if (!_auth.login || !_auth.password) {
             var credentials = require('project/default-auth');
             if (credentials) {
-                _auth = credentials.getAuth();
+                var auth = credentials.getAuth();
+                this.setAuth(auth.login, auth.password);
             }
         }
 

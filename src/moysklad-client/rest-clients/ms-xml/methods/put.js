@@ -18,7 +18,7 @@ var put = function () {
       , type            = typeof args[0] == 'string' && typeof args[1] == 'object' ? args[0] : null
       , data            = type ? args[1] : args[0]
       , callback        = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , itemsMapper;
+      ;
 
     if (type && type.indexOf('.') != -1) type = type.split('.')[1]; // moysklad.{type}
 
