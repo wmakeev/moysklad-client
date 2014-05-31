@@ -3,6 +3,7 @@
 .idea
 .c9revisions
 some
+~backup
 node_modules
 !src/node_modules
 auth.js
