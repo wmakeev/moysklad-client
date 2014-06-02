@@ -106,24 +106,27 @@ module.exports = function (grunt) {
                     //postBundleCB: googleScriptBundleWrapper
                 }
             }
-        },
+        }
 
-        concat: {
+        /*concat: {
             'build/gs/bundle.gs': [
                 'build/gs/vendor.gs',
                 'build/gs/client.gs',
                 'build/gs/map.gs'
             ]
-        }
+        }*/
 
     });
 
     grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    //grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', ['browserify']);
+
+    grunt.registerTask('vendor', ['browserify:vendor']);
     grunt.registerTask('map', ['copy:map']);
+    grunt.registerTask('client', ['browserify:client']);
 
     grunt.registerTask('all', ['map', 'browserify']);
 
