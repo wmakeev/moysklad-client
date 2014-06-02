@@ -20,7 +20,12 @@ var put = function () {
       , callback        = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
       ;
 
-    if (type && type.indexOf('.') != -1) type = type.split('.')[1]; // moysklad.{type}
+    if (!type && (data instanceof Array) && data.length > 0) {
+        type = data[0].TYPE_NAME;
+    }
+
+    if (type && type.indexOf('.') != -1)
+        type = type.split('.')[1]; // moysklad.{type}
 
     var _fetchOptions = {
         method: 'PUT',
@@ -32,6 +37,7 @@ var put = function () {
 
     if (data instanceof Array) {
         // PUT /{type} + /list/update
+
         _fetchOptions.path += '/list/update';
 
         _fetchOptions.payload = {
@@ -43,6 +49,7 @@ var put = function () {
                     //TODO Ensure localPart type
                     return {
                         name: {
+                            //TODO Нужна ли выбрка или подставить то, что выведено выше
                             localPart: type ? type : item.TYPE_NAME.split('.')[1]
                         },
                         value: item
