@@ -7,7 +7,8 @@
 var _ = require('lodash');
 
 function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
-    var client = this.client;
+    var client = this.client,
+        that = this;
     
     var query = client.from('warehouse');
     
@@ -18,22 +19,17 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
     var warehouses = warehouseUuid ?
         [client.load('warehouse', warehouseUuid)] :
         client.from('warehouse').load();
-
-    _.forEach(warehouses, function (warehouse) {
-        this.entityHash[warehouse.uuid] = this.mapLazyLoader(warehouse, path, batches, warehouse);
-    }, this);
     
     var slots = _.reduce(warehouses, function(slots, warehouse) {
+        that.entityHash.add(this.mapLazyLoader(warehouse, path, batches, warehouse));
         if (warehouse.slots) slots = slots.concat(warehouse.slots);
+        return slots;
     }, []);
-
-
-
     
     if (typeof uuids === 'string') {
         //TODO Добавляем без привязки LazyLoader'а (не критично для slot)
-        this.addToHash(slots);
-        return this.entityHash[uuids];
+        that.entityHash.add(slots);
+        return that.entityHash.get(uuids);
     }
     else if (uuids instanceof Array) {
         // Возвращаем все ячейки (выше они будут добавелны в Hash и привязан LazyLoader)

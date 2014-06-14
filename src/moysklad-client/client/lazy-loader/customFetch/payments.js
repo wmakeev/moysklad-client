@@ -10,6 +10,7 @@ function fetchPayments(type, uuids, containerEntity) {
     var client = this.client;
 
     // ...
+    throw new Error('fetchPayments not implemented')
 
 }
 

@@ -85,7 +85,7 @@ var AuthProvider = function () {
 };
 
 module.exports = AuthProvider;
-},{"./tools":60,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
+},{"./tools":66,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -124,11 +124,9 @@ var clientMethods = {
     createQuery: Query.createQuery,
 
     // LazyLoader
-    createLazyLoader: require('./lazy-loader'),
+    createLazyLoader:   require('./lazy-loader'),
     
     // Helpers
-    instanceOf: require('./methods/instanceOf'),
-    getAttributeValue: require('./methods/getAttributeValue')
 };
 
 /**
@@ -160,7 +158,7 @@ var Client = stampit()
     .methods(operators);
 
 module.exports = Client;
-},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":58,"./../rest-clients/ms-xml/query":31,"./../rest-clients/ms-xml/query/operators":39,"./lazy-loader":11,"./methods/first":14,"./methods/from":15,"./methods/getAttributeValue":16,"./methods/instanceOf":17,"./methods/load":18,"./methods/save":19,"./methods/stock":20,"./methods/total":21,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
+},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":64,"./../rest-clients/ms-xml/query":30,"./../rest-clients/ms-xml/query/operators":38,"./lazy-loader":12,"./methods/first":15,"./methods/from":16,"./methods/load":17,"./methods/save":18,"./methods/stock":19,"./methods/total":20,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -222,16 +220,18 @@ module.exports = batch;
 },{"lodash":"EBUqFC","stampit":"gaBrea"}],4:[function(require,module,exports){
 
 
-module.export = {
+module.exports = {
     
     slot:       require('./slot'),
+
+    state:      require('./state'),
     
     sourceSlot: require('./slot'),
     
     payments:   require('./payments')
 
-}
-},{"./payments":5,"./slot":6}],5:[function(require,module,exports){
+};
+},{"./payments":5,"./slot":6,"./state":7}],5:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -244,6 +244,7 @@ function fetchPayments(type, uuids, containerEntity) {
     var client = this.client;
 
     // ...
+    throw new Error('fetchPayments not implemented')
 
 }
 
@@ -258,7 +259,8 @@ module.exports = fetchPayments;
 var _ = require('lodash');
 
 function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
-    var client = this.client;
+    var client = this.client,
+        that = this;
     
     var query = client.from('warehouse');
     
@@ -269,22 +271,17 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
     var warehouses = warehouseUuid ?
         [client.load('warehouse', warehouseUuid)] :
         client.from('warehouse').load();
-
-    _.forEach(warehouses, function (warehouse) {
-        this.entityHash[warehouse.uuid] = this.mapLazyLoader(warehouse, path, batches, warehouse);
-    }, this);
     
     var slots = _.reduce(warehouses, function(slots, warehouse) {
+        that.entityHash.add(this.mapLazyLoader(warehouse, path, batches, warehouse));
         if (warehouse.slots) slots = slots.concat(warehouse.slots);
+        return slots;
     }, []);
-
-
-
     
     if (typeof uuids === 'string') {
         //TODO Добавляем без привязки LazyLoader'а (не критично для slot)
-        this.addToHash(slots);
-        return this.entityHash[uuids];
+        that.entityHash.add(slots);
+        return that.entityHash.get(uuids);
     }
     else if (uuids instanceof Array) {
         // Возвращаем все ячейки (выше они будут добавелны в Hash и привязан LazyLoader)
@@ -295,6 +292,49 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
 
 module.exports = fetchSlots;
 },{"lodash":"EBUqFC"}],7:[function(require,module,exports){
+/**
+ * state
+ * Date: 14.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , tools = require('project/tools');
+
+
+function fetchState(type, uuids, path, batchName, batches, containerEntity) {
+    var client = this.client,
+        that = this;
+
+    var query = client.from('workflow');
+
+    if (containerEntity)
+        query.filter('name', tools.getUriTypeName(containerEntity));
+
+    var workflowCollection = query.load();
+
+    var states = _.reduce(workflowCollection, function(states, workflow) {
+        that.entityHash.add(workflow);
+        if (workflow.state) states = states.concat(workflow.state);
+        return states;
+    }, []);
+
+    //TODO Нет четкого понимания когда и где привязывается LazyLoader к загруженным св-вам. Привязываем где попало, что создает путаницу (сложно понимать код)
+    if (typeof uuids === 'string') {
+        //TODO Добавляем без привязки LazyLoader'а (не критично для slot)
+        that.entityHash.add(states); // Массив с одним элементом
+        return that.entityHash.get(uuids);
+    }
+    else if (uuids instanceof Array) {
+        // Возвращаем все ячейки (выше они будут добавелны в Hash и привязан LazyLoader) //TODO А где именно? Не очевидно.
+        // TODO Нужно учитывать, что фактически возвращаем не то, что запрошено
+        return states;
+    }
+
+}
+
+module.exports = fetchState;
+},{"lodash":"EBUqFC","project/tools":61}],8:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -341,7 +381,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
 }
 
 module.exports = defProperty;
-},{"lodash":"EBUqFC"}],8:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],9:[function(require,module,exports){
 /**
  * entityHash
  * Date: 13.05.2014
@@ -375,6 +415,7 @@ function entityHash () {
                     //Не проверяем на отсутствие сущности в Hash
                     return _entityHash[uuid];
                 });
+
             } else {
                 return _entityHash[uuids];
             }
@@ -391,7 +432,7 @@ function entityHash () {
 
         filterNotExist: function (uuids) {
             if (uuids instanceof Array) {
-                return _.map(uuids, function (uuid) {
+                return _.filter(uuids, function (uuid) {
                     //Не проверяем на отсутствие сущности в Hash
                     return !_entityHash[uuid];
                 });
@@ -404,7 +445,7 @@ function entityHash () {
 }
 
 module.exports = entityHash;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],9:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],10:[function(require,module,exports){
 /**
  * getEntities
  * Date: 29.04.14
@@ -421,8 +462,8 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 
     var that = this;
 
+    // Используем альтернативный способ получения сущностей (напр. для Slot)
     if (type in customFetch) {
-        // Используем альтернативный способ получения сущностей (напр. для Slot)
         return customFetch[type].apply(this, arguments);
 
     } else {
@@ -461,7 +502,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = getEntities;
-},{"./customFetch":4,"lodash":"EBUqFC"}],10:[function(require,module,exports){
+},{"./customFetch":4,"lodash":"EBUqFC"}],11:[function(require,module,exports){
 /**
  * getTypeOfProperty
  * Date: 29.04.14
@@ -483,7 +524,7 @@ function getTypeOfProperty(propertyName, entity) {
 }
 
 module.exports = getTypeOfProperty;
-},{"./nameToTypeMap":13}],11:[function(require,module,exports){
+},{"./nameToTypeMap":14}],12:[function(require,module,exports){
 /**
  * LazyLoader
  * Date: 15.04.14
@@ -539,14 +580,15 @@ var createLazyLoader = function () {
 };
 
 module.exports = createLazyLoader;
-},{"./batch":3,"./defProperty":7,"./entityHash":8,"./getEntities":9,"./getTypeOfProperty":10,"./mapLazyLoader":12,"lodash":"EBUqFC","stampit":"gaBrea"}],12:[function(require,module,exports){
+},{"./batch":3,"./defProperty":8,"./entityHash":9,"./getEntities":10,"./getTypeOfProperty":11,"./mapLazyLoader":13,"lodash":"EBUqFC","stampit":"gaBrea"}],13:[function(require,module,exports){
 /**
  * mapLazyLoader
  * Date: 29.04.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _ = require('lodash')
+  , tools = require('project/tools');
 
 
 /**
@@ -564,9 +606,26 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     var curPath, propertyName;
     path = path || '';
 
+    var bindingMethods = [];
+
+    // Привязываем проверку типа
+    if ('TYPE_NAME' in entity)
+        bindingMethods.push('instanceOf');
+
+    // Привязываем универсальный метод доступа к позициям документа (если применимо)
+    if (tools.instanceOf(entity, 'operationWithPositions'))
+        bindingMethods.push('getPositions');
+
+    // Привязываем методы для работы с атрибутами
+    if (entity.attribute)
+        bindingMethods.push('getAttribute');
+
+    _.each(bindingMethods, function (propName) {
+        entity[propName] = tools[propName].bind(tools, entity);
+    });
+
     //TODO Нужно составить подробный алгоритм для каждого случая ..
     // .. возможно сделать два цикла по ключам объекта и по массиву
-
     for (var key in entity) {
         var subEntity = entity[key];
 
@@ -575,7 +634,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
             // key - имя cвойства объекта
             if (isNaN(key)) { // TODO Правильно ли сделана проверка на число?
 
-                // ".goodUuid", ".demandsUuid[]"
+                // напр. ".goodUuid", ".demandsUuid[]"
                 if (key.substring(key.length - 4) == 'Uuid') {
 
                     // demandsUuid -> demands
@@ -590,7 +649,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
                     this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
                 }
 
-                // ".customerOrderPosition[]"
+                // напр. ".customerOrderPosition[]"
                 else if (subEntity instanceof Array) {
                     this.mapLazyLoader(subEntity, path, batches, containerEntity);
                 }
@@ -614,7 +673,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC"}],13:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":61}],14:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -628,7 +687,7 @@ module.exports={
 
     "demands": "demand"
 }
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /**
  * first
  * Date: 14.04.14
@@ -691,7 +750,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":60,"lodash":"EBUqFC"}],15:[function(require,module,exports){
+},{"../../../tools/index":66,"lodash":"EBUqFC"}],16:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -735,101 +794,7 @@ var from = function (type) {
 };
 
 module.exports = from;
-},{"./../../rest-clients/ms-xml/query/index":31,"lodash":"EBUqFC"}],16:[function(require,module,exports){
-/**
- * getAttribute
- * Date: 01.06.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash');
-
-/**
- * Получение значения аттрибута по metadataUuid
- * (осуществляется методом перебора возможных полей без дополнительной загрузки метаданных)
- * @param entity Сущность с аттрибутами
- * @param metadataUuid Идентификатор метаданных аттрибута
- * @returns {*}
- */
-var getAttributeValue = function (entity, metadataUuid) {
-    var attributeValue;
-
-    if (entity && entity.attribute) {
-        var attribute = _.find(entity.attribute, { metadataUuid: metadataUuid });
-
-        if (attribute) {
-            attributeValue =
-                attribute.metadataUuid
-             || attribute.valueText
-             || attribute.valueString
-             || attribute.doubleValue
-             || attribute.longValue
-             || attribute.booleanValue
-             || attribute.timeValue
-             || attribute.entityValueUuid
-             || attribute.agentValueUuid
-             || attribute.goodValueUuid
-             || attribute.placeValueUuid
-             || attribute.consignmentValueUuid
-             || attribute.contractValueUuid
-             || attribute.projectValueUuid
-             || attribute.employeeValueUuid;
-        }
-    }
-
-    return attributeValue;
-};
-
-module.exports = getAttributeValue;
-},{"lodash":"EBUqFC"}],17:[function(require,module,exports){
-/**
- * instanceOf
- * Date: 29.04.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-    , typeInfos;
-
-
-var typeInfosScopeMap = {};
-
-var getType = function(typeName) {
-    if (!typeInfosScopeMap[typeName]) {
-        var type = _.find(typeInfos, { localName: typeName })
-        if (type) {
-            typeInfosScopeMap[typeName] = type;
-            if (type.baseTypeInfo) {
-                type.baseTypeInfo = getType(type.baseTypeInfo.split('.')[1])
-            }
-        }
-    }
-    return typeInfosScopeMap[typeName];
-}
-
-var isInstanceOf = function (entityType, superType) {
-    var type = getType(entityType);
-    if (type) 
-        return type.localName == superType ?
-            true :
-            (type.baseTypeInfo ? isInstanceOf(type.baseTypeInfo.localName, superType) : false);
-    else 
-        return false;
-}
-
-var instanceOf = function (entity, typeName) {
-    typeInfos = typeInfos || require('project/mapping');
-    
-    if (entity.TYPE_NAME) {
-        var entityType = entity.TYPE_NAME.split('.')[1];
-    
-        return isInstanceOf(entityType, typeName);
-    }
-    
-};
-
-module.exports = instanceOf;
-},{"lodash":"EBUqFC","project/mapping":55}],18:[function(require,module,exports){
+},{"./../../rest-clients/ms-xml/query/index":30,"lodash":"EBUqFC"}],17:[function(require,module,exports){
 /**
  * load
  * Date: 24.03.14
@@ -925,7 +890,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":60,"lodash":"EBUqFC"}],19:[function(require,module,exports){
+},{"../../../tools/index":66,"lodash":"EBUqFC"}],18:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -965,7 +930,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":60,"lodash":"EBUqFC"}],20:[function(require,module,exports){
+},{"../../../tools/index":66,"lodash":"EBUqFC"}],19:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -991,7 +956,7 @@ var stock = function () {
 };
 
 module.exports = stock;
-},{"../../../tools/index":60,"lodash":"EBUqFC"}],21:[function(require,module,exports){
+},{"../../../tools/index":66,"lodash":"EBUqFC"}],20:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -1050,7 +1015,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":60,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":66,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -1071,11 +1036,11 @@ module.exports = {
 };
 },{"./client":2,"project/logger":"Z19TnT"}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
-},{}],25:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * index
  * Date: 24.03.14
@@ -1101,12 +1066,13 @@ var msXmlClient = stampit()
 
         // Tools
         getObjectTypeName: function (className) {
+            if (className.indexOf('.') != -1) className = className.split('.')[1];
             return className.charAt(0).toUpperCase() + className.substring(1);
         }
     });
 
 module.exports = msXmlClient;
-},{"./../../../authProviderBehavior":1,"./methods/del":26,"./methods/fetch":27,"./methods/get":28,"./methods/put":29,"stampit":"gaBrea"}],26:[function(require,module,exports){
+},{"./../../../authProviderBehavior":1,"./methods/del":25,"./methods/fetch":26,"./methods/get":27,"./methods/put":28,"stampit":"gaBrea"}],25:[function(require,module,exports){
 /**
  * del
  * Date: 24.03.14
@@ -1151,7 +1117,7 @@ module.exports = function (type, data, callback) {
 
     this.fetch(_fetchOptions, callback);
 }
-},{"lodash":"EBUqFC"}],27:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],26:[function(require,module,exports){
 /**
  * fetch
  * Date: 27.03.14
@@ -1195,7 +1161,7 @@ var fetch = function (options, callback) {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":24,"./../providerResponseHandler":30,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":56}],28:[function(require,module,exports){
+},{"./../../client-properties":23,"./../providerResponseHandler":29,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":55}],27:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -1224,7 +1190,7 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
-},{"lodash":"EBUqFC"}],29:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],28:[function(require,module,exports){
 /**
  * put
  * Date: 24.03.14
@@ -1247,7 +1213,12 @@ var put = function () {
       , callback        = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
       ;
 
-    if (type && type.indexOf('.') != -1) type = type.split('.')[1]; // moysklad.{type}
+    if (!type && (data instanceof Array) && data.length > 0) {
+        type = data[0].TYPE_NAME;
+    }
+
+    if (type && type.indexOf('.') != -1)
+        type = type.split('.')[1]; // moysklad.{type}
 
     var _fetchOptions = {
         method: 'PUT',
@@ -1259,6 +1230,7 @@ var put = function () {
 
     if (data instanceof Array) {
         // PUT /{type} + /list/update
+
         _fetchOptions.path += '/list/update';
 
         _fetchOptions.payload = {
@@ -1270,6 +1242,7 @@ var put = function () {
                     //TODO Ensure localPart type
                     return {
                         name: {
+                            //TODO Нужна ли выбрка или подставить то, что выведено выше
                             localPart: type ? type : item.TYPE_NAME.split('.')[1]
                         },
                         value: item
@@ -1298,7 +1271,7 @@ var put = function () {
 };
 
 module.exports = put;
-},{"lodash":"EBUqFC"}],30:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],29:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1375,7 +1348,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":60,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":57}],31:[function(require,module,exports){
+},{"../../../tools":66,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":63}],30:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -1396,7 +1369,7 @@ module.exports = {
 };
 
 
-},{"./query":41}],32:[function(require,module,exports){
+},{"./query":40}],31:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -1410,7 +1383,7 @@ var filter = function (key, value) {
 };
 
 module.exports = filter;
-},{}],33:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /**
  * getQueryParameters
  * Date: 22.03.14
@@ -1520,7 +1493,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":60,"lodash":"EBUqFC","moment":"2V8r5n"}],34:[function(require,module,exports){
+},{"../../../../../tools/index":66,"lodash":"EBUqFC","moment":"2V8r5n"}],33:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -1551,7 +1524,7 @@ module.exports = {
     }
 
 };
-},{"../../../../../tools/index":60}],35:[function(require,module,exports){
+},{"../../../../../tools/index":66}],34:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -1583,7 +1556,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":60}],36:[function(require,module,exports){
+},{"../../../../../tools/index":66}],35:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -1607,7 +1580,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":60}],37:[function(require,module,exports){
+},{"../../../../../tools/index":66}],36:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -1637,7 +1610,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":60}],38:[function(require,module,exports){
+},{"../../../../../tools/index":66}],37:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -1661,7 +1634,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":60}],39:[function(require,module,exports){
+},{"../../../../../tools/index":66}],38:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -1758,7 +1731,7 @@ module.exports = {
     $lte: this.lessThanOrEqualTo
 
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],40:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],39:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -1796,7 +1769,7 @@ module.exports = function () {
         return this;
     };
 };
-},{"../../../../tools/index":60,"lodash":"EBUqFC"}],41:[function(require,module,exports){
+},{"../../../../tools/index":66,"lodash":"EBUqFC"}],40:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -1825,7 +1798,7 @@ module.exports = stampit()
         sort:               require('./methods/sort'),
         sortMode:           require('./methods/sortMode')
     });
-},{"./methods/filter":32,"./methods/getQueryParameters":33,"./methods/paging":34,"./methods/select":35,"./methods/showArchived":36,"./methods/sort":37,"./methods/sortMode":38,"./query.filter.js":40,"./query.params.js":42,"stampit":"gaBrea"}],42:[function(require,module,exports){
+},{"./methods/filter":31,"./methods/getQueryParameters":32,"./methods/paging":33,"./methods/select":34,"./methods/showArchived":35,"./methods/sort":36,"./methods/sortMode":37,"./query.filter.js":39,"./query.params.js":41,"stampit":"gaBrea"}],41:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -1857,7 +1830,7 @@ module.exports = function () {
         _.extend(_params, parameters);
     }
 };
-},{"../../../../tools":60,"lodash":"EBUqFC"}],43:[function(require,module,exports){
+},{"../../../../tools":66,"lodash":"EBUqFC"}],42:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1882,7 +1855,7 @@ var stockJsonClient = stampit()
     });
 
 module.exports = stockJsonClient;
-},{"./../../../authProviderBehavior":1,"./methods/fetch":44,"./methods/stock":45,"stampit":"gaBrea"}],44:[function(require,module,exports){
+},{"./../../../authProviderBehavior":1,"./methods/fetch":43,"./methods/stock":44,"stampit":"gaBrea"}],43:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1925,7 +1898,7 @@ var fetch = function () {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":24,"./../providerResponseHandler":46,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],45:[function(require,module,exports){
+},{"./../../client-properties":23,"./../providerResponseHandler":45,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],44:[function(require,module,exports){
 /**
  * stock
  * Date: 24.03.14
@@ -1956,7 +1929,7 @@ var stock = function (options, callback) {
 };
 
 module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],46:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],45:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -2016,7 +1989,7 @@ var providerResponseHandler = function (err, result, callback) {
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":60,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"u3XsFq":[function(require,module,exports){
+},{"../../../tools":66,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"u3XsFq":[function(require,module,exports){
 /**
  * default Google Script auth
  * Date: 23.03.14
@@ -2105,7 +2078,7 @@ var fetch = {
 };
 
 module.exports = fetch;
-},{"./../../../tools/callbackAdapter":59,"lodash":"EBUqFC"}],51:[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":65,"lodash":"EBUqFC"}],50:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -2120,7 +2093,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":52,"project/mapping":55}],52:[function(require,module,exports){
+},{"project/jsonix":51,"project/mapping":54}],51:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -2159,7 +2132,7 @@ module.exports = {
         }
     }
 };
-},{}],55:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -2170,7 +2143,7 @@ module.exports = {
 // .. но так, как пока не предвидится что-то кроме "moysklad", оставим так.
 
 module.exports = require('../../../../res/mapping');
-},{"../../../../res/mapping":"xUxYGE"}],56:[function(require,module,exports){
+},{"../../../../res/mapping":"xUxYGE"}],55:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -2185,7 +2158,244 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":51}],57:[function(require,module,exports){
+},{"project/jsonix/context":50}],56:[function(require,module,exports){
+/**
+ * getAttribute
+ * Date: 20.04.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash');
+
+/**
+ * Возвращает атрибут объекта. Если атрибут не определен, то пустой объект
+ * (функция getValue привязывается, в том числе, и к пустому объекту)
+ *
+ * @param entity
+ * @param metadataUuid
+ * @returns {{}}
+ */
+var getAttribute = function (entity, metadataUuid) {
+    var attribute = {},
+        that = this;
+
+    if (entity && entity.attribute) {
+        attribute = _.find(entity.attribute, { metadataUuid: metadataUuid });
+    }
+
+    attribute.getValue = function () {
+        return that.getAttributeValue(attribute);
+    };
+
+    return attribute;
+};
+
+module.exports = getAttribute;
+},{"lodash":"EBUqFC"}],57:[function(require,module,exports){
+/**
+ * getAttribute
+ * Date: 01.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , getType = require('./getType');
+
+var attributeValue = getType('attributeValue');
+
+var attributeFields = _.map(attributeValue.propertyInfos, 'name');
+
+/*var attributeFields = [
+    'valueText',
+    'valueString',
+    'doubleValue',
+    'longValue',
+    'booleanValue',
+    'timeValue',
+    'entityValueUuid',
+    'agentValueUuid',
+    'goodValueUuid',
+    'placeValueUuid',
+    'consignmentValueUuid',
+    'contractValueUuid',
+    'projectValueUuid',
+    'employeeValueUuid'
+];*/
+
+/**
+ * Получение значения аттрибута по metadataUuid
+ * (осуществляется методом перебора возможных полей без дополнительной загрузки метаданных)
+ * @param entity Сущность с аттрибутами
+ * @param metadataUuid Идентификатор метаданных аттрибута
+ * @returns {*}
+ */
+var getAttributeValue = function (attribute) {
+    var attributeValue;
+
+    if (attribute) {
+        _.forEach(attributeFields, function (fieldName) {
+            if (fieldName in attribute)
+                attributeValue = attribute[fieldName];
+        })
+    }
+
+    return attributeValue;
+
+};
+
+module.exports = getAttributeValue;
+},{"./getType":59,"lodash":"EBUqFC"}],58:[function(require,module,exports){
+/**
+ * getPositions
+ * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
+ * доступа к позициям документа, т.к. для разных типов объектов наименование свойств с позициями различно)
+ *
+ * Date: 02.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , map = require('project/mapping')
+  , instanceOf = require('./instanceOf');
+
+/**
+ * Возвращает свойство с массивом позиций для указанного документа
+ *
+ * @param entity Сущность с аттрибутами
+ * @returns Array
+ */
+var getPositions = function (entity) {
+
+    if (instanceOf(entity, 'operationWithPositions')) {
+
+        return _.find(entity, function (value, key) {
+            return instanceOf(key, 'motion');
+        })
+    }
+
+    return null;
+};
+
+module.exports = getPositions;
+},{"./instanceOf":62,"lodash":"EBUqFC","project/mapping":54}],59:[function(require,module,exports){
+/**
+ * getType
+ * Date: 14.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , typeInfos;
+
+
+var typeInfosScopeMap = {};
+
+var getType = function(typeName) {
+    typeInfos = typeInfos || require('project/mapping').typeInfos;
+
+    if (!typeInfosScopeMap[typeName]) {
+        var type = _.find(typeInfos, { localName: typeName });
+        if (type) {
+            typeInfosScopeMap[typeName] = type;
+            if (type.baseTypeInfo) {
+                type.baseTypeInfo = getType(type.baseTypeInfo.split('.')[1])
+            }
+        }
+    }
+    return typeInfosScopeMap[typeName];
+};
+
+module.exports = getType;
+},{"lodash":"EBUqFC","project/mapping":54}],60:[function(require,module,exports){
+/**
+ * getTypeName
+ * Date: 14.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+/**
+ * Возвращает тип объекта с большой буквы
+ * (напр. "moysklad.customerOrder" -> "CustomerOrder")
+ * @param {Object|String} obj Объект МойСклад или строка наименование класса
+ * @returns {String|null}
+ */
+var getUriTypeName = function (obj) {
+    var typeName;
+
+    if (typeof obj === 'object' && obj.TYPE_NAME) {
+        typeName = obj.TYPE_NAME.split('.')[1];
+
+    } else if (typeof obj === 'string') {
+        typeName = obj;
+    }
+
+    if (typeName)
+        return typeName.charAt(0).toUpperCase() + typeName.substring(1);
+
+    return null;
+};
+
+module.exports = getUriTypeName;
+},{}],61:[function(require,module,exports){
+/**
+ * index
+ * Date: 14.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+module.exports = {
+
+    getUriTypeName:     require('./getUriTypeName'),
+    getAttribute:       require('./getAttribute'),
+    getAttributeValue:  require('./getAttributeValue'),
+    getPositions:       require('./getPositions'),
+    getType:            require('./getType'),
+    instanceOf:         require('./instanceOf')
+
+};
+},{"./getAttribute":56,"./getAttributeValue":57,"./getPositions":58,"./getType":59,"./getUriTypeName":60,"./instanceOf":62}],62:[function(require,module,exports){
+/**
+ * instanceOf
+ * Date: 29.04.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , getType = require('./getType');
+
+
+var isInstanceOf = function (entityType, superType) {
+    var type = getType(entityType);
+    if (type) 
+        return type.localName == superType ?
+            true :
+            (type.baseTypeInfo ? isInstanceOf(type.baseTypeInfo.localName, superType) : false);
+    else 
+        return false;
+};
+
+/**
+ *
+ * @param {Object | String} entity
+ * @param {String} typeName
+ */
+var instanceOf = function (entity, typeName) {
+
+    var entityType = entity.TYPE_NAME ? entity.TYPE_NAME : entity;
+
+    if (typeof entityType === 'string') {
+        // moysklad.{type}
+        entityType = entityType.indexOf('.') != -1 ?
+            entityType.split('.')[1] : entityType;
+
+        return isInstanceOf(entityType, typeName);
+    }
+
+    return null;
+};
+
+module.exports = instanceOf;
+},{"./getType":59,"lodash":"EBUqFC"}],63:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -2198,7 +2408,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":51}],58:[function(require,module,exports){
+},{"project/jsonix/context":50}],64:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -2247,7 +2457,7 @@ var ProviderAccessor = function () {
 };
 
 module.exports = ProviderAccessor;
-},{"./moysklad-client/rest-clients/ms-xml":25,"./moysklad-client/rest-clients/stock-json":43}],59:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/ms-xml":24,"./moysklad-client/rest-clients/stock-json":42}],65:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -2268,7 +2478,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],60:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -2527,4 +2737,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":59,"lodash":"EBUqFC"}]},{},["1wiUUs"])
+},{"./callbackAdapter":65,"lodash":"EBUqFC"}]},{},["1wiUUs"])

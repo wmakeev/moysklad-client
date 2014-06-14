@@ -14,8 +14,8 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 
     var that = this;
 
+    // Используем альтернативный способ получения сущностей (напр. для Slot)
     if (type in customFetch) {
-        // Используем альтернативный способ получения сущностей (напр. для Slot)
         return customFetch[type].apply(this, arguments);
 
     } else {

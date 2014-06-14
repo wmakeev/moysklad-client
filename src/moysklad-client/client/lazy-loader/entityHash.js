@@ -31,6 +31,7 @@ function entityHash () {
                     //Не проверяем на отсутствие сущности в Hash
                     return _entityHash[uuid];
                 });
+
             } else {
                 return _entityHash[uuids];
             }
@@ -47,7 +48,7 @@ function entityHash () {
 
         filterNotExist: function (uuids) {
             if (uuids instanceof Array) {
-                return _.map(uuids, function (uuid) {
+                return _.filter(uuids, function (uuid) {
                     //Не проверяем на отсутствие сущности в Hash
                     return !_entityHash[uuid];
                 });

@@ -23,6 +23,7 @@ var msXmlClient = stampit()
 
         // Tools
         getObjectTypeName: function (className) {
+            if (className.indexOf('.') != -1) className = className.split('.')[1];
             return className.charAt(0).toUpperCase() + className.substring(1);
         }
     });

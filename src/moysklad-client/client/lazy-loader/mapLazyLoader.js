@@ -4,7 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _ = require('lodash')
+  , tools = require('project/tools');
 
 
 /**
@@ -22,9 +23,26 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     var curPath, propertyName;
     path = path || '';
 
+    var bindingMethods = [];
+
+    // Привязываем проверку типа
+    if ('TYPE_NAME' in entity)
+        bindingMethods.push('instanceOf');
+
+    // Привязываем универсальный метод доступа к позициям документа (если применимо)
+    if (tools.instanceOf(entity, 'operationWithPositions'))
+        bindingMethods.push('getPositions');
+
+    // Привязываем методы для работы с атрибутами
+    if (entity.attribute)
+        bindingMethods.push('getAttribute');
+
+    _.each(bindingMethods, function (propName) {
+        entity[propName] = tools[propName].bind(tools, entity);
+    });
+
     //TODO Нужно составить подробный алгоритм для каждого случая ..
     // .. возможно сделать два цикла по ключам объекта и по массиву
-
     for (var key in entity) {
         var subEntity = entity[key];
 
@@ -33,7 +51,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
             // key - имя cвойства объекта
             if (isNaN(key)) { // TODO Правильно ли сделана проверка на число?
 
-                // ".goodUuid", ".demandsUuid[]"
+                // напр. ".goodUuid", ".demandsUuid[]"
                 if (key.substring(key.length - 4) == 'Uuid') {
 
                     // demandsUuid -> demands
@@ -48,7 +66,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
                     this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
                 }
 
-                // ".customerOrderPosition[]"
+                // напр. ".customerOrderPosition[]"
                 else if (subEntity instanceof Array) {
                     this.mapLazyLoader(subEntity, path, batches, containerEntity);
                 }

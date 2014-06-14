@@ -39,9 +39,6 @@ var clientMethods = {
     createLazyLoader:   require('./lazy-loader'),
     
     // Helpers
-    instanceOf:         require('./methods/instanceOf'),
-    getAttributeValue:  require('./methods/getAttributeValue'),
-    getPositions:       require('./methods/getPositions')
 };
 
 /**
