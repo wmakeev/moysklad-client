@@ -85,7 +85,7 @@ var AuthProvider = function () {
 };
 
 module.exports = AuthProvider;
-},{"./tools":66,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
+},{"./tools":71,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -158,7 +158,7 @@ var Client = stampit()
     .methods(operators);
 
 module.exports = Client;
-},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":64,"./../rest-clients/ms-xml/query":30,"./../rest-clients/ms-xml/query/operators":38,"./lazy-loader":12,"./methods/first":15,"./methods/from":16,"./methods/load":17,"./methods/save":18,"./methods/stock":19,"./methods/total":20,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
+},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":69,"./../rest-clients/ms-xml/query":30,"./../rest-clients/ms-xml/query/operators":39,"./lazy-loader":12,"./methods/first":15,"./methods/from":16,"./methods/load":17,"./methods/save":18,"./methods/stock":19,"./methods/total":20,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -334,7 +334,7 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchState;
-},{"lodash":"EBUqFC","project/tools":61}],8:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":65}],8:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -562,8 +562,10 @@ var createLazyLoader = function () {
             if (typeof obj !== 'object')
                 throw new Error('attach: obj argument must be an object');
 
-            if (!(batches instanceof Array))
+            if (batches && !(batches instanceof Array))
                 throw new Error('attach: batches argument must be an array');
+            else
+                batches = [];
 
             lazyLoader.mapLazyLoader(
                 obj,                                            // Сущность в корой будет созданы "ленивые" свойства на основе uuid связей
@@ -606,6 +608,8 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     var curPath, propertyName;
     path = path || '';
 
+    // Список методов tools которые необходимо привязать к объекту
+    //TODO Нужно ли делать через defineProperty?
     var bindingMethods = [];
 
     // Привязываем проверку типа
@@ -616,13 +620,29 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     if (tools.instanceOf(entity, 'operationWithPositions'))
         bindingMethods.push('getPositions');
 
+    //TODO Если атрибуты не заданы entity.attribute будет не определен и привязка не произойдет ..
+    //TODO .. нужно проверять по схеме, есть ли в этой сущности аттрибуты
     // Привязываем методы для работы с атрибутами
-    if (entity.attribute)
-        bindingMethods.push('getAttribute');
+    if (entity.attribute) {
+        bindingMethods = bindingMethods.concat(['getAttr', 'getAttrValue']);
+    }
 
     _.each(bindingMethods, function (propName) {
-        entity[propName] = tools[propName].bind(tools, entity);
+        if (!entity[propName])
+            entity[propName] = tools[propName].bind(tools, entity);
     });
+/*
+
+    _.forEach(entity.attribute, function (attribute) {
+        Object.defineProperty(entity, attribute.metadataUuid, {
+            get: function () {
+
+            },
+            enumerable: false,
+            configurable: true
+        });
+    });
+*/
 
     //TODO Нужно составить подробный алгоритм для каждого случая ..
     // .. возможно сделать два цикла по ключам объекта и по массиву
@@ -673,7 +693,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":61}],14:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":65}],14:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -750,7 +770,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":66,"lodash":"EBUqFC"}],16:[function(require,module,exports){
+},{"../../../tools/index":71,"lodash":"EBUqFC"}],16:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -890,7 +910,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":66,"lodash":"EBUqFC"}],18:[function(require,module,exports){
+},{"../../../tools/index":71,"lodash":"EBUqFC"}],18:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -930,7 +950,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":66,"lodash":"EBUqFC"}],19:[function(require,module,exports){
+},{"../../../tools/index":71,"lodash":"EBUqFC"}],19:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -956,7 +976,7 @@ var stock = function () {
 };
 
 module.exports = stock;
-},{"../../../tools/index":66,"lodash":"EBUqFC"}],20:[function(require,module,exports){
+},{"../../../tools/index":71,"lodash":"EBUqFC"}],20:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -1015,7 +1035,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":66,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":71,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -1032,9 +1052,12 @@ module.exports = {
         //logger.time('createClient');
         return client.apply(this, [null].concat(Array.prototype.slice.call(arguments, 0)));
         //logger.timeEnd('createClient');
-    }
+    },
+
+    Tools: require('project/tools'),
+    logger: require('project/logger')
 };
-},{"./client":2,"project/logger":"Z19TnT"}],"moysklad-client":[function(require,module,exports){
+},{"./client":2,"project/logger":"Z19TnT","project/tools":65}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
 },{}],23:[function(require,module,exports){
 module.exports={
@@ -1161,7 +1184,7 @@ var fetch = function (options, callback) {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":23,"./../providerResponseHandler":29,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":55}],27:[function(require,module,exports){
+},{"./../../client-properties":23,"./../providerResponseHandler":29,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":56}],27:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -1213,8 +1236,12 @@ var put = function () {
       , callback        = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
       ;
 
-    if (!type && (data instanceof Array) && data.length > 0) {
-        type = data[0].TYPE_NAME;
+    if (!type) {
+        if (data.TYPE_NAME) {
+            type = data.TYPE_NAME;
+        } else if ((data instanceof Array) && data.length > 0) {
+            type = data[0].TYPE_NAME;
+        }
     }
 
     if (type && type.indexOf('.') != -1)
@@ -1348,7 +1375,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":66,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":63}],30:[function(require,module,exports){
+},{"../../../tools":71,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":68}],30:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -1369,7 +1396,7 @@ module.exports = {
 };
 
 
-},{"./query":40}],31:[function(require,module,exports){
+},{"./query":41}],31:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -1493,7 +1520,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":66,"lodash":"EBUqFC","moment":"2V8r5n"}],33:[function(require,module,exports){
+},{"../../../../../tools/index":71,"lodash":"EBUqFC","moment":"2V8r5n"}],33:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -1524,7 +1551,7 @@ module.exports = {
     }
 
 };
-},{"../../../../../tools/index":66}],34:[function(require,module,exports){
+},{"../../../../../tools/index":71}],34:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -1556,7 +1583,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":66}],35:[function(require,module,exports){
+},{"../../../../../tools/index":71}],35:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -1580,7 +1607,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":66}],36:[function(require,module,exports){
+},{"../../../../../tools/index":71}],36:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -1610,7 +1637,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":66}],37:[function(require,module,exports){
+},{"../../../../../tools/index":71}],37:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -1634,7 +1661,25 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":66}],38:[function(require,module,exports){
+},{"../../../../../tools/index":71}],38:[function(require,module,exports){
+/**
+ * uuids
+ * Date: 17.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var uuids = function (uuids) {
+    var filterObj = {};
+    filterObj['uuid'] = uuids;
+    filterObj['showArchived'] = true;
+
+    this.appendFilter(filterObj);
+
+    return this;
+};
+
+module.exports = uuids;
+},{}],39:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -1731,7 +1776,7 @@ module.exports = {
     $lte: this.lessThanOrEqualTo
 
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],39:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],40:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -1769,7 +1814,7 @@ module.exports = function () {
         return this;
     };
 };
-},{"../../../../tools/index":66,"lodash":"EBUqFC"}],40:[function(require,module,exports){
+},{"../../../../tools/index":71,"lodash":"EBUqFC"}],41:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -1793,12 +1838,13 @@ module.exports = stampit()
         start:              require('./methods/paging').start,
         count:              require('./methods/paging').count,
         filter:             require('./methods/filter'),
+        uuids:              require('./methods/uuids'),
         select:             require('./methods/select'),
         showArchived:       require('./methods/showArchived'),
         sort:               require('./methods/sort'),
         sortMode:           require('./methods/sortMode')
     });
-},{"./methods/filter":31,"./methods/getQueryParameters":32,"./methods/paging":33,"./methods/select":34,"./methods/showArchived":35,"./methods/sort":36,"./methods/sortMode":37,"./query.filter.js":39,"./query.params.js":41,"stampit":"gaBrea"}],41:[function(require,module,exports){
+},{"./methods/filter":31,"./methods/getQueryParameters":32,"./methods/paging":33,"./methods/select":34,"./methods/showArchived":35,"./methods/sort":36,"./methods/sortMode":37,"./methods/uuids":38,"./query.filter.js":40,"./query.params.js":42,"stampit":"gaBrea"}],42:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -1830,7 +1876,7 @@ module.exports = function () {
         _.extend(_params, parameters);
     }
 };
-},{"../../../../tools":66,"lodash":"EBUqFC"}],42:[function(require,module,exports){
+},{"../../../../tools":71,"lodash":"EBUqFC"}],43:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1855,7 +1901,7 @@ var stockJsonClient = stampit()
     });
 
 module.exports = stockJsonClient;
-},{"./../../../authProviderBehavior":1,"./methods/fetch":43,"./methods/stock":44,"stampit":"gaBrea"}],43:[function(require,module,exports){
+},{"./../../../authProviderBehavior":1,"./methods/fetch":44,"./methods/stock":45,"stampit":"gaBrea"}],44:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1898,7 +1944,7 @@ var fetch = function () {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":23,"./../providerResponseHandler":45,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],44:[function(require,module,exports){
+},{"./../../client-properties":23,"./../providerResponseHandler":46,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],45:[function(require,module,exports){
 /**
  * stock
  * Date: 24.03.14
@@ -1929,7 +1975,7 @@ var stock = function (options, callback) {
 };
 
 module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],45:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],46:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1989,7 +2035,7 @@ var providerResponseHandler = function (err, result, callback) {
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":66,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"u3XsFq":[function(require,module,exports){
+},{"../../../tools":71,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"u3XsFq":[function(require,module,exports){
 /**
  * default Google Script auth
  * Date: 23.03.14
@@ -2078,7 +2124,7 @@ var fetch = {
 };
 
 module.exports = fetch;
-},{"./../../../tools/callbackAdapter":65,"lodash":"EBUqFC"}],50:[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":70,"lodash":"EBUqFC"}],51:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -2093,7 +2139,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":51,"project/mapping":54}],51:[function(require,module,exports){
+},{"project/jsonix":52,"project/mapping":55}],52:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -2132,7 +2178,7 @@ module.exports = {
         }
     }
 };
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -2143,7 +2189,7 @@ module.exports = {
 // .. но так, как пока не предвидится что-то кроме "moysklad", оставим так.
 
 module.exports = require('../../../../res/mapping');
-},{"../../../../res/mapping":"xUxYGE"}],55:[function(require,module,exports){
+},{"../../../../res/mapping":"xUxYGE"}],56:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -2158,7 +2204,245 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":50}],56:[function(require,module,exports){
+},{"project/jsonix/context":51}],57:[function(require,module,exports){
+/**
+ * clone
+ * Date: 15.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash');
+
+var fieldsToReset = [
+    'createdBy',
+    'updated',
+    'updatedBy',
+    'uuid',
+    'operationUuid'
+];
+
+var resetUuids = function (obj) {
+
+    if (obj) {
+        //TODO Может быть использовать _.omit, вместо обнуления полей?
+        _.forEach(fieldsToReset, function (fieldName) {
+            if (obj[fieldName]) obj[fieldName] = null;
+        });
+
+        for (var property in obj) {
+            if (obj.hasOwnProperty(property) && typeof obj[property] === 'object') {
+                resetUuids(obj[property]);
+            }
+        }
+    }
+
+    return obj;
+};
+
+/**
+ * Клонирует объекты МойСклад
+ * - используется стандартная процедура глубокого клонирования,
+ * за тем исключением, что обнуляются идентификаторы объектов "uuid"
+ *
+ * @param obj Клонируемый объект
+ */
+var clone = function (obj) {
+
+    if (obj) {
+        //TODO Реализовать свой механизм клонирования (приходится два раза обходить гарф объекта)
+        var cloned = _.cloneDeep(obj);
+
+        return resetUuids(cloned);
+    }
+
+    return null;
+};
+
+module.exports = clone;
+},{"lodash":"EBUqFC"}],58:[function(require,module,exports){
+/**
+ * createAttributeValue
+ * Date: 17.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash');
+
+/**
+ * Создает объект AttributeValue
+ */
+var createAttributeValue = function () {
+
+    var attributes = {},
+        isSingleAttribute = false;
+
+    // createAttributeValue(type, metadataUuid, value)
+    if (arguments.length === 3) {
+        attributes[arguments[1]] = [
+            arguments[0], arguments[2]
+        ];
+        isSingleAttribute = true;
+    }
+
+    // createAttributeValue([
+    //     [ type, metadataUuid, value ],
+    //     ...
+    // ])
+    else if (arguments.length === 1 && arguments[0] instanceof Array) {
+        _.forEach(arguments[0], function (attrInfo) {
+            attributes[attrInfo[1]] = [ attrInfo[0], attrInfo[2] ]
+        });
+    }
+
+    else {
+        throw new Error('createAttributeValue: incorrect arguments');
+    }
+
+    var attributeValues = _.map(attributes, function (attributeValueData, metadataUuid) {
+
+        var type    = attributeValueData[0],
+            value   = attributeValueData[1];
+
+        var attributeValue = {
+            TYPE_NAME: 'moysklad.attributeValue',
+            metadataUuid: metadataUuid
+        };
+
+        switch (type) {
+            case 'Text':
+            case 'Текст':
+            case 'Link':
+            case 'Ссылка':
+                attributeValue.valueText = value;
+                break;
+
+            case 'String':
+            case 'Строка':
+                attributeValue.valueString = value;
+                break;
+
+            case 'Double':
+            case 'Число дробное':
+                attributeValue.doubleValue = value;
+                break;
+
+            case 'Long':
+            case 'Число целое':
+                attributeValue.longValue = value;
+                break;
+
+            case 'Boolean':
+            case 'Флажок':
+                attributeValue.booleanValue = value;
+                break;
+
+            case 'Date':
+            case 'Дата':
+                if (value) {
+                    if (value instanceof Date && value !== Infinity)
+                        attributeValue.timeValue = value;
+                    else
+                        throw new Error('createAttributeValue: value parameter must be instance of Date');
+                } else {
+                    return null;
+                }
+                break;
+
+            case 'CustomEntity':
+            case 'Справочник':
+                attributeValue.entityValueUuid = value;
+                break;
+
+            /*case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;
+
+             case '':
+             attributeValue. = value;
+             break;*/
+
+            default:
+                throw new Error('createAttributeValue: attribute type [' + type + '] not correct');
+        }
+
+        return attributeValue;
+    });
+
+    attributeValues = _.compact(attributeValues);
+
+    return isSingleAttribute ? attributeValues[0] : attributeValues;
+};
+
+module.exports = createAttributeValue;
+},{"lodash":"EBUqFC"}],59:[function(require,module,exports){
+/**
+ * description
+ * Date: 16.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var append = function (entity, message) {
+    if (!message) return this;
+
+    entity.description ?
+        message = '\n\n' + message :
+        entity.description = '';
+
+    entity.description += message;
+
+    return this;
+};
+
+
+var prepend = function (entity, message) {
+    if (!message) return this;
+
+    entity.description = entity.description ?
+        message + '\n\n' + entity.description :
+        message;
+
+    return this;
+};
+
+
+function description (entity) {
+    if (!entity) throw new Error('description: entity parameter not defined');
+
+    var pub = {
+        append: function (message) {
+            return append.call(this, entity, message);
+        },
+        prepend: function (message) {
+            return prepend.call(this, entity, message);
+        },
+        value: function () { return entity ? entity.description : null; }
+    };
+
+    return pub;
+}
+
+module.exports = description;
+},{}],60:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 20.04.14
@@ -2175,23 +2459,29 @@ var _ = require('lodash');
  * @param metadataUuid
  * @returns {{}}
  */
-var getAttribute = function (entity, metadataUuid) {
-    var attribute = {},
+var getAttr = function (entity, metadataUuid) {
+    var attribute,
         that = this;
 
-    if (entity && entity.attribute) {
-        attribute = _.find(entity.attribute, { metadataUuid: metadataUuid });
+    if (entity) {
+        if (entity.attribute)
+            attribute = _.find(entity.attribute, { metadataUuid: metadataUuid });
+
+        if (!attribute) {
+            attribute = {};
+            attribute.metadataUuid = metadataUuid;
+            entity.attribute = entity.attribute || [];
+            entity.attribute.push(attribute);
+        }
+
+        return attribute;
     }
 
-    attribute.getValue = function () {
-        return that.getAttributeValue(attribute);
-    };
-
-    return attribute;
+    return null;
 };
 
-module.exports = getAttribute;
-},{"lodash":"EBUqFC"}],57:[function(require,module,exports){
+module.exports = getAttr;
+},{"lodash":"EBUqFC"}],61:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 01.06.14
@@ -2199,28 +2489,29 @@ module.exports = getAttribute;
  */
 
 var _ = require('lodash')
-  , getType = require('./getType');
+    , getType = require('./getType');
 
 var attributeValue = getType('attributeValue');
 
-var attributeFields = _.map(attributeValue.propertyInfos, 'name');
+var attributeFields = _(attributeValue.propertyInfos)
+    .map('name').pull('metadataUuid').value();
 
 /*var attributeFields = [
-    'valueText',
-    'valueString',
-    'doubleValue',
-    'longValue',
-    'booleanValue',
-    'timeValue',
-    'entityValueUuid',
-    'agentValueUuid',
-    'goodValueUuid',
-    'placeValueUuid',
-    'consignmentValueUuid',
-    'contractValueUuid',
-    'projectValueUuid',
-    'employeeValueUuid'
-];*/
+ 'valueText',
+ 'valueString',
+ 'doubleValue',
+ 'longValue',
+ 'booleanValue',
+ 'timeValue',
+ 'entityValueUuid',
+ 'agentValueUuid',
+ 'goodValueUuid',
+ 'placeValueUuid',
+ 'consignmentValueUuid',
+ 'contractValueUuid',
+ 'projectValueUuid',
+ 'employeeValueUuid'
+ ];*/
 
 /**
  * Получение значения аттрибута по metadataUuid
@@ -2229,22 +2520,21 @@ var attributeFields = _.map(attributeValue.propertyInfos, 'name');
  * @param metadataUuid Идентификатор метаданных аттрибута
  * @returns {*}
  */
-var getAttributeValue = function (attribute) {
-    var attributeValue;
+var getAttrValue = function (entity, metadataUuid) {
+
+    var attribute = _.find(entity.attribute, { metadataUuid: metadataUuid });
 
     if (attribute) {
-        _.forEach(attributeFields, function (fieldName) {
-            if (fieldName in attribute)
-                attributeValue = attribute[fieldName];
-        })
+        var fieldName = _.find(attributeFields, function (fieldName) {
+            return fieldName in attribute;
+        });
+
+        if (fieldName) return attribute[fieldName];
     }
-
-    return attributeValue;
-
 };
 
-module.exports = getAttributeValue;
-},{"./getType":59,"lodash":"EBUqFC"}],58:[function(require,module,exports){
+module.exports = getAttrValue;
+},{"./getType":63,"lodash":"EBUqFC"}],62:[function(require,module,exports){
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
@@ -2255,7 +2545,6 @@ module.exports = getAttributeValue;
  */
 
 var _ = require('lodash')
-  , map = require('project/mapping')
   , instanceOf = require('./instanceOf');
 
 /**
@@ -2277,7 +2566,7 @@ var getPositions = function (entity) {
 };
 
 module.exports = getPositions;
-},{"./instanceOf":62,"lodash":"EBUqFC","project/mapping":54}],59:[function(require,module,exports){
+},{"./instanceOf":66,"lodash":"EBUqFC"}],63:[function(require,module,exports){
 /**
  * getType
  * Date: 14.06.14
@@ -2306,7 +2595,7 @@ var getType = function(typeName) {
 };
 
 module.exports = getType;
-},{"lodash":"EBUqFC","project/mapping":54}],60:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/mapping":55}],64:[function(require,module,exports){
 /**
  * getTypeName
  * Date: 14.06.14
@@ -2336,7 +2625,7 @@ var getUriTypeName = function (obj) {
 };
 
 module.exports = getUriTypeName;
-},{}],61:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 /**
  * index
  * Date: 14.06.14
@@ -2345,15 +2634,26 @@ module.exports = getUriTypeName;
 
 module.exports = {
 
-    getUriTypeName:     require('./getUriTypeName'),
-    getAttribute:       require('./getAttribute'),
-    getAttributeValue:  require('./getAttributeValue'),
-    getPositions:       require('./getPositions'),
-    getType:            require('./getType'),
-    instanceOf:         require('./instanceOf')
+    getUriTypeName          : require('./getUriTypeName'),
+    getAttr                 : require('./getAttr'),
+    getAttrValue            : require('./getAttrValue'),
+    createAttributeValue    : require('./createAttributeValue'),
+    getPositions            : require('./getPositions'),
+    getType                 : require('./getType'),
+    instanceOf              : require('./instanceOf'),
+    clone                   : require('./clone'),
+    reserve                 : require('./reserve'),
+    description             : require('./description')
+
+    //:              require('./'),
+    //:              require('./'),
+    //:              require('./'),
+    //:              require('./'),
+    //:              require('./'),
+
 
 };
-},{"./getAttribute":56,"./getAttributeValue":57,"./getPositions":58,"./getType":59,"./getUriTypeName":60,"./instanceOf":62}],62:[function(require,module,exports){
+},{"./clone":57,"./createAttributeValue":58,"./description":59,"./getAttr":60,"./getAttrValue":61,"./getPositions":62,"./getType":63,"./getUriTypeName":64,"./instanceOf":66,"./reserve":67}],66:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -2395,7 +2695,31 @@ var instanceOf = function (entity, typeName) {
 };
 
 module.exports = instanceOf;
-},{"./getType":59,"lodash":"EBUqFC"}],63:[function(require,module,exports){
+},{"./getType":63,"lodash":"EBUqFC"}],67:[function(require,module,exports){
+/**
+ * reserve
+ * Date: 16.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , instanceOf = require('./instanceOf')
+  , getPositions = require('./getPositions');
+
+var reserve = function (order) {
+    // Резерв только для заказов
+    if (instanceOf(order, 'order')) {
+
+        _.forEach(getPositions(order), function (position) {
+            position.reserve = position.quantity;
+        });
+
+        order.reservedSum = order.sum.sum;
+    }
+};
+
+module.exports = reserve;
+},{"./getPositions":62,"./instanceOf":66,"lodash":"EBUqFC"}],68:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -2408,7 +2732,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":50}],64:[function(require,module,exports){
+},{"project/jsonix/context":51}],69:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -2457,7 +2781,7 @@ var ProviderAccessor = function () {
 };
 
 module.exports = ProviderAccessor;
-},{"./moysklad-client/rest-clients/ms-xml":24,"./moysklad-client/rest-clients/stock-json":42}],65:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/ms-xml":24,"./moysklad-client/rest-clients/stock-json":43}],70:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -2478,7 +2802,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],66:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -2737,4 +3061,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":65,"lodash":"EBUqFC"}]},{},["1wiUUs"])
+},{"./callbackAdapter":70,"lodash":"EBUqFC"}]},{},["1wiUUs"])

@@ -14,5 +14,8 @@ module.exports = {
         //logger.time('createClient');
         return client.apply(this, [null].concat(Array.prototype.slice.call(arguments, 0)));
         //logger.timeEnd('createClient');
-    }
+    },
+
+    Tools: require('project/tools'),
+    logger: require('project/logger')
 };

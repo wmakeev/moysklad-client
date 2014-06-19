@@ -35,8 +35,10 @@ var createLazyLoader = function () {
             if (typeof obj !== 'object')
                 throw new Error('attach: obj argument must be an object');
 
-            if (!(batches instanceof Array))
+            if (batches && !(batches instanceof Array))
                 throw new Error('attach: batches argument must be an array');
+            else
+                batches = [];
 
             lazyLoader.mapLazyLoader(
                 obj,                                            // Сущность в корой будет созданы "ленивые" свойства на основе uuid связей

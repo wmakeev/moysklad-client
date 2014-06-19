@@ -21,6 +21,7 @@ module.exports = stampit()
         start:              require('./methods/paging').start,
         count:              require('./methods/paging').count,
         filter:             require('./methods/filter'),
+        uuids:              require('./methods/uuids'),
         select:             require('./methods/select'),
         showArchived:       require('./methods/showArchived'),
         sort:               require('./methods/sort'),

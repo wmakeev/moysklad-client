@@ -23,6 +23,8 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     var curPath, propertyName;
     path = path || '';
 
+    // Список методов tools которые необходимо привязать к объекту
+    //TODO Нужно ли делать через defineProperty?
     var bindingMethods = [];
 
     // Привязываем проверку типа
@@ -33,13 +35,29 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     if (tools.instanceOf(entity, 'operationWithPositions'))
         bindingMethods.push('getPositions');
 
+    //TODO Если атрибуты не заданы entity.attribute будет не определен и привязка не произойдет ..
+    //TODO .. нужно проверять по схеме, есть ли в этой сущности аттрибуты
     // Привязываем методы для работы с атрибутами
-    if (entity.attribute)
-        bindingMethods.push('getAttribute');
+    if (entity.attribute) {
+        bindingMethods = bindingMethods.concat(['getAttr', 'getAttrValue']);
+    }
 
     _.each(bindingMethods, function (propName) {
-        entity[propName] = tools[propName].bind(tools, entity);
+        if (!entity[propName])
+            entity[propName] = tools[propName].bind(tools, entity);
     });
+/*
+
+    _.forEach(entity.attribute, function (attribute) {
+        Object.defineProperty(entity, attribute.metadataUuid, {
+            get: function () {
+
+            },
+            enumerable: false,
+            configurable: true
+        });
+    });
+*/
 
     //TODO Нужно составить подробный алгоритм для каждого случая ..
     // .. возможно сделать два цикла по ключам объекта и по массиву

@@ -20,8 +20,12 @@ var put = function () {
       , callback        = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
       ;
 
-    if (!type && (data instanceof Array) && data.length > 0) {
-        type = data[0].TYPE_NAME;
+    if (!type) {
+        if (data.TYPE_NAME) {
+            type = data.TYPE_NAME;
+        } else if ((data instanceof Array) && data.length > 0) {
+            type = data[0].TYPE_NAME;
+        }
     }
 
     if (type && type.indexOf('.') != -1)
