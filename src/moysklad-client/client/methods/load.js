@@ -63,8 +63,13 @@ var load = function (type, query) {
     // uuid ..
     if (typeof query == 'string') {
         var params = { uuid: query };
+
         // options (fileContent)
-        if (args[2] && 'fileContent' in args[2]) params.fileContent = args[2].fileContent;
+        if (args[2] && 'fileContent' in args[2])
+            if (params.fileContent || args[2].fileContent)
+                params.fileContent = args[2].fileContent;
+
+        // loadPartial?
 
         _restClient.get(type, params, function (err, data) {
             _obj = callbackAdapter(err, data.obj, callback);
@@ -73,6 +78,7 @@ var load = function (type, query) {
 
     // .. или query
     else if (typeof query == 'object' && 'getQueryParameters' in query) {
+        //TODO Не забыть про options при написании документации
         _queryParametersList = query.getQueryParameters(this.options.filterLimit);
 
         var paging = {};
