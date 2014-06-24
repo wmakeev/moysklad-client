@@ -10,6 +10,10 @@ var _ = require('lodash')
 
 var LazyLoader = stampit()
 
+    .state({
+        fileContent: false
+    })
+
     .enclose(require('./batch'))
 
     .enclose(require('./entityHash'))
@@ -37,8 +41,8 @@ var createLazyLoader = function () {
 
             if (batches && !(batches instanceof Array))
                 throw new Error('attach: batches argument must be an array');
-            else
-                batches = [];
+
+            batches = batches || [];
 
             lazyLoader.mapLazyLoader(
                 obj,                                            // Сущность в корой будет созданы "ленивые" свойства на основе uuid связей
@@ -49,7 +53,13 @@ var createLazyLoader = function () {
                     null
             );
 
-            return obj;
+            return this;
+        },
+
+        fileContent: function (obj) {
+            if (obj) lazyLoader.fileContent = !!obj;
+
+            return this;
         }
     }
 };

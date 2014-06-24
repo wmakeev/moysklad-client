@@ -26,6 +26,8 @@ function batch () {
                     }
                 });
             }
+
+            return this;
         },
 
         take: function (batchName) {

@@ -24,25 +24,29 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 
             var batchUuids = this.batch.take(batchName);
 
-            if (batchUuids.length == 1) {
-                // Загружаем без фильтра (возможно, так быстрее)
-                entities = [client.load(type, batchUuids[0])];
+            if (batchUuids.length > 0) {
 
-            } else {
-                entities = client.from(type).select({
-                    uuid: client.anyOf(batchUuids)
-                }).load();
+                if (batchUuids.length == 1) {
+                    // Загружаем без фильтра (возможно, так быстрее)
+                    entities = [client.load(type, batchUuids[0], { fileContent: this.fileContent })];
+
+                } else {
+                    entities = client.from(type)
+                        .uuids(batchUuids)
+                        .fileContent(this.fileContent)
+                        .load();
+                }
+
+                _.forEach(entities, function (entityItem) {
+                    that.entityHash.add(
+                        that.mapLazyLoader(entityItem, path, batches, entityItem)
+                    );
+                });
             }
-
-            _.forEach(entities, function (entityItem) {
-                that.entityHash.add(
-                    that.mapLazyLoader(entityItem, path, batches, entityItem)
-                );
-            });
         }
 
         if (typeof uuids === 'string' && !this.entityHash.exist(uuids)) {
-            entity = client.load(type, uuids);
+            entity = client.load(type, uuids, { fileContent: this.fileContent });
             return this.entityHash.add(this.mapLazyLoader(entity, path, batches, entity));
         }
 

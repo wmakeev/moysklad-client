@@ -6,13 +6,14 @@
 
 var Is = require('../../../../../tools/index').Is;
 
-module.exports = function () {
-    if (Is.args(arguments, 'boolean')) {
-        this.setParameter('fileContent', arguments[0]);
-    } else if (arguments.length == 0) {
+var fileContent = function () {
+    if (arguments.length == 0) {
         return this.getParameter('fileContent');
+
     } else {
-        throw new Error('fileContent: incorrect parameters ' + obj);
+        this.setParameter('fileContent', !!arguments[0]);
     }
     return this;
 };
+
+module.exports = fileContent;
