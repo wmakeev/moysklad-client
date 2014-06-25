@@ -12,7 +12,7 @@ var stock = function () {
     var args        = _.toArray(arguments)
       , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
       , options     = typeof args[0] === 'object' ? args[0] : {}
-      , _restClient = this.getProvider('stock-json')
+      , _restClient = this.getProvider('json-services')
       , _obj        = null;
 
     _restClient.stock(options, function (err, data) {

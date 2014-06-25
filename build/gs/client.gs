@@ -2854,7 +2854,7 @@ module.exports = {
 var _providersConstructors = {
     // Получаю модули не динамически, иначе сборщик не увидит модуль
     'ms-xml': require('./moysklad-client/rest-clients/ms-xml'),
-    'stock-json': require('./moysklad-client/rest-clients/stock-json')
+    'json-services': require('./moysklad-client/rest-clients/json')
 } ;
 
 var requireProviderCtor = function (name) {

@@ -22,24 +22,15 @@ var clientMethods = {
     total:  require('./methods/total'),
     save:   require('./methods/save'),
 
-    // Stock
-    stock:  require('./methods/stock'),
-    //stockByConsignment: require('...'),
-    //stockForGood: require('...'),
-    //slotReport: require('...'),
-
-    // MutualSettlement
-    //mutualSettlement: require('...'),
-    //customerMutualSettlement: require('...')
-
     // Query
     createQuery: Query.createQuery,
 
     // LazyLoader
-    createLazyLoader:   require('./lazy-loader'),
-    
-    // Helpers
+    createLazyLoader:   require('./lazy-loader')
+
 };
+
+var jsonServiceMethods = require('./methods/json-service');
 
 /**
  * @class Client
@@ -60,13 +51,10 @@ var Client = stampit()
     // Providers accessor
     .enclose(providerAccessorBehavior)
 
-    // Rest client accessor (RestClientsAccessor)
-    //
-    //.enclose(restClientsAccessor)
-
     // Methods
     //
     .methods(clientMethods)
+    .methods(jsonServiceMethods)
     .methods(operators);
 
 module.exports = Client;
