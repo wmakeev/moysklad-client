@@ -4,18 +4,20 @@ var _ = require('lodash');
 
 module.exports = function (grunt) {
 
-    var googleScriptBundleWrapper = function (err, src, next) {
-        var modifiedSrc;
+    var BANER = _.template([
+        '// <%= pkg.name %> <%= pkg.version %> (bundle)',
+        '// <%= description %>',
+        '//',
+        '// <%= pkg.author.name %> (<%= pkg.author.email %>)',
+        '// <%= pkg.author.url %>',
+        '// \n'
+    ].join('\n'));
+
+    var postBundleProcessor = function (err, src, next) {
         if (!err) {
-            modifiedSrc = [
-                'window = this;',
-                'function getLib() {',
-                src,
-                '\n  return window.Bundle;',
-                '}'
-            ].join('\n');
+            src = BANER(this) + src;
         }
-        next(err, modifiedSrc);
+        next(err, src);
     };
 
     var getContextSpecificAliases = function (context, modules) {
@@ -25,8 +27,10 @@ module.exports = function (grunt) {
         })
     };
 
+    var pkg = grunt.file.readJSON('package.json');
+
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: pkg,
 
         copy: {
             map: {
@@ -49,6 +53,9 @@ module.exports = function (grunt) {
                 ],
                 dest: 'build/gs/vendor.gs',
                 options: {
+                    pkg: pkg,
+                    description: 'Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix',
+
                     require: [
                         'xmldom',
                         './vendor/jsonix'
@@ -60,7 +67,9 @@ module.exports = function (grunt) {
                     ],
                     exclude: [
                         'xmlhttprequest'
-                    ]
+                    ],
+
+                    postBundleCB: postBundleProcessor
                 }
             },
 
@@ -68,10 +77,15 @@ module.exports = function (grunt) {
                 src: [],
                 dest: 'build/gs/map.gs',
                 options: {
+                    pkg: pkg,
+                    description: 'Сборка данных описывающих объектную модель сервиса МойСклад',
+
                     require: [
                         './res/mapping',
                         './res/mapping-xsd-fix'
-                    ]
+                    ],
+
+                    postBundleCB: postBundleProcessor
                 }
             },
 
@@ -79,6 +93,9 @@ module.exports = function (grunt) {
                 src: ['src/moysklad-client/index.js'],
                 dest: 'build/gs/client.gs',
                 options: {
+                    pkg: pkg,
+                    description: 'Сборка с кодом основной библиотеки moysklad-client',
+
                     //standalone: 'Bundle',
                     alias: getContextSpecificAliases('gs', [
                         'fetch',
@@ -103,7 +120,7 @@ module.exports = function (grunt) {
                         './node_modules/stampit/dist/stampit.min.js'
                     ],
                     //fullPaths: true
-                    //postBundleCB: googleScriptBundleWrapper
+                    postBundleCB: postBundleProcessor
                 }
             }
         }

@@ -1,3 +1,9 @@
+// moysklad-client 0.2.2-9 (bundle)
+// Сборка с кодом основной библиотеки moysklad-client
+//
+// Vitaliy Makeev (w.makeev@gmail.com)
+// https://github.com/wmakeev
+// 
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
  * auth
@@ -85,7 +91,7 @@ var AuthProvider = function () {
 };
 
 module.exports = AuthProvider;
-},{"./tools":74,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
+},{"./tools":77,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],2:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -110,24 +116,15 @@ var clientMethods = {
     total:  require('./methods/total'),
     save:   require('./methods/save'),
 
-    // Stock
-    stock:  require('./methods/stock'),
-    //stockByConsignment: require('...'),
-    //stockForGood: require('...'),
-    //slotReport: require('...'),
-
-    // MutualSettlement
-    //mutualSettlement: require('...'),
-    //customerMutualSettlement: require('...')
-
     // Query
     createQuery: Query.createQuery,
 
     // LazyLoader
-    createLazyLoader:   require('./lazy-loader'),
-    
-    // Helpers
+    createLazyLoader:   require('./lazy-loader')
+
 };
+
+var jsonServiceMethods = require('./methods/json-service');
 
 /**
  * @class Client
@@ -148,17 +145,14 @@ var Client = stampit()
     // Providers accessor
     .enclose(providerAccessorBehavior)
 
-    // Rest client accessor (RestClientsAccessor)
-    //
-    //.enclose(restClientsAccessor)
-
     // Methods
     //
     .methods(clientMethods)
+    .methods(jsonServiceMethods)
     .methods(operators);
 
 module.exports = Client;
-},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":72,"./../rest-clients/ms-xml/query":30,"./../rest-clients/ms-xml/query/operators":40,"./lazy-loader":12,"./methods/first":15,"./methods/from":16,"./methods/load":17,"./methods/save":18,"./methods/stock":19,"./methods/total":20,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
+},{"./../../authProviderBehavior":1,"./../../providerAccessorBehavior":75,"./../rest-clients/ms-xml/query":37,"./../rest-clients/ms-xml/query/operators":47,"./lazy-loader":12,"./methods/first":15,"./methods/from":16,"./methods/json-service":17,"./methods/load":18,"./methods/save":19,"./methods/total":20,"lodash":"EBUqFC","stampit":"gaBrea"}],3:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -336,7 +330,7 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchState;
-},{"lodash":"EBUqFC","project/tools":68}],8:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":71}],8:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -644,7 +638,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 
     if (entity.salePrices)
         bindingMethods = bindingMethods.concat(['getPrice', 'getPriceValue']);
-    
+
     _.each(bindingMethods, function (propName) {
         if (!entity[propName])
             entity[propName] = tools[propName].bind(tools, entity);
@@ -711,7 +705,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":68}],14:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":71}],14:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -788,7 +782,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":74,"lodash":"EBUqFC"}],16:[function(require,module,exports){
+},{"../../../tools/index":77,"lodash":"EBUqFC"}],16:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -832,7 +826,48 @@ var from = function (type) {
 };
 
 module.exports = from;
-},{"./../../rest-clients/ms-xml/query/index":30,"lodash":"EBUqFC"}],17:[function(require,module,exports){
+},{"./../../rest-clients/ms-xml/query/index":37,"lodash":"EBUqFC"}],17:[function(require,module,exports){
+/**
+ * json-service
+ * Date: 24.06.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , callbackAdapter = require('../../../tools/index').callbackAdapter;
+
+
+var callService = function () {
+    var args        = _.toArray(arguments)
+      , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
+      , serviceName = args[0]
+      , options     = typeof args[1] === 'object' ? args[1] : {}
+      , _restClient = this.getProvider('json-services')
+      , _obj        = null;
+
+    _restClient[serviceName](options, function (err, data) {
+        _obj = callbackAdapter(err, data.obj, callback);
+    });
+
+    return _obj;
+};
+
+[
+    'stock',
+    'stockForGood',
+    'slot',
+    'mutualSettlement',
+    'mutualSettlementForCustomer'
+
+].forEach(function (serviceName) {
+    module.exports[serviceName] = function () {
+        return callService.apply(this,
+            [serviceName].concat(Array.prototype.slice.call(arguments, 0)));
+    }
+});
+
+
+},{"../../../tools/index":77,"lodash":"EBUqFC"}],18:[function(require,module,exports){
 /**
  * load
  * Date: 24.03.14
@@ -904,6 +939,8 @@ var load = function (type, query) {
             if (params.fileContent || args[2].fileContent)
                 params.fileContent = args[2].fileContent;
 
+        // loadPartial?
+
         _restClient.get(type, params, function (err, data) {
             _obj = callbackAdapter(err, data.obj, callback);
         });
@@ -932,7 +969,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":74,"lodash":"EBUqFC"}],18:[function(require,module,exports){
+},{"../../../tools/index":77,"lodash":"EBUqFC"}],19:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -972,33 +1009,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":74,"lodash":"EBUqFC"}],19:[function(require,module,exports){
-/**
- * stock
- * Date: 19.04.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
-
-
-var stock = function () {
-    var args        = _.toArray(arguments)
-      , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , options     = typeof args[0] === 'object' ? args[0] : {}
-      , _restClient = this.getProvider('stock-json')
-      , _obj        = null;
-
-    _restClient.stock(options, function (err, data) {
-        _obj = callbackAdapter(err, data.obj, callback);
-    });
-
-    return _obj;
-};
-
-module.exports = stock;
-},{"../../../tools/index":74,"lodash":"EBUqFC"}],20:[function(require,module,exports){
+},{"../../../tools/index":77,"lodash":"EBUqFC"}],20:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -1057,7 +1068,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":74,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":77,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -1079,13 +1090,263 @@ module.exports = {
     Tools: require('project/tools'),
     logger: require('project/logger')
 };
-},{"./client":2,"project/logger":"Z19TnT","project/tools":68}],"moysklad-client":[function(require,module,exports){
+},{"./client":2,"project/logger":"Z19TnT","project/tools":71}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
 },{}],23:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
 },{}],24:[function(require,module,exports){
+/**
+ * stock
+ * Date: 19.04.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var stampit = require('stampit');
+
+var stockJsonClient = stampit()
+
+    // Authable
+    .enclose(require('./../../../authProviderBehavior'))
+
+    // Methods
+    //
+    .methods({
+
+        // add client methods
+        stock:                          require('./methods/stock'),
+        stockForGood:                   require('./methods/stock-for-good'),
+        slot:                           require('./methods/slot'),
+        mutualSettlement:               require('./methods/mutualSettlement').list,
+        mutualSettlementForCustomer:    require('./methods/mutualSettlement').customer,
+
+        fetch:                          require('./methods/fetch')
+
+    });
+
+module.exports = stockJsonClient;
+},{"./../../../authProviderBehavior":1,"./methods/fetch":25,"./methods/mutualSettlement":26,"./methods/slot":27,"./methods/stock":29,"./methods/stock-for-good":28,"stampit":"gaBrea"}],25:[function(require,module,exports){
+/**
+ * stock
+ * Date: 19.04.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+  , moment = require('moment')
+  , client_properties = require('./../../client-properties')
+  , fetchProviderRespHandler = require('./../providerResponseHandler')
+  , endPoint = client_properties.baseUrl + '/rest';
+
+//TODO Этот метод во многом повторяет аналогичный fetch из ms-xml (вероятно нужно объединить в один)
+var fetch = function (options, callback) {
+
+    var _fetchProvider = require('project/fetch'),
+        _log = require('project/logger'),
+        query;
+
+    if (options.params) {
+        query = '/?' + _.map(options.params, function (value, key) {
+            if (value instanceof Date || moment.isMoment(value))
+                value = moment(value).format('YYYYMMDDHHmmss');
+
+            return key + '=' + encodeURIComponent(value);
+        }).join('&');
+    }
+
+    var fetchOptions = _.extend({
+        // default
+        contentType: 'application/json',
+        headers: {}
+    }, {
+        // parameters
+        method: 'GET',
+        url: endPoint + '/' + options.service + '/json' + (options.path || '') + (query || '')
+    });
+
+    if (this.isAuth())
+        fetchOptions.headers.Authorization = this.getBasicAuthHeader();
+
+    _log.time('Fetch from ' + options.service + ' service time');
+    _fetchProvider.fetch(fetchOptions, function (err, result) {
+        _log.timeEnd('Fetch from ' + options.service + ' service time');
+        return fetchProviderRespHandler(err, result, callback);
+    });
+
+};
+
+module.exports = fetch;
+},{"./../../client-properties":23,"./../providerResponseHandler":30,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],26:[function(require,module,exports){
+/**
+ * mutualSettlement
+ * Date: 24.03.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , moment = require('moment');
+
+var list = function (options, callback) {
+
+    var fetchOptions = {
+        service : 'mutualSettlement',
+        path    : '/list',
+        params  : options
+    };
+
+    this.fetch(fetchOptions, callback);
+};
+
+var customer = function (options, callback) {
+    var fetchOptions = {
+        service : 'mutualSettlement',
+        path    : '/customer' + '/' + options.customerUuid,
+        params  : _.omit(options, 'customerUuid')
+    };
+
+    this.fetch(fetchOptions, callback);
+};
+
+module.exports = {
+    list    : list,
+    customer: customer
+};
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],27:[function(require,module,exports){
+/**
+ * slot
+ * Date: 24.03.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , moment = require('moment');
+
+var slot = function (options, callback) {
+
+    //TODO Реализовать пейджинг по 50 шт
+    if (options.goodUuid.length > 50)
+        throw new Error('slot: good uuids array length more than 50 not supported now');
+
+    var fetchOptions = {
+        service : 'slot',
+        params  : {
+            storeUuid: options.storeUuid
+        }
+    };
+
+    if (options.goodUuid && options.goodUuid.length > 0)
+        fetchOptions.goodUuid = _.map(options.goodUuid, function (uuid) {
+            return 'goodUuid=' + uuid
+        }).join('&');
+
+    this.fetch(fetchOptions, callback);
+};
+
+module.exports = slot;
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],28:[function(require,module,exports){
+/**
+ * stockForGood
+ * Date: 24.03.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , moment = require('moment');
+
+var stockForGood = function (options, callback) {
+
+    var fetchOptions = {
+        service : 'stock-for-good',
+        params  : options
+    };
+
+    this.fetch(fetchOptions, callback);
+};
+
+module.exports = stockForGood;
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],29:[function(require,module,exports){
+/**
+ * stock
+ * Date: 24.03.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , moment = require('moment');
+
+var stock = function (options, callback) {
+
+    var fetchOptions = {
+        service : 'stock',
+        params  : options
+    };
+
+    this.fetch(fetchOptions, callback);
+};
+
+module.exports = stock;
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],30:[function(require,module,exports){
+/**
+ * providerResponseHandler
+ * Date: 23.03.14
+ * Vitaliy V. Makeev (w.makeev@gmail.com)
+ */
+
+var _ = require('lodash')
+    , callbackAdapter = require('../../../tools').callbackAdapter;
+
+//TODO Часть кода providerResponseHandler'ов не оправданно дублируется .. >
+var providerResponseHandler = function (err, result, callback) {
+    var _log = require('project/logger');
+
+    // .. этот кусок общий для всех
+    if (!err) {
+        _log.info('request.url - ' + result.request.url);
+        _log.info('response.responseCode - ' + result.response.responseCode);
+        _log.info('response.contentText.length - ' + result.response.contentText.length);
+
+        switch (result.response.responseCode) {
+
+            //TODO Прописать все ошибки stock сервисов
+            //TODO Есть ли общие для всех ошибки (нужно ли выделять)?
+
+            // ошибка пришла ввиде XML сериализуем и обработаем ниже
+            case 500:
+                return callbackAdapter(
+                    new Error('Server error 500'), result, callback);
+
+            // ошибка авторизации
+            case 401:
+                return callbackAdapter(
+                    new Error('Request requires HTTP authentication'), result, callback);
+
+            // корректный ответ сервера (работаем с ним дальше)
+            case 200:
+                break;
+
+            // любой другой код ответа - ошибка
+            default:
+                //TODO ??? Надо парсить Html ответа и выделять описание ошибки
+                _log.log('Ответ сервера: \n' + result.response.contentText);
+                return callbackAdapter(
+                    new Error('Server response error ' + result.response.responseCode), result, callback);
+        }
+
+        if (result.response.contentText.length > 0) {
+            _log.time('Response JSON parse time');
+
+            result.obj = JSON.parse(result.response.contentText);
+
+            _log.timeEnd('Response JSON parse time');
+        }
+    }
+
+    return callbackAdapter(err, result, callback);
+};
+
+module.exports = providerResponseHandler;
+},{"../../../tools":77,"lodash":"EBUqFC","project/logger":"Z19TnT"}],31:[function(require,module,exports){
 /**
  * index
  * Date: 24.03.14
@@ -1117,7 +1378,7 @@ var msXmlClient = stampit()
     });
 
 module.exports = msXmlClient;
-},{"./../../../authProviderBehavior":1,"./methods/del":25,"./methods/fetch":26,"./methods/get":27,"./methods/put":28,"stampit":"gaBrea"}],25:[function(require,module,exports){
+},{"./../../../authProviderBehavior":1,"./methods/del":32,"./methods/fetch":33,"./methods/get":34,"./methods/put":35,"stampit":"gaBrea"}],32:[function(require,module,exports){
 /**
  * del
  * Date: 24.03.14
@@ -1162,7 +1423,7 @@ module.exports = function (type, data, callback) {
 
     this.fetch(_fetchOptions, callback);
 }
-},{"lodash":"EBUqFC"}],26:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],33:[function(require,module,exports){
 /**
  * fetch
  * Date: 27.03.14
@@ -1206,7 +1467,7 @@ var fetch = function (options, callback) {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":23,"./../providerResponseHandler":29,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":57}],27:[function(require,module,exports){
+},{"./../../client-properties":23,"./../providerResponseHandler":36,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT","project/marshaller":60}],34:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -1235,7 +1496,7 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
-},{"lodash":"EBUqFC"}],28:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],35:[function(require,module,exports){
 /**
  * put
  * Date: 24.03.14
@@ -1320,7 +1581,7 @@ var put = function () {
 };
 
 module.exports = put;
-},{"lodash":"EBUqFC"}],29:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],36:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1397,7 +1658,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":74,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":71}],30:[function(require,module,exports){
+},{"../../../tools":77,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":74}],37:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -1418,7 +1679,7 @@ module.exports = {
 };
 
 
-},{"./query":42}],31:[function(require,module,exports){
+},{"./query":49}],38:[function(require,module,exports){
 /**
  * fileContent
  * Date: 22.03.14
@@ -1438,7 +1699,7 @@ var fileContent = function () {
 };
 
 module.exports = fileContent;
-},{"../../../../../tools/index":74}],32:[function(require,module,exports){
+},{"../../../../../tools/index":77}],39:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -1452,7 +1713,7 @@ var filter = function (key, value) {
 };
 
 module.exports = filter;
-},{}],33:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 /**
  * getQueryParameters
  * Date: 22.03.14
@@ -1562,7 +1823,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":74,"lodash":"EBUqFC","moment":"2V8r5n"}],34:[function(require,module,exports){
+},{"../../../../../tools/index":77,"lodash":"EBUqFC","moment":"2V8r5n"}],41:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -1593,7 +1854,7 @@ module.exports = {
     }
 
 };
-},{"../../../../../tools/index":74}],35:[function(require,module,exports){
+},{"../../../../../tools/index":77}],42:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -1625,7 +1886,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":74}],36:[function(require,module,exports){
+},{"../../../../../tools/index":77}],43:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -1649,7 +1910,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":74}],37:[function(require,module,exports){
+},{"../../../../../tools/index":77}],44:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -1679,7 +1940,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":74}],38:[function(require,module,exports){
+},{"../../../../../tools/index":77}],45:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -1703,7 +1964,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":74}],39:[function(require,module,exports){
+},{"../../../../../tools/index":77}],46:[function(require,module,exports){
 /**
  * uuids
  * Date: 17.06.14
@@ -1727,7 +1988,7 @@ var uuids = function (uuids) {
 };
 
 module.exports = uuids;
-},{}],40:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -1824,7 +2085,7 @@ module.exports = {
     $lte: this.lessThanOrEqualTo
 
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],41:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],48:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -1862,7 +2123,7 @@ module.exports = function () {
         return this;
     };
 };
-},{"../../../../tools/index":74,"lodash":"EBUqFC"}],42:[function(require,module,exports){
+},{"../../../../tools/index":77,"lodash":"EBUqFC"}],49:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -1893,7 +2154,7 @@ module.exports = stampit()
         sort                : require('./methods/sort'),
         sortMode            : require('./methods/sortMode')
     });
-},{"./methods/fileContent":31,"./methods/filter":32,"./methods/getQueryParameters":33,"./methods/paging":34,"./methods/select":35,"./methods/showArchived":36,"./methods/sort":37,"./methods/sortMode":38,"./methods/uuids":39,"./query.filter.js":41,"./query.params.js":43,"stampit":"gaBrea"}],43:[function(require,module,exports){
+},{"./methods/fileContent":38,"./methods/filter":39,"./methods/getQueryParameters":40,"./methods/paging":41,"./methods/select":42,"./methods/showArchived":43,"./methods/sort":44,"./methods/sortMode":45,"./methods/uuids":46,"./query.filter.js":48,"./query.params.js":50,"stampit":"gaBrea"}],50:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -1925,166 +2186,7 @@ module.exports = function () {
         _.extend(_params, parameters);
     }
 };
-},{"../../../../tools":74,"lodash":"EBUqFC"}],44:[function(require,module,exports){
-/**
- * stock
- * Date: 19.04.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var stampit = require('stampit');
-
-var stockJsonClient = stampit()
-
-    // Authable
-    .enclose(require('./../../../authProviderBehavior'))
-
-    // Methods
-    //
-    .methods({
-
-        // add client methods
-        stock: require('./methods/stock'),
-        fetch:  require('./methods/fetch')
-
-    });
-
-module.exports = stockJsonClient;
-},{"./../../../authProviderBehavior":1,"./methods/fetch":45,"./methods/stock":46,"stampit":"gaBrea"}],45:[function(require,module,exports){
-/**
- * stock
- * Date: 19.04.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-    , client_properties = require('./../../client-properties')
-    , fetchProviderRespHandler = require('./../providerResponseHandler')
-    , endPoint = client_properties.baseUrl + '/rest';
-
-//TODO Этот метод во многом повторяет аналогичный fetch из ms-xml (вероятно нужно объединитьв один)
-var fetch = function () {
-
-    // override prototype method
-    this.fetch = function (options, callback) {
-
-        var _fetchProvider  = require('project/fetch'),
-            _log            = require('project/logger');
-
-        var fetchOptions = _.extend({
-            // default
-            contentType: 'application/json',
-            headers: {}
-        }, {
-            // parameters
-            method: 'GET',
-            url: endPoint + '/' + options.service + '/json' + options.path
-        });
-
-        if (this.isAuth())
-            fetchOptions.headers.Authorization = this.getBasicAuthHeader();
-
-        _log.time('Fetch from ' + options.service + ' service time');
-        _fetchProvider.fetch(fetchOptions, function (err, result) {
-            _log.timeEnd('Fetch from ' + options.service + ' service time');
-            return fetchProviderRespHandler(err, result, callback);
-        });
-    }
-};
-
-module.exports = fetch;
-},{"./../../client-properties":23,"./../providerResponseHandler":47,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/logger":"Z19TnT"}],46:[function(require,module,exports){
-/**
- * stock
- * Date: 24.03.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-    , moment = require('moment');
-
-var stock = function (options, callback) {
-    options = options || {};
-
-    //TODO Преобразовывать локальное время во время сервера
-    if (options.moment) {
-        options.moment = moment(options.moment).format('YYYYMMDDHHmmss');
-    }
-
-    //TODO Перенести формирование строки запроса в провайдер?
-    if (_.keys(options).length > 0) {
-        options.path = '/?' + _.map(options, function (value, key) {
-            return key + '=' + encodeURIComponent(value);
-        }).join('&');
-    }
-
-    options.service = 'stock';
-
-    this.fetch(options, callback);
-};
-
-module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],47:[function(require,module,exports){
-/**
- * providerResponseHandler
- * Date: 23.03.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-    , callbackAdapter = require('../../../tools').callbackAdapter;
-
-//TODO Часть кода providerResponseHandler'ов не оправданно дублируется .. >
-var providerResponseHandler = function (err, result, callback) {
-    var _log = require('project/logger');
-
-    // .. этот кусок общий для всех
-    if (!err) {
-        _log.info('request.url - ' + result.request.url);
-        _log.info('response.responseCode - ' + result.response.responseCode);
-        _log.info('response.contentText.length - ' + result.response.contentText.length);
-
-        switch (result.response.responseCode) {
-
-            //TODO Прописать все ошибки stock сервисов
-            //TODO Есть ли общие для всех ошибки (нужно ли выделять)?
-
-            // ошибка пришла ввиде XML сериализуем и обработаем ниже
-            case 500:
-                return callbackAdapter(
-                    new Error('Server error 500'), result, callback);
-
-            // ошибка авторизации
-            case 401:
-                return callbackAdapter(
-                    new Error('Request requires HTTP authentication'), result, callback);
-
-            // корректный ответ сервера (работаем с ним дальше)
-            case 200:
-                break;
-
-            // любой другой код ответа - ошибка
-            default:
-                //TODO ??? Надо парсить Html ответа и выделять описание ошибки
-                _log.log('Ответ сервера: \n' + result.response.contentText);
-                return callbackAdapter(
-                    new Error('Server response error ' + result.response.responseCode), result, callback);
-        }
-
-        if (result.response.contentText.length > 0) {
-            _log.time('Response JSON parse time');
-
-            result.obj = JSON.parse(result.response.contentText);
-
-            _log.timeEnd('Response JSON parse time');
-        }
-    }
-
-    return callbackAdapter(err, result, callback);
-};
-
-module.exports = providerResponseHandler;
-},{"../../../tools":74,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"u3XsFq":[function(require,module,exports){
+},{"../../../../tools":77,"lodash":"EBUqFC"}],"u3XsFq":[function(require,module,exports){
 /**
  * default Google Script auth
  * Date: 23.03.14
@@ -2173,7 +2275,7 @@ var fetch = {
 };
 
 module.exports = fetch;
-},{"./../../../tools/callbackAdapter":73,"lodash":"EBUqFC"}],52:[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":76,"lodash":"EBUqFC"}],55:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -2188,7 +2290,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":53,"project/mapping":56}],53:[function(require,module,exports){
+},{"project/jsonix":56,"project/mapping":59}],56:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -2227,7 +2329,7 @@ module.exports = {
         }
     }
 };
-},{}],56:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -2238,7 +2340,7 @@ module.exports = {
 // .. но так, как пока не предвидится что-то кроме "moysklad", оставим так.
 
 module.exports = require('../../../../res/mapping');
-},{"../../../../res/mapping":"xUxYGE"}],57:[function(require,module,exports){
+},{"../../../../res/mapping":"xUxYGE"}],60:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -2253,7 +2355,7 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":52}],58:[function(require,module,exports){
+},{"project/jsonix/context":55}],61:[function(require,module,exports){
 /**
  * clone
  * Date: 15.06.14
@@ -2308,7 +2410,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
-},{"lodash":"EBUqFC"}],59:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],62:[function(require,module,exports){
 /**
  * createAttributeValue
  * Date: 17.06.14
@@ -2443,7 +2545,7 @@ var createAttributeValue = function () {
 };
 
 module.exports = createAttributeValue;
-},{"lodash":"EBUqFC"}],60:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],63:[function(require,module,exports){
 /**
  * description
  * Date: 16.06.14
@@ -2491,7 +2593,7 @@ function description (entity) {
 }
 
 module.exports = description;
-},{}],61:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 20.04.14
@@ -2530,7 +2632,7 @@ var getAttr = function (entity, metadataUuid) {
 };
 
 module.exports = getAttr;
-},{"lodash":"EBUqFC"}],62:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],65:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 01.06.14
@@ -2583,7 +2685,7 @@ var getAttrValue = function (entity, metadataUuid) {
 };
 
 module.exports = getAttrValue;
-},{"./getType":66,"lodash":"EBUqFC"}],63:[function(require,module,exports){
+},{"./getType":69,"lodash":"EBUqFC"}],66:[function(require,module,exports){
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
@@ -2615,7 +2717,7 @@ var getPositions = function (entity) {
 };
 
 module.exports = getPositions;
-},{"./instanceOf":69,"lodash":"EBUqFC"}],64:[function(require,module,exports){
+},{"./instanceOf":72,"lodash":"EBUqFC"}],67:[function(require,module,exports){
 /**
  * getPrice
  * Date: 20.04.14
@@ -2652,7 +2754,7 @@ var getPrice = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPrice;
-},{"lodash":"EBUqFC"}],65:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],68:[function(require,module,exports){
 /**
  * getPriceValue
  * Date: 01.06.14
@@ -2676,7 +2778,7 @@ var getPriceValue = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPriceValue;
-},{"lodash":"EBUqFC"}],66:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],69:[function(require,module,exports){
 /**
  * getType
  * Date: 14.06.14
@@ -2705,7 +2807,7 @@ var getType = function(typeName) {
 };
 
 module.exports = getType;
-},{"lodash":"EBUqFC","project/mapping":56}],67:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/mapping":59}],70:[function(require,module,exports){
 /**
  * getTypeName
  * Date: 14.06.14
@@ -2735,7 +2837,7 @@ var getUriTypeName = function (obj) {
 };
 
 module.exports = getUriTypeName;
-},{}],68:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 /**
  * index
  * Date: 14.06.14
@@ -2765,7 +2867,7 @@ module.exports = {
 
 
 };
-},{"./clone":58,"./createAttributeValue":59,"./description":60,"./getAttr":61,"./getAttrValue":62,"./getPositions":63,"./getPrice":64,"./getPriceValue":65,"./getType":66,"./getUriTypeName":67,"./instanceOf":69,"./reserve":70}],69:[function(require,module,exports){
+},{"./clone":61,"./createAttributeValue":62,"./description":63,"./getAttr":64,"./getAttrValue":65,"./getPositions":66,"./getPrice":67,"./getPriceValue":68,"./getType":69,"./getUriTypeName":70,"./instanceOf":72,"./reserve":73}],72:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -2807,7 +2909,7 @@ var instanceOf = function (entity, typeName) {
 };
 
 module.exports = instanceOf;
-},{"./getType":66,"lodash":"EBUqFC"}],70:[function(require,module,exports){
+},{"./getType":69,"lodash":"EBUqFC"}],73:[function(require,module,exports){
 /**
  * reserve
  * Date: 16.06.14
@@ -2831,7 +2933,7 @@ var reserve = function (order) {
 };
 
 module.exports = reserve;
-},{"./getPositions":63,"./instanceOf":69,"lodash":"EBUqFC"}],71:[function(require,module,exports){
+},{"./getPositions":66,"./instanceOf":72,"lodash":"EBUqFC"}],74:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -2844,7 +2946,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":52}],72:[function(require,module,exports){
+},{"project/jsonix/context":55}],75:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -2893,7 +2995,7 @@ var ProviderAccessor = function () {
 };
 
 module.exports = ProviderAccessor;
-},{"./moysklad-client/rest-clients/ms-xml":24,"./moysklad-client/rest-clients/stock-json":44}],73:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/json":24,"./moysklad-client/rest-clients/ms-xml":31}],76:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -2914,7 +3016,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],74:[function(require,module,exports){
+},{}],77:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -3173,4 +3275,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":73,"lodash":"EBUqFC"}]},{},["1wiUUs"])
+},{"./callbackAdapter":76,"lodash":"EBUqFC"}]},{},["1wiUUs"])
