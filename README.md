@@ -2,6 +2,11 @@
 
 JavaScript клиент для работы с API SaaS сервиса [МойСклад](http://moysklad.ru).
 
+**[идет разработка]**
+
+----------
+
+
 ## Пример использования
 Пример кода для синхронного режима (удобно для описания бизнес логики)
 ```javascript
@@ -39,34 +44,31 @@ client.save(agent);
 
 ## Установка
 ### Node.js
-    1. Установка пакета:
+1. Установка пакета:
+    ```bash
+    $ npm install moysklad-client --save-dev
+    ```
 
-        ```bash
-        $ npm install moysklad-client --save-dev
-        ```
+2. Подключение:
+    ```js
+    var client = require('moysklad-client').createClient();
+    ```
+### Google Script
+1. Подключение библиотеки:
 
-    2. Подключение:
+    Ключ проекта
+    ```
+    MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
+    ```
 
-        ```js
-        var client = require('moysklad-client').createClient();
-    
-        var order = client.load('customerOrder', '3fd66e06-fd22-11e3-4d2a-002590a28eca');
-        ```
-### Node.js
-    1. Подключение библиотеки:
+2. Использование:
 
-        Ключ проекта
-        ```
-        MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
-        ```
+    ```js
+    var client = MoyskladClient.createClient();
+    ```
 
-    2. Использование:
-
-        ```js
-        var client = MoyskladClient.createClient();
-    
-        var order = client.load('customerOrder', '3fd66e06-fd22-11e3-4d2a-002590a28eca');
-        ```
+## Особенности
+[особенности]
 
 ## Документация
 [в разработке]
