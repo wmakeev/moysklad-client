@@ -26,5 +26,6 @@ module.exports = stampit()
         select              : require('./methods/select'),
         showArchived        : require('./methods/showArchived'),
         sort                : require('./methods/sort'),
+        orderBy             : require('./methods/sort'), // alias for sort
         sortMode            : require('./methods/sortMode')
     });

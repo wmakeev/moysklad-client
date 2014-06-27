@@ -1,4 +1,4 @@
-// moysklad-client 0.2.2-9 (bundle length 94103)
+// moysklad-client 0.2.2-9 (bundle length 94178)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -2169,6 +2169,7 @@ module.exports = stampit()
         select              : require('./methods/select'),
         showArchived        : require('./methods/showArchived'),
         sort                : require('./methods/sort'),
+        orderBy             : require('./methods/sort'), // alias for sort
         sortMode            : require('./methods/sortMode')
     });
 },{"./methods/fileContent":38,"./methods/filter":39,"./methods/getQueryParameters":40,"./methods/paging":41,"./methods/select":42,"./methods/showArchived":43,"./methods/sort":44,"./methods/sortMode":45,"./methods/uuids":46,"./query.filter.js":48,"./query.params.js":50,"stampit":"gaBrea"}],50:[function(require,module,exports){
