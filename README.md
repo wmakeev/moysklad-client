@@ -1,11 +1,11 @@
 # moysklad-client
 
-_moysklad-client_ - JavaScript клиент для работы с API SaaS сервиса МойСклад
+JavaScript клиент для работы с API SaaS сервиса [МойСклад](http://moysklad.ru).
 
 ## Пример использования
+Пример кода для синхронного режима
 ```javascript
 var client  = require('moysklad-client').createClient(),
-    _       = require('lodash');
 
 // Получаем самый большой заказ за 2013 год.
 var order = client.from('customerOrder')
@@ -33,3 +33,5 @@ agent.discount = 3;
 client.save(agent);
 ```
 
+## Применение
+Библиотека разработана для 
