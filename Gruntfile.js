@@ -5,7 +5,7 @@ var _ = require('lodash');
 module.exports = function (grunt) {
 
     var BANER = _.template([
-        '// <%= pkg.name %> <%= pkg.version %> (bundle)',
+        '// <%= pkg.name %> <%= pkg.version %> (bundle length <%= _src_length %>)',
         '// <%= description %>',
         '//',
         '// <%= pkg.author.name %> (<%= pkg.author.email %>)',
@@ -15,6 +15,7 @@ module.exports = function (grunt) {
 
     var postBundleProcessor = function (err, src, next) {
         if (!err) {
+            this._src_length = src.length;
             src = BANER(this) + src;
         }
         next(err, src);
