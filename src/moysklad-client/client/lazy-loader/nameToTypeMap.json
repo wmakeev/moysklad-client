@@ -1,13 +1,20 @@
 {
     "moysklad.customerOrder": {
         "sourceAgent": "company",
-        "targetAgent": "myCompany",
-        "sourceStore": "warehouse"
+        "targetAgent": "myCompany"
+    },
+
+    "moysklad.invoiceOut": {
+        "sourceAgent": "myCompany",
+        "targetAgent": "company"
     },
 
     "moysklad.contract": {
         "ownCompany": "myCompany"
     },
 
-    "demands": "demand"
+    "sourceStore": "warehouse",
+    "targetStore": "warehouse",
+    "demands": "demand",
+    "invoicesOut": "invoice"
 }
