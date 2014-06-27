@@ -10,6 +10,13 @@ var _ = require('lodash')
 //TODO Оформить синонимы как подмассив
 var bindingMethods = [ 'load', 'first', 'total' ];
 
+var chain = function (selector) {
+    if (selector && typeof selector === 'function') {
+        return _.chain(selector.call(this));
+    }
+    return _.chain(this.load());
+};
+
 /**
  * Возвращает запрос привязанный к указанному типу сущности.
  * Используется для более лаконичной записи зароса ввиде цепочки методов.
@@ -22,7 +29,9 @@ var from = function (type) {
     Query.enclose(function () {
         this.getType = function () {
             return type;
-        }
+        };
+
+        this.chain = chain;
     });
 
     var that = this;
