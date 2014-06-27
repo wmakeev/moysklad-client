@@ -43,26 +43,26 @@ client.save(agent);
 ## Установка
 ### Node.js
 1. Установка пакета:
-    ```bash
-    $ npm install moysklad-client --save-dev
-    ```
+```bash
+$ npm install moysklad-client --save-dev
+```
 
 2. Подключение:
-    ```js
-    var client = require('moysklad-client').createClient();
-    ```
+```js
+var client = require('moysklad-client').createClient();
+```
 
 ### Google Script
 1. Подключение библиотеки:
-    Ключ проекта
-    ```
-    MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
-    ```
+Ключ проекта
+```
+MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
+```
 
 2. Использование:
-    ```js
-    var client = MoyskladClient.createClient();
-    ```
+```js
+var client = MoyskladClient.createClient();
+```
 
 ## Особенности
 [особенности]
