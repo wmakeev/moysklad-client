@@ -51,16 +51,15 @@ client.save(agent);
     ```js
     var client = require('moysklad-client').createClient();
     ```
+
 ### Google Script
 1. Подключение библиотеки:
-
     Ключ проекта
     ```
     MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
     ```
 
 2. Использование:
-
     ```js
     var client = MoyskladClient.createClient();
     ```
