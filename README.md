@@ -34,4 +34,39 @@ client.save(agent);
 ```
 
 ## Применение
-Библиотека разработана для 
+Библиотека разработана для Node.js. 
+Настроена генерация сборок для [Google Script](http://www.google.com/script/start/) и браузера.
+
+## Установка
+### Node.js
+    1. Установка пакета:
+
+        ```bash
+        $ npm install moysklad-client --save-dev
+        ```
+
+    2. Подключение:
+
+        ```js
+        var client = require('moysklad-client').createClient();
+    
+        var order = client.load('customerOrder', '3fd66e06-fd22-11e3-4d2a-002590a28eca');
+        ```
+### Node.js
+    1. Подключение библиотеки:
+
+        Ключ проекта
+        ```
+        MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
+        ```
+
+    2. Использование:
+
+        ```js
+        var client = MoyskladClient.createClient();
+    
+        var order = client.load('customerOrder', '3fd66e06-fd22-11e3-4d2a-002590a28eca');
+        ```
+
+## Документация
+[в разработке]
