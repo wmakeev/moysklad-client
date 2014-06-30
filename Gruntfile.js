@@ -55,11 +55,12 @@ module.exports = function (grunt) {
                 dest: 'build/gs/vendor.gs',
                 options: {
                     pkg: pkg,
-                    description: 'Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix',
+                    description: 'Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix, moneytostr',
 
                     require: [
                         'xmldom',
-                        './vendor/jsonix'
+                        './vendor/jsonix',
+                        './vendor/moneytostr'
                     ],
                     alias: [
                         './node_modules/lodash/dist/lodash.min.js:lodash',
@@ -111,6 +112,7 @@ module.exports = function (grunt) {
                     external: [
                         'xmldom',
                         './vendor/jsonix',
+                        './vendor/moneytostr',
                         './res/mapping',
                         './res/mapping-xsd-fix'
                     ],
