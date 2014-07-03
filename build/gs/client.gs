@@ -1,4 +1,4 @@
-// moysklad-client 0.2.2-9 (bundle length 95093)
+// moysklad-client 0.2.2-10 (bundle length 95093)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)

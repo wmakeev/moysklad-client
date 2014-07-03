@@ -1,4 +1,4 @@
-// moysklad-client 0.2.2-9 (bundle length 129436)
+// moysklad-client 0.2.2-10 (bundle length 129436)
 // Сборка данных описывающих объектную модель сервиса МойСклад
 //
 // Vitaliy Makeev (w.makeev@gmail.com)

@@ -46,9 +46,12 @@ module.exports = function (grunt) {
             }
         },
 
+        //TODO Очень запутанное описание зборки (нужно дать подробные пояснения)
         browserify: {
 
-            'vendor': {
+            // Сборка для Google Script
+            // Набор библиотек
+            'vendor.gs': {
                 src: [
                     //'vendor/jsonix/index.js'
                 ],
@@ -74,8 +77,8 @@ module.exports = function (grunt) {
                     postBundleCB: postBundleProcessor
                 }
             },
-
-            'map': {
+            // Объектная модель
+            'map.gs': {
                 src: [],
                 dest: 'build/gs/map.gs',
                 options: {
@@ -90,8 +93,8 @@ module.exports = function (grunt) {
                     postBundleCB: postBundleProcessor
                 }
             },
-
-            'client': {
+            // Клиент
+            'client.gs': {
                 src: ['src/moysklad-client/index.js'],
                 dest: 'build/gs/client.gs',
                 options: {
@@ -125,29 +128,80 @@ module.exports = function (grunt) {
                     //fullPaths: true
                     postBundleCB: postBundleProcessor
                 }
+            },
+
+
+            // Сборка для браузера одним файлом
+            'moysklad-client.js': {
+                src: ['src/moysklad-client/index.js'],
+                dest: 'build/browser/moysklad-client.js',
+                options: {
+                    pkg: pkg,
+                    description: 'Сборка библиотеки moysklad-client для браузера',
+
+                    //standalone: 'Bundle',
+                    alias: getContextSpecificAliases('browser', [
+                        'fetch',
+                        'default-auth',
+                        'logger'
+                    ]).concat([
+                        './src/moysklad-client/index.js:moysklad-client',
+                        './node_modules/lodash/dist/lodash.min.js:lodash',
+                        './node_modules/moment/min/moment.min.js:moment',
+                        './node_modules/stampit/dist/stampit.min.js:stampit',
+                        './src/node_modules/project/xmldom/browser:xmldom'
+                    ]),
+                    exclude: ['fs', 'xmlhttprequest'],
+
+                    //fullPaths: true
+                    postBundleCB: postBundleProcessor
+                }
+            }
+        },
+
+        concat: {
+
+            // Сборка обертки для аддона Taist
+            taist: {
+                src: [
+                    'res/taist/start_wrapper.txt',
+                    'build/browser/moysklad-client.js',
+                    'res/taist/end_wrapper.txt'
+                ],
+                dest: 'build/taist/moysklad-client.js'
             }
         }
-
-        /*concat: {
-            'build/gs/bundle.gs': [
-                'build/gs/vendor.gs',
-                'build/gs/client.gs',
-                'build/gs/map.gs'
-            ]
-        }*/
 
     });
 
     grunt.loadNpmTasks('grunt-browserify');
-    //grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
-    grunt.registerTask('default', ['browserify']);
+    // Генерация пакетов для всех сред
+    grunt.registerTask('default', ['browserify', 'concat']);
 
-    grunt.registerTask('vendor', ['browserify:vendor']);
+    // Генерация объектной модели на основе XSD
     grunt.registerTask('map', ['copy:map']);
-    grunt.registerTask('client', ['browserify:client']);
 
-    grunt.registerTask('all', ['map', 'browserify']);
+    // Сборка для Google Script
+    grunt.registerTask('vendor.gs', ['browserify:vendor.gs']);
+    grunt.registerTask('map.gs',    ['browserify:map.gs']);
+    grunt.registerTask('client.gs', ['browserify:client.gs']);
+
+    grunt.registerTask('gs', [
+        'browserify:vendor.gs',
+        'browserify:map.gs',
+        'browserify:client.gs'
+    ]);
+
+    // Сборка для браузера
+    grunt.registerTask('browser', ['browserify:moysklad-client.js']);
+
+    // Сборка для taist
+    grunt.registerTask('taist', ['browserify:moysklad-client.js', 'concat:taist']);
+
+    // Генерация модели и сборок
+    grunt.registerTask('all', ['map', 'browserify', 'concat']);
 
 };

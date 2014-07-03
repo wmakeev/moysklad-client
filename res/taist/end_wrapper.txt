@@ -1,0 +1,5 @@
+
+    return {
+        start: function(taist, entryPoint) {}
+    };
+}
