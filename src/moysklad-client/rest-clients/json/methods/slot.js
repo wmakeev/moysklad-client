@@ -5,13 +5,13 @@
  */
 
 var _ = require('lodash')
-    , moment = require('moment');
+  , moment = require('moment');
 
 var slot = function (options, callback) {
 
-    //TODO Реализовать пейджинг по 50 шт
-    if (options.goodUuid.length > 50)
-        throw new Error('slot: good uuids array length more than 50 not supported now');
+    //TODO Callback adapter
+    if (!options.storeUuid)
+        throw new Error('slot: options.storeUuid not defined');
 
     var fetchOptions = {
         service : 'slot',
@@ -20,10 +20,15 @@ var slot = function (options, callback) {
         }
     };
 
-    if (options.goodUuid && options.goodUuid.length > 0)
-        fetchOptions.goodUuid = _.map(options.goodUuid, function (uuid) {
-            return 'goodUuid=' + uuid
-        }).join('&');
+    var goodUuids = (typeof options.goodUuid === 'string') ? [options.goodUuid] : options.goodUuid;
+
+    if (goodUuids && goodUuids.length > 0) {
+        //TODO Реализовать пейджинг по 50 шт
+        if (goodUuids.length > 50)
+            throw new Error('slot: good uuids array length more than 50 not supported now');
+
+        fetchOptions.params.goodUuid = goodUuids;
+    }
 
     this.fetch(fetchOptions, callback);
 };
