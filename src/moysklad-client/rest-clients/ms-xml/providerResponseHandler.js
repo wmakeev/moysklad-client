@@ -15,9 +15,6 @@ var _log            = require('project/logger'),
     _unmarshaller   = require('project/unmarshaller').create();
 
     if (!err) {
-        _log.info('request.url - ' + result.request.url);
-        _log.info('response.responseCode - ' + result.response.responseCode);
-        _log.info('response.contentText.length - ' + result.response.contentText.length);
 
         switch (result.response.responseCode) {
 
@@ -37,20 +34,20 @@ var _log            = require('project/logger'),
             // любой другой код ответа - ошибка
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
-                _log.log('Ответ сервера: \n' + result.response.contentText);
+                _log.log('Server response: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Server response error ' + result.response.responseCode), result, callback);
         }
 
         if (result.response.contentText.length > 0) {
 
-            _log.time('Response unmarshalling time');
+            //_log.time('Response unmarshalling time');
 
             data = result.response.contentXml ?
                 _unmarshaller.unmarshalDocument(result.response.contentXml) :
                 _unmarshaller.unmarshalString(result.response.contentText);
 
-            _log.timeEnd('Response unmarshalling time');
+            //_log.timeEnd('Response unmarshalling time');
 
             result.type = data.name.localPart;
 
