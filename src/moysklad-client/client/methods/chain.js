@@ -7,6 +7,8 @@
 var _               = require('lodash')
   , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
-var chain = function (type, query) {
+var chain = function () {
+    return _.chain(this.load.apply(this, arguments));
+};
 
-}
+module.exports = chain;

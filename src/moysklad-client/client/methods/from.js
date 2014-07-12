@@ -8,14 +8,7 @@ var _ = require('lodash')
   , Query = require('./../../rest-clients/ms-xml/query/index').Query;
 
 //TODO Оформить синонимы как подмассив
-var bindingMethods = [ 'load', 'first', 'total' ];
-
-var chain = function (selector) {
-    if (selector && typeof selector === 'function') {
-        return _.chain(selector.call(this));
-    }
-    return _.chain(this.load());
-};
+var bindingMethods = [ 'load', 'first', 'total', 'chain' ];
 
 /**
  * Возвращает запрос привязанный к указанному типу сущности.
@@ -30,8 +23,6 @@ var from = function (type) {
         this.getType = function () {
             return type;
         };
-
-        this.chain = chain;
     });
 
     var that = this;

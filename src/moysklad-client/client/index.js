@@ -18,6 +18,7 @@ var clientMethods = {
     // Ms
     from:   require('./methods/from'),
     load:   require('./methods/load'),
+    chain:  require('./methods/chain'),
     first:  require('./methods/first'),
     total:  require('./methods/total'),
     save:   require('./methods/save'),
@@ -27,7 +28,6 @@ var clientMethods = {
 
     // LazyLoader
     createLazyLoader:   require('./lazy-loader')
-
 };
 
 var jsonServiceMethods = require('./methods/json-service');
