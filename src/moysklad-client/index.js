@@ -5,17 +5,18 @@
  */
 
 var client = require('./client')
+  , query  = require('./rest-clients/ms-xml/query')
   , logger = require('project/logger');
 
 
 module.exports = {
 
     createClient: function () {
-        //logger.time('createClient');
         return client.apply(this, [null].concat(Array.prototype.slice.call(arguments, 0)));
-        //logger.timeEnd('createClient');
     },
 
-    Tools: require('project/tools'),
+    createQuery: query.createQuery,
+
+    tools: require('project/tools'),
     logger: require('project/logger')
 };
