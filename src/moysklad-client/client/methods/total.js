@@ -8,7 +8,7 @@ var _               = require('lodash')
   , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
 /**
- * First. Получает сущность по идентификатору или список сущностей согласно запросу.
+ *
  * @param {String} type Тип сущности
  * @param {Object} query Объект запроса для фильтрации сущностей
  * @param {Function=} callback

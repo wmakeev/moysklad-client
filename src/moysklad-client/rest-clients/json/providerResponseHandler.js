@@ -13,9 +13,6 @@ var providerResponseHandler = function (err, result, callback) {
 
     // .. этот кусок общий для всех
     if (!err) {
-        _log.info('request.url - ' + result.request.url);
-        _log.info('response.responseCode - ' + result.response.responseCode);
-        _log.info('response.contentText.length - ' + result.response.contentText.length);
 
         switch (result.response.responseCode) {
 
@@ -45,11 +42,7 @@ var providerResponseHandler = function (err, result, callback) {
         }
 
         if (result.response.contentText.length > 0) {
-            _log.time('Response JSON parse time');
-
             result.obj = JSON.parse(result.response.contentText);
-
-            _log.timeEnd('Response JSON parse time');
         }
     }
 

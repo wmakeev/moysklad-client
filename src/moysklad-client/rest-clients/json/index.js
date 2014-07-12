@@ -27,3 +27,5 @@ var stockJsonClient = stampit()
     });
 
 module.exports = stockJsonClient;
+
+//TODO Написать необходимые Enum'ы

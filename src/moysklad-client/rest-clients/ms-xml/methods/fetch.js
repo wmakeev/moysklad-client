@@ -33,9 +33,7 @@ var fetch = function (options, callback) {
     if (options.payload)
         fetchOptions.payload = _marshaller.marshalString(options.payload);
 
-    _log.time('Fetch from service time');
     _fetchProvider.fetch(fetchOptions, function (err, result) {
-        _log.timeEnd('Fetch from service time');
         return fetchProviderRespHandler(err, result, callback);
     });
 };
