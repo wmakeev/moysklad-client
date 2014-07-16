@@ -1,12 +1,19 @@
-# moysklad-client
+# **moysklad-client**
 
-JavaScript клиент для работы с API SaaS сервиса [МойСклад](http://moysklad.ru).
+[![NPM](https://nodei.co/npm/moysklad-client.png?downloads=true&stars=true)](https://nodei.co/npm/moysklad-client/)
 
-**[идет разработка]**
+**JavaScript клиент для работы с API SaaS сервиса** [МойСклад](http://moysklad.ru).
+
+> **ВНИМАНИЕ!**
+> Библиотека находится на стадии становления и пока не покрыта тестами, поэтому будьте осторожны при использовании функционала обновления данных, т.к. есть вероятность наличия ошибок.
+
+> **Приветствуются** любые предложения касательно интерфейса и расширения функциональности библиотеки.
+
+> Информацию об ошибках, вопросы и предложениях просьба оставлять в раздле [Issues](https://github.com/wmakeev/moysklad-client/issues?state=open)
 
 
 ## Пример использования
-Пример кода для синхронного режима (удобно для описания бизнес логики)
+Пример кода в [синхронном режиме](/wmakeev/moysklad-client/wiki/quick-start#%D0%A1%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC):
 ```javascript
 var client  = require('moysklad-client').createClient(),
 
@@ -19,8 +26,7 @@ var order = client.from('customerOrder')
     .orderBy('sum.sum', 'desc')
     .first();
 
-// Привязываем ленивую загрузку, после чего можно будет обращаться к связаным сущностям
-// напр. order.sourceAgent.name
+// Привязываем ленивую загрузку, после чего можно будет обращаться к связанным сущностям, напр. order.sourceAgent.name
 client.createLazyLoader().attach(order);
 
 // Клиент оформивший заказ
@@ -29,16 +35,12 @@ var agent = order.sourceAgent;
 console.log('Лучший клиент 2013 года - ' + agent.name);
 console.log('оформил заказ на сумму ' + order.sum.sum / 100 + ' руб.');
 
-// Давйте сделаем хорошему человеку скидку 3%!
+// Давйте сделаем хорошему клиенту скидку 3%!
 agent.discount = 3;
 
 // Сохраним контрагента с измененной скидкой в МойСклад
 client.save(agent);
 ```
-
-## Применение
-Библиотека разработана для Node.js. 
-Настроена генерация сборок для [Google Script](http://www.google.com/script/start/) и браузера.
 
 ## Установка
 ### Node.js
@@ -53,23 +55,16 @@ client.save(agent);
     ```js
     var client = require('moysklad-client').createClient();
     ```
-
-### Google Script
-1. Подключение библиотеки:
-
-    Ключ проекта
-    ```
-    MLCI59nqTVFXnUiFFdN0ODv83WiXiLvsc
-    ```
-
-2. Использование:
-
-    ```js
-    var client = MoyskladClient.createClient();
-    ```
+    
+Настройка библиотеки для других сред описана в разделе документации [Быстрый старт](/wmakeev/moysklad-client/wiki/quick-start)
 
 ## Особенности
-[особенности]
+
+- Взаимодействие с МойСклад на любой платформе и среде где может выполнятся JavaScript код.
+- Поддержка синхронного (браузер, [Google Script](http://www.google.com/script/start/), [Taist](http://www.tai.st/)) и асинхронного ([node.js](http://nodejs.org/)) режима разработки.
+- Поддержка всех возможностей API МойСклад.
+- Реализована полная объектная модель сервиса на основе официальной [схемы данных](https://online.moysklad.ru/exchange/schema/MOYsklad.xsd).
+- Описание объектной модели отделено от программного кода библиотеки, что сокращает расходы на поддержку при обновлениях МойСклад.
 
 ## Документация
-[в разработке]
+Полная документация представлена [в разделе Wiki](/wmakeev/moysklad-client/wiki)
