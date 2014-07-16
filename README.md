@@ -13,7 +13,7 @@
 
 
 ## Пример использования
-Пример кода в [синхронном режиме](/wmakeev/moysklad-client/wiki/quick-start#%D0%A1%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC):
+Пример кода в [синхронном режиме](https://github.com/wmakeev/moysklad-client/wiki/quick-start#%D0%A1%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%BD%D1%8B%D0%B9-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC):
 ```javascript
 var client  = require('moysklad-client').createClient(),
 
@@ -56,7 +56,7 @@ client.save(agent);
     var client = require('moysklad-client').createClient();
     ```
     
-Настройка библиотеки для других сред описана в разделе документации [Быстрый старт](/wmakeev/moysklad-client/wiki/quick-start)
+Настройка библиотеки для других сред описана в разделе документации [Быстрый старт](https://github.com/wmakeev/moysklad-client/wiki/quick-start)
 
 ## Особенности
 
@@ -67,4 +67,4 @@ client.save(agent);
 - Описание объектной модели отделено от программного кода библиотеки, что сокращает расходы на поддержку при обновлениях МойСклад.
 
 ## Документация
-Полная документация представлена [в разделе Wiki](/wmakeev/moysklad-client/wiki)
+Полная документация представлена [в разделе Wiki](https://github.com/wmakeev/moysklad-client/wiki)
