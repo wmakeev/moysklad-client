@@ -30,10 +30,21 @@ function convertValue(value) {
     }
 }
 
-module.exports = {
+var operators = {
 
     //
-    anyOf: function (values) {
+    anyOf: function () {
+        var values;
+
+        if (arguments.length == 1 && arguments[0] instanceof Array)
+            values = arguments[0];
+
+        else if (arguments.length > 0)
+            values = Array.prototype.slice.call(arguments, 0);
+
+        else
+            throw new Error('anyOf: no argumets');
+
         return {
             type: 'QueryOperatorResult',
             filter: _.map(values, function (value) {
@@ -41,9 +52,6 @@ module.exports = {
             })
         };
     },
-
-    // Алиас для anyOf в терминалогии MongoDB
-    $in: this.anyOf,
 
     //
     between: function (value1, value2) {
@@ -61,8 +69,6 @@ module.exports = {
         };
     },
 
-    $gt: this.greaterThen,
-
     //
     greaterThanOrEqualTo: function (value) {
         return {
@@ -70,8 +76,6 @@ module.exports = {
             filter: [ '>=' + convertValue(value) ]
         };
     },
-
-    $gte: this.greaterThanOrEqualTo,
 
     //
     lessThan: function (value) {
@@ -81,16 +85,21 @@ module.exports = {
         };
     },
 
-    $lt: this.lessThan,
-
     //
     lessThanOrEqualTo: function (value) {
         return {
             type: 'QueryOperatorResult',
             filter: [ '<=' + convertValue(value) ]
         };
-    },
-
-    $lte: this.lessThanOrEqualTo
+    }
 
 };
+
+operators.$in   = operators.anyOf;
+operators.$bt   = operators.between;
+operators.$gt   = operators.greaterThen;
+operators.$gte  = operators.greaterThanOrEqualTo;
+operators.$lt   = operators.lessThan;
+operators.$lte  = operators.lessThanOrEqualTo;
+
+module.exports = operators;
