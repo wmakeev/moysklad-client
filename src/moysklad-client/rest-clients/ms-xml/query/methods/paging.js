@@ -25,6 +25,10 @@ module.exports = {
 
     count: function () {
         return addPaging.call(this, 'count', arguments);
+    },
+
+    page: function (number, size) {
+        this.start((number - 1) * size).count(size);
     }
 
 };

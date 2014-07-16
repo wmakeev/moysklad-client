@@ -42,6 +42,11 @@ var Client = stampit()
         options: {
             filterLimit: 50,
             allowNotFilterOperators: false
+        },
+
+        sortMode: {
+            ASC: 'asc',
+            DESC: 'desc'
         }
     })
 
