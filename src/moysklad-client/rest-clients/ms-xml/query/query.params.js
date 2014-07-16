@@ -8,7 +8,8 @@ var _ = require('lodash')
     , Is = require('../../../../tools').Is;
 
 module.exports = function () {
-    var _params = {};
+    var that = this,
+        _params = {};
 
     //TODO Проверить входные
     this.getParameter = function (name) {
@@ -27,5 +28,13 @@ module.exports = function () {
     this.setParameters = function (parameters) {
         //TODO Ensure Object
         _.extend(_params, parameters);
+    };
+
+    if (arguments[1]) {
+        _.forOwn(arguments[1], function (value, key) {
+            if (typeof that[key] === 'function') {
+                that[key](value);
+            }
+        });
     }
 };

@@ -34,4 +34,6 @@ module.exports = function () {
         }
         return this;
     };
+
+    if (arguments[0]) this.appendFilter(arguments[0]);
 };
