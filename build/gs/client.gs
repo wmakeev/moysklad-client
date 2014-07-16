@@ -1,4 +1,4 @@
-// moysklad-client 0.2.2-13 (bundle length 95402)
+// moysklad-client 0.2.2-13 (bundle length 96994)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -136,6 +136,11 @@ var Client = stampit()
         options: {
             filterLimit: 50,
             allowNotFilterOperators: false
+        },
+
+        sortMode: {
+            ASC: 'asc',
+            DESC: 'desc'
         }
     })
 
@@ -1687,14 +1692,10 @@ module.exports = providerResponseHandler;
 
 var Query = require('./query');
 
-//TODO Можно передавать параметры в конструктор. Убрать обертку для .create()
-
 module.exports = {
 
-    //TODO Можно передать и список других запросов для объединения в один. Почему нет.
-    createQuery: function (queryObj) {
-        var query = Query.create();
-        return queryObj ? query.appendFilter(queryObj) : query;
+    createQuery: function (queryObj, options) {
+        return Query.create(null, queryObj, options);
     },
 
     Query: Query
@@ -1742,9 +1743,10 @@ module.exports = filter;
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , moment = require('moment')
-    , Ensure = require('../../../../../tools/index').Ensure;
+var _           = require('lodash')
+  , moment      = require('moment')
+  , Ensure      = require('../../../../../tools/index').Ensure
+  , operators   = require('../operators');
 
 //TODO Описать параметры и скорректировать наименование
 /**
@@ -1773,7 +1775,26 @@ function _flattenFilter(obj, path, filter) {
             filter[curPath] = value.filter;
 
         } else if (value instanceof Object) {
-            _flattenFilter(value, curPath, filter);
+            var keys = _.keys(value);
+
+            if (keys.length == 0)
+                throw new TypeError('Empty key value [' + curPath + '] in filter object.');
+
+            if (keys[0].substring(0, 1) == '$') {
+                filter[curPath] = [];
+
+                _.forEach(keys, function (key) {
+                    var operator = operators[key];
+                    if (typeof operator !== 'function')
+                        throw new TypeError('Incorrect operator [' + key + '] in filter object [' + curPath + ']');
+
+                    filter[curPath] = filter[curPath].concat(operator(value[key]).filter);
+                });
+
+            } else {
+
+                _flattenFilter(value, curPath, filter);
+            }
 
         } else {
             throw new TypeError('Incorrect key value [' + curPath + '] in filter object.');
@@ -1845,7 +1866,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":80,"lodash":"EBUqFC","moment":"2V8r5n"}],42:[function(require,module,exports){
+},{"../../../../../tools/index":80,"../operators":48,"lodash":"EBUqFC","moment":"2V8r5n"}],42:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -1873,6 +1894,10 @@ module.exports = {
 
     count: function () {
         return addPaging.call(this, 'count', arguments);
+    },
+
+    page: function (number, size) {
+        this.start((number - 1) * size).count(size);
     }
 
 };
@@ -2043,10 +2068,21 @@ function convertValue(value) {
     }
 }
 
-module.exports = {
+var operators = {
 
     //
-    anyOf: function (values) {
+    anyOf: function () {
+        var values;
+
+        if (arguments.length == 1 && arguments[0] instanceof Array)
+            values = arguments[0];
+
+        else if (arguments.length > 0)
+            values = Array.prototype.slice.call(arguments, 0);
+
+        else
+            throw new Error('anyOf: no argumets');
+
         return {
             type: 'QueryOperatorResult',
             filter: _.map(values, function (value) {
@@ -2054,9 +2090,6 @@ module.exports = {
             })
         };
     },
-
-    // Алиас для anyOf в терминалогии MongoDB
-    $in: this.anyOf,
 
     //
     between: function (value1, value2) {
@@ -2074,8 +2107,6 @@ module.exports = {
         };
     },
 
-    $gt: this.greaterThen,
-
     //
     greaterThanOrEqualTo: function (value) {
         return {
@@ -2083,8 +2114,6 @@ module.exports = {
             filter: [ '>=' + convertValue(value) ]
         };
     },
-
-    $gte: this.greaterThanOrEqualTo,
 
     //
     lessThan: function (value) {
@@ -2094,19 +2123,24 @@ module.exports = {
         };
     },
 
-    $lt: this.lessThan,
-
     //
     lessThanOrEqualTo: function (value) {
         return {
             type: 'QueryOperatorResult',
             filter: [ '<=' + convertValue(value) ]
         };
-    },
-
-    $lte: this.lessThanOrEqualTo
+    }
 
 };
+
+operators.$in   = operators.anyOf;
+operators.$bt   = operators.between;
+operators.$gt   = operators.greaterThen;
+operators.$gte  = operators.greaterThanOrEqualTo;
+operators.$lt   = operators.lessThan;
+operators.$lte  = operators.lessThanOrEqualTo;
+
+module.exports = operators;
 },{"lodash":"EBUqFC","moment":"2V8r5n"}],49:[function(require,module,exports){
 /**
  * query.filter
@@ -2144,6 +2178,8 @@ module.exports = function () {
         }
         return this;
     };
+
+    if (arguments[0]) this.appendFilter(arguments[0]);
 };
 },{"../../../../tools/index":80,"lodash":"EBUqFC"}],50:[function(require,module,exports){
 /**
@@ -2155,19 +2191,17 @@ module.exports = function () {
 var stampit = require('stampit');
 
 
-module.exports = stampit()
-
-    // Properties
-    //
-    .enclose(require('./query.params.js')) // _params
-    .enclose(require('./query.filter.js')) // _filter
+var Query = stampit()
 
     // Methods
     //
     .methods({
         getQueryParameters  : require('./methods/getQueryParameters'),
         start               : require('./methods/paging').start,
+        skip                : require('./methods/paging').start,
         count               : require('./methods/paging').count,
+        limit               : require('./methods/paging').count,
+        page                : require('./methods/paging').page,
         filter              : require('./methods/filter'),
         uuids               : require('./methods/uuids'),
         fileContent         : require('./methods/fileContent'),
@@ -2176,7 +2210,15 @@ module.exports = stampit()
         sort                : require('./methods/sort'),
         orderBy             : require('./methods/sort'), // alias for sort
         sortMode            : require('./methods/sortMode')
-    });
+    })
+
+    // Properties
+    //
+    .enclose(require('./query.params.js'))  // _params
+    .enclose(require('./query.filter.js')); // _filter
+
+
+module.exports = Query;
 },{"./methods/fileContent":39,"./methods/filter":40,"./methods/getQueryParameters":41,"./methods/paging":42,"./methods/select":43,"./methods/showArchived":44,"./methods/sort":45,"./methods/sortMode":46,"./methods/uuids":47,"./query.filter.js":49,"./query.params.js":51,"stampit":"gaBrea"}],51:[function(require,module,exports){
 /**
  * query.params
@@ -2188,7 +2230,8 @@ var _ = require('lodash')
     , Is = require('../../../../tools').Is;
 
 module.exports = function () {
-    var _params = {};
+    var that = this,
+        _params = {};
 
     //TODO Проверить входные
     this.getParameter = function (name) {
@@ -2207,6 +2250,14 @@ module.exports = function () {
     this.setParameters = function (parameters) {
         //TODO Ensure Object
         _.extend(_params, parameters);
+    };
+
+    if (arguments[1]) {
+        _.forOwn(arguments[1], function (value, key) {
+            if (typeof that[key] === 'function') {
+                that[key](value);
+            }
+        });
     }
 };
 },{"../../../../tools":80,"lodash":"EBUqFC"}],"u3XsFq":[function(require,module,exports){

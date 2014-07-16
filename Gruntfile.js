@@ -202,6 +202,6 @@ module.exports = function (grunt) {
     grunt.registerTask('taist', ['browserify:moysklad-client.js', 'concat:taist']);
 
     // Генерация модели и сборок
-    grunt.registerTask('all', ['map', 'browserify', 'concat']);
+    grunt.registerTask('all', ['map', 'browserify', 'concat:taist']);
 
 };

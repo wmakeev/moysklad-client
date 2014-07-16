@@ -28,6 +28,7 @@
   <xs:element name="enter" type="enter"/>  
   <xs:element name="entityTemplatesMetadata" type="entityTemplatesMetadata"/>  
   <xs:element name="exchange" type="exchangeContainer"/>  
+  <xs:element name="expenseItem" type="expenseItem"/>  
   <xs:element name="factureIn" type="factureIn"/>  
   <xs:element name="factureOut" type="factureOut"/>  
   <xs:element name="feature" type="feature"/>  
@@ -144,7 +145,6 @@
       <xs:extension base="accountEntity">
         <xs:sequence>
           <xs:element minOccurs="0" name="groupUuid" type="xs:string"/>
-          <xs:element minOccurs="0" name="groupId" type="xs:string"/>
         </xs:sequence>
         <xs:attribute name="readMode" type="accessMode"/>
         <xs:attribute name="changeMode" type="accessMode"/>
@@ -1686,11 +1686,19 @@
     <xs:complexContent>
       <xs:extension base="finance">
         <xs:sequence/>
+        <xs:attribute name="expenseItemUuid" type="xs:IDREF"/>
         <xs:attribute name="factureInUuid" type="xs:IDREF"/>
         <xs:attribute name="invoiceInUuid" type="xs:IDREF"/>
         <xs:attribute name="purchaseOrderUuid" type="xs:IDREF"/>
         <xs:attribute name="salesReturnUuid" type="xs:IDREF"/>
         <xs:attribute name="supplyUuid" type="xs:IDREF"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="expenseItem">
+    <xs:complexContent>
+      <xs:extension base="predefinedLegendableEntity">
+        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -2312,8 +2320,6 @@
       <xs:enumeration value="SHOPIUM"/>
       <xs:enumeration value="VIRTUEMART"/>
       <xs:enumeration value="ADVANTSHOP"/>
-      <xs:enumeration value="RUXONCMS"/>
-      <xs:enumeration value="AGORAPLATFORM"/>
     </xs:restriction>
   </xs:simpleType> 
 </xs:schema>
