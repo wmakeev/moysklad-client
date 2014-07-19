@@ -1,4 +1,4 @@
-// moysklad-client 0.2.2-13 (bundle length 96994)
+// moysklad-client 0.2.3 (bundle length 97252)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -98,12 +98,12 @@ module.exports = AuthProvider;
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                           = require('lodash')
-    , stampit                   = require('stampit')
-    , Query                     = require('./../rest-clients/ms-xml/query')
-    , operators                 = require('./../rest-clients/ms-xml/query/operators')
-    , authProviderBehavior      = require('./../../authProviderBehavior')
-    , providerAccessorBehavior  = require('./../../providerAccessorBehavior');
+var _                         = require('lodash')
+  , stampit                   = require('stampit')
+  , Query                     = require('./../rest-clients/ms-xml/query')
+  , operators                 = require('./../rest-clients/ms-xml/query/operators')
+  , authProviderBehavior      = require('./../../authProviderBehavior')
+  , providerAccessorBehavior  = require('./../../providerAccessorBehavior');
 
 /**
  * @lends Client.prototype
@@ -320,15 +320,13 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
         return states;
     }, []);
 
-    //TODO Нет четкого понимания когда и где привязывается LazyLoader к загруженным св-вам. Привязываем где попало, что создает путаницу (сложно понимать код)
     if (typeof uuids === 'string') {
-        //TODO Добавляем без привязки LazyLoader'а (не критично для slot)
+        //Добавляем без привязки LazyLoader'а (не критично для slot)
         that.entityHash.add(states); // Массив с одним элементом
         return that.entityHash.get(uuids);
     }
     else if (uuids instanceof Array) {
-        // Возвращаем все ячейки (выше они будут добавелны в Hash и привязан LazyLoader) //TODO А где именно? Не очевидно.
-        // TODO Нужно учитывать, что фактически возвращаем не то, что запрошено
+        // Нужно учитывать, что фактически возвращаем не то, что запрошено
         return states;
     }
 
@@ -358,25 +356,23 @@ var _ = require('lodash');
 function defProperty (entity, propertyName, uuids, path, batches, containerEntity) {
     if (!uuids) return;
 
-    //console.log(path); //TODO DEBUG
-
     var batchName = _.find(batches, function(batchItem) {
         //noinspection JSReferencingMutableVariableFromClosure
-        //TODO !!! Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
+        //TODO Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
         return path.slice(-batchItem.length) == batchItem; 
     });
 
     if (batchName) this.batch.addUuids(batchName, uuids);
 
     var that = this;
-    //TODO !!! Функционал getTypeOfProperty нужно перемесить в customFetch
+    //TODO Функционал getTypeOfProperty нужно перемесить в customFetch?
     //TODO Возможно получение Demands решить аналогично через customFetch, а не через batch
     Object.defineProperty(entity, propertyName, {
         get: function () {
             var type = that.getTypeOfProperty(propertyName, entity);
             return that.getEntities(type, uuids, path, batchName, batches, containerEntity);
         },
-        enumerable: false,  //TODO false ?
+        enumerable: false,
         configurable: true
     });
 }
@@ -438,7 +434,7 @@ function entityHash () {
                     return !_entityHash[uuid];
                 });
             } else {
-                return _entityHash[uuids] ? null : [uuids];
+                return _entityHash[uuids] ? [] : [uuids];
             }
         }
     };
@@ -471,7 +467,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 
         if (this.batch.isExsist(batchName)) {
 
-            var batchUuids = this.batch.take(batchName);
+            var batchUuids = this.entityHash.filterNotExist(this.batch.take(batchName));
 
             if (batchUuids.length > 0) {
 
@@ -482,8 +478,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
                 } else {
                     entities = client.from(type)
                         .uuids(batchUuids)
-                        .fileContent(this.fileContent)
-                        .load();
+                        .load({ fileContent: this.fileContent });
                 }
 
                 _.forEach(entities, function (entityItem) {
@@ -636,6 +631,9 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
         bindingMethods.push('instanceOf');
     }
 
+    if (tools.instanceOf(entity, 'order'))
+        bindingMethods.push('reserve');
+
     // Привязываем универсальный метод доступа к позициям документа (если применимо)
     if (tools.instanceOf(entity, 'operationWithPositions'))
         bindingMethods.push('getPositions');
@@ -666,8 +664,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     });
 */
 
-    //TODO Нужно составить подробный алгоритм для каждого случая ..
-    // .. возможно сделать два цикла по ключам объекта и по массиву
+    //TODO Перепроверить логику обхода гарфа объекта
     for (var key in entity) {
         var subEntity = entity[key];
 
@@ -862,20 +859,23 @@ module.exports = from;
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('../../../tools/index').callbackAdapter;
+  , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
+//TODO Вероятно нужно перенести этот модуль в rest-clients/json (для целостности пониманя работы модуля)
 
-var callService = function () {
+var callService = function (serviceName) {
     var args        = _.toArray(arguments)
       , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , serviceName = args[0]
-      , options     = typeof args[1] === 'object' ? args[1] : {}
       , _restClient = this.getProvider('json-services')
       , _obj        = null;
 
-    _restClient[serviceName](options, function (err, data) {
+    var serviceArgs = args.slice(1, args.length - (callback ? 1 : 0));
+
+    serviceArgs.push(function (err, data) {
         _obj = callbackAdapter(err, data.obj, callback);
     });
+
+    _restClient[serviceName].apply(_restClient, serviceArgs);
 
     return _obj;
 };
@@ -919,6 +919,7 @@ var load = function (type, query) {
     //TODO Ensure
     var args = _.toArray(arguments)
       , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
+      , options = typeof args[2] === 'object' ? args[2] : {}
       , _queryParametersList
       , _restClient = this.getProvider('ms-xml')
       , _obj = null;
@@ -956,18 +957,14 @@ var load = function (type, query) {
         }
     }
 
-    //TODO Обработать [ uuid ] массив идентификаторов (преобразовать в query)
+    if (query instanceof Array)
+        query = this.createQuery({}, options).uuids(query);
 
     // uuid ..
     if (typeof query == 'string') {
         var params = { uuid: query };
 
-        // options (fileContent)
-        if (args[2] && 'fileContent' in args[2])
-            if (params.fileContent || args[2].fileContent)
-                params.fileContent = args[2].fileContent;
-
-        // loadPartial?
+        if (options.fileContent) params.fileContent = true;
 
         _restClient.get(type, params, function (err, data) {
             _obj = callbackAdapter(err, data.obj, callback);
@@ -990,7 +987,7 @@ var load = function (type, query) {
 
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
+        return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), null, callback);
     }
 
     return _obj;
@@ -1176,7 +1173,7 @@ var fetch = function (options, callback) {
         query;
 
     if (options.params) {
-        query = '/?' + _.reduce(options.params, function (result, value, key) {
+        query = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
             _.forEach(itemValues, function (itemValue) {
@@ -1188,6 +1185,8 @@ var fetch = function (options, callback) {
 
             return result;
         }, []).join('&');
+
+        query = query ? '/?' + query : null;
     }
 
     var fetchOptions = _.extend({
@@ -1217,9 +1216,19 @@ module.exports = fetch;
  */
 
 var _ = require('lodash')
-    , moment = require('moment');
+  , moment = require('moment');
 
-var list = function (options, callback) {
+var list = function () {
+
+    var args        = _.toArray(arguments)
+      , options     = (typeof args[0] === 'object') ? args[0] : null
+      , callback;
+
+    var lastArg = args.slice(-1)[0];
+    if (typeof lastArg === 'function')
+        callback = lastArg;
+    else
+        throw new Error('callback not defined');
 
     var fetchOptions = {
         service : 'mutualSettlement',
@@ -1230,11 +1239,22 @@ var list = function (options, callback) {
     this.fetch(fetchOptions, callback);
 };
 
-var customer = function (options, callback) {
+var customer = function (customerUuid) {
+
+    var args        = _.toArray(arguments)
+      , options     = (typeof args[1] === 'object') ? args[0] : null
+      , callback;
+
+    var lastArg = args.slice(-1)[0];
+    if (typeof lastArg === 'function')
+        callback = lastArg;
+    else
+        throw new Error('callback not defined');
+
     var fetchOptions = {
         service : 'mutualSettlement',
-        path    : '/customer' + '/' + options.customerUuid,
-        params  : _.omit(options, 'customerUuid')
+        path    : '/customer/' + customerUuid,
+        params  : options
     };
 
     this.fetch(fetchOptions, callback);
@@ -3037,7 +3057,7 @@ var isInstanceOf = function (entityType, superType) {
  */
 var instanceOf = function (entity, typeName) {
 
-    var entityType = entity.TYPE_NAME ? entity.TYPE_NAME : entity;
+    var entityType = entity.TYPE_NAME || entity;
 
     if (typeof entityType === 'string') {
         // moysklad.{type}
@@ -3047,7 +3067,7 @@ var instanceOf = function (entity, typeName) {
         return isInstanceOf(entityType, typeName);
     }
 
-    return null;
+    return false;
 };
 
 module.exports = instanceOf;
@@ -3097,8 +3117,8 @@ module.exports = {
 
 var _providersConstructors = {
     // Получаю модули не динамически, иначе сборщик не увидит модуль
-    'ms-xml': require('./moysklad-client/rest-clients/ms-xml'),
-    'json-services': require('./moysklad-client/rest-clients/json')
+    'ms-xml'        : require('./moysklad-client/rest-clients/ms-xml'),
+    'json-services' : require('./moysklad-client/rest-clients/json')
 } ;
 
 var requireProviderCtor = function (name) {
@@ -3129,7 +3149,7 @@ var ProviderAccessor = function () {
         return _providers[name];
     };
 
-    this.addProvider = function (name, provider) {
+    this.setProvider = function (name, provider) {
 
         if (name && provider) _providers[name] = provider;
         return this;
