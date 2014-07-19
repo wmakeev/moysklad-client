@@ -68,3 +68,6 @@ client.save(agent);
 
 ## Документация
 Полная документация представлена [в разделе Wiki](https://github.com/wmakeev/moysklad-client/wiki)
+
+## Версии
+Все изменения отмечаются в разделе [Releases](https://github.com/wmakeev/moysklad-client/releases)
