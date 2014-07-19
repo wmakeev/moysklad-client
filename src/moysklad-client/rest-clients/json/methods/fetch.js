@@ -16,7 +16,7 @@ var fetch = function (options, callback) {
         query;
 
     if (options.params) {
-        query = '/?' + _.reduce(options.params, function (result, value, key) {
+        query = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
             _.forEach(itemValues, function (itemValue) {
@@ -28,6 +28,8 @@ var fetch = function (options, callback) {
 
             return result;
         }, []).join('&');
+
+        query = query ? '/?' + query : null;
     }
 
     var fetchOptions = _.extend({

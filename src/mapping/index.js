@@ -132,7 +132,7 @@ function addAttributes(typeInfo, attributes_xsd) {
 // Elements
 function addElements(typeInfo, elements_xsd) {
     //TODO И проверить что генерация модели правильно обработает name вместо elmentName
-    //TODO Добавить множественное окончание для массивов "s" - pluralize()
+    //TODO Добавить множественное окончание для массивов "s" - pluralize()?
 
     _.forEach(elements_xsd instanceof Array ? elements_xsd : [elements_xsd], function (element_xsd) {
         var propertyInfo = {

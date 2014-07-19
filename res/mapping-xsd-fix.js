@@ -293,5 +293,3 @@ module.exports = {
         }
     ]
 };
-
-//module.exports = xsdFix;

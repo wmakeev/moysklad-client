@@ -53,7 +53,7 @@ function entityHash () {
                     return !_entityHash[uuid];
                 });
             } else {
-                return _entityHash[uuids] ? null : [uuids];
+                return _entityHash[uuids] ? [] : [uuids];
             }
         }
     };

@@ -5,9 +5,19 @@
  */
 
 var _ = require('lodash')
-    , moment = require('moment');
+  , moment = require('moment');
 
-var list = function (options, callback) {
+var list = function () {
+
+    var args        = _.toArray(arguments)
+      , options     = (typeof args[0] === 'object') ? args[0] : null
+      , callback;
+
+    var lastArg = args.slice(-1)[0];
+    if (typeof lastArg === 'function')
+        callback = lastArg;
+    else
+        throw new Error('callback not defined');
 
     var fetchOptions = {
         service : 'mutualSettlement',
@@ -18,11 +28,22 @@ var list = function (options, callback) {
     this.fetch(fetchOptions, callback);
 };
 
-var customer = function (options, callback) {
+var customer = function (customerUuid) {
+
+    var args        = _.toArray(arguments)
+      , options     = (typeof args[1] === 'object') ? args[0] : null
+      , callback;
+
+    var lastArg = args.slice(-1)[0];
+    if (typeof lastArg === 'function')
+        callback = lastArg;
+    else
+        throw new Error('callback not defined');
+
     var fetchOptions = {
         service : 'mutualSettlement',
-        path    : '/customer' + '/' + options.customerUuid,
-        params  : _.omit(options, 'customerUuid')
+        path    : '/customer/' + customerUuid,
+        params  : options
     };
 
     this.fetch(fetchOptions, callback);

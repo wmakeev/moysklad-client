@@ -21,6 +21,7 @@ var load = function (type, query) {
     //TODO Ensure
     var args = _.toArray(arguments)
       , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
+      , options = typeof args[2] === 'object' ? args[2] : {}
       , _queryParametersList
       , _restClient = this.getProvider('ms-xml')
       , _obj = null;
@@ -58,18 +59,14 @@ var load = function (type, query) {
         }
     }
 
-    //TODO Обработать [ uuid ] массив идентификаторов (преобразовать в query)
+    if (query instanceof Array)
+        query = this.createQuery({}, options).uuids(query);
 
     // uuid ..
     if (typeof query == 'string') {
         var params = { uuid: query };
 
-        // options (fileContent)
-        if (args[2] && 'fileContent' in args[2])
-            if (params.fileContent || args[2].fileContent)
-                params.fileContent = args[2].fileContent;
-
-        // loadPartial?
+        if (options.fileContent) params.fileContent = true;
 
         _restClient.get(type, params, function (err, data) {
             _obj = callbackAdapter(err, data.obj, callback);
@@ -92,7 +89,7 @@ var load = function (type, query) {
 
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
+        return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), null, callback);
     }
 
     return _obj;

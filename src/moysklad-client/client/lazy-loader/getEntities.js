@@ -22,7 +22,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 
         if (this.batch.isExsist(batchName)) {
 
-            var batchUuids = this.batch.take(batchName);
+            var batchUuids = this.entityHash.filterNotExist(this.batch.take(batchName));
 
             if (batchUuids.length > 0) {
 
@@ -33,8 +33,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
                 } else {
                     entities = client.from(type)
                         .uuids(batchUuids)
-                        .fileContent(this.fileContent)
-                        .load();
+                        .load({ fileContent: this.fileContent });
                 }
 
                 _.forEach(entities, function (entityItem) {

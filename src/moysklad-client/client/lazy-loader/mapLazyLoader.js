@@ -36,6 +36,9 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
         bindingMethods.push('instanceOf');
     }
 
+    if (tools.instanceOf(entity, 'order'))
+        bindingMethods.push('reserve');
+
     // Привязываем универсальный метод доступа к позициям документа (если применимо)
     if (tools.instanceOf(entity, 'operationWithPositions'))
         bindingMethods.push('getPositions');
@@ -66,8 +69,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     });
 */
 
-    //TODO Нужно составить подробный алгоритм для каждого случая ..
-    // .. возможно сделать два цикла по ключам объекта и по массиву
+    //TODO Перепроверить логику обхода гарфа объекта
     for (var key in entity) {
         var subEntity = entity[key];
 

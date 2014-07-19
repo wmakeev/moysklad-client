@@ -5,20 +5,23 @@
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('../../../tools/index').callbackAdapter;
+  , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
+//TODO Вероятно нужно перенести этот модуль в rest-clients/json (для целостности пониманя работы модуля)
 
-var callService = function () {
+var callService = function (serviceName) {
     var args        = _.toArray(arguments)
       , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , serviceName = args[0]
-      , options     = typeof args[1] === 'object' ? args[1] : {}
       , _restClient = this.getProvider('json-services')
       , _obj        = null;
 
-    _restClient[serviceName](options, function (err, data) {
+    var serviceArgs = args.slice(1, args.length - (callback ? 1 : 0));
+
+    serviceArgs.push(function (err, data) {
         _obj = callbackAdapter(err, data.obj, callback);
     });
+
+    _restClient[serviceName].apply(_restClient, serviceArgs);
 
     return _obj;
 };

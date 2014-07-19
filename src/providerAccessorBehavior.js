@@ -6,8 +6,8 @@
 
 var _providersConstructors = {
     // Получаю модули не динамически, иначе сборщик не увидит модуль
-    'ms-xml': require('./moysklad-client/rest-clients/ms-xml'),
-    'json-services': require('./moysklad-client/rest-clients/json')
+    'ms-xml'        : require('./moysklad-client/rest-clients/ms-xml'),
+    'json-services' : require('./moysklad-client/rest-clients/json')
 } ;
 
 var requireProviderCtor = function (name) {
@@ -38,7 +38,7 @@ var ProviderAccessor = function () {
         return _providers[name];
     };
 
-    this.addProvider = function (name, provider) {
+    this.setProvider = function (name, provider) {
 
         if (name && provider) _providers[name] = provider;
         return this;

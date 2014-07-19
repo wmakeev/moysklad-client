@@ -20,25 +20,23 @@ var _ = require('lodash');
 function defProperty (entity, propertyName, uuids, path, batches, containerEntity) {
     if (!uuids) return;
 
-    //console.log(path); //TODO DEBUG
-
     var batchName = _.find(batches, function(batchItem) {
         //noinspection JSReferencingMutableVariableFromClosure
-        //TODO !!! Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
+        //TODO Нужно быть точно уверенным что в пачку могут попасть uuid только сущностей одного типа
         return path.slice(-batchItem.length) == batchItem; 
     });
 
     if (batchName) this.batch.addUuids(batchName, uuids);
 
     var that = this;
-    //TODO !!! Функционал getTypeOfProperty нужно перемесить в customFetch
+    //TODO Функционал getTypeOfProperty нужно перемесить в customFetch?
     //TODO Возможно получение Demands решить аналогично через customFetch, а не через batch
     Object.defineProperty(entity, propertyName, {
         get: function () {
             var type = that.getTypeOfProperty(propertyName, entity);
             return that.getEntities(type, uuids, path, batchName, batches, containerEntity);
         },
-        enumerable: false,  //TODO false ?
+        enumerable: false,
         configurable: true
     });
 }
