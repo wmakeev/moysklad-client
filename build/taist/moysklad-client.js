@@ -2,7 +2,7 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.3 (bundle length 468759)
+// moysklad-client 0.2.3-1 (bundle length 413760)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -85,4194 +85,55 @@ module.exports=require('2V8r5n');
 },{}],"stampit":[function(require,module,exports){
 module.exports=require('gaBrea');
 },{}],7:[function(require,module,exports){
-module.exports={"name": "moysklad", "enums": {
-    "uomType": {
-        "MASS": "mass",
-        "VOLUME": "volume",
-        "PIECE": "piece"
-    },
-    "accessMode": {
-        "NONE": "NONE",
-        "SELF": "SELF",
-        "PARENT": "PARENT",
-        "NEIGHBOUR": "NEIGHBOUR",
-        "ALL": "ALL"
-    },
-    "attributeType": {
-        "STRING": "STRING",
-        "LONG": "LONG",
-        "TIME": "TIME",
-        "ID_CUSTOM": "ID_CUSTOM",
-        "FILE": "FILE",
-        "DOUBLE": "DOUBLE",
-        "BOOLEAN": "BOOLEAN",
-        "ID_EMBEDDED": "ID_EMBEDDED",
-        "TEXT": "TEXT",
-        "LINK": "LINK"
-    },
-    "editablePeriodType": {
-        "ALL": "ALL",
-        "CALENDAR_DAYS": "CALENDAR_DAYS",
-        "WORK_DAYS": "WORK_DAYS",
-        "DATE": "DATE"
-    },
-    "barcodeType": {
-        "EAN8": "EAN8",
-        "EAN13": "EAN13",
-        "CODE128": "Code128"
-    },
-    "companyType": {
-        "URLI": "URLI",
-        "INPR": "INPR",
-        "FILI": "FILI"
-    },
-    "overheadDistribution": {
-        "BY_PRICE": "BY_PRICE",
-        "BY_WEIGHT": "BY_WEIGHT",
-        "BY_VOLUME": "BY_VOLUME"
-    },
-    "cmlType": {
-        "BITRIX": "BITRIX",
-        "UMICMS": "UMICMS",
-        "HOSTCMS": "HOSTCMS",
-        "INSALES": "INSALES",
-        "WEBASYST": "WEBASYST",
-        "SIMPLA": "SIMPLA",
-        "UMIRU": "UMIRU",
-        "PRESTASHOP": "PRESTASHOP",
-        "SITEEDIT": "SITEEDIT",
-        "BITRIXSMB": "BITRIXSMB",
-        "FASTSALES": "FASTSALES",
-        "MAGENTO": "MAGENTO",
-        "DIAFAN": "DIAFAN",
-        "SHOPIUM": "SHOPIUM",
-        "VIRTUEMART": "VIRTUEMART",
-        "ADVANTSHOP": "ADVANTSHOP"
-    }
-}, "elementInfos": [
-    {
-        "elementName": "agent",
-        "typeInfo": "moysklad.agent"
-    },
-    {
-        "elementName": "agentPictureDocument",
-        "typeInfo": "moysklad.agentPictureDocument"
-    },
-    {
-        "elementName": "amiroConnectorSettings",
-        "typeInfo": "moysklad.amiroConnectorSettings"
-    },
-    {
-        "elementName": "attachmentDocument",
-        "typeInfo": "moysklad.attachmentDocument"
-    },
-    {
-        "elementName": "barcode",
-        "typeInfo": "moysklad.barcode"
-    },
-    {
-        "elementName": "cashIn",
-        "typeInfo": "moysklad.cashIn"
-    },
-    {
-        "elementName": "cashOut",
-        "typeInfo": "moysklad.cashOut"
-    },
-    {
-        "elementName": "cmlConnectorSettings",
-        "typeInfo": "moysklad.cmlConnectorSettings"
-    },
-    {
-        "elementName": "collection",
-        "typeInfo": "moysklad.collection"
-    },
-    {
-        "elementName": "company",
-        "typeInfo": "moysklad.company"
-    },
-    {
-        "elementName": "consignment",
-        "typeInfo": "moysklad.consignment"
-    },
-    {
-        "elementName": "consignmentBarcode",
-        "typeInfo": "moysklad.consignmentBarcode"
-    },
-    {
-        "elementName": "contract",
-        "typeInfo": "moysklad.contract"
-    },
-    {
-        "elementName": "contractDocument",
-        "typeInfo": "moysklad.contractDocument"
-    },
-    {
-        "elementName": "country",
-        "typeInfo": "moysklad.country"
-    },
-    {
-        "elementName": "currency",
-        "typeInfo": "moysklad.currency"
-    },
-    {
-        "elementName": "customEntity",
-        "typeInfo": "moysklad.customEntity"
-    },
-    {
-        "elementName": "customEntityMetadata",
-        "typeInfo": "moysklad.customEntityMetadata"
-    },
-    {
-        "elementName": "customerOrder",
-        "typeInfo": "moysklad.customerOrder"
-    },
-    {
-        "elementName": "demand",
-        "typeInfo": "moysklad.demand"
-    },
-    {
-        "elementName": "document",
-        "typeInfo": "moysklad.document"
-    },
-    {
-        "elementName": "documentMiniature",
-        "typeInfo": "moysklad.documentMiniature"
-    },
-    {
-        "elementName": "embeddedEntityMetadata",
-        "typeInfo": "moysklad.embeddedEntityMetadata"
-    },
-    {
-        "elementName": "employee",
-        "typeInfo": "moysklad.employee"
-    },
-    {
-        "elementName": "enter",
-        "typeInfo": "moysklad.enter"
-    },
-    {
-        "elementName": "entityTemplatesMetadata",
-        "typeInfo": "moysklad.entityTemplatesMetadata"
-    },
-    {
-        "elementName": "exchange",
-        "typeInfo": "moysklad.exchangeContainer"
-    },
-    {
-        "elementName": "expenseItem",
-        "typeInfo": "moysklad.expenseItem"
-    },
-    {
-        "elementName": "factureIn",
-        "typeInfo": "moysklad.factureIn"
-    },
-    {
-        "elementName": "factureOut",
-        "typeInfo": "moysklad.factureOut"
-    },
-    {
-        "elementName": "feature",
-        "typeInfo": "moysklad.feature"
-    },
-    {
-        "elementName": "featureBarcode",
-        "typeInfo": "moysklad.featureBarcode"
-    },
-    {
-        "elementName": "good",
-        "typeInfo": "moysklad.good"
-    },
-    {
-        "elementName": "goodFolder",
-        "typeInfo": "moysklad.goodFolder"
-    },
-    {
-        "elementName": "goodImage",
-        "typeInfo": "moysklad.goodImage"
-    },
-    {
-        "elementName": "gtd",
-        "typeInfo": "moysklad.gtd"
-    },
-    {
-        "elementName": "internalOrder",
-        "typeInfo": "moysklad.internalOrder"
-    },
-    {
-        "elementName": "inventory",
-        "typeInfo": "moysklad.inventory"
-    },
-    {
-        "elementName": "invoiceIn",
-        "typeInfo": "moysklad.invoiceIn"
-    },
-    {
-        "elementName": "invoiceOut",
-        "typeInfo": "moysklad.invoiceOut"
-    },
-    {
-        "elementName": "loss",
-        "typeInfo": "moysklad.loss"
-    },
-    {
-        "elementName": "move",
-        "typeInfo": "moysklad.move"
-    },
-    {
-        "elementName": "myCompany",
-        "typeInfo": "moysklad.myCompany"
-    },
-    {
-        "elementName": "operationDocument",
-        "typeInfo": "moysklad.operationDocument"
-    },
-    {
-        "elementName": "paymentIn",
-        "typeInfo": "moysklad.paymentIn"
-    },
-    {
-        "elementName": "paymentOut",
-        "typeInfo": "moysklad.paymentOut"
-    },
-    {
-        "elementName": "priceList",
-        "typeInfo": "moysklad.priceList"
-    },
-    {
-        "elementName": "priceType",
-        "typeInfo": "moysklad.priceType"
-    },
-    {
-        "elementName": "processing",
-        "typeInfo": "moysklad.processing"
-    },
-    {
-        "elementName": "processingOrder",
-        "typeInfo": "moysklad.processingOrder"
-    },
-    {
-        "elementName": "processingPlan",
-        "typeInfo": "moysklad.processingPlan"
-    },
-    {
-        "elementName": "processingPlanFolder",
-        "typeInfo": "moysklad.processingPlanFolder"
-    },
-    {
-        "elementName": "project",
-        "typeInfo": "moysklad.project"
-    },
-    {
-        "elementName": "purchaseOrder",
-        "typeInfo": "moysklad.purchaseOrder"
-    },
-    {
-        "elementName": "purchaseReturn",
-        "typeInfo": "moysklad.purchaseReturn"
-    },
-    {
-        "elementName": "reportTemplatesMetadata",
-        "typeInfo": "moysklad.reportTemplatesMetadata"
-    },
-    {
-        "elementName": "retailCashIn",
-        "typeInfo": "moysklad.retailCashIn"
-    },
-    {
-        "elementName": "retailCashOut",
-        "typeInfo": "moysklad.retailCashOut"
-    },
-    {
-        "elementName": "retailDemand",
-        "typeInfo": "moysklad.retailDemand"
-    },
-    {
-        "elementName": "retailSalesReturn",
-        "typeInfo": "moysklad.retailSalesReturn"
-    },
-    {
-        "elementName": "salesReturn",
-        "typeInfo": "moysklad.salesReturn"
-    },
-    {
-        "elementName": "service",
-        "typeInfo": "moysklad.service"
-    },
-    {
-        "elementName": "skladShareMode",
-        "typeInfo": "moysklad.skladShareMode"
-    },
-    {
-        "elementName": "slot",
-        "typeInfo": "moysklad.slot"
-    },
-    {
-        "elementName": "supply",
-        "typeInfo": "moysklad.supply"
-    },
-    {
-        "elementName": "template",
-        "typeInfo": "moysklad.template"
-    },
-    {
-        "elementName": "thing",
-        "typeInfo": "moysklad.thing"
-    },
-    {
-        "elementName": "tinyImage",
-        "typeInfo": "moysklad.tinyImage"
-    },
-    {
-        "elementName": "uom",
-        "typeInfo": "moysklad.uom"
-    },
-    {
-        "elementName": "warehouse",
-        "typeInfo": "moysklad.warehouse"
-    },
-    {
-        "elementName": "workflow",
-        "typeInfo": "moysklad.workflow"
-    },
-    {
-        "elementName": "ymlConnectorSettings",
-        "typeInfo": "moysklad.ymlConnectorSettings"
-    },
-    {
-        "elementName": "collection",
-        "typeInfo": "moysklad.collection"
-    },
-    {
-        "elementName": "uuid",
-        "typeInfo": "String"
-    },
-    {
-        "elementName": "id",
-        "typeInfo": "String"
-    },
-    {
-        "elementName": "error",
-        "typeInfo": "moysklad.error"
-    }
-], "typeInfos": [
-    {
-        "type": "classInfo",
-        "localName": "service",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractGood"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractGood",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "minPrice",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "uomUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "countryUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "supplierUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "salePrice",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "saleCurrencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "buyCurrencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "barcode",
-                "collection": true,
-                "typeInfo": "moysklad.barcode"
-            },
-            {
-                "type": "element",
-                "name": "salePrices",
-                "elementName": "price",
-                "collection": true,
-                "wrapperElementName": "salePrices",
-                "typeInfo": "moysklad.price"
-            }
-        ],
-        "baseTypeInfo": "moysklad.goodFolder"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodFolder",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "archived",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "parentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "productCode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "vat",
-                "typeInfo": "Long"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.goodAttributeValue"
-            }
-        ],
-        "baseTypeInfo": "moysklad.classifier"
-    },
-    {
-        "type": "classInfo",
-        "localName": "classifier",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "legendEntity",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "name",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "code",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "externalcode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "description",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.infoEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "infoEntity",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "updated",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "updatedBy",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "deleted",
-                "typeInfo": "DateTime"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "entity",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "readMode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "changeMode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "groupUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.accountEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "accountEntity",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "accountUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "accountId",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "uuid",
-                "typeInfo": "String"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "uom",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "type",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.predefinedLegendableEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "predefinedLegendableEntity",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "country",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.predefinedLegendableEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "agent",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "discount",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "autoDiscount",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "discountCardNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "discountCorrection",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "stateUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "employeeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "priceTypeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "archived",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "created",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.agentAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "requisite",
-                "typeInfo": "moysklad.requisite"
-            },
-            {
-                "type": "element",
-                "name": "bankAccount",
-                "collection": true,
-                "typeInfo": "moysklad.agentAccount"
-            },
-            {
-                "type": "element",
-                "name": "contact",
-                "typeInfo": "moysklad.contact"
-            },
-            {
-                "type": "element",
-                "name": "contactPerson",
-                "collection": true,
-                "typeInfo": "moysklad.contactPerson"
-            },
-            {
-                "type": "element",
-                "name": "agentNewsItem",
-                "collection": true,
-                "typeInfo": "moysklad.agentNewsItem"
-            },
-            {
-                "type": "element",
-                "name": "tags",
-                "elementName": "tag",
-                "collection": true,
-                "wrapperElementName": "tags",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "agentAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "agentUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "attributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "metadataUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "valueText",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "valueString",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "doubleValue",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "longValue",
-                "typeInfo": "Long"
-            },
-            {
-                "type": "attribute",
-                "name": "booleanValue",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "timeValue",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "entityValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "agentValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "goodValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "placeValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "consignmentValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "contractValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "projectValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "employeeValueUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "file",
-                "typeInfo": "moysklad.attachmentDocument"
-            }
-        ],
-        "baseTypeInfo": "moysklad.infoEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "attributeMetadata",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "attrType",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "dictionaryMetadataUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "entityMetadataUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "feature",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "position",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "required",
-                "typeInfo": "Boolean"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "entityMetadata",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "uniqueCode",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "codeValueType",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "independentNameGenerator",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "editOnlyByAuthor",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "noEditFromOtherPlaceSource",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "noApplicableFromOtherPlaceSource",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "noEditFromOtherPlaceTarget",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "noApplicableFromOtherPlaceTarget",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "editablePeriod",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "editableCalendarDays",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "editableWorkDays",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "editableFromDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "element",
-                "name": "attributeMetadata",
-                "collection": true,
-                "typeInfo": "moysklad.attributeMetadata"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "customEntity",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "entityMetadataUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.customEntityAttributeValue"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "customEntityMetadata",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.entityMetadata"
-    },
-    {
-        "type": "classInfo",
-        "localName": "customEntityAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "customEntityUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "attachmentDocument",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.attachableDocument"
-    },
-    {
-        "type": "classInfo",
-        "localName": "attachableDocument",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.document"
-    },
-    {
-        "type": "classInfo",
-        "localName": "document",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "created",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "filename",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "miniatureUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "contents",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "documentMiniature",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.document"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "warehouse",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "agentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "parentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.placeAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "contact",
-                "typeInfo": "moysklad.contact"
-            },
-            {
-                "type": "element",
-                "name": "slots",
-                "elementName": "slot",
-                "collection": true,
-                "wrapperElementName": "slots",
-                "typeInfo": "moysklad.slot"
-            }
-        ],
-        "baseTypeInfo": "moysklad.classifier"
-    },
-    {
-        "type": "classInfo",
-        "localName": "placeAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "placeUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "contact",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "address",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "phones",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "faxes",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "mobiles",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "email",
-                "typeInfo": "String"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "slot",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "warehouseUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "consignment",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "isDefault",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "element",
-                "name": "barcode",
-                "collection": true,
-                "typeInfo": "moysklad.consignmentBarcode"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.consignmentAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "feature",
-                "typeInfo": "moysklad.feature"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "consignmentBarcode",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractBarcode"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractBarcode",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "barcode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "barcodeType",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "consignmentAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "consignmentUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "feature",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "archived",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.featureAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "barcode",
-                "collection": true,
-                "typeInfo": "moysklad.featureBarcode"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "featureAttributeValue",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "featureBarcode",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractBarcode"
-    },
-    {
-        "type": "classInfo",
-        "localName": "good",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "isSerialTrackable",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "buyPrice",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "minimumBalance",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "weight",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "volume",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "element",
-                "name": "pack",
-                "collection": true,
-                "typeInfo": "moysklad.goodPack"
-            },
-            {
-                "type": "element",
-                "name": "preferences",
-                "elementName": "preference",
-                "collection": true,
-                "wrapperElementName": "preferences",
-                "typeInfo": "moysklad.goodSlotPreference"
-            },
-            {
-                "type": "element",
-                "name": "images",
-                "elementName": "image",
-                "collection": true,
-                "wrapperElementName": "images",
-                "typeInfo": "moysklad.goodImage"
-            }
-        ],
-        "baseTypeInfo": "moysklad.abstractGood"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodPack",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "quantity",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "uomUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodSlotPreference",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "slotUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodImage",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "tinyUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attachableDocument"
-    },
-    {
-        "type": "classInfo",
-        "localName": "tinyImage",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.document"
-    },
-    {
-        "type": "classInfo",
-        "localName": "contract",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "agentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "currencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "moment",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "ownCompanyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.contractAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "document",
-                "collection": true,
-                "typeInfo": "moysklad.contractDocument"
-            },
-            {
-                "type": "element",
-                "name": "sum",
-                "typeInfo": "moysklad.moneyAmount"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "contractAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "contractUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "currency",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "enteredRate",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "invertRate",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "rate",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "element",
-                "name": "major",
-                "typeInfo": "moysklad.unit"
-            },
-            {
-                "type": "element",
-                "name": "minor",
-                "typeInfo": "moysklad.unit"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "unit",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "s1",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "s24",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "s5",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "sex",
-                "typeInfo": "UnsignedShort"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "contractDocument",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "contractUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.printedDocument"
-    },
-    {
-        "type": "classInfo",
-        "localName": "printedDocument",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "emailedDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "publicId",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.document"
-    },
-    {
-        "type": "classInfo",
-        "localName": "moneyAmount",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "sum",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "sumInCurrency",
-                "typeInfo": "Double"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "project",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.projectAttributeValue"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "projectAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "projectUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "employee",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "city",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "email",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "fax",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "firstName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "icqNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "lastName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "middleName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "mobile",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "phone",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "postalAddress",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "postalCode",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "pzInternalNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "skypeName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "uid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.employeeAttributeValue"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "employeeAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "employeeUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "requisite",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "bankAccount",
-                "typeInfo": "moysklad.agentAccount"
-            },
-            {
-                "type": "attribute",
-                "name": "legalTitle",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "legalAddress",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "actualAddress",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "inn",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "kpp",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "okpo",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "ogrn",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "ogrnip",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "nomerSvidetelstva",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "dataSvidetelstva",
-                "typeInfo": "DateTime"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "agentAccount",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "accountNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "bankLocation",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "bankName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "bic",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "correspondentAccount",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "isDefault",
-                "typeInfo": "Boolean"
-            }
-        ],
-        "baseTypeInfo": "moysklad.infoEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "contactPerson",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "email",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "phone",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "position",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "agentNewsItem",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "moment",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "element",
-                "name": "text",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.infoEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "state",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceType",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "index",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "name",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.infoEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "barcode",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractBarcode"
-    },
-    {
-        "type": "classInfo",
-        "localName": "goodPrices",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "price",
-                "collection": true,
-                "typeInfo": "moysklad.price"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "price",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "currencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "priceTypeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "value",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "collectionContainer",
-        "propertyInfos": [
-            {
-                "type": "anyElement",
-                "name": "items",
-                "collection": true
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "exchangeContainer",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "workflow",
-                "collection": true,
-                "wrapperElementName": "workflow",
-                "typeInfo": "moysklad.workflow"
-            },
-            {
-                "type": "element",
-                "name": "shareModes",
-                "elementName": "shareMode",
-                "collection": true,
-                "wrapperElementName": "shareModes",
-                "typeInfo": "moysklad.skladShareMode"
-            },
-            {
-                "type": "element",
-                "name": "customEntityMetadata",
-                "collection": true,
-                "wrapperElementName": "customEntityMetadata",
-                "typeInfo": "moysklad.customEntityMetadata"
-            },
-            {
-                "type": "element",
-                "name": "embeddedEntityMetadata",
-                "collection": true,
-                "wrapperElementName": "embeddedEntityMetadata",
-                "typeInfo": "moysklad.embeddedEntityMetadata"
-            },
-            {
-                "type": "element",
-                "name": "entityTemplatesMetadata",
-                "collection": true,
-                "wrapperElementName": "entityTemplatesMetadata",
-                "typeInfo": "moysklad.entityTemplatesMetadata"
-            },
-            {
-                "type": "element",
-                "name": "reportTemplatesMetadata",
-                "collection": true,
-                "wrapperElementName": "reportTemplatesMetadata",
-                "typeInfo": "moysklad.reportTemplatesMetadata"
-            },
-            {
-                "type": "element",
-                "name": "customEntity",
-                "collection": true,
-                "wrapperElementName": "customEntity",
-                "typeInfo": "moysklad.customEntity"
-            },
-            {
-                "type": "element",
-                "name": "currencies",
-                "elementName": "currency",
-                "collection": true,
-                "wrapperElementName": "currencies",
-                "typeInfo": "moysklad.currency"
-            },
-            {
-                "type": "element",
-                "name": "country",
-                "collection": true,
-                "wrapperElementName": "country",
-                "typeInfo": "moysklad.country"
-            },
-            {
-                "type": "element",
-                "name": "gtd",
-                "collection": true,
-                "wrapperElementName": "gtd",
-                "typeInfo": "moysklad.gtd"
-            },
-            {
-                "type": "element",
-                "name": "uoms",
-                "elementName": "uom",
-                "collection": true,
-                "wrapperElementName": "uoms",
-                "typeInfo": "moysklad.uom"
-            },
-            {
-                "type": "element",
-                "name": "myCompany",
-                "collection": true,
-                "wrapperElementName": "myCompany",
-                "typeInfo": "moysklad.myCompany"
-            },
-            {
-                "type": "element",
-                "name": "agents",
-                "elementName": "agent",
-                "collection": true,
-                "wrapperElementName": "agents",
-                "typeInfo": "moysklad.agent"
-            },
-            {
-                "type": "element",
-                "name": "companies",
-                "elementName": "company",
-                "collection": true,
-                "wrapperElementName": "companies",
-                "typeInfo": "moysklad.company"
-            },
-            {
-                "type": "element",
-                "name": "goodFolders",
-                "elementName": "goodFolder",
-                "collection": true,
-                "wrapperElementName": "goodFolders",
-                "typeInfo": "moysklad.goodFolder"
-            },
-            {
-                "type": "element",
-                "name": "goods",
-                "elementName": "good",
-                "collection": true,
-                "wrapperElementName": "goods",
-                "typeInfo": "moysklad.good"
-            },
-            {
-                "type": "element",
-                "name": "service",
-                "collection": true,
-                "wrapperElementName": "service",
-                "typeInfo": "moysklad.service"
-            },
-            {
-                "type": "element",
-                "name": "things",
-                "elementName": "thing",
-                "collection": true,
-                "wrapperElementName": "things",
-                "typeInfo": "moysklad.thing"
-            },
-            {
-                "type": "element",
-                "name": "employees",
-                "elementName": "employee",
-                "collection": true,
-                "wrapperElementName": "employees",
-                "typeInfo": "moysklad.employee"
-            },
-            {
-                "type": "element",
-                "name": "warehouses",
-                "elementName": "warehouse",
-                "collection": true,
-                "wrapperElementName": "warehouses",
-                "typeInfo": "moysklad.warehouse"
-            },
-            {
-                "type": "element",
-                "name": "project",
-                "collection": true,
-                "wrapperElementName": "project",
-                "typeInfo": "moysklad.project"
-            },
-            {
-                "type": "element",
-                "name": "contract",
-                "collection": true,
-                "wrapperElementName": "contract",
-                "typeInfo": "moysklad.contract"
-            },
-            {
-                "type": "element",
-                "name": "processingPlans",
-                "elementName": "processingPlan",
-                "collection": true,
-                "wrapperElementName": "processingPlans",
-                "typeInfo": "moysklad.processingPlan"
-            },
-            {
-                "type": "element",
-                "name": "features",
-                "elementName": "feature",
-                "collection": true,
-                "wrapperElementName": "features",
-                "typeInfo": "moysklad.feature"
-            },
-            {
-                "type": "element",
-                "name": "consignments",
-                "elementName": "consignment",
-                "collection": true,
-                "wrapperElementName": "consignments",
-                "typeInfo": "moysklad.consignment"
-            },
-            {
-                "type": "element",
-                "name": "priceLists",
-                "elementName": "priceList",
-                "collection": true,
-                "wrapperElementName": "priceLists",
-                "typeInfo": "moysklad.priceList"
-            },
-            {
-                "type": "element",
-                "name": "paymentIn",
-                "collection": true,
-                "wrapperElementName": "paymentIn",
-                "typeInfo": "moysklad.paymentIn"
-            },
-            {
-                "type": "element",
-                "name": "paymentOut",
-                "collection": true,
-                "wrapperElementName": "paymentOut",
-                "typeInfo": "moysklad.paymentOut"
-            },
-            {
-                "type": "element",
-                "name": "factureIn",
-                "collection": true,
-                "wrapperElementName": "factureIn",
-                "typeInfo": "moysklad.factureIn"
-            },
-            {
-                "type": "element",
-                "name": "factureOut",
-                "collection": true,
-                "wrapperElementName": "factureOut",
-                "typeInfo": "moysklad.factureOut"
-            },
-            {
-                "type": "element",
-                "name": "cashIn",
-                "collection": true,
-                "wrapperElementName": "cashIn",
-                "typeInfo": "moysklad.cashIn"
-            },
-            {
-                "type": "element",
-                "name": "cashOut",
-                "collection": true,
-                "wrapperElementName": "cashOut",
-                "typeInfo": "moysklad.cashOut"
-            },
-            {
-                "type": "element",
-                "name": "deliveries-demand",
-                "elementName": "demand",
-                "collection": true,
-                "wrapperElementName": "deliveries-demand",
-                "typeInfo": "moysklad.demand"
-            },
-            {
-                "type": "element",
-                "name": "deliveries-supply",
-                "elementName": "supply",
-                "collection": true,
-                "wrapperElementName": "deliveries-supply",
-                "typeInfo": "moysklad.supply"
-            },
-            {
-                "type": "element",
-                "name": "retailCashIn",
-                "collection": true,
-                "wrapperElementName": "retailCashIn",
-                "typeInfo": "moysklad.retailCashIn"
-            },
-            {
-                "type": "element",
-                "name": "retailCashOut",
-                "collection": true,
-                "wrapperElementName": "retailCashOut",
-                "typeInfo": "moysklad.retailCashOut"
-            },
-            {
-                "type": "element",
-                "name": "retailDemand",
-                "collection": true,
-                "wrapperElementName": "retailDemand",
-                "typeInfo": "moysklad.retailDemand"
-            },
-            {
-                "type": "element",
-                "name": "retailSalesReturn",
-                "collection": true,
-                "wrapperElementName": "retailSalesReturn",
-                "typeInfo": "moysklad.retailSalesReturn"
-            },
-            {
-                "type": "element",
-                "name": "inventories",
-                "elementName": "inventory",
-                "collection": true,
-                "wrapperElementName": "inventories",
-                "typeInfo": "moysklad.inventory"
-            },
-            {
-                "type": "element",
-                "name": "moves",
-                "elementName": "move",
-                "collection": true,
-                "wrapperElementName": "moves",
-                "typeInfo": "moysklad.move"
-            },
-            {
-                "type": "element",
-                "name": "losses",
-                "elementName": "loss",
-                "collection": true,
-                "wrapperElementName": "losses",
-                "typeInfo": "moysklad.loss"
-            },
-            {
-                "type": "element",
-                "name": "enters",
-                "elementName": "enter",
-                "collection": true,
-                "wrapperElementName": "enters",
-                "typeInfo": "moysklad.enter"
-            },
-            {
-                "type": "element",
-                "name": "invoicesIn",
-                "elementName": "invoiceIn",
-                "collection": true,
-                "wrapperElementName": "invoicesIn",
-                "typeInfo": "moysklad.invoiceIn"
-            },
-            {
-                "type": "element",
-                "name": "invoicesOut",
-                "elementName": "invoiceOut",
-                "collection": true,
-                "wrapperElementName": "invoicesOut",
-                "typeInfo": "moysklad.invoiceOut"
-            },
-            {
-                "type": "element",
-                "name": "salesReturns",
-                "elementName": "salesReturn",
-                "collection": true,
-                "wrapperElementName": "salesReturns",
-                "typeInfo": "moysklad.salesReturn"
-            },
-            {
-                "type": "element",
-                "name": "purchaseReturns",
-                "elementName": "purchaseReturn",
-                "collection": true,
-                "wrapperElementName": "purchaseReturns",
-                "typeInfo": "moysklad.purchaseReturn"
-            },
-            {
-                "type": "element",
-                "name": "processings",
-                "elementName": "processing",
-                "collection": true,
-                "wrapperElementName": "processings",
-                "typeInfo": "moysklad.processing"
-            },
-            {
-                "type": "element",
-                "name": "customerOrders",
-                "elementName": "customerOrder",
-                "collection": true,
-                "wrapperElementName": "customerOrders",
-                "typeInfo": "moysklad.customerOrder"
-            },
-            {
-                "type": "element",
-                "name": "purchaseOrders",
-                "elementName": "purchaseOrder",
-                "collection": true,
-                "wrapperElementName": "purchaseOrders",
-                "typeInfo": "moysklad.purchaseOrder"
-            },
-            {
-                "type": "element",
-                "name": "internalOrders",
-                "elementName": "internalOrder",
-                "collection": true,
-                "wrapperElementName": "internalOrders",
-                "typeInfo": "moysklad.internalOrder"
-            },
-            {
-                "type": "element",
-                "name": "proccessingOrders",
-                "elementName": "processingOrder",
-                "collection": true,
-                "wrapperElementName": "proccessingOrders",
-                "typeInfo": "moysklad.processingOrder"
-            },
-            {
-                "type": "element",
-                "name": "amiroConnectors",
-                "elementName": "amiroConnectorSettings",
-                "collection": true,
-                "wrapperElementName": "amiroConnectors",
-                "typeInfo": "moysklad.amiroConnectorSettings"
-            },
-            {
-                "type": "element",
-                "name": "cmlConnectors",
-                "elementName": "cmlConnectorSettings",
-                "collection": true,
-                "wrapperElementName": "cmlConnectors",
-                "typeInfo": "moysklad.cmlConnectorSettings"
-            },
-            {
-                "type": "element",
-                "name": "ymlConnectors",
-                "elementName": "ymlConnectorSettings",
-                "collection": true,
-                "wrapperElementName": "ymlConnectors",
-                "typeInfo": "moysklad.ymlConnectorSettings"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "workflow",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "state",
-                "collection": true,
-                "typeInfo": "moysklad.state"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "skladShareMode",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.shareMode"
-    },
-    {
-        "type": "classInfo",
-        "localName": "shareMode",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "embeddedEntityMetadata",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.entityMetadata"
-    },
-    {
-        "type": "classInfo",
-        "localName": "entityTemplatesMetadata",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.templatesMetadata"
-    },
-    {
-        "type": "classInfo",
-        "localName": "templatesMetadata",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "template",
-                "collection": true,
-                "typeInfo": "moysklad.template"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "template",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.document"
-    },
-    {
-        "type": "classInfo",
-        "localName": "reportTemplatesMetadata",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.templatesMetadata"
-    },
-    {
-        "type": "classInfo",
-        "localName": "gtd",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "myCompany",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.company"
-    },
-    {
-        "type": "classInfo",
-        "localName": "company",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "director",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "chiefAccountant",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "payerVat",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "companyType",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "sign",
-                "typeInfo": "moysklad.agentPictureDocument"
-            },
-            {
-                "type": "element",
-                "name": "stamp",
-                "typeInfo": "moysklad.agentPictureDocument"
-            }
-        ],
-        "baseTypeInfo": "moysklad.agent"
-    },
-    {
-        "type": "classInfo",
-        "localName": "agentPictureDocument",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.attachableDocument"
-    },
-    {
-        "type": "classInfo",
-        "localName": "thing",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.thingAttributeValue"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "thingAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "thingUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingPlan",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "material",
-                "collection": true,
-                "typeInfo": "moysklad.material"
-            },
-            {
-                "type": "element",
-                "name": "price",
-                "typeInfo": "moysklad.moneyAmount"
-            },
-            {
-                "type": "element",
-                "name": "product",
-                "collection": true,
-                "typeInfo": "moysklad.product"
-            }
-        ],
-        "baseTypeInfo": "moysklad.processingPlanFolder"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingPlanFolder",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "parentUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.classifier"
-    },
-    {
-        "type": "classInfo",
-        "localName": "material",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "isOptional",
-                "typeInfo": "Boolean"
-            }
-        ],
-        "baseTypeInfo": "moysklad.processingPlanItem"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingPlanItem",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "planUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "quantity",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "product",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "costShare",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.processingPlanItem"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceList",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "metadata",
-                "typeInfo": "moysklad.priceListMetadata"
-            },
-            {
-                "type": "element",
-                "name": "priceListRow",
-                "collection": true,
-                "typeInfo": "moysklad.priceListRow"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operationWithPositions",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.operation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operation",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "stateUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "targetAgentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "sourceAgentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "targetStoreUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "sourceStoreUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "applicable",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "projectUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "contractUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "moment",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "targetAccountUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "sourceAccountUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "payerVat",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "retailStoreUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "currencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "rate",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "vatIncluded",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "created",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "createdBy",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "employeeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "attribute",
-                "collection": true,
-                "typeInfo": "moysklad.operationAttributeValue"
-            },
-            {
-                "type": "element",
-                "name": "document",
-                "collection": true,
-                "typeInfo": "moysklad.operationDocument"
-            },
-            {
-                "type": "element",
-                "name": "sum",
-                "typeInfo": "moysklad.moneyAmount"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceListMetadata",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "priceTypeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "column",
-                "collection": true,
-                "typeInfo": "moysklad.priceListMetadataColumn"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceListMetadataColumn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "percentageDiscount",
-                "typeInfo": "Int"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceListRow",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "cell",
-                "collection": true,
-                "typeInfo": "moysklad.priceListCell"
-            }
-        ],
-        "baseTypeInfo": "moysklad.motion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "motion",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "discount",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "quantity",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "goodPackUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "consignmentUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "goodUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "slotUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "vat",
-                "typeInfo": "Long"
-            },
-            {
-                "type": "element",
-                "name": "basePrice",
-                "typeInfo": "moysklad.moneyAmount"
-            },
-            {
-                "type": "element",
-                "name": "price",
-                "typeInfo": "moysklad.moneyAmount"
-            },
-            {
-                "type": "element",
-                "name": "things",
-                "elementName": "thingRef",
-                "collection": true,
-                "wrapperElementName": "things",
-                "typeInfo": "moysklad.thing"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "priceListCell",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "columnName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "sum",
-                "typeInfo": "moysklad.moneyAmount"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operationAttributeValue",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "operationUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.attributeValue"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operationDocument",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "operationUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.printedDocument"
-    },
-    {
-        "type": "classInfo",
-        "localName": "retailStore",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "active",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "address",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "myCompanyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "priceTypeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "warehouseUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "paymentIn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "incomingDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "incomingNumber",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.financeIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "financeIn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "customerOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "factureOutUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "invoiceOutUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "purchaseReturnUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "demandsUuid",
-                "elementName": "demandRef",
-                "collection": true,
-                "wrapperElementName": "demandsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.finance"
-    },
-    {
-        "type": "classInfo",
-        "localName": "finance",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "paymentPurpose",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "vatSum",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "customerOrder",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "demandsUuid",
-                "elementName": "demandRef",
-                "collection": true,
-                "wrapperElementName": "demandsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "invoicesOutUuid",
-                "elementName": "invoiceOutRef",
-                "collection": true,
-                "wrapperElementName": "invoicesOutUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeInRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "customerOrderPosition",
-                "collection": true,
-                "typeInfo": "moysklad.customerOrderPosition"
-            },
-            {
-                "type": "element",
-                "name": "purchaseOrdersUuid",
-                "elementName": "purchaseOrderRef",
-                "collection": true,
-                "wrapperElementName": "purchaseOrdersUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.order"
-    },
-    {
-        "type": "classInfo",
-        "localName": "order",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "deliveryPlannedMoment",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "reservedSum",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractDemand",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "customerOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "factureUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "invoicesOutUuid",
-                "elementName": "invoiceOutRef",
-                "collection": true,
-                "wrapperElementName": "invoicesOutUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeInRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "shipmentOut",
-                "collection": true,
-                "typeInfo": "moysklad.shipmentOut"
-            },
-            {
-                "type": "element",
-                "name": "salesReturnsUuid",
-                "elementName": "salesReturnRef",
-                "collection": true,
-                "wrapperElementName": "salesReturnsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingOutOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "comingOutOperation",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.stockOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "stockOperation",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "factureOut",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "paymentDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "paymentNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "demandsUuid",
-                "elementName": "demandRef",
-                "collection": true,
-                "wrapperElementName": "demandsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "extension",
-                "typeInfo": "moysklad.factureOutExtension"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeInRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "returnsUuid",
-                "elementName": "returnRef",
-                "collection": true,
-                "wrapperElementName": "returnsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.facture"
-    },
-    {
-        "type": "classInfo",
-        "localName": "facture",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "factureOutExtension",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.operationExtension"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operationExtension",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "consigneeUuid",
-                "typeInfo": "String"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "purchaseReturn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "factureUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "supplyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeInRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "purchaseReturnPosition",
-                "collection": true,
-                "typeInfo": "moysklad.purchaseReturnPosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingOutOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "purchaseReturnPosition",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractShipmentOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractShipmentOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.comingOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "comingOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.stockMotion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "stockMotion",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "countryUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "gtdUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.motion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "supply",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "factureInUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "incomingDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "incomingNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "overheadDistribution",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "purchaseOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "invoicesInUuid",
-                "elementName": "invoiceInRef",
-                "collection": true,
-                "wrapperElementName": "invoicesInUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "overhead",
-                "typeInfo": "moysklad.moneyAmount"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeOutRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "shipmentIn",
-                "collection": true,
-                "typeInfo": "moysklad.shipmentIn"
-            },
-            {
-                "type": "element",
-                "name": "purchaseReturnsUuid",
-                "elementName": "purchaseReturnRef",
-                "collection": true,
-                "wrapperElementName": "purchaseReturnsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingInOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "comingInOperation",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.stockOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "factureIn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "incomingDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "incomingNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeOutRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "suppliesUuid",
-                "elementName": "supplyRef",
-                "collection": true,
-                "wrapperElementName": "suppliesUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.facture"
-    },
-    {
-        "type": "classInfo",
-        "localName": "financeOut",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "expenseItemUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "factureInUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "invoiceInUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "purchaseOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "salesReturnUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "supplyUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.finance"
-    },
-    {
-        "type": "classInfo",
-        "localName": "expenseItem",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.predefinedLegendableEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "invoiceIn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "incomingDate",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "attribute",
-                "name": "incomingNumber",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "purchaseOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "financesOutUuid",
-                "elementName": "financeOutRef",
-                "collection": true,
-                "wrapperElementName": "financesOutUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "suppliesUuid",
-                "elementName": "supplyRef",
-                "collection": true,
-                "wrapperElementName": "suppliesUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.invoice"
-    },
-    {
-        "type": "classInfo",
-        "localName": "invoice",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "paymentPlannedMoment",
-                "typeInfo": "DateTime"
-            },
-            {
-                "type": "element",
-                "name": "invoicePosition",
-                "collection": true,
-                "typeInfo": "moysklad.invoicePosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "purchaseOrder",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "customerOrdersUuid",
-                "elementName": "customerOrderRef",
-                "collection": true,
-                "wrapperElementName": "customerOrdersUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "internalOrders",
-                "elementName": "internalOrderRef",
-                "collection": true,
-                "wrapperElementName": "internalOrders",
-                "typeInfo": "moysklad.internalOrder"
-            },
-            {
-                "type": "element",
-                "name": "invoicesUuid",
-                "elementName": "invoiceInRef",
-                "collection": true,
-                "wrapperElementName": "invoicesUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeOutRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "purchaseOrderPosition",
-                "collection": true,
-                "typeInfo": "moysklad.purchaseOrderPosition"
-            },
-            {
-                "type": "element",
-                "name": "suppliesUuid",
-                "elementName": "supplyRef",
-                "collection": true,
-                "wrapperElementName": "suppliesUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.order"
-    },
-    {
-        "type": "classInfo",
-        "localName": "internalOrder",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "purchaseOrderPosition",
-                "collection": true,
-                "typeInfo": "moysklad.purchaseOrderPosition"
-            },
-            {
-                "type": "element",
-                "name": "purchaseOrdersUuid",
-                "elementName": "purchaseOrderRef",
-                "collection": true,
-                "wrapperElementName": "purchaseOrdersUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "demandsUuid",
-                "elementName": "moveRef",
-                "collection": true,
-                "wrapperElementName": "demandsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.order"
-    },
-    {
-        "type": "classInfo",
-        "localName": "purchaseOrderPosition",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.orderPosition"
-    },
-    {
-        "type": "classInfo",
-        "localName": "orderPosition",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "reserve",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.motion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "move",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "internalOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "movePosition",
-                "collection": true,
-                "typeInfo": "moysklad.movePosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.stockOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "movePosition",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "sourceSlotUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.stockMotion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "invoicePosition",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.motion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractSalesReturn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "demandUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "lossesUuid",
-                "elementName": "lossRef",
-                "collection": true,
-                "wrapperElementName": "lossesUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeOutRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "salesReturnPosition",
-                "collection": true,
-                "typeInfo": "moysklad.salesReturnPosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingInOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "loss",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "inventoryUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "salesReturnUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "lossPosition",
-                "collection": true,
-                "typeInfo": "moysklad.lossPosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingOutOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "inventory",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "entersUuid",
-                "elementName": "enterRef",
-                "collection": true,
-                "wrapperElementName": "entersUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "lossesUuid",
-                "elementName": "lossRef",
-                "collection": true,
-                "wrapperElementName": "lossesUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "inventoryPosition",
-                "collection": true,
-                "typeInfo": "moysklad.inventoryPosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationWithPositions"
-    },
-    {
-        "type": "classInfo",
-        "localName": "enter",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "inventoryUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "enterPosition",
-                "collection": true,
-                "typeInfo": "moysklad.enterPosition"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingInOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "enterPosition",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "tags",
-                "elementName": "tag",
-                "collection": true,
-                "wrapperElementName": "tags",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "comingIn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.stockMotion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "inventoryPosition",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "correctionAmount",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.motion"
-    },
-    {
-        "type": "classInfo",
-        "localName": "lossPosition",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "tags",
-                "elementName": "tag",
-                "collection": true,
-                "wrapperElementName": "tags",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "salesReturnPosition",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.comingIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "shipmentIn",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "overhead",
-                "typeInfo": "Double"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "invoiceOut",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "customerOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "demandsUuid",
-                "elementName": "demandRef",
-                "collection": true,
-                "wrapperElementName": "demandsUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "paymentsUuid",
-                "elementName": "financeInRef",
-                "collection": true,
-                "wrapperElementName": "paymentsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.invoice"
-    },
-    {
-        "type": "classInfo",
-        "localName": "shipmentOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractShipmentOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "customerOrderPosition",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.orderPosition"
-    },
-    {
-        "type": "classInfo",
-        "localName": "paymentOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.financeOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "cashIn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractCashIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractCashIn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.financeIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "cashOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractCashOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractCashOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.financeOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "demand",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "extension",
-                "typeInfo": "moysklad.demandExtension"
-            }
-        ],
-        "baseTypeInfo": "moysklad.abstractDemand"
-    },
-    {
-        "type": "classInfo",
-        "localName": "demandExtension",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "opened",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "carrierUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "loadName",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "consignorIndication",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "transportFacility",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "goodPackQuantity",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "carNumber",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationExtension"
-    },
-    {
-        "type": "classInfo",
-        "localName": "retailCashIn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractCashIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "retailCashOut",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractCashOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "retailDemand",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractDemand"
-    },
-    {
-        "type": "classInfo",
-        "localName": "retailSalesReturn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractSalesReturn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "salesReturn",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractSalesReturn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processing",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "planUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "processingOrderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "processingSum",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "quantity",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "element",
-                "name": "material",
-                "collection": true,
-                "typeInfo": "moysklad.processingPositionMaterial"
-            },
-            {
-                "type": "element",
-                "name": "results",
-                "elementName": "result",
-                "collection": true,
-                "wrapperElementName": "results",
-                "typeInfo": "moysklad.processingPositionResult"
-            }
-        ],
-        "baseTypeInfo": "moysklad.stockOperation"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingPositionMaterial",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "planMaterialUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingOut"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingOrder",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "planUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "quantity",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "element",
-                "name": "purchaseOrderPosition",
-                "collection": true,
-                "typeInfo": "moysklad.customerOrderPosition"
-            },
-            {
-                "type": "element",
-                "name": "processings",
-                "elementName": "processingRef",
-                "collection": true,
-                "wrapperElementName": "processings",
-                "typeInfo": "moysklad.processing"
-            }
-        ],
-        "baseTypeInfo": "moysklad.order"
-    },
-    {
-        "type": "classInfo",
-        "localName": "processingPositionResult",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "planResultUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.comingIn"
-    },
-    {
-        "type": "classInfo",
-        "localName": "amiroConnectorSettings",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "commentsColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerAddressColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerCodeColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerEmailColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerFirstNameColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerLastNameColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerNickColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "customerPhoneColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "goodIdColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "goodNameColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "orderDateColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "orderIdColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "prefixForAgent",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "prefixForGood",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "prefixForOperation",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "priceColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "quantityColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "shippingAmountColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "stateColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "taxColumnNum",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "element",
-                "name": "customAttribute",
-                "collection": true,
-                "typeInfo": "moysklad.amiroCustomAttributeInfo"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationConnectorSetting"
-    },
-    {
-        "type": "classInfo",
-        "localName": "operationConnectorSetting",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "adminDomain",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "autoReserve",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "orderplaceUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "shopDomain",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "syncFeatures",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "useShopOperationName",
-                "typeInfo": "Boolean"
-            }
-        ],
-        "baseTypeInfo": "moysklad.abstractConnectorSetting"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractConnectorSetting",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "active",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "login",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "organizationUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "password",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "pollPeriod",
-                "typeInfo": "Int"
-            }
-        ],
-        "baseTypeInfo": "moysklad.legendEntity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "amiroCustomAttributeInfo",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "columnNumber",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "name",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "settingsUuid",
-                "typeInfo": "String"
-            }
-        ],
-        "baseTypeInfo": "moysklad.entity"
-    },
-    {
-        "type": "classInfo",
-        "localName": "cmlConnectorSettings",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "features",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "goodFolderUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "priceTypeUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "shopType",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "stockActive",
-                "typeInfo": "Boolean"
-            },
-            {
-                "type": "attribute",
-                "name": "stockplaceUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "stockPollPeriod",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "syncOrderState",
-                "typeInfo": "Boolean"
-            }
-        ],
-        "baseTypeInfo": "moysklad.operationConnectorSetting"
-    },
-    {
-        "type": "classInfo",
-        "localName": "ymlConnectorSettings",
-        "propertyInfos": [],
-        "baseTypeInfo": "moysklad.abstractConnectorSetting"
-    },
-    {
-        "type": "classInfo",
-        "localName": "error",
-        "propertyInfos": [
-            {
-                "type": "element",
-                "name": "uid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "moment",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "message",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "stack",
-                "typeInfo": "String"
-            }
-        ]
-    },
-    {
-        "type": "classInfo",
-        "localName": "collection",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "total",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "start",
-                "typeInfo": "Int"
-            },
-            {
-                "type": "attribute",
-                "name": "count",
-                "typeInfo": "Int"
-            }
-        ],
-        "baseTypeInfo": "moysklad.collectionContainer"
-    },
-    {
-        "type": "classInfo",
-        "localName": "abstractGood",
-        "propertyInfos": [
-            {
-                "type": "attribute",
-                "name": "minPrice",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "uomUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "countryUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "supplierUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "salePrice",
-                "typeInfo": "Double"
-            },
-            {
-                "type": "attribute",
-                "name": "saleCurrencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "attribute",
-                "name": "buyCurrencyUuid",
-                "typeInfo": "String"
-            },
-            {
-                "type": "element",
-                "name": "barcode",
-                "collection": true,
-                "typeInfo": "moysklad.barcode"
-            },
-            {
-                "type": "element",
-                "name": "salePrices",
-                "elementName": "price",
-                "collection": true,
-                "wrapperElementName": "salePrices",
-                "typeInfo": "moysklad.price"
-            }
-        ],
-        "baseTypeInfo": "moysklad.goodFolder"
-    }
-]}
+module.exports={
+  "name": "moysklad-client",
+  "version": "0.2.3-1",
+  "author": {
+    "name": "Vitaliy Makeev",
+    "email": "w.makeev@gmail.com",
+    "url": "https://github.com/wmakeev"
+  },
+  "description": "JavaScript клиент для комфортной работы с API сервиса МойСклад.",
+  "main": "./src/moysklad-client/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wmakeev/moysklad-client.git"
+  },
+  "keywords": [
+    "moysklad",
+    "warehouse",
+    "erp",
+    "client"
+  ],
+  "devDependencies": {
+    "browserify": "^4.1.5",
+    "fs-sync": "~0.2.4",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^2.1.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-webmake": "^0.1.2",
+    "js-beautify": "~1.4.2",
+    "rewire": "^2.1.0",
+    "should": "~3.2.0-beta1",
+    "sinon": "^1.10.3"
+  },
+  "dependencies": {
+    "colors": "^0.6.2",
+    "lodash": "~2.4.1",
+    "moment": "~2.5.0",
+    "stampit": "^0.7.1",
+    "tracer": "~0.6.1",
+    "xmldom": "~0.1.17"
+  },
+  "engines": {
+    "node": ">= 0.9"
+  }
+}
+
 },{}],8:[function(require,module,exports){
+module.exports={"name":"moysklad","enums":{"uomType":{"MASS":"mass","VOLUME":"volume","PIECE":"piece"},"accessMode":{"NONE":"NONE","SELF":"SELF","PARENT":"PARENT","NEIGHBOUR":"NEIGHBOUR","ALL":"ALL"},"attributeType":{"STRING":"STRING","LONG":"LONG","TIME":"TIME","ID_CUSTOM":"ID_CUSTOM","FILE":"FILE","DOUBLE":"DOUBLE","BOOLEAN":"BOOLEAN","ID_EMBEDDED":"ID_EMBEDDED","TEXT":"TEXT","LINK":"LINK"},"editablePeriodType":{"ALL":"ALL","CALENDAR_DAYS":"CALENDAR_DAYS","WORK_DAYS":"WORK_DAYS","DATE":"DATE"},"barcodeType":{"EAN8":"EAN8","EAN13":"EAN13","CODE128":"Code128"},"companyType":{"URLI":"URLI","INPR":"INPR","FILI":"FILI"},"overheadDistribution":{"BY_PRICE":"BY_PRICE","BY_WEIGHT":"BY_WEIGHT","BY_VOLUME":"BY_VOLUME"},"cmlType":{"BITRIX":"BITRIX","UMICMS":"UMICMS","HOSTCMS":"HOSTCMS","INSALES":"INSALES","WEBASYST":"WEBASYST","SIMPLA":"SIMPLA","UMIRU":"UMIRU","PRESTASHOP":"PRESTASHOP","SITEEDIT":"SITEEDIT","BITRIXSMB":"BITRIXSMB","FASTSALES":"FASTSALES","MAGENTO":"MAGENTO","DIAFAN":"DIAFAN","SHOPIUM":"SHOPIUM","VIRTUEMART":"VIRTUEMART","ADVANTSHOP":"ADVANTSHOP"}},"elementInfos":[{"elementName":"agent","typeInfo":"moysklad.agent"},{"elementName":"agentPictureDocument","typeInfo":"moysklad.agentPictureDocument"},{"elementName":"amiroConnectorSettings","typeInfo":"moysklad.amiroConnectorSettings"},{"elementName":"attachmentDocument","typeInfo":"moysklad.attachmentDocument"},{"elementName":"barcode","typeInfo":"moysklad.barcode"},{"elementName":"cashIn","typeInfo":"moysklad.cashIn"},{"elementName":"cashOut","typeInfo":"moysklad.cashOut"},{"elementName":"cmlConnectorSettings","typeInfo":"moysklad.cmlConnectorSettings"},{"elementName":"collection","typeInfo":"moysklad.collection"},{"elementName":"company","typeInfo":"moysklad.company"},{"elementName":"consignment","typeInfo":"moysklad.consignment"},{"elementName":"consignmentBarcode","typeInfo":"moysklad.consignmentBarcode"},{"elementName":"contract","typeInfo":"moysklad.contract"},{"elementName":"contractDocument","typeInfo":"moysklad.contractDocument"},{"elementName":"country","typeInfo":"moysklad.country"},{"elementName":"currency","typeInfo":"moysklad.currency"},{"elementName":"customEntity","typeInfo":"moysklad.customEntity"},{"elementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"elementName":"customerOrder","typeInfo":"moysklad.customerOrder"},{"elementName":"demand","typeInfo":"moysklad.demand"},{"elementName":"document","typeInfo":"moysklad.document"},{"elementName":"documentMiniature","typeInfo":"moysklad.documentMiniature"},{"elementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"elementName":"employee","typeInfo":"moysklad.employee"},{"elementName":"enter","typeInfo":"moysklad.enter"},{"elementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"elementName":"exchange","typeInfo":"moysklad.exchangeContainer"},{"elementName":"expenseItem","typeInfo":"moysklad.expenseItem"},{"elementName":"factureIn","typeInfo":"moysklad.factureIn"},{"elementName":"factureOut","typeInfo":"moysklad.factureOut"},{"elementName":"feature","typeInfo":"moysklad.feature"},{"elementName":"featureBarcode","typeInfo":"moysklad.featureBarcode"},{"elementName":"good","typeInfo":"moysklad.good"},{"elementName":"goodFolder","typeInfo":"moysklad.goodFolder"},{"elementName":"goodImage","typeInfo":"moysklad.goodImage"},{"elementName":"gtd","typeInfo":"moysklad.gtd"},{"elementName":"internalOrder","typeInfo":"moysklad.internalOrder"},{"elementName":"inventory","typeInfo":"moysklad.inventory"},{"elementName":"invoiceIn","typeInfo":"moysklad.invoiceIn"},{"elementName":"invoiceOut","typeInfo":"moysklad.invoiceOut"},{"elementName":"loss","typeInfo":"moysklad.loss"},{"elementName":"move","typeInfo":"moysklad.move"},{"elementName":"myCompany","typeInfo":"moysklad.myCompany"},{"elementName":"operationDocument","typeInfo":"moysklad.operationDocument"},{"elementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"elementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"elementName":"priceList","typeInfo":"moysklad.priceList"},{"elementName":"priceType","typeInfo":"moysklad.priceType"},{"elementName":"processing","typeInfo":"moysklad.processing"},{"elementName":"processingOrder","typeInfo":"moysklad.processingOrder"},{"elementName":"processingPlan","typeInfo":"moysklad.processingPlan"},{"elementName":"processingPlanFolder","typeInfo":"moysklad.processingPlanFolder"},{"elementName":"project","typeInfo":"moysklad.project"},{"elementName":"purchaseOrder","typeInfo":"moysklad.purchaseOrder"},{"elementName":"purchaseReturn","typeInfo":"moysklad.purchaseReturn"},{"elementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"elementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"elementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"elementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"elementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"elementName":"salesReturn","typeInfo":"moysklad.salesReturn"},{"elementName":"service","typeInfo":"moysklad.service"},{"elementName":"skladShareMode","typeInfo":"moysklad.skladShareMode"},{"elementName":"slot","typeInfo":"moysklad.slot"},{"elementName":"supply","typeInfo":"moysklad.supply"},{"elementName":"template","typeInfo":"moysklad.template"},{"elementName":"thing","typeInfo":"moysklad.thing"},{"elementName":"tinyImage","typeInfo":"moysklad.tinyImage"},{"elementName":"uom","typeInfo":"moysklad.uom"},{"elementName":"warehouse","typeInfo":"moysklad.warehouse"},{"elementName":"workflow","typeInfo":"moysklad.workflow"},{"elementName":"ymlConnectorSettings","typeInfo":"moysklad.ymlConnectorSettings"},{"elementName":"collection","typeInfo":"moysklad.collection"},{"elementName":"uuid","typeInfo":"String"},{"elementName":"id","typeInfo":"String"},{"elementName":"error","typeInfo":"moysklad.error"}],"typeInfos":[{"type":"classInfo","localName":"service","propertyInfos":[],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"abstractGood","propertyInfos":[{"type":"attribute","name":"minPrice","typeInfo":"Double"},{"type":"attribute","name":"uomUuid","typeInfo":"String"},{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"supplierUuid","typeInfo":"String"},{"type":"attribute","name":"salePrice","typeInfo":"Double"},{"type":"attribute","name":"saleCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyCurrencyUuid","typeInfo":"String"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"},{"type":"element","name":"salePrices","elementName":"price","collection":true,"wrapperElementName":"salePrices","typeInfo":"moysklad.price"}],"baseTypeInfo":"moysklad.goodFolder"},{"type":"classInfo","localName":"goodFolder","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"attribute","name":"productCode","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.goodAttributeValue"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"classifier","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"legendEntity","propertyInfos":[{"type":"attribute","name":"name","typeInfo":"String"},{"type":"element","name":"code","typeInfo":"String"},{"type":"element","name":"externalcode","typeInfo":"String"},{"type":"element","name":"description","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"infoEntity","propertyInfos":[{"type":"attribute","name":"updated","typeInfo":"DateTime"},{"type":"attribute","name":"updatedBy","typeInfo":"String"},{"type":"element","name":"deleted","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"entity","propertyInfos":[{"type":"attribute","name":"readMode","typeInfo":"String"},{"type":"attribute","name":"changeMode","typeInfo":"String"},{"type":"element","name":"groupUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.accountEntity"},{"type":"classInfo","localName":"accountEntity","propertyInfos":[{"type":"element","name":"accountUuid","typeInfo":"String"},{"type":"element","name":"accountId","typeInfo":"String"},{"type":"element","name":"uuid","typeInfo":"String"}]},{"type":"classInfo","localName":"uom","propertyInfos":[{"type":"attribute","name":"type","typeInfo":"String"}],"baseTypeInfo":"moysklad.predefinedLegendableEntity"},{"type":"classInfo","localName":"predefinedLegendableEntity","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"country","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendableEntity"},{"type":"classInfo","localName":"agent","propertyInfos":[{"type":"attribute","name":"discount","typeInfo":"Double"},{"type":"attribute","name":"autoDiscount","typeInfo":"Double"},{"type":"attribute","name":"discountCardNumber","typeInfo":"String"},{"type":"attribute","name":"discountCorrection","typeInfo":"Double"},{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"employeeUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.agentAttributeValue"},{"type":"element","name":"requisite","typeInfo":"moysklad.requisite"},{"type":"element","name":"bankAccount","collection":true,"typeInfo":"moysklad.agentAccount"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"contactPerson","collection":true,"typeInfo":"moysklad.contactPerson"},{"type":"element","name":"agentNewsItem","collection":true,"typeInfo":"moysklad.agentNewsItem"},{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentAttributeValue","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attributeValue","propertyInfos":[{"type":"attribute","name":"metadataUuid","typeInfo":"String"},{"type":"attribute","name":"valueText","typeInfo":"String"},{"type":"attribute","name":"valueString","typeInfo":"String"},{"type":"attribute","name":"doubleValue","typeInfo":"Double"},{"type":"attribute","name":"longValue","typeInfo":"Long"},{"type":"attribute","name":"booleanValue","typeInfo":"Boolean"},{"type":"attribute","name":"timeValue","typeInfo":"DateTime"},{"type":"attribute","name":"entityValueUuid","typeInfo":"String"},{"type":"attribute","name":"agentValueUuid","typeInfo":"String"},{"type":"attribute","name":"goodValueUuid","typeInfo":"String"},{"type":"attribute","name":"placeValueUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentValueUuid","typeInfo":"String"},{"type":"attribute","name":"contractValueUuid","typeInfo":"String"},{"type":"attribute","name":"projectValueUuid","typeInfo":"String"},{"type":"attribute","name":"employeeValueUuid","typeInfo":"String"},{"type":"element","name":"file","typeInfo":"moysklad.attachmentDocument"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"attributeMetadata","propertyInfos":[{"type":"attribute","name":"attrType","typeInfo":"String"},{"type":"attribute","name":"dictionaryMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"feature","typeInfo":"Boolean"},{"type":"attribute","name":"position","typeInfo":"Int"},{"type":"attribute","name":"required","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"entityMetadata","propertyInfos":[{"type":"attribute","name":"uniqueCode","typeInfo":"Boolean"},{"type":"attribute","name":"codeValueType","typeInfo":"Int"},{"type":"attribute","name":"independentNameGenerator","typeInfo":"Boolean"},{"type":"attribute","name":"editOnlyByAuthor","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"editablePeriod","typeInfo":"String"},{"type":"attribute","name":"editableCalendarDays","typeInfo":"Int"},{"type":"attribute","name":"editableWorkDays","typeInfo":"Int"},{"type":"attribute","name":"editableFromDate","typeInfo":"DateTime"},{"type":"element","name":"attributeMetadata","collection":true,"typeInfo":"moysklad.attributeMetadata"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntity","propertyInfos":[{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.customEntityAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"customEntityAttributeValue","propertyInfos":[{"type":"attribute","name":"customEntityUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attachmentDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"attachableDocument","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"document","propertyInfos":[{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"filename","typeInfo":"String"},{"type":"attribute","name":"miniatureUuid","typeInfo":"String"},{"type":"element","name":"contents","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"documentMiniature","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"goodAttributeValue","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"warehouse","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.placeAttributeValue"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"slots","elementName":"slot","collection":true,"wrapperElementName":"slots","typeInfo":"moysklad.slot"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"placeAttributeValue","propertyInfos":[{"type":"attribute","name":"placeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"contact","propertyInfos":[{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"phones","typeInfo":"String"},{"type":"attribute","name":"faxes","typeInfo":"String"},{"type":"attribute","name":"mobiles","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"}]},{"type":"classInfo","localName":"slot","propertyInfos":[{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"consignment","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.consignmentBarcode"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.consignmentAttributeValue"},{"type":"element","name":"feature","typeInfo":"moysklad.feature"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"consignmentBarcode","propertyInfos":[],"baseTypeInfo":"moysklad.abstractBarcode"},{"type":"classInfo","localName":"abstractBarcode","propertyInfos":[{"type":"attribute","name":"barcode","typeInfo":"String"},{"type":"attribute","name":"barcodeType","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"consignmentAttributeValue","propertyInfos":[{"type":"attribute","name":"consignmentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"feature","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.featureAttributeValue"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.featureBarcode"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"featureAttributeValue","propertyInfos":[],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"featureBarcode","propertyInfos":[],"baseTypeInfo":"moysklad.abstractBarcode"},{"type":"classInfo","localName":"good","propertyInfos":[{"type":"attribute","name":"isSerialTrackable","typeInfo":"Boolean"},{"type":"attribute","name":"buyPrice","typeInfo":"Double"},{"type":"attribute","name":"minimumBalance","typeInfo":"Double"},{"type":"attribute","name":"weight","typeInfo":"Double"},{"type":"attribute","name":"volume","typeInfo":"Double"},{"type":"element","name":"pack","collection":true,"typeInfo":"moysklad.goodPack"},{"type":"element","name":"preferences","elementName":"preference","collection":true,"wrapperElementName":"preferences","typeInfo":"moysklad.goodSlotPreference"},{"type":"element","name":"images","elementName":"image","collection":true,"wrapperElementName":"images","typeInfo":"moysklad.goodImage"}],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"goodPack","propertyInfos":[{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"uomUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"goodSlotPreference","propertyInfos":[{"type":"attribute","name":"slotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"goodImage","propertyInfos":[{"type":"attribute","name":"tinyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"tinyImage","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"contract","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"ownCompanyUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.contractAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.contractDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"contractAttributeValue","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"currency","propertyInfos":[{"type":"attribute","name":"enteredRate","typeInfo":"Double"},{"type":"attribute","name":"invertRate","typeInfo":"Boolean"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"element","name":"major","typeInfo":"moysklad.unit"},{"type":"element","name":"minor","typeInfo":"moysklad.unit"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"unit","propertyInfos":[{"type":"attribute","name":"s1","typeInfo":"String"},{"type":"attribute","name":"s24","typeInfo":"String"},{"type":"attribute","name":"s5","typeInfo":"String"},{"type":"attribute","name":"sex","typeInfo":"UnsignedShort"}]},{"type":"classInfo","localName":"contractDocument","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"printedDocument","propertyInfos":[{"type":"attribute","name":"emailedDate","typeInfo":"DateTime"},{"type":"attribute","name":"publicId","typeInfo":"String"}],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"moneyAmount","propertyInfos":[{"type":"attribute","name":"sum","typeInfo":"Double"},{"type":"attribute","name":"sumInCurrency","typeInfo":"Double"}]},{"type":"classInfo","localName":"project","propertyInfos":[{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.projectAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"projectAttributeValue","propertyInfos":[{"type":"attribute","name":"projectUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"employee","propertyInfos":[{"type":"attribute","name":"city","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"fax","typeInfo":"String"},{"type":"attribute","name":"firstName","typeInfo":"String"},{"type":"attribute","name":"icqNumber","typeInfo":"String"},{"type":"attribute","name":"lastName","typeInfo":"String"},{"type":"attribute","name":"middleName","typeInfo":"String"},{"type":"attribute","name":"mobile","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"postalAddress","typeInfo":"String"},{"type":"attribute","name":"postalCode","typeInfo":"String"},{"type":"attribute","name":"pzInternalNumber","typeInfo":"String"},{"type":"attribute","name":"skypeName","typeInfo":"String"},{"type":"attribute","name":"uid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.employeeAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"employeeAttributeValue","propertyInfos":[{"type":"attribute","name":"employeeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"requisite","propertyInfos":[{"type":"element","name":"bankAccount","typeInfo":"moysklad.agentAccount"},{"type":"attribute","name":"legalTitle","typeInfo":"String"},{"type":"attribute","name":"legalAddress","typeInfo":"String"},{"type":"attribute","name":"actualAddress","typeInfo":"String"},{"type":"attribute","name":"inn","typeInfo":"String"},{"type":"attribute","name":"kpp","typeInfo":"String"},{"type":"attribute","name":"okpo","typeInfo":"String"},{"type":"attribute","name":"ogrn","typeInfo":"String"},{"type":"attribute","name":"ogrnip","typeInfo":"String"},{"type":"attribute","name":"nomerSvidetelstva","typeInfo":"String"},{"type":"attribute","name":"dataSvidetelstva","typeInfo":"DateTime"}]},{"type":"classInfo","localName":"agentAccount","propertyInfos":[{"type":"attribute","name":"accountNumber","typeInfo":"String"},{"type":"attribute","name":"bankLocation","typeInfo":"String"},{"type":"attribute","name":"bankName","typeInfo":"String"},{"type":"attribute","name":"bic","typeInfo":"String"},{"type":"attribute","name":"correspondentAccount","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"contactPerson","propertyInfos":[{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"position","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentNewsItem","propertyInfos":[{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"element","name":"text","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"state","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceType","propertyInfos":[{"type":"attribute","name":"index","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"barcode","propertyInfos":[],"baseTypeInfo":"moysklad.abstractBarcode"},{"type":"classInfo","localName":"goodPrices","propertyInfos":[{"type":"element","name":"price","collection":true,"typeInfo":"moysklad.price"}]},{"type":"classInfo","localName":"price","propertyInfos":[{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"value","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"collectionContainer","propertyInfos":[{"type":"anyElement","name":"items","collection":true}]},{"type":"classInfo","localName":"exchangeContainer","propertyInfos":[{"type":"element","name":"workflow","collection":true,"wrapperElementName":"workflow","typeInfo":"moysklad.workflow"},{"type":"element","name":"shareModes","elementName":"shareMode","collection":true,"wrapperElementName":"shareModes","typeInfo":"moysklad.skladShareMode"},{"type":"element","name":"customEntityMetadata","collection":true,"wrapperElementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"type":"element","name":"embeddedEntityMetadata","collection":true,"wrapperElementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"type":"element","name":"entityTemplatesMetadata","collection":true,"wrapperElementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"type":"element","name":"reportTemplatesMetadata","collection":true,"wrapperElementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"type":"element","name":"customEntity","collection":true,"wrapperElementName":"customEntity","typeInfo":"moysklad.customEntity"},{"type":"element","name":"currencies","elementName":"currency","collection":true,"wrapperElementName":"currencies","typeInfo":"moysklad.currency"},{"type":"element","name":"country","collection":true,"wrapperElementName":"country","typeInfo":"moysklad.country"},{"type":"element","name":"gtd","collection":true,"wrapperElementName":"gtd","typeInfo":"moysklad.gtd"},{"type":"element","name":"uoms","elementName":"uom","collection":true,"wrapperElementName":"uoms","typeInfo":"moysklad.uom"},{"type":"element","name":"myCompany","collection":true,"wrapperElementName":"myCompany","typeInfo":"moysklad.myCompany"},{"type":"element","name":"agents","elementName":"agent","collection":true,"wrapperElementName":"agents","typeInfo":"moysklad.agent"},{"type":"element","name":"companies","elementName":"company","collection":true,"wrapperElementName":"companies","typeInfo":"moysklad.company"},{"type":"element","name":"goodFolders","elementName":"goodFolder","collection":true,"wrapperElementName":"goodFolders","typeInfo":"moysklad.goodFolder"},{"type":"element","name":"goods","elementName":"good","collection":true,"wrapperElementName":"goods","typeInfo":"moysklad.good"},{"type":"element","name":"service","collection":true,"wrapperElementName":"service","typeInfo":"moysklad.service"},{"type":"element","name":"things","elementName":"thing","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"},{"type":"element","name":"employees","elementName":"employee","collection":true,"wrapperElementName":"employees","typeInfo":"moysklad.employee"},{"type":"element","name":"warehouses","elementName":"warehouse","collection":true,"wrapperElementName":"warehouses","typeInfo":"moysklad.warehouse"},{"type":"element","name":"project","collection":true,"wrapperElementName":"project","typeInfo":"moysklad.project"},{"type":"element","name":"contract","collection":true,"wrapperElementName":"contract","typeInfo":"moysklad.contract"},{"type":"element","name":"processingPlans","elementName":"processingPlan","collection":true,"wrapperElementName":"processingPlans","typeInfo":"moysklad.processingPlan"},{"type":"element","name":"features","elementName":"feature","collection":true,"wrapperElementName":"features","typeInfo":"moysklad.feature"},{"type":"element","name":"consignments","elementName":"consignment","collection":true,"wrapperElementName":"consignments","typeInfo":"moysklad.consignment"},{"type":"element","name":"priceLists","elementName":"priceList","collection":true,"wrapperElementName":"priceLists","typeInfo":"moysklad.priceList"},{"type":"element","name":"paymentIn","collection":true,"wrapperElementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"type":"element","name":"paymentOut","collection":true,"wrapperElementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"type":"element","name":"factureIn","collection":true,"wrapperElementName":"factureIn","typeInfo":"moysklad.factureIn"},{"type":"element","name":"factureOut","collection":true,"wrapperElementName":"factureOut","typeInfo":"moysklad.factureOut"},{"type":"element","name":"cashIn","collection":true,"wrapperElementName":"cashIn","typeInfo":"moysklad.cashIn"},{"type":"element","name":"cashOut","collection":true,"wrapperElementName":"cashOut","typeInfo":"moysklad.cashOut"},{"type":"element","name":"deliveries-demand","elementName":"demand","collection":true,"wrapperElementName":"deliveries-demand","typeInfo":"moysklad.demand"},{"type":"element","name":"deliveries-supply","elementName":"supply","collection":true,"wrapperElementName":"deliveries-supply","typeInfo":"moysklad.supply"},{"type":"element","name":"retailCashIn","collection":true,"wrapperElementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"type":"element","name":"retailCashOut","collection":true,"wrapperElementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"type":"element","name":"retailDemand","collection":true,"wrapperElementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"type":"element","name":"retailSalesReturn","collection":true,"wrapperElementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"type":"element","name":"inventories","elementName":"inventory","collection":true,"wrapperElementName":"inventories","typeInfo":"moysklad.inventory"},{"type":"element","name":"moves","elementName":"move","collection":true,"wrapperElementName":"moves","typeInfo":"moysklad.move"},{"type":"element","name":"losses","elementName":"loss","collection":true,"wrapperElementName":"losses","typeInfo":"moysklad.loss"},{"type":"element","name":"enters","elementName":"enter","collection":true,"wrapperElementName":"enters","typeInfo":"moysklad.enter"},{"type":"element","name":"invoicesIn","elementName":"invoiceIn","collection":true,"wrapperElementName":"invoicesIn","typeInfo":"moysklad.invoiceIn"},{"type":"element","name":"invoicesOut","elementName":"invoiceOut","collection":true,"wrapperElementName":"invoicesOut","typeInfo":"moysklad.invoiceOut"},{"type":"element","name":"salesReturns","elementName":"salesReturn","collection":true,"wrapperElementName":"salesReturns","typeInfo":"moysklad.salesReturn"},{"type":"element","name":"purchaseReturns","elementName":"purchaseReturn","collection":true,"wrapperElementName":"purchaseReturns","typeInfo":"moysklad.purchaseReturn"},{"type":"element","name":"processings","elementName":"processing","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"},{"type":"element","name":"customerOrders","elementName":"customerOrder","collection":true,"wrapperElementName":"customerOrders","typeInfo":"moysklad.customerOrder"},{"type":"element","name":"purchaseOrders","elementName":"purchaseOrder","collection":true,"wrapperElementName":"purchaseOrders","typeInfo":"moysklad.purchaseOrder"},{"type":"element","name":"internalOrders","elementName":"internalOrder","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"proccessingOrders","elementName":"processingOrder","collection":true,"wrapperElementName":"proccessingOrders","typeInfo":"moysklad.processingOrder"},{"type":"element","name":"amiroConnectors","elementName":"amiroConnectorSettings","collection":true,"wrapperElementName":"amiroConnectors","typeInfo":"moysklad.amiroConnectorSettings"},{"type":"element","name":"cmlConnectors","elementName":"cmlConnectorSettings","collection":true,"wrapperElementName":"cmlConnectors","typeInfo":"moysklad.cmlConnectorSettings"},{"type":"element","name":"ymlConnectors","elementName":"ymlConnectorSettings","collection":true,"wrapperElementName":"ymlConnectors","typeInfo":"moysklad.ymlConnectorSettings"}]},{"type":"classInfo","localName":"workflow","propertyInfos":[{"type":"element","name":"state","collection":true,"typeInfo":"moysklad.state"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"skladShareMode","propertyInfos":[],"baseTypeInfo":"moysklad.shareMode"},{"type":"classInfo","localName":"shareMode","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"embeddedEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"entityTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"templatesMetadata","propertyInfos":[{"type":"element","name":"template","collection":true,"typeInfo":"moysklad.template"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"template","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"reportTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"gtd","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"myCompany","propertyInfos":[],"baseTypeInfo":"moysklad.company"},{"type":"classInfo","localName":"company","propertyInfos":[{"type":"attribute","name":"director","typeInfo":"String"},{"type":"attribute","name":"chiefAccountant","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"companyType","typeInfo":"String"},{"type":"element","name":"sign","typeInfo":"moysklad.agentPictureDocument"},{"type":"element","name":"stamp","typeInfo":"moysklad.agentPictureDocument"}],"baseTypeInfo":"moysklad.agent"},{"type":"classInfo","localName":"agentPictureDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"thing","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.thingAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"thingAttributeValue","propertyInfos":[{"type":"attribute","name":"thingUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"processingPlan","propertyInfos":[{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.material"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"product","collection":true,"typeInfo":"moysklad.product"}],"baseTypeInfo":"moysklad.processingPlanFolder"},{"type":"classInfo","localName":"processingPlanFolder","propertyInfos":[{"type":"attribute","name":"parentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"material","propertyInfos":[{"type":"attribute","name":"isOptional","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"processingPlanItem","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"product","propertyInfos":[{"type":"attribute","name":"costShare","typeInfo":"Double"}],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"priceList","propertyInfos":[{"type":"element","name":"metadata","typeInfo":"moysklad.priceListMetadata"},{"type":"element","name":"priceListRow","collection":true,"typeInfo":"moysklad.priceListRow"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"operationWithPositions","propertyInfos":[],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"operation","propertyInfos":[{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"targetAgentUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAgentUuid","typeInfo":"String"},{"type":"attribute","name":"targetStoreUuid","typeInfo":"String"},{"type":"attribute","name":"sourceStoreUuid","typeInfo":"String"},{"type":"attribute","name":"applicable","typeInfo":"Boolean"},{"type":"attribute","name":"projectUuid","typeInfo":"String"},{"type":"attribute","name":"contractUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"targetAccountUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAccountUuid","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"retailStoreUuid","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"attribute","name":"vatIncluded","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"createdBy","typeInfo":"String"},{"type":"attribute","name":"employeeUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.operationAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.operationDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListMetadata","propertyInfos":[{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"element","name":"column","collection":true,"typeInfo":"moysklad.priceListMetadataColumn"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListMetadataColumn","propertyInfos":[{"type":"attribute","name":"percentageDiscount","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListRow","propertyInfos":[{"type":"element","name":"cell","collection":true,"typeInfo":"moysklad.priceListCell"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"motion","propertyInfos":[{"type":"attribute","name":"discount","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"goodPackUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentUuid","typeInfo":"String"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"slotUuid","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"basePrice","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"things","elementName":"thingRef","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"priceListCell","propertyInfos":[{"type":"attribute","name":"columnName","typeInfo":"String"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"operationAttributeValue","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"operationDocument","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"retailStore","propertyInfos":[{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"myCompanyUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"paymentIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"}],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"financeIn","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureOutUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceOutUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseReturnUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"finance","propertyInfos":[{"type":"attribute","name":"paymentPurpose","typeInfo":"String"},{"type":"attribute","name":"vatSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"customerOrder","propertyInfos":[{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"customerOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"order","propertyInfos":[{"type":"attribute","name":"deliveryPlannedMoment","typeInfo":"DateTime"},{"type":"attribute","name":"reservedSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"abstractDemand","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentOut","collection":true,"typeInfo":"moysklad.shipmentOut"},{"type":"element","name":"salesReturnsUuid","elementName":"salesReturnRef","collection":true,"wrapperElementName":"salesReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"comingOutOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"stockOperation","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"factureOut","propertyInfos":[{"type":"attribute","name":"paymentDate","typeInfo":"DateTime"},{"type":"attribute","name":"paymentNumber","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"extension","typeInfo":"moysklad.factureOutExtension"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"returnsUuid","elementName":"returnRef","collection":true,"wrapperElementName":"returnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"facture","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"factureOutExtension","propertyInfos":[],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"operationExtension","propertyInfos":[{"type":"attribute","name":"consigneeUuid","typeInfo":"String"}]},{"type":"classInfo","localName":"purchaseReturn","propertyInfos":[{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseReturnPosition","collection":true,"typeInfo":"moysklad.purchaseReturnPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"purchaseReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"abstractShipmentOut","propertyInfos":[],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"comingOut","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"stockMotion","propertyInfos":[{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"gtdUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"supply","propertyInfos":[{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"invoicesInUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesInUuid","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentIn","collection":true,"typeInfo":"moysklad.shipmentIn"},{"type":"element","name":"purchaseReturnsUuid","elementName":"purchaseReturnRef","collection":true,"wrapperElementName":"purchaseReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"comingInOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"factureIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"financeOut","propertyInfos":[{"type":"attribute","name":"expenseItemUuid","typeInfo":"String"},{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceInUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"expenseItem","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendableEntity"},{"type":"classInfo","localName":"invoiceIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"financesOutUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"financesOutUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"invoice","propertyInfos":[{"type":"attribute","name":"paymentPlannedMoment","typeInfo":"DateTime"},{"type":"element","name":"invoicePosition","collection":true,"typeInfo":"moysklad.invoicePosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"purchaseOrder","propertyInfos":[{"type":"element","name":"customerOrdersUuid","elementName":"customerOrderRef","collection":true,"wrapperElementName":"customerOrdersUuid","typeInfo":"String"},{"type":"element","name":"internalOrders","elementName":"internalOrderRef","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"invoicesUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"internalOrder","propertyInfos":[{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"moveRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"purchaseOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"orderPosition","propertyInfos":[{"type":"element","name":"reserve","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"move","propertyInfos":[{"type":"attribute","name":"internalOrderUuid","typeInfo":"String"},{"type":"element","name":"movePosition","collection":true,"typeInfo":"moysklad.movePosition"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"movePosition","propertyInfos":[{"type":"attribute","name":"sourceSlotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"invoicePosition","propertyInfos":[],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"abstractSalesReturn","propertyInfos":[{"type":"attribute","name":"demandUuid","typeInfo":"String"},{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"salesReturnPosition","collection":true,"typeInfo":"moysklad.salesReturnPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"loss","propertyInfos":[{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"element","name":"lossPosition","collection":true,"typeInfo":"moysklad.lossPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"inventory","propertyInfos":[{"type":"element","name":"entersUuid","elementName":"enterRef","collection":true,"wrapperElementName":"entersUuid","typeInfo":"String"},{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"inventoryPosition","collection":true,"typeInfo":"moysklad.inventoryPosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"enter","propertyInfos":[{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"element","name":"enterPosition","collection":true,"typeInfo":"moysklad.enterPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"enterPosition","propertyInfos":[{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"comingIn","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"inventoryPosition","propertyInfos":[{"type":"attribute","name":"correctionAmount","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"lossPosition","propertyInfos":[{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"salesReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"shipmentIn","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"invoiceOut","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"shipmentOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"customerOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"paymentOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"cashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"abstractCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"cashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"abstractCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"demand","propertyInfos":[{"type":"element","name":"extension","typeInfo":"moysklad.demandExtension"}],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"demandExtension","propertyInfos":[{"type":"attribute","name":"opened","typeInfo":"Boolean"},{"type":"attribute","name":"carrierUuid","typeInfo":"String"},{"type":"attribute","name":"loadName","typeInfo":"String"},{"type":"attribute","name":"consignorIndication","typeInfo":"String"},{"type":"attribute","name":"transportFacility","typeInfo":"String"},{"type":"attribute","name":"goodPackQuantity","typeInfo":"Int"},{"type":"attribute","name":"carNumber","typeInfo":"String"}],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"retailCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"retailCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"retailDemand","propertyInfos":[],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"retailSalesReturn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"salesReturn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"processing","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"processingOrderUuid","typeInfo":"String"},{"type":"attribute","name":"processingSum","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.processingPositionMaterial"},{"type":"element","name":"results","elementName":"result","collection":true,"wrapperElementName":"results","typeInfo":"moysklad.processingPositionResult"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"processingPositionMaterial","propertyInfos":[{"type":"attribute","name":"planMaterialUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"processingOrder","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"processings","elementName":"processingRef","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"processingPositionResult","propertyInfos":[{"type":"attribute","name":"planResultUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"amiroConnectorSettings","propertyInfos":[{"type":"attribute","name":"commentsColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerAddressColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerCodeColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerEmailColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerFirstNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerLastNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerNickColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerPhoneColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderDateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"prefixForAgent","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForGood","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForOperation","typeInfo":"Boolean"},{"type":"attribute","name":"priceColumnNum","typeInfo":"Int"},{"type":"attribute","name":"quantityColumnNum","typeInfo":"Int"},{"type":"attribute","name":"shippingAmountColumnNum","typeInfo":"Int"},{"type":"attribute","name":"stateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"taxColumnNum","typeInfo":"Int"},{"type":"element","name":"customAttribute","collection":true,"typeInfo":"moysklad.amiroCustomAttributeInfo"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"operationConnectorSetting","propertyInfos":[{"type":"attribute","name":"adminDomain","typeInfo":"String"},{"type":"attribute","name":"autoReserve","typeInfo":"Boolean"},{"type":"attribute","name":"orderplaceUuid","typeInfo":"String"},{"type":"attribute","name":"shopDomain","typeInfo":"String"},{"type":"attribute","name":"syncFeatures","typeInfo":"Boolean"},{"type":"attribute","name":"useShopOperationName","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"abstractConnectorSetting","propertyInfos":[{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"login","typeInfo":"String"},{"type":"attribute","name":"organizationUuid","typeInfo":"String"},{"type":"attribute","name":"password","typeInfo":"String"},{"type":"attribute","name":"pollPeriod","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"amiroCustomAttributeInfo","propertyInfos":[{"type":"attribute","name":"columnNumber","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"},{"type":"attribute","name":"settingsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"cmlConnectorSettings","propertyInfos":[{"type":"attribute","name":"features","typeInfo":"Boolean"},{"type":"attribute","name":"goodFolderUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"shopType","typeInfo":"String"},{"type":"attribute","name":"stockActive","typeInfo":"Boolean"},{"type":"attribute","name":"stockplaceUuid","typeInfo":"String"},{"type":"attribute","name":"stockPollPeriod","typeInfo":"Int"},{"type":"attribute","name":"syncOrderState","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"ymlConnectorSettings","propertyInfos":[],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"error","propertyInfos":[{"type":"element","name":"uid","typeInfo":"String"},{"type":"element","name":"moment","typeInfo":"String"},{"type":"element","name":"message","typeInfo":"String"},{"type":"element","name":"stack","typeInfo":"String"}]},{"type":"classInfo","localName":"collection","propertyInfos":[{"type":"attribute","name":"total","typeInfo":"Int"},{"type":"attribute","name":"start","typeInfo":"Int"},{"type":"attribute","name":"count","typeInfo":"Int"}],"baseTypeInfo":"moysklad.collectionContainer"},{"type":"classInfo","localName":"abstractGood","propertyInfos":[{"type":"attribute","name":"minPrice","typeInfo":"Double"},{"type":"attribute","name":"uomUuid","typeInfo":"String"},{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"supplierUuid","typeInfo":"String"},{"type":"attribute","name":"salePrice","typeInfo":"Double"},{"type":"attribute","name":"saleCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyCurrencyUuid","typeInfo":"String"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"},{"type":"element","name":"salePrices","elementName":"price","collection":true,"wrapperElementName":"salePrices","typeInfo":"moysklad.price"}],"baseTypeInfo":"moysklad.goodFolder"}]}
+},{}],9:[function(require,module,exports){
 /**
  * auth
  * Date: 23.03.14
@@ -4359,7 +220,7 @@ var AuthProvider = function () {
 };
 
 module.exports = AuthProvider;
-},{"./tools":89,"project/default-auth":"rUG5Il","project/logger":"37nxtW"}],9:[function(require,module,exports){
+},{"./tools":90,"project/default-auth":"rUG5Il","project/logger":"37nxtW"}],10:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -4425,7 +286,7 @@ var Client = stampit()
     .methods(operators);
 
 module.exports = Client;
-},{"./../../authProviderBehavior":8,"./../../providerAccessorBehavior":87,"./../rest-clients/ms-xml/query":45,"./../rest-clients/ms-xml/query/operators":55,"./lazy-loader":19,"./methods/chain":22,"./methods/first":23,"./methods/from":24,"./methods/json-service":25,"./methods/load":26,"./methods/save":27,"./methods/total":28,"lodash":"EBUqFC","stampit":"gaBrea"}],10:[function(require,module,exports){
+},{"./../../authProviderBehavior":9,"./../../providerAccessorBehavior":88,"./../rest-clients/ms-xml/query":46,"./../rest-clients/ms-xml/query/operators":56,"./lazy-loader":20,"./methods/chain":23,"./methods/first":24,"./methods/from":25,"./methods/json-service":26,"./methods/load":27,"./methods/save":28,"./methods/total":29,"lodash":"EBUqFC","stampit":"gaBrea"}],11:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -4486,7 +347,7 @@ function batch () {
 }
 
 module.exports = batch;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],11:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],12:[function(require,module,exports){
 
 
 module.exports = {
@@ -4500,7 +361,7 @@ module.exports = {
     payments:   require('./payments')
 
 };
-},{"./payments":12,"./slot":13,"./state":14}],12:[function(require,module,exports){
+},{"./payments":13,"./slot":14,"./state":15}],13:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -4518,7 +379,7 @@ function fetchPayments(type, uuids, containerEntity) {
 }
 
 module.exports = fetchPayments;
-},{"lodash":"EBUqFC"}],13:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],14:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -4560,7 +421,7 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchSlots;
-},{"lodash":"EBUqFC"}],14:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],15:[function(require,module,exports){
 /**
  * state
  * Date: 14.06.14
@@ -4601,7 +462,7 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchState;
-},{"lodash":"EBUqFC","project/tools":81}],15:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":82}],16:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -4646,7 +507,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
 }
 
 module.exports = defProperty;
-},{"lodash":"EBUqFC"}],16:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],17:[function(require,module,exports){
 /**
  * entityHash
  * Date: 13.05.2014
@@ -4710,7 +571,7 @@ function entityHash () {
 }
 
 module.exports = entityHash;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],17:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],18:[function(require,module,exports){
 /**
  * getEntities
  * Date: 29.04.14
@@ -4770,7 +631,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = getEntities;
-},{"./customFetch":11,"lodash":"EBUqFC"}],18:[function(require,module,exports){
+},{"./customFetch":12,"lodash":"EBUqFC"}],19:[function(require,module,exports){
 /**
  * getTypeOfProperty
  * Date: 29.04.14
@@ -4792,7 +653,7 @@ function getTypeOfProperty(propertyName, entity) {
 }
 
 module.exports = getTypeOfProperty;
-},{"./nameToTypeMap":21}],19:[function(require,module,exports){
+},{"./nameToTypeMap":22}],20:[function(require,module,exports){
 /**
  * LazyLoader
  * Date: 15.04.14
@@ -4860,7 +721,7 @@ var createLazyLoader = function () {
 };
 
 module.exports = createLazyLoader;
-},{"./batch":10,"./defProperty":15,"./entityHash":16,"./getEntities":17,"./getTypeOfProperty":18,"./mapLazyLoader":20,"lodash":"EBUqFC","stampit":"gaBrea"}],20:[function(require,module,exports){
+},{"./batch":11,"./defProperty":16,"./entityHash":17,"./getEntities":18,"./getTypeOfProperty":19,"./mapLazyLoader":21,"lodash":"EBUqFC","stampit":"gaBrea"}],21:[function(require,module,exports){
 /**
  * mapLazyLoader
  * Date: 29.04.14
@@ -4976,7 +837,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":81}],21:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":82}],22:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -4997,7 +858,7 @@ module.exports={
     "demands": "demand",
     "invoicesOut": "invoice"
 }
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * chain
  * Date: 25.06.14
@@ -5012,7 +873,7 @@ var chain = function () {
 };
 
 module.exports = chain;
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],23:[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],24:[function(require,module,exports){
 /**
  * first
  * Date: 14.04.14
@@ -5075,7 +936,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],24:[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],25:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -5119,7 +980,7 @@ var from = function (type) {
 };
 
 module.exports = from;
-},{"./../../rest-clients/ms-xml/query/index":45,"lodash":"EBUqFC"}],25:[function(require,module,exports){
+},{"./../../rest-clients/ms-xml/query/index":46,"lodash":"EBUqFC"}],26:[function(require,module,exports){
 /**
  * json-service
  * Date: 24.06.14
@@ -5163,7 +1024,7 @@ var callService = function (serviceName) {
 });
 
 
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],26:[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],27:[function(require,module,exports){
 /**
  * load
  * Date: 24.03.14
@@ -5262,7 +1123,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],27:[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],28:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -5302,7 +1163,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],28:[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],29:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -5361,7 +1222,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":89,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -5370,8 +1231,10 @@ module.exports = total;
 
 var client = require('./client')
   , query  = require('./rest-clients/ms-xml/query')
-  , logger = require('project/logger');
+  , logger = require('project/logger')
+  , pkg    = require('../../package');
 
+logger.log('moysklad-client v' + pkg.version);
 
 module.exports = {
 
@@ -5382,15 +1245,16 @@ module.exports = {
     createQuery: query.createQuery,
 
     tools: require('project/tools'),
-    logger: require('project/logger')
+    logger: require('project/logger'),
+    version: pkg.version
 };
-},{"./client":9,"./rest-clients/ms-xml/query":45,"project/logger":"37nxtW","project/tools":81}],"moysklad-client":[function(require,module,exports){
+},{"../../package":7,"./client":10,"./rest-clients/ms-xml/query":46,"project/logger":"37nxtW","project/tools":82}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -5422,7 +1286,7 @@ var stockJsonClient = stampit()
 module.exports = stockJsonClient;
 
 //TODO Написать необходимые Enum'ы
-},{"./../../../authProviderBehavior":8,"./methods/fetch":33,"./methods/mutualSettlement":34,"./methods/slot":35,"./methods/stock":37,"./methods/stock-for-good":36,"stampit":"gaBrea"}],33:[function(require,module,exports){
+},{"./../../../authProviderBehavior":9,"./methods/fetch":34,"./methods/mutualSettlement":35,"./methods/slot":36,"./methods/stock":38,"./methods/stock-for-good":37,"stampit":"gaBrea"}],34:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -5476,7 +1340,7 @@ var fetch = function (options, callback) {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":31,"./../providerResponseHandler":38,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"Q962xy"}],34:[function(require,module,exports){
+},{"./../../client-properties":32,"./../providerResponseHandler":39,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"Q962xy"}],35:[function(require,module,exports){
 /**
  * mutualSettlement
  * Date: 24.03.14
@@ -5532,7 +1396,7 @@ module.exports = {
     list    : list,
     customer: customer
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],35:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],36:[function(require,module,exports){
 /**
  * slot
  * Date: 24.03.14
@@ -5569,7 +1433,7 @@ var slot = function (options, callback) {
 };
 
 module.exports = slot;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],36:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],37:[function(require,module,exports){
 /**
  * stockForGood
  * Date: 24.03.14
@@ -5590,7 +1454,7 @@ var stockForGood = function (options, callback) {
 };
 
 module.exports = stockForGood;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],37:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],38:[function(require,module,exports){
 /**
  * stock
  * Date: 24.03.14
@@ -5611,7 +1475,7 @@ var stock = function (options, callback) {
 };
 
 module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],38:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],39:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -5664,7 +1528,7 @@ var providerResponseHandler = function (err, result, callback) {
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":89,"lodash":"EBUqFC","project/logger":"37nxtW"}],39:[function(require,module,exports){
+},{"../../../tools":90,"lodash":"EBUqFC","project/logger":"37nxtW"}],40:[function(require,module,exports){
 /**
  * index
  * Date: 24.03.14
@@ -5696,7 +1560,7 @@ var msXmlClient = stampit()
     });
 
 module.exports = msXmlClient;
-},{"./../../../authProviderBehavior":8,"./methods/del":40,"./methods/fetch":41,"./methods/get":42,"./methods/put":43,"stampit":"gaBrea"}],40:[function(require,module,exports){
+},{"./../../../authProviderBehavior":9,"./methods/del":41,"./methods/fetch":42,"./methods/get":43,"./methods/put":44,"stampit":"gaBrea"}],41:[function(require,module,exports){
 /**
  * del
  * Date: 24.03.14
@@ -5741,7 +1605,7 @@ module.exports = function (type, data, callback) {
 
     this.fetch(_fetchOptions, callback);
 }
-},{"lodash":"EBUqFC"}],41:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],42:[function(require,module,exports){
 /**
  * fetch
  * Date: 27.03.14
@@ -5783,7 +1647,7 @@ var fetch = function (options, callback) {
 };
 
 module.exports = fetch;
-},{"./../../client-properties":31,"./../providerResponseHandler":44,"lodash":"EBUqFC","project/fetch":"Q962xy","project/logger":"37nxtW","project/marshaller":68}],42:[function(require,module,exports){
+},{"./../../client-properties":32,"./../providerResponseHandler":45,"lodash":"EBUqFC","project/fetch":"Q962xy","project/logger":"37nxtW","project/marshaller":69}],43:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -5812,7 +1676,7 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
-},{"lodash":"EBUqFC"}],43:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],44:[function(require,module,exports){
 /**
  * put
  * Date: 24.03.14
@@ -5897,7 +1761,7 @@ var put = function () {
 };
 
 module.exports = put;
-},{"lodash":"EBUqFC"}],44:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],45:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -5971,7 +1835,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":89,"lodash":"EBUqFC","project/logger":"37nxtW","project/unmarshaller":84}],45:[function(require,module,exports){
+},{"../../../tools":90,"lodash":"EBUqFC","project/logger":"37nxtW","project/unmarshaller":85}],46:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -5990,7 +1854,7 @@ module.exports = {
 };
 
 
-},{"./query":57}],46:[function(require,module,exports){
+},{"./query":58}],47:[function(require,module,exports){
 /**
  * fileContent
  * Date: 22.03.14
@@ -6010,7 +1874,7 @@ var fileContent = function () {
 };
 
 module.exports = fileContent;
-},{"../../../../../tools/index":89}],47:[function(require,module,exports){
+},{"../../../../../tools/index":90}],48:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -6024,7 +1888,7 @@ var filter = function (key, value) {
 };
 
 module.exports = filter;
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 /**
  * getQueryParameters
  * Date: 22.03.14
@@ -6154,7 +2018,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":89,"../operators":55,"lodash":"EBUqFC","moment":"2V8r5n"}],49:[function(require,module,exports){
+},{"../../../../../tools/index":90,"../operators":56,"lodash":"EBUqFC","moment":"2V8r5n"}],50:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -6189,7 +2053,7 @@ module.exports = {
     }
 
 };
-},{"../../../../../tools/index":89}],50:[function(require,module,exports){
+},{"../../../../../tools/index":90}],51:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -6221,7 +2085,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":89}],51:[function(require,module,exports){
+},{"../../../../../tools/index":90}],52:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -6245,7 +2109,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":89}],52:[function(require,module,exports){
+},{"../../../../../tools/index":90}],53:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -6275,7 +2139,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":89}],53:[function(require,module,exports){
+},{"../../../../../tools/index":90}],54:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -6299,7 +2163,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":89}],54:[function(require,module,exports){
+},{"../../../../../tools/index":90}],55:[function(require,module,exports){
 /**
  * uuids
  * Date: 17.06.14
@@ -6323,7 +2187,7 @@ var uuids = function (uuids) {
 };
 
 module.exports = uuids;
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -6429,7 +2293,7 @@ operators.$lt   = operators.lessThan;
 operators.$lte  = operators.lessThanOrEqualTo;
 
 module.exports = operators;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],56:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],57:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -6469,7 +2333,7 @@ module.exports = function () {
 
     if (arguments[0]) this.appendFilter(arguments[0]);
 };
-},{"../../../../tools/index":89,"lodash":"EBUqFC"}],57:[function(require,module,exports){
+},{"../../../../tools/index":90,"lodash":"EBUqFC"}],58:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -6507,7 +2371,7 @@ var Query = stampit()
 
 
 module.exports = Query;
-},{"./methods/fileContent":46,"./methods/filter":47,"./methods/getQueryParameters":48,"./methods/paging":49,"./methods/select":50,"./methods/showArchived":51,"./methods/sort":52,"./methods/sortMode":53,"./methods/uuids":54,"./query.filter.js":56,"./query.params.js":58,"stampit":"gaBrea"}],58:[function(require,module,exports){
+},{"./methods/fileContent":47,"./methods/filter":48,"./methods/getQueryParameters":49,"./methods/paging":50,"./methods/select":51,"./methods/showArchived":52,"./methods/sort":53,"./methods/sortMode":54,"./methods/uuids":55,"./query.filter.js":57,"./query.params.js":59,"stampit":"gaBrea"}],59:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -6548,7 +2412,7 @@ module.exports = function () {
         });
     }
 };
-},{"../../../../tools":89,"lodash":"EBUqFC"}],"project/default-auth":[function(require,module,exports){
+},{"../../../../tools":90,"lodash":"EBUqFC"}],"project/default-auth":[function(require,module,exports){
 module.exports=require('rUG5Il');
 },{}],"rUG5Il":[function(require,module,exports){
 /**
@@ -6566,7 +2430,8 @@ module.exports = null;
  */
 
 var _ = require('lodash')
-    , callbackAdapter = require('./../../../tools/callbackAdapter');
+    , callbackAdapter = require('./../../../tools/callbackAdapter')
+    , log = require('project/logger');
 
 var fetch = {
 
@@ -6625,9 +2490,7 @@ var fetch = {
                 'http',
                 response.responseCode,
                 _options.url,
-                    '(' + (new Date() - startTime) + 'ms '
-                    + response.contentText.length + 'b'
-                    + ')',
+                (new Date() - startTime) + 'ms ' + response.contentText.length + 'b'
             ].join(' '));
         }
 
@@ -6643,9 +2506,9 @@ var fetch = {
 
 
 module.exports = fetch;
-},{"./../../../tools/callbackAdapter":88,"lodash":"EBUqFC"}],"project/fetch":[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":89,"lodash":"EBUqFC","project/logger":"37nxtW"}],"project/fetch":[function(require,module,exports){
 module.exports=require('Q962xy');
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -6660,7 +2523,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":64,"project/mapping":67}],64:[function(require,module,exports){
+},{"project/jsonix":65,"project/mapping":68}],65:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -6669,7 +2532,7 @@ module.exports = {
 
 
 module.exports = require('../../../../vendor/jsonix');
-},{"../../../../vendor/jsonix":90}],"project/logger":[function(require,module,exports){
+},{"../../../../vendor/jsonix":91}],"project/logger":[function(require,module,exports){
 module.exports=require('37nxtW');
 },{}],"37nxtW":[function(require,module,exports){
 /**
@@ -6699,7 +2562,7 @@ module.exports = {
         }
     }
 };
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -6710,7 +2573,7 @@ module.exports = {
 // .. но так, как пока не предвидится что-то кроме "moysklad", оставим так.
 
 module.exports = require('../../../../res/mapping');
-},{"../../../../res/mapping":7}],68:[function(require,module,exports){
+},{"../../../../res/mapping":8}],69:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -6725,7 +2588,7 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":63}],69:[function(require,module,exports){
+},{"project/jsonix/context":64}],70:[function(require,module,exports){
 /**
  * index
  * Date: 27.06.14
@@ -6747,7 +2610,7 @@ module.exports = {
         return moneyStr.slice(0, 1).toUpperCase() + moneyStr.slice(1);
     }
 };
-},{"./../../../../vendor/moneytostr":91}],70:[function(require,module,exports){
+},{"./../../../../vendor/moneytostr":92}],71:[function(require,module,exports){
 /**
  * clone
  * Date: 15.06.14
@@ -6802,7 +2665,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
-},{"lodash":"EBUqFC"}],71:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],72:[function(require,module,exports){
 /**
  * createAttributeValue
  * Date: 17.06.14
@@ -6937,7 +2800,7 @@ var createAttributeValue = function () {
 };
 
 module.exports = createAttributeValue;
-},{"lodash":"EBUqFC"}],72:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],73:[function(require,module,exports){
 /**
  * description
  * Date: 16.06.14
@@ -6985,7 +2848,7 @@ function description (entity) {
 }
 
 module.exports = description;
-},{}],73:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 20.04.14
@@ -7024,7 +2887,7 @@ var getAttr = function (entity, metadataUuid) {
 };
 
 module.exports = getAttr;
-},{"lodash":"EBUqFC"}],74:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],75:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 01.06.14
@@ -7077,7 +2940,7 @@ var getAttrValue = function (entity, metadataUuid) {
 };
 
 module.exports = getAttrValue;
-},{"./getType":79,"lodash":"EBUqFC"}],75:[function(require,module,exports){
+},{"./getType":80,"lodash":"EBUqFC"}],76:[function(require,module,exports){
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
@@ -7109,7 +2972,7 @@ var getPositions = function (entity) {
 };
 
 module.exports = getPositions;
-},{"./instanceOf":82,"lodash":"EBUqFC"}],76:[function(require,module,exports){
+},{"./instanceOf":83,"lodash":"EBUqFC"}],77:[function(require,module,exports){
 /**
  * getPrice
  * Date: 20.04.14
@@ -7146,7 +3009,7 @@ var getPrice = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPrice;
-},{"lodash":"EBUqFC"}],77:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],78:[function(require,module,exports){
 /**
  * getPriceValue
  * Date: 01.06.14
@@ -7170,7 +3033,7 @@ var getPriceValue = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPriceValue;
-},{"lodash":"EBUqFC"}],78:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],79:[function(require,module,exports){
 /**
  * getProperty
  * Date: 26.06.14
@@ -7194,7 +3057,7 @@ var getProperty = function (entity, propertyName, defaultValue) {
 
 
 module.exports = getProperty;
-},{}],79:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 /**
  * getType
  * Date: 14.06.14
@@ -7223,7 +3086,7 @@ var getType = function(typeName) {
 };
 
 module.exports = getType;
-},{"lodash":"EBUqFC","project/mapping":67}],80:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/mapping":68}],81:[function(require,module,exports){
 /**
  * getTypeName
  * Date: 14.06.14
@@ -7253,7 +3116,7 @@ var getUriTypeName = function (obj) {
 };
 
 module.exports = getUriTypeName;
-},{}],81:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * index
  * Date: 14.06.14
@@ -7286,7 +3149,7 @@ module.exports = {
     //:              require('./'),
     //:              require('./'),
 };
-},{"./../moneytostr":69,"./clone":70,"./createAttributeValue":71,"./description":72,"./getAttr":73,"./getAttrValue":74,"./getPositions":75,"./getPrice":76,"./getPriceValue":77,"./getProperty":78,"./getType":79,"./getUriTypeName":80,"./instanceOf":82,"./reserve":83}],82:[function(require,module,exports){
+},{"./../moneytostr":70,"./clone":71,"./createAttributeValue":72,"./description":73,"./getAttr":74,"./getAttrValue":75,"./getPositions":76,"./getPrice":77,"./getPriceValue":78,"./getProperty":79,"./getType":80,"./getUriTypeName":81,"./instanceOf":83,"./reserve":84}],83:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -7328,7 +3191,7 @@ var instanceOf = function (entity, typeName) {
 };
 
 module.exports = instanceOf;
-},{"./getType":79,"lodash":"EBUqFC"}],83:[function(require,module,exports){
+},{"./getType":80,"lodash":"EBUqFC"}],84:[function(require,module,exports){
 /**
  * reserve
  * Date: 16.06.14
@@ -7352,7 +3215,7 @@ var reserve = function (order) {
 };
 
 module.exports = reserve;
-},{"./getPositions":75,"./instanceOf":82,"lodash":"EBUqFC"}],84:[function(require,module,exports){
+},{"./getPositions":76,"./instanceOf":83,"lodash":"EBUqFC"}],85:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -7365,7 +3228,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":63}],"xmldom":[function(require,module,exports){
+},{"project/jsonix/context":64}],"xmldom":[function(require,module,exports){
 module.exports=require('JFUvMs');
 },{}],"JFUvMs":[function(require,module,exports){
 /**
@@ -7376,10 +3239,17 @@ module.exports=require('JFUvMs');
 
 module.exports = {
     DOMParser: DOMParser,
-    DOMImplementation: DOMImplementation,
+
+    DOMImplementation: function() {
+        this.createDocument = function () {
+            return document.implementation.createDocument('', '', null);
+        };
+        return this;
+    },
+
     XMLSerializer: XMLSerializer
 };
-},{}],87:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -7428,7 +3298,7 @@ var ProviderAccessor = function () {
 };
 
 module.exports = ProviderAccessor;
-},{"./moysklad-client/rest-clients/json":32,"./moysklad-client/rest-clients/ms-xml":39}],88:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/json":33,"./moysklad-client/rest-clients/ms-xml":40}],89:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -7449,7 +3319,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -7708,7 +3578,7 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":88,"lodash":"EBUqFC"}],90:[function(require,module,exports){
+},{"./callbackAdapter":89,"lodash":"EBUqFC"}],91:[function(require,module,exports){
 /*
  * Jsonix is a JavaScript library which allows you to convert between XML
  * and JavaScript object structures.
@@ -8964,7 +4834,7 @@ Jsonix.XML.Input = Jsonix.Class({
 			throw new Error("Invalid attribute index [" + index + "].");
 		}
 		var attribute = attributes[index];
-		return attribute.nodeValue;
+		return attribute.value; //mvv: nodeValue
 	},
 	getElement : function() {
 		if (this.eventType === 1 || this.eventType === 2) {
@@ -12548,7 +8418,7 @@ Jsonix.Context.Unmarshaller = Jsonix.Class({
 	CLASS_NAME : 'Jsonix.Context.Unmarshaller'
 });
 
-},{"xmldom":"JFUvMs"}],91:[function(require,module,exports){
+},{"xmldom":"JFUvMs"}],92:[function(require,module,exports){
 /*
  * Copyright 2013 Valentyn Kolesnikov
  *

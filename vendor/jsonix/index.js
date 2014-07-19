@@ -1253,7 +1253,7 @@ Jsonix.XML.Input = Jsonix.Class({
 			throw new Error("Invalid attribute index [" + index + "].");
 		}
 		var attribute = attributes[index];
-		return attribute.nodeValue;
+		return attribute.value; //mvv: nodeValue
 	},
 	getElement : function() {
 		if (this.eventType === 1 || this.eventType === 2) {

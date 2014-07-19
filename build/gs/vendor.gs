@@ -1,4 +1,4 @@
-// moysklad-client 0.2.3 (bundle length 309094)
+// moysklad-client 0.2.3-1 (bundle length 309107)
 // Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix, moneytostr
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -3323,7 +3323,7 @@ Jsonix.XML.Input = Jsonix.Class({
 			throw new Error("Invalid attribute index [" + index + "].");
 		}
 		var attribute = attributes[index];
-		return attribute.nodeValue;
+		return attribute.value; //mvv: nodeValue
 	},
 	getElement : function() {
 		if (this.eventType === 1 || this.eventType === 2) {

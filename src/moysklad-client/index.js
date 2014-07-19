@@ -6,8 +6,10 @@
 
 var client = require('./client')
   , query  = require('./rest-clients/ms-xml/query')
-  , logger = require('project/logger');
+  , logger = require('project/logger')
+  , pkg    = require('../../package');
 
+logger.log('moysklad-client v' + pkg.version);
 
 module.exports = {
 
@@ -18,5 +20,6 @@ module.exports = {
     createQuery: query.createQuery,
 
     tools: require('project/tools'),
-    logger: require('project/logger')
+    logger: require('project/logger'),
+    version: pkg.version
 };

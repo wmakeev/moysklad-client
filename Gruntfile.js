@@ -178,18 +178,18 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-concat');
 
-    // Генерация пакетов для всех сред
-    grunt.registerTask('default', ['browserify', 'concat']);
+
+
 
     // Генерация объектной модели на основе XSD
-    grunt.registerTask('map', ['copy:map']);
+    grunt.registerTask('object-map', ['copy:map']);
 
     // Сборка для Google Script
-    grunt.registerTask('vendor.gs', ['browserify:vendor.gs']);
-    grunt.registerTask('map.gs',    ['browserify:map.gs']);
-    grunt.registerTask('client.gs', ['browserify:client.gs']);
+    grunt.registerTask('gs-vendor', ['browserify:vendor.gs']);
+    grunt.registerTask('gs-map',    ['browserify:map.gs']);
+    grunt.registerTask('gs-client', ['browserify:client.gs']);
 
-    grunt.registerTask('gs', [
+    grunt.registerTask('gs-all', [
         'browserify:vendor.gs',
         'browserify:map.gs',
         'browserify:client.gs'
@@ -202,6 +202,6 @@ module.exports = function (grunt) {
     grunt.registerTask('taist', ['browserify:moysklad-client.js', 'concat:taist']);
 
     // Генерация модели и сборок
-    grunt.registerTask('all', ['map', 'browserify', 'concat:taist']);
+    grunt.registerTask('default', ['object-map', 'browserify', 'concat:taist']);
 
 };
