@@ -31,7 +31,7 @@ var from = function (type) {
     _.each(bindingMethods, function (methodName) {
         Query.enclose(function () {
             this[methodName] = function () {
-                var args = Array.prototype.slice(arguments);
+                var args = Array.prototype.slice.call(arguments, 0);
                 return that[methodName].apply(that, [type, this].concat(args));
             }
         });
