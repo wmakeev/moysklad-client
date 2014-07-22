@@ -9,7 +9,7 @@ var client = require('./client')
   , logger = require('project/logger')
   , pkg    = require('../../package');
 
-logger.log('moysklad-client v' + pkg.version);
+logger.info('moysklad-client v' + pkg.version);
 
 module.exports = {
 
