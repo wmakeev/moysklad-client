@@ -1,6 +1,6 @@
 {
   "name": "moysklad-client",
-  "version": "0.2.3-2",
+  "version": "0.2.3-3",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -40,8 +40,5 @@
     "stampit": "^0.7.1",
     "tracer": "~0.6.1",
     "xmldom": "~0.1.17"
-  },
-  "engines": {
-    "node": ">= 0.9"
   }
 }
