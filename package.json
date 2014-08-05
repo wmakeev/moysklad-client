@@ -1,6 +1,6 @@
 {
   "name": "moysklad-client",
-  "version": "0.2.3-3",
+  "version": "0.2.3-4",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -11,6 +11,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wmakeev/moysklad-client.git"
+  },
+  "bugs": {
+      "url": "https://github.com/wmakeev/moysklad-client/issues"
   },
   "keywords": [
     "moysklad",
