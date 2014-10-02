@@ -39,8 +39,7 @@ var createLazyLoader = function () {
             if (typeof obj !== 'object')
                 throw new Error('attach: obj argument must be an object');
 
-            if (batches && !(batches instanceof Array))
-                throw new Error('attach: batches argument must be an array');
+            if (typeof batches === 'string') batches = [batches];
 
             batches = batches || [];
 
