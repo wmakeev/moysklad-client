@@ -1,4 +1,4 @@
-// moysklad-client 0.2.3-1 (bundle length 98497)
+// moysklad-client 0.2.3-4 (bundle length 98645)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -7,7 +7,7 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.3-1",
+  "version": "0.2.3-4",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -18,6 +18,9 @@ module.exports={
   "repository": {
     "type": "git",
     "url": "https://github.com/wmakeev/moysklad-client.git"
+  },
+  "bugs": {
+      "url": "https://github.com/wmakeev/moysklad-client/issues"
   },
   "keywords": [
     "moysklad",
@@ -39,15 +42,14 @@ module.exports={
     "sinon": "^1.10.3"
   },
   "dependencies": {
-    "colors": "^0.6.2",
-    "lodash": "~2.4.1",
-    "moment": "~2.5.0",
-    "stampit": "^0.7.1",
-    "tracer": "~0.6.1",
-    "xmldom": "~0.1.17"
-  },
-  "engines": {
-    "node": ">= 0.9"
+    "colors": "0.6.2",
+    "common-node": "0.10.15",
+    "lodash": "2.4.1",
+    "moment": "2.5.0",
+    "request": "2.37.0",
+    "stampit": "0.7.1",
+    "tracer": "0.6.1",
+    "xmldom": "0.1.17"
   }
 }
 
@@ -888,7 +890,7 @@ var from = function (type) {
     _.each(bindingMethods, function (methodName) {
         Query.enclose(function () {
             this[methodName] = function () {
-                var args = Array.prototype.slice(arguments);
+                var args = Array.prototype.slice.call(arguments, 0);
                 return that[methodName].apply(that, [type, this].concat(args));
             }
         });
@@ -1140,7 +1142,9 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":81,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":81,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
+module.exports=require('1wiUUs');
+},{}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -1152,7 +1156,7 @@ var client = require('./client')
   , logger = require('project/logger')
   , pkg    = require('../../package');
 
-logger.log('moysklad-client v' + pkg.version);
+logger.info('moysklad-client v' + pkg.version);
 
 module.exports = {
 
@@ -1166,9 +1170,7 @@ module.exports = {
     logger: require('project/logger'),
     version: pkg.version
 };
-},{"../../package":1,"./client":3,"./rest-clients/ms-xml/query":39,"project/logger":"Z19TnT","project/tools":75}],"moysklad-client":[function(require,module,exports){
-module.exports=require('1wiUUs');
-},{}],25:[function(require,module,exports){
+},{"../../package":1,"./client":3,"./rest-clients/ms-xml/query":39,"project/logger":"Z19TnT","project/tools":75}],25:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
@@ -2596,7 +2598,7 @@ var clone = function (obj) {
 module.exports = clone;
 },{"lodash":"EBUqFC"}],65:[function(require,module,exports){
 /**
- * createAttributeValue
+ * createAttrValue
  * Date: 17.06.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
@@ -2606,7 +2608,7 @@ var _ = require('lodash');
 /**
  * Создает объект AttributeValue
  */
-var createAttributeValue = function () {
+var createAttrValue = function () {
 
     var attributes = {},
         isSingleAttribute = false;
@@ -2728,7 +2730,7 @@ var createAttributeValue = function () {
     return isSingleAttribute ? attributeValues[0] : attributeValues;
 };
 
-module.exports = createAttributeValue;
+module.exports = createAttrValue;
 },{"lodash":"EBUqFC"}],66:[function(require,module,exports){
 /**
  * description
@@ -3059,7 +3061,8 @@ module.exports = {
     getAttrValue            : require('./getAttrValue'),
     getPrice                : require('./getPrice'),
     getPriceValue           : require('./getPriceValue'),
-    createAttributeValue    : require('./createAttributeValue'),
+    createAttributeValue    : require('./createAttrValue'), // deprecated
+    createAttrValue         : require('./createAttrValue'),
     getPositions            : require('./getPositions'),
     getType                 : require('./getType'),
     getProperty             : require('./getProperty'),
@@ -3078,7 +3081,7 @@ module.exports = {
     //:              require('./'),
     //:              require('./'),
 };
-},{"./../moneytostr":63,"./clone":64,"./createAttributeValue":65,"./description":66,"./getAttr":67,"./getAttrValue":68,"./getPositions":69,"./getPrice":70,"./getPriceValue":71,"./getProperty":72,"./getType":73,"./getUriTypeName":74,"./instanceOf":76,"./reserve":77}],76:[function(require,module,exports){
+},{"./../moneytostr":63,"./clone":64,"./createAttrValue":65,"./description":66,"./getAttr":67,"./getAttrValue":68,"./getPositions":69,"./getPrice":70,"./getPriceValue":71,"./getProperty":72,"./getType":73,"./getUriTypeName":74,"./instanceOf":76,"./reserve":77}],76:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -3486,4 +3489,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":80,"lodash":"EBUqFC"}]},{},["1wiUUs"])
+},{"./callbackAdapter":80,"lodash":"EBUqFC"}]},{},["1wiUUs"]);
