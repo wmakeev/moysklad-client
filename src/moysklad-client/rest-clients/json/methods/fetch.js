@@ -6,23 +6,26 @@
 
 var _                           = require('lodash')
   , moment                      = require('moment')
-  , client_properties           = require('./../../client-properties')
   , fetchProviderRespHandler    = require('./../providerResponseHandler')
-  , endPoint                    = client_properties.baseUrl + '/rest';
+  , fetchProvider               = require('project/fetch');
 
 var fetch = function (options, callback) {
+    var that            = this,
+        clientOptions   = this.options || {};
 
-    var _fetchProvider = require('project/fetch'),
-        query;
+    var endPoint = this.options.baseUrl + '/rest'
+      , query;
 
     if (options.params) {
         query = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
             _.forEach(itemValues, function (itemValue) {
-                if (itemValue instanceof Date || moment.isMoment(itemValue))
-                    itemValue = moment(itemValue).format('YYYYMMDDHHmmss');
-
+                if (itemValue instanceof Date || moment.isMoment(itemValue)) {
+                    itemValue = moment(itemValue);
+                    if (clientOptions.serverTimezone) itemValue.zone(clientOptions.serverTimezone);
+                    itemValue = itemValue.format('YYYYMMDDHHmmss');
+                }
                 result.push(key + '=' + encodeURIComponent(itemValue));
             });
 
@@ -45,7 +48,7 @@ var fetch = function (options, callback) {
     if (this.isAuth())
         fetchOptions.headers.Authorization = this.getBasicAuthHeader();
 
-    _fetchProvider.fetch(fetchOptions, function (err, result) {
+    fetchProvider.fetch(fetchOptions, function (err, result) {
         return fetchProviderRespHandler(err, result, callback);
     });
 };

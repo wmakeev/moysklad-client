@@ -11,8 +11,8 @@ var _               = require('lodash')
 var providerResponseHandler = function (err, result, callback) {
     var data;
 
-var _log            = require('project/logger'),
-    _unmarshaller   = require('project/unmarshaller').create();
+    var _log        = require('project/logger'),
+        _marshaller = this.getProvider('marshaller');
 
     if (!err) {
 
@@ -20,10 +20,19 @@ var _log            = require('project/logger'),
 
             // ошибка пришла ввиде XML сериализуем и обработаем ниже
             case 500:
+                _log.error('server error: \n' + result.response.contentText);
+                if (!result.response.contentText) {
+                    return callbackAdapter(
+                        new Error('Server error'), result, callback);
+                }
+                // Если response.contentText не пуст, то вероятно там XML представление ошибки
+                // которое будет обработано дальше, как обычная сущность модели МойСклад.
+                // Ошибка будет вызвана далее, после десериализации сущности.
                 break;
 
             // ошибка авторизации
             case 401:
+                _log.error('server error: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Request requires HTTP authentication'), result, callback);
 
@@ -34,7 +43,7 @@ var _log            = require('project/logger'),
             // любой другой код ответа - ошибка
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
-                _log.log('Server response: \n' + result.response.contentText);
+                _log.error('server error: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Server response error ' + result.response.responseCode), result, callback);
         }
@@ -42,16 +51,16 @@ var _log            = require('project/logger'),
         if (result.response.contentText.length > 0) {
 
             //_log.time('Response unmarshalling time');
-
             data = result.response.contentXml ?
-                _unmarshaller.unmarshalDocument(result.response.contentXml) :
-                _unmarshaller.unmarshalString(result.response.contentText);
-
+                _marshaller.unmarshalDocument(result.response.contentXml) :
+                _marshaller.unmarshalString(result.response.contentText);
             //_log.timeEnd('Response unmarshalling time');
 
             result.type = data.name.localPart;
 
-            if (result.type == 'error') return callbackAdapter(new Error(data.value.message));
+            if (result.type == 'error') {
+                return callbackAdapter(new Error(data.value.message));
+            }
 
             if (result.type == 'collection') {
                 result.obj = _.pluck(data.value.items, 'value');

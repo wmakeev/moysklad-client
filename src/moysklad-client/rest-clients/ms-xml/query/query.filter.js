@@ -35,5 +35,6 @@ module.exports = function () {
         return this;
     };
 
+    //TODO Вынести в index
     if (arguments[0]) this.appendFilter(arguments[0]);
 };

@@ -1,5 +1,5 @@
 /**
- * put
+ * Save
  * Date: 24.03.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
@@ -12,7 +12,7 @@ var _ = require('lodash');
  * @param {Object|Array.<Object>} data
  * @param {Function} callback
  */
-var put = function () {
+var save = function () {
     //TODO Ensure
     var args            = _.toArray(arguments)
       , type            = typeof args[0] == 'string' && typeof args[1] == 'object' ? args[0] : null
@@ -81,4 +81,4 @@ var put = function () {
     this.fetch(_fetchOptions, callback);
 };
 
-module.exports = put;
+module.exports = save;

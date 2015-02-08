@@ -43,14 +43,23 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
     if (tools.instanceOf(entity, 'operationWithPositions'))
         bindingMethods.push('getPositions');
 
+    // Привязываем метод установки цены для позиции документа
+    if (tools.instanceOf(entity, 'motion'))
+        bindingMethods.push('setPrice');
+
     //TODO Если атрибуты не заданы entity.attribute будет не определен и привязка не произойдет ..
     //TODO .. нужно проверять по схеме, есть ли в этой сущности аттрибуты
     // Привязываем методы для работы с атрибутами
     if (entity.attribute)
         bindingMethods = bindingMethods.concat(['getAttr', 'getAttrValue']);
 
-    if (entity.salePrices)
-        bindingMethods = bindingMethods.concat(['getPrice', 'getPriceValue']);
+    if (entity.salePrices) {
+        bindingMethods = bindingMethods.concat(
+            ['getPrice', 'getPriceValue', 'getSalePrice', 'getSalePriceValue']);
+        // [depricated]
+        bindingMethods = bindingMethods.concat(
+            ['getPrice', 'getPriceValue']);
+    }
 
     _.each(bindingMethods, function (propName) {
         if (!entity[propName])

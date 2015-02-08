@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://online.moysklad.ru/exchange",
+    "filterLimit": 50,
+    "serverTimezone": "+04:00",
+    "allowNotFilterOperators": false
+}

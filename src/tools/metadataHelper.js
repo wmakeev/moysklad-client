@@ -23,7 +23,7 @@ var getCustomEntityByValue_ = function (entityType, attrName, entityName) {
         return item.name == attrName;
     });
     if (!attributeMetadata) throw 'Attribute [' + attrName + '] not found in Entity.';
-    customEntity = client
+    customEntity = Client
         .from('CustomEntity')
         .filter('entityMetadataUuid', attributeMetadata.dictionaryMetadataUuid)
         .filter('name', entityName)
@@ -57,7 +57,7 @@ var getCustomEntity_ = function (entity, attrName) {
         return attr.metadataUuid ==  attributeMetadata.uuid;
     });
     if (!attribute) return null;
-    customEntity = client
+    customEntity = Client
         .from('CustomEntity')
         .uuid(attribute.entityValueUuid)
         .load();

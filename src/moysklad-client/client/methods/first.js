@@ -17,16 +17,16 @@ var _               = require('lodash')
  */
 var first = function (type, query, callback) {
     //TODO Ensure
-    var _restClient = this.getProvider('ms-xml'),
-        _obj = null,
-        _queryParametersList;
+    var restClient = this.getProvider('ms-xml'),
+        obj = null,
+        queryParametersList;
 
     function _firstFromParts (paramsIndex, callback) {
-        var _params = _queryParametersList[paramsIndex];
+        var _params = queryParametersList[paramsIndex];
 
         if (_params && ('count' in _params ? _params.count !== 0 : true)) {
 
-            _restClient.get(type, _.extend({}, _params, { count: 1 }), function (err, data) {
+            restClient.load(type, _.extend({}, _params, { count: 1 }), function (err, data) {
                 if (err) return callback(err);
 
                 if (data.obj.length > 0) {
@@ -44,7 +44,7 @@ var first = function (type, query, callback) {
 
     // query
     if (typeof query == 'object' && 'getQueryParameters' in query) {
-        _queryParametersList = query.getQueryParameters(this.options.filterLimit);
+        queryParametersList = query.getQueryParameters(this.options);
     }
 
     // .. ошибка
@@ -53,10 +53,10 @@ var first = function (type, query, callback) {
     }
 
     _firstFromParts(0, function (err, data) {
-        _obj = callbackAdapter(err, data, callback);
+        obj = callbackAdapter(err, data, callback);
     });
 
-    return _obj;
+    return obj;
 };
 
 module.exports = first;

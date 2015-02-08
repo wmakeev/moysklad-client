@@ -9,6 +9,8 @@ var _           = require('lodash')
   , Ensure      = require('../../../../../tools/index').Ensure
   , operators   = require('../operators');
 
+var filterLimit, serverTimezone;
+
 //TODO Описать параметры и скорректировать наименование
 /**
  *  Сворачивает фильтр в объект ключ-значение
@@ -26,11 +28,11 @@ function _flattenFilter(obj, path, filter) {
         } else if (value instanceof Array) {
             filter[curPath] = _.map(value, function (item) { return '=' + item; });
 
-        } else if (value instanceof Date) {
-            filter[curPath] = [ '=' + moment(value).format('YYYYMMDDHHmmss') ];
+        } else if (value instanceof Date || moment.isMoment(value)) {
+            var timeMoment = moment(value);
 
-        } else if (moment.isMoment(value)) {
-            filter[curPath] = [ '=' + value.format('YYYYMMDDHHmmss') ];
+            if (serverTimezone) timeMoment.zone(serverTimezone);
+            filter[curPath] = [ '=' + timeMoment(value).format('YYYYMMDDHHmmss') ];
 
         } else if (value.type === 'QueryOperatorResult' && value.filter) {
             filter[curPath] = value.filter;
@@ -49,8 +51,8 @@ function _flattenFilter(obj, path, filter) {
                     if (typeof operator !== 'function')
                         throw new TypeError('Incorrect operator [' + key + '] in filter object [' + curPath + ']');
 
-                    filter[curPath] = filter[curPath].concat(operator(value[key]).filter);
-                });
+                    filter[curPath] = filter[curPath].concat(operator(value[key], serverTimezone).filter);
+                }, this);
 
             } else {
 
@@ -60,23 +62,23 @@ function _flattenFilter(obj, path, filter) {
         } else {
             throw new TypeError('Incorrect key value [' + curPath + '] in filter object.');
         }
-    });
+    }, this);
 
     return filter;
 }
 
-function _splitFiltersAccordingLimit(filters, limit) {
+function _splitFiltersAccordingLimit(filters) {
     var splitedFilters = [];
 
     _.forEach(filters, function (filter) {
         _.forOwn(filter, function (filterValues, filterKey) {
-            if (filterValues.length > limit) {
+            if (filterValues.length > filterLimit) {
                 var start = 0,
                     filterParts = [];
 
                 while (start < filterValues.length) {
-                    filterParts.push(filterValues.slice(start, start + limit));
-                    start += limit;
+                    filterParts.push(filterValues.slice(start, start + filterLimit));
+                    start += filterLimit;
                 }
 
                 _.forEach(filterParts, function (filterPart) {
@@ -90,7 +92,7 @@ function _splitFiltersAccordingLimit(filters, limit) {
         });
     });
 
-    return splitedFilters.length > 0 ? _splitFiltersAccordingLimit(splitedFilters, limit) : filters;
+    return splitedFilters.length > 0 ? _splitFiltersAccordingLimit(splitedFilters) : filters;
 }
 
 
@@ -98,9 +100,10 @@ function _splitFiltersAccordingLimit(filters, limit) {
  * Возвращает параметры для формирования строки запроса текущего Query
  * @returns {{}}
  */
-var getQueryParameters = function (filterLimit) {
+var getQueryParameters = function (options) {
     //TODO Проверка входного значения
-    filterLimit = filterLimit > 0 ? filterLimit : 50;
+    filterLimit = options.filterLimit > 0 ? options.filterLimit : 50;
+    serverTimezone = options.serverTimezone;
 
     var queryParams = this.getParameters(),
         queryParamsVariations = [],
@@ -108,7 +111,7 @@ var getQueryParameters = function (filterLimit) {
         flattenedFilterVariations;
 
     flattenedFilter = _flattenFilter(this.getFilter());
-    flattenedFilterVariations = _splitFiltersAccordingLimit([ flattenedFilter ], filterLimit);
+    flattenedFilterVariations = _splitFiltersAccordingLimit([flattenedFilter]);
 
     _.forEach(flattenedFilterVariations, function (filter) {
         var filterItems = [];

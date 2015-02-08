@@ -4,95 +4,116 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('../../../tools/index').callbackAdapter
-  , _ = require('lodash');
+var cbAdapter = require('../../../tools/index').callbackAdapter
+  , _         = require('lodash')
+  , have      = require('have2');
 
-//noinspection JSValidateJSDoc,JSCommentMatchesSignature
+var queryParams, restClient;
+
+/**
+ * Загружает сущности для массива запросов в queryParamsCollection.
+ * Получение коллекции сущностей может быть разбито на несколько
+ * независимых запросов представленных в массиве queryParamsCollection (сформирован
+ * в Query).
+ *
+ * @param partIndex Индекс текущей части запроса
+ * @param paging Настройки пейджинга. Т.к. на момент формирования параметров для каждой
+ * части запроса нельзя знать кол-во записей которые будут получены, то пейджингом управляем
+ * по факту получения данных в текущей функции. Иными словами, конфигурация пейджинга для
+ * очередной части запроса зависит от результатов получения данных предыдущей частью запроса.
+ * @param resultCollection Коллекция накапливающая записи полученные для каждой части запроса
+ * @param cb
+ */
+function loadPart(partIndex, paging, resultCollection, cb) {
+    // queryParamsCollection и restClient - переменные уровня модуля
+    if (queryParams[partIndex] && ('count' in paging ? paging.count !== 0 : true)) {
+        var _params = _.extend({}, queryParams[partIndex], paging);
+        restClient.load(type, _params, function (err, data) {
+            if (err) return cb(err);
+
+            var _collection = data.obj
+              , _length     = _collection.length
+              , _total      = _collection.total;
+
+            // Настраиваем пейджинг для следующей части запроса
+            if (paging.start) paging.start - _total > 0
+                ? paging.start -= _total
+                : paging.start = 0;
+
+            if (paging.count) paging.count - _length > 0
+                ? paging.count -= _length
+                : paging.count = 0;
+
+            resultCollection = resultCollection.concat(_collection);
+            resultCollection.total = total + _total;
+
+            loadPart(++partIndex, paging, resultCollection, cb);
+        });
+
+    } else {
+        resultCollection.total = total; // -1 когда нет данных о total
+        cb(null, resultCollection);
+    }
+}
+
 /**
  * Load. Получает сущность по идентификатору или список сущностей согласно запросу.
  *
- * @param {String} type Тип сущности
- * @param {String|Object} query Идентификатор сущности или запрос для фильтрации
+ * @param {String=} type Тип сущности
+ * @param {String|Array|Object} query Идентификатор сущности или запрос для фильтрации
  * @param {Boolean=} [options.fileContent] Опции
- * @param {Function=} [callback]
+ * @param {Function=} [cb]
  * @returns {Object|Object[]}
  */
-var load = function (type, query) {
-    //TODO Ensure
-    var args = _.toArray(arguments)
-      , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , options = typeof args[2] === 'object' ? args[2] : {}
-      , _queryParametersList
-      , _restClient = this.getProvider('ms-xml')
-      , _obj = null;
+var load = function () {
+    var args = have(arguments, {
+        type    : 'opt str'
+      , query   : 'str or str arr or obj'
+      , options : 'opt obj'
+      , cb      : 'opt func'
+    });
 
-    function loadPartial(paramsIndex, paging, cumulativeTotal, resultCollection, callback) {
+    var type    = args.type
+      , query   = args.query
+      , options = args.options || {}
+      , cb      = args.cb
+      , obj     = null;
 
-        if (_queryParametersList[paramsIndex] && ('count' in paging ? paging.count !== 0 : true)) {
-            var _params = _.extend({}, _queryParametersList[paramsIndex], paging);
+    restClient  = this.getProvider('ms-xml');
 
-            _restClient.get(type, _params, function (err, data) {
-                if (err) return callback(err);
-
-                var _collection = data.obj,
-                    _length     = _collection.length,
-                    _total      = _collection.total;
-
-                if (paging.start) paging.start - _total > 0 ?
-                    paging.start -= _total :
-                    paging.start = 0;
-
-                if (paging.count) paging.count - _length > 0 ?
-                    paging.count -= _length :
-                    paging.count = 0;
-
-                cumulativeTotal += _total;
-                resultCollection = resultCollection.concat(_collection);
-
-                loadPartial(++paramsIndex, paging, cumulativeTotal, resultCollection, callback);
-            });
-
-        } else {
-            //TODO Уточнить
-            resultCollection.total = cumulativeTotal; // -1 когда нет данных о total
-            callback(null, resultCollection);
-        }
-    }
-
+    // array ..
     if (query instanceof Array)
         query = this.createQuery({}, options).uuids(query);
 
     // uuid ..
     if (typeof query == 'string') {
         var params = { uuid: query };
-
         if (options.fileContent) params.fileContent = true;
 
-        _restClient.get(type, params, function (err, data) {
-            _obj = callbackAdapter(err, data.obj, callback);
+        restClient.load(type, params, function (err, data) {
+            obj = cbAdapter(err, data.obj, cb);
         });
     }
 
     // .. или query
     else if (typeof query == 'object' && 'getQueryParameters' in query) {
-        //TODO Не забыть про options при написании документации
-        _queryParametersList = query.getQueryParameters(this.options.filterLimit);
+        queryParams = query.getQueryParameters(this.options);
 
         var paging = {};
-        if (_queryParametersList[0].start) paging.start = _queryParametersList[0].start;
-        if (_queryParametersList[0].count) paging.count = _queryParametersList[0].count;
+        if (queryParams[0].start) paging.start = queryParams[0].start;
+        if (queryParams[0].count) paging.count = queryParams[0].count;
 
-        loadPartial(0, paging, 0, [], function (err, data) {
-            _obj = callbackAdapter(err, data, callback);
+        loadPart(0, paging, [], function (err, data) {
+            obj = cbAdapter(err, data, cb);
         });
     }
 
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), null, callback);
+        return cbAdapter(new TypeError('Incorrect uuid or query parameter'), null, cb);
     }
 
-    return _obj;
+    return obj;
 };
 
 module.exports = load;

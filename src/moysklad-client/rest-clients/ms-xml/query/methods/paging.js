@@ -28,7 +28,7 @@ module.exports = {
     },
 
     page: function (number, size) {
-        this.start((number - 1) * size).count(size);
+        return this.start((number - 1) * size).count(size);
     }
 
 };

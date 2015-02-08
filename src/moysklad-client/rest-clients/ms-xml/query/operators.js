@@ -7,20 +7,16 @@
 var _ = require('lodash')
   , moment = require('moment');
 
-function convertValue(value) {
+function convertValue(value, serverTimezone) {
 
-    //TODO Подумать правильно ли я проверяю типы?
     if (typeof value === 'string' || typeof value === 'number') {
         return value;
 
-    /*} else if (value instanceof Array) {
-        return value;*/
+    } else if (value instanceof Date || moment.isMoment(value)) {
+        var dateMoment = moment(value);
 
-    } else if (value instanceof Date) {
-        return moment(value).format('YYYYMMDDHHmmss');
-
-    } else if (moment.isMoment(value)) {
-        return value.format('YYYYMMDDHHmmss');
+        if (serverTimezone) dateMoment.zone(serverTimezone);
+        return dateMoment.format('YYYYMMDDHHmmss');
 
     } else if (typeof value === 'undefined' || value === 'null') {
         throw new TypeError('Null or undefined parameter in query operator');
@@ -43,29 +39,42 @@ var operators = {
             values = Array.prototype.slice.call(arguments, 0);
 
         else
-            throw new Error('anyOf: no argumets');
+            throw new Error('anyOf: no arguments');
 
         return {
             type: 'QueryOperatorResult',
             filter: _.map(values, function (value) {
-                return '=' + convertValue(value);
+                return '=' + convertValue.call(this, value);
             })
         };
     },
 
-    //
-    between: function (value1, value2) {
+    // TODO !!!
+    between: function () {
+        var values, serverTimezone;
+
+        if (arguments.length <= 2 && arguments[0] instanceof Array) {
+            values = arguments[0];
+        }
+
+        else if (arguments.length >= 2)
+            values = Array.prototype.slice.call(arguments, 0);
+
+        else
+            throw new Error('between: incorrect arguments');
+
         return {
             type: 'QueryOperatorResult',
-            filter: [ '>' + convertValue(value1), '<' + convertValue(value2) ]
+            filter: [ '>' + convertValue(_.min([values[0], values[1]])),
+                      '<' + convertValue.call(this, _.max([values[0], values[1]])) ]
         };
     },
 
     //
-    greaterThen: function (value) {
+    greaterThen: function (value, serverTimezone) {
         return {
             type: 'QueryOperatorResult',
-            filter: [ '>' + convertValue(value) ]
+            filter: [ '>' + convertValue(value, serverTimezone) ]
         };
     },
 
@@ -73,15 +82,15 @@ var operators = {
     greaterThanOrEqualTo: function (value) {
         return {
             type: 'QueryOperatorResult',
-            filter: [ '>=' + convertValue(value) ]
+            filter: [ '>=' + convertValue.call(this, value) ]
         };
     },
 
     //
-    lessThan: function (value) {
+    lessThan: function (value, serverTimezone) {
         return {
             type: 'QueryOperatorResult',
-            filter: [ '<' + convertValue(value) ]
+            filter: [ '<' + convertValue(value, serverTimezone) ]
         };
     },
 
@@ -89,17 +98,17 @@ var operators = {
     lessThanOrEqualTo: function (value) {
         return {
             type: 'QueryOperatorResult',
-            filter: [ '<=' + convertValue(value) ]
+            filter: [ '<=' + convertValue.call(this, value) ]
         };
     }
 
 };
 
-operators.$in   = operators.anyOf;
-operators.$bt   = operators.between;
-operators.$gt   = operators.greaterThen;
-operators.$gte  = operators.greaterThanOrEqualTo;
-operators.$lt   = operators.lessThan;
-operators.$lte  = operators.lessThanOrEqualTo;
+operators.$in  = operators.anyOf;
+operators.$bt  = operators.between;
+operators.$gt  = operators.greaterThen;
+operators.$gte = operators.greaterThanOrEqualTo;
+operators.$lt  = operators.lessThan;
+operators.$lte = operators.lessThanOrEqualTo;
 
 module.exports = operators;

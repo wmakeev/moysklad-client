@@ -4,10 +4,11 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , moment = require('moment');
+var _ = require('lodash');
 
 var stock = function (options, callback) {
+
+    //TODO Проверять параметры на корректность
 
     var fetchOptions = {
         service : 'stock',

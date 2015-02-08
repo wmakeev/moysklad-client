@@ -31,6 +31,7 @@ var AuthProvider = function () {
     // В качестве источника авторизации передан другой провайдер авторизации
     if (arguments[0] && arguments[0].getAuth) {
         // копируем ссылку на объект
+        //TODO Удалить
         _auth = arguments[0].getAuth();
     }
 

@@ -1,4 +1,4 @@
-// moysklad-client 0.2.3-1 (bundle length 413760)
+// moysklad-client 0.2.3-4 (bundle length 413908)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -83,7 +83,7 @@ module.exports=require('gaBrea');
 },{}],7:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.3-1",
+  "version": "0.2.3-4",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -94,6 +94,9 @@ module.exports={
   "repository": {
     "type": "git",
     "url": "https://github.com/wmakeev/moysklad-client.git"
+  },
+  "bugs": {
+      "url": "https://github.com/wmakeev/moysklad-client/issues"
   },
   "keywords": [
     "moysklad",
@@ -115,15 +118,14 @@ module.exports={
     "sinon": "^1.10.3"
   },
   "dependencies": {
-    "colors": "^0.6.2",
-    "lodash": "~2.4.1",
-    "moment": "~2.5.0",
-    "stampit": "^0.7.1",
-    "tracer": "~0.6.1",
-    "xmldom": "~0.1.17"
-  },
-  "engines": {
-    "node": ">= 0.9"
+    "colors": "0.6.2",
+    "common-node": "0.10.15",
+    "lodash": "2.4.1",
+    "moment": "2.5.0",
+    "request": "2.37.0",
+    "stampit": "0.7.1",
+    "tracer": "0.6.1",
+    "xmldom": "0.1.17"
   }
 }
 
@@ -966,7 +968,7 @@ var from = function (type) {
     _.each(bindingMethods, function (methodName) {
         Query.enclose(function () {
             this[methodName] = function () {
-                var args = Array.prototype.slice(arguments);
+                var args = Array.prototype.slice.call(arguments, 0);
                 return that[methodName].apply(that, [type, this].concat(args));
             }
         });
@@ -1218,7 +1220,9 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":90,"lodash":"EBUqFC"}],"1wiUUs":[function(require,module,exports){
+},{"../../../tools/index":90,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
+module.exports=require('1wiUUs');
+},{}],"1wiUUs":[function(require,module,exports){
 /**
  * MoyskladClient
  * Date: 11.01.14
@@ -1230,7 +1234,7 @@ var client = require('./client')
   , logger = require('project/logger')
   , pkg    = require('../../package');
 
-logger.log('moysklad-client v' + pkg.version);
+logger.info('moysklad-client v' + pkg.version);
 
 module.exports = {
 
@@ -1244,9 +1248,7 @@ module.exports = {
     logger: require('project/logger'),
     version: pkg.version
 };
-},{"../../package":7,"./client":10,"./rest-clients/ms-xml/query":46,"project/logger":"37nxtW","project/tools":82}],"moysklad-client":[function(require,module,exports){
-module.exports=require('1wiUUs');
-},{}],32:[function(require,module,exports){
+},{"../../package":7,"./client":10,"./rest-clients/ms-xml/query":46,"project/logger":"37nxtW","project/tools":82}],32:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
@@ -2663,7 +2665,7 @@ var clone = function (obj) {
 module.exports = clone;
 },{"lodash":"EBUqFC"}],72:[function(require,module,exports){
 /**
- * createAttributeValue
+ * createAttrValue
  * Date: 17.06.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
@@ -2673,7 +2675,7 @@ var _ = require('lodash');
 /**
  * Создает объект AttributeValue
  */
-var createAttributeValue = function () {
+var createAttrValue = function () {
 
     var attributes = {},
         isSingleAttribute = false;
@@ -2795,7 +2797,7 @@ var createAttributeValue = function () {
     return isSingleAttribute ? attributeValues[0] : attributeValues;
 };
 
-module.exports = createAttributeValue;
+module.exports = createAttrValue;
 },{"lodash":"EBUqFC"}],73:[function(require,module,exports){
 /**
  * description
@@ -3126,7 +3128,8 @@ module.exports = {
     getAttrValue            : require('./getAttrValue'),
     getPrice                : require('./getPrice'),
     getPriceValue           : require('./getPriceValue'),
-    createAttributeValue    : require('./createAttributeValue'),
+    createAttributeValue    : require('./createAttrValue'), // deprecated
+    createAttrValue         : require('./createAttrValue'),
     getPositions            : require('./getPositions'),
     getType                 : require('./getType'),
     getProperty             : require('./getProperty'),
@@ -3145,7 +3148,7 @@ module.exports = {
     //:              require('./'),
     //:              require('./'),
 };
-},{"./../moneytostr":70,"./clone":71,"./createAttributeValue":72,"./description":73,"./getAttr":74,"./getAttrValue":75,"./getPositions":76,"./getPrice":77,"./getPriceValue":78,"./getProperty":79,"./getType":80,"./getUriTypeName":81,"./instanceOf":83,"./reserve":84}],83:[function(require,module,exports){
+},{"./../moneytostr":70,"./clone":71,"./createAttrValue":72,"./description":73,"./getAttr":74,"./getAttrValue":75,"./getPositions":76,"./getPrice":77,"./getPriceValue":78,"./getProperty":79,"./getType":80,"./getUriTypeName":81,"./instanceOf":83,"./reserve":84}],83:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14

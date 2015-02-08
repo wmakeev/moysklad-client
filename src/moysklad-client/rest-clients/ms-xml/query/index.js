@@ -6,12 +6,5 @@
 
 var Query = require('./query');
 
-module.exports = {
-
-    createQuery: function (queryObj, options) {
-        return Query.create(null, queryObj, options);
-    },
-
-    Query: Query
-};
+module.exports = Query;
 

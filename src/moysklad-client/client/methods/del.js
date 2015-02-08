@@ -1,21 +1,23 @@
 /**
- * save
- * Date: 15.04.14
+ * del
+ * Date: 09.08.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _               = require('lodash')
   , callbackAdapter = require('../../../tools/index').callbackAdapter;
 
+//TODO Ограничение на кол-во сохраняемых объектов в коллекции (проверить)
+
 /**
- * Save. Сохраняет сущность или список сущностей.
+ * Delete. Удаляет сущность или список сущностей.
  *
- * @param {String} [type] Тип сущности (если не указан производится попытка получить тип из свойства объекта TYPE_NAME)
- * @param {Object} ent Сущность или список сущностей
+ * @param [type] Тип сущности (если не указан производится попытка получить тип из свойства объекта TYPE_NAME)
+ * @param ent Сущность или список сущностей
  * @param {Function=} callback
  * @returns {Object} Созданная/сохраненная сущность
  */
-var save = function () {
+var del = function () {
     //TODO Ensure
     var args        = _.toArray(arguments)
       , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
@@ -29,9 +31,9 @@ var save = function () {
         obj = callbackAdapter(err, data.obj, callback);
     });
 
-    restClient.save.apply(restClient, putArgs);
+    restClient.del.apply(restClient, putArgs);
 
     return obj;
 };
 
-module.exports = save;
+module.exports = del;

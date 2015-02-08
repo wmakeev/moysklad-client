@@ -1,12 +1,12 @@
 /**
- * get
+ * load
  * Date: 24.03.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _ = require('lodash');
 
-module.exports = function (type, params, callback) {
+var load = function (type, params, callback) {
     var _path = '/' + this.getObjectTypeName(type);
 
     if (params.uuid && typeof params.uuid === 'string') {
@@ -26,3 +26,5 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
+
+module.exports = load;

@@ -4,18 +4,15 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                           = require('lodash')
-  , client_properties           = require('./../../client-properties')
-  , fetchProviderRespHandler    = require('./../providerResponseHandler')
-  , endPoint                    = client_properties.baseUrl + '/rest/ms/xml';
+var _                 = require('lodash')
+  , fetchProvider     = require('project/fetch');
 
 
 var fetch = function (options, callback) {
-    var that = this;
+    var that     = this
+      , endPoint = this.options.baseUrl + '/rest/ms/xml';
 
-    var _fetchProvider  = require('project/fetch')
-      , _marshaller     = require('project/marshaller').create()
-      , _log            = require('project/logger');
+    var _marshaller = this.getProvider('marshaller');
 
     var fetchOptions = _.extend({
         // default
@@ -33,8 +30,8 @@ var fetch = function (options, callback) {
     if (options.payload)
         fetchOptions.payload = _marshaller.marshalString(options.payload);
 
-    _fetchProvider.fetch(fetchOptions, function (err, result) {
-        return fetchProviderRespHandler(err, result, callback);
+    fetchProvider.fetch(fetchOptions, function (err, result) {
+        return that.responseHandler(err, result, callback);
     });
 };
 

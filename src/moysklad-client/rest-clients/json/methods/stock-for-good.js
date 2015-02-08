@@ -4,8 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , moment = require('moment');
+var _ = require('lodash');
 
 var stockForGood = function (options, callback) {
 

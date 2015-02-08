@@ -4,14 +4,16 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _providersConstructors = {
+var _defaultProvidersCtors = {
     // Получаю модули не динамически, иначе сборщик не увидит модуль
     'ms-xml'        : require('./moysklad-client/rest-clients/ms-xml'),
-    'json-services' : require('./moysklad-client/rest-clients/json')
-} ;
+    'json-services' : require('./moysklad-client/rest-clients/json'),
+    'mapping'       : require('project/mapping'),
+    'marshaller'    : require('project/marshaller')
+};
 
-var requireProviderCtor = function (name) {
-    return _providersConstructors[name];
+var getProviderCtor = function (name) {
+    return _defaultProvidersCtors[name];
 };
 
 /** @class */
@@ -21,28 +23,46 @@ var ProviderAccessor = function () {
     this.getProvider = function (name) {
 
         if (!_providers[name]) {
-            var providerCtor = requireProviderCtor(name);
+            var providerCtor = getProviderCtor(name);
 
+            //TODO Не думаю что в таком виде это хорошее решение с .create(this)
             if (typeof providerCtor == 'function')
-                _providers[name] = providerCtor.create(null, this);
+                _providers[name] = providerCtor.create(this);
 
-            /*else if (typeof providerCtor == 'object')
-             providers[name] = providerCtor;*/
+            //TODO Переделать на код ниже
+            /*methods.forEach(function (methodName) {
+                receiver[methodName] = function () {
+                    return toProvider[methodName].apply(toProvider, arguments);
+                };
+            });*/
+
+            else if (typeof providerCtor == 'object')
+                _providers[name] = providerCtor;
 
             else
-            //TODO Нужна ли ошибка при отсутствии провайдера?
-            //throw new Error('Provider [' + name + '] not found.');
                 return null;
         }
 
         return _providers[name];
     };
 
-    this.setProvider = function (name, provider) {
+    this.getProviders = function () {
+        return _providers;
+    };
 
-        if (name && provider) _providers[name] = provider;
+    this.setProvider = function (name, providerCtor) {
+        if (name && provider) _defaultProvidersCtors[name] = providerCtor;
         return this;
-    }
+    };
+
+    // TODO Удалить
+    /*if (arguments[0] && arguments[0].getProviders) {
+        // копируем ссылку на объект
+        _providers = arguments[0].getProviders();
+
+        if (arguments[0].options)
+            this.options = arguments[0].options;
+    }*/
 };
 
 module.exports = ProviderAccessor;
