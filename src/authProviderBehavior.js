@@ -9,7 +9,7 @@ var getBasicAuthHttpHeader = require('./tools').getBasicAuthHttpHeader;
 var logger = require('project/logger');
 
 /** @class */
-var AuthProvider = function () {
+var AuthProvider = function (provider) {
     var _auth = {
         login: null,
         password: null
@@ -29,9 +29,9 @@ var AuthProvider = function () {
     };
 
     // В качестве источника авторизации передан другой провайдер авторизации
-    if (arguments[0] && arguments[0].getAuth) {
+    if (provider && provider.getAuth) {
         // копируем ссылку на объект
-        _auth = arguments[0].getAuth();
+        _auth = provider.getAuth();
     }
 
     // Логин и пароль переданы в параметрах
