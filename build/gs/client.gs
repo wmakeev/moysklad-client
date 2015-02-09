@@ -1,4 +1,4 @@
-// moysklad-client 0.2.3-4 (bundle length 98645)
+// moysklad-client 0.2.4 (bundle length 98819)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -7,7 +7,7 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.3-4",
+  "version": "0.2.4",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -65,7 +65,7 @@ var getBasicAuthHttpHeader = require('./tools').getBasicAuthHttpHeader;
 var logger = require('project/logger');
 
 /** @class */
-var AuthProvider = function () {
+var AuthProvider = function (provider) {
     var _auth = {
         login: null,
         password: null
@@ -85,9 +85,9 @@ var AuthProvider = function () {
     };
 
     // В качестве источника авторизации передан другой провайдер авторизации
-    if (arguments[0] && arguments[0].getAuth) {
+    if (provider && provider.getAuth) {
         // копируем ссылку на объект
-        _auth = arguments[0].getAuth();
+        _auth = provider.getAuth();
     }
 
     // Логин и пароль переданы в параметрах
@@ -615,8 +615,7 @@ var createLazyLoader = function () {
             if (typeof obj !== 'object')
                 throw new Error('attach: obj argument must be an object');
 
-            if (batches && !(batches instanceof Array))
-                throw new Error('attach: batches argument must be an array');
+            if (typeof batches === 'string') batches = [batches];
 
             batches = batches || [];
 
@@ -1244,7 +1243,8 @@ var fetch = function (options, callback) {
     var fetchOptions = _.extend({
         // default
         contentType: 'application/json',
-        headers: {}
+        headers: {},
+        async: this.options.flowControl === 'async'
     }, {
         // parameters
         method: 'GET',
@@ -1462,6 +1462,11 @@ var msXmlClient = stampit()
     // Authable
     .enclose(require('./../../../authProviderBehavior'))
 
+    // Pass options to provider from client
+    .enclose(function (client) {
+        if (client) this.options = client.options || {};
+    })
+
     // Methods
     //
     .methods({
@@ -1548,7 +1553,8 @@ var fetch = function (options, callback) {
     var fetchOptions = _.extend({
         // default
         contentType: 'application/xml',
-        headers: {}
+        headers: {},
+        async: this.options.flowControl === 'async'
     }, {
         // parameters
         method: options.method,
@@ -3489,4 +3495,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":80,"lodash":"EBUqFC"}]},{},["1wiUUs"]);
+},{"./callbackAdapter":80,"lodash":"EBUqFC"}]},{},["1wiUUs"])
