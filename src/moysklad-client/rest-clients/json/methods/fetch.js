@@ -35,7 +35,8 @@ var fetch = function (options, callback) {
     var fetchOptions = _.extend({
         // default
         contentType: 'application/json',
-        headers: {}
+        headers: {},
+        async: this.options.flowControl === 'async'
     }, {
         // parameters
         method: 'GET',

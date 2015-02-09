@@ -20,7 +20,8 @@ var fetch = function (options, callback) {
     var fetchOptions = _.extend({
         // default
         contentType: 'application/xml',
-        headers: {}
+        headers: {},
+        async: this.options.flowControl === 'async'
     }, {
         // parameters
         method: options.method,

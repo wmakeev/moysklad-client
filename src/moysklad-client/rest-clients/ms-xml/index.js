@@ -11,6 +11,11 @@ var msXmlClient = stampit()
     // Authable
     .enclose(require('./../../../authProviderBehavior'))
 
+    // Pass options to provider from client
+    .enclose(function (client) {
+        if (client) this.options = client.options || {};
+    })
+
     // Methods
     //
     .methods({
