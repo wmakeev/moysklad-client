@@ -19,8 +19,8 @@ var _               = require('lodash')
  */
 var del = function () {
     //TODO Ensure
-    var args        = _.toArray(arguments)
-      , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
+    var args        = _.toArray(arguments),
+        callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
 
     var restClient  = this.getProvider('ms-xml'),
         obj = null;
