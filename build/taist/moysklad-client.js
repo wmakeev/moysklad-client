@@ -2,7 +2,7 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.4 (bundle length 418417)
+// moysklad-client 0.2.5 (bundle length 418592)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -87,7 +87,7 @@ module.exports=require('gaBrea');
 },{}],7:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -266,7 +266,8 @@ var Client = stampit()
     .state({
         options: {
             filterLimit: 50,
-            allowNotFilterOperators: false
+            allowNotFilterOperators: false,
+            flowControl: 'sync'
         },
 
         sortMode: {
@@ -1269,6 +1270,11 @@ var stockJsonClient = stampit()
     // Authable
     .enclose(require('./../../../authProviderBehavior'))
 
+    // Pass options to provider from client
+    .enclose(function (client) {
+        if (client) this.options = client.options || {};
+    })
+
     // Methods
     //
     .methods({
@@ -1289,7 +1295,7 @@ module.exports = stockJsonClient;
 //TODO Написать необходимые Enum'ы
 },{"./../../../authProviderBehavior":9,"./methods/fetch":34,"./methods/mutualSettlement":35,"./methods/slot":36,"./methods/stock":38,"./methods/stock-for-good":37,"stampit":"gaBrea"}],34:[function(require,module,exports){
 /**
- * stock
+ * fetch
  * Date: 19.04.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
