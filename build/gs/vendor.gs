@@ -1,4 +1,4 @@
-// moysklad-client 0.2.5 (bundle length 309107)
+// moysklad-client 0.2.6 (bundle length 309125)
 // Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix, moneytostr
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -4649,13 +4649,16 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
 	typeName : Jsonix.Schema.XSD.qname('dateTime'),
 	parse : function(value) {
 		var calendar = this.parseDateTime(value);
-		var date = new Date();
-		date.setFullYear(calendar.year);
-		date.setMonth(calendar.month - 1);
-		date.setDate(calendar.day);
-		date.setHours(calendar.hour);
-		date.setMinutes(calendar.minute);
-		date.setSeconds(calendar.second);
+
+        // wmakeev: set date in ctor (bug with overflow)
+        var date = new Date(
+            calendar.year,
+            calendar.month - 1,
+            calendar.day,
+            calendar.hour,
+            calendar.minute,
+            calendar.second);
+
 		if (Jsonix.Util.Type.isNumber(calendar.fractionalSecond)) {
 			date.setMilliseconds(Math.floor(1000 * calendar.fractionalSecond));
 		}
@@ -4666,11 +4669,10 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
         // The time-zone offset is the difference, in minutes, between UTC and local time.
         // The value returned by the getTime method is the number of milliseconds since 1 January 1970 00:00:00 UTC.
 
-		if (Jsonix.Util.NumberUtils.isInteger(calendar.timezone)) {
+		if (Jsonix.Util.NumberUtils.isInteger(calendar.timezone))
             return new Date(date.getTime() - (60000 * date.getTimezoneOffset()) - (calendar.timezone * 60000));
-		} else {
+		else
             return new Date(date.getTime() - (60000 * date.getTimezoneOffset()));
-		}
 	},
 	print : function(value) {
 		Jsonix.Util.Ensure.ensureDate(value);
