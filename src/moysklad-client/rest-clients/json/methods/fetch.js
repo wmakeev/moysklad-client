@@ -1,5 +1,5 @@
 /**
- * stock
+ * fetch
  * Date: 19.04.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */

@@ -41,7 +41,8 @@ var Client = stampit()
     .state({
         options: {
             filterLimit: 50,
-            allowNotFilterOperators: false
+            allowNotFilterOperators: false,
+            flowControl: 'sync'
         },
 
         sortMode: {

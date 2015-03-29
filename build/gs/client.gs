@@ -1,4 +1,4 @@
-// moysklad-client 0.2.4 (bundle length 98819)
+// moysklad-client 0.2.4 (bundle length 98994)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -184,7 +184,8 @@ var Client = stampit()
     .state({
         options: {
             filterLimit: 50,
-            allowNotFilterOperators: false
+            allowNotFilterOperators: false,
+            flowControl: 'sync'
         },
 
         sortMode: {
@@ -1187,6 +1188,11 @@ var stockJsonClient = stampit()
     // Authable
     .enclose(require('./../../../authProviderBehavior'))
 
+    // Pass options to provider from client
+    .enclose(function (client) {
+        if (client) this.options = client.options || {};
+    })
+
     // Methods
     //
     .methods({
@@ -1207,7 +1213,7 @@ module.exports = stockJsonClient;
 //TODO Написать необходимые Enum'ы
 },{"./../../../authProviderBehavior":2,"./methods/fetch":27,"./methods/mutualSettlement":28,"./methods/slot":29,"./methods/stock":31,"./methods/stock-for-good":30,"stampit":"gaBrea"}],27:[function(require,module,exports){
 /**
- * stock
+ * fetch
  * Date: 19.04.14
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
