@@ -2,7 +2,7 @@
   "id": "ms-moysklad-client",
   "shortDescription": "Сборка библиотеки <a href=\"https://github.com/wmakeev/moysklad-client\">moysklad-client</a> для взаимодействия с API МойСклад. Код библиотеки встраивается в контекст приложения МойСклад и доступен для сторонних аддонов.",
   "siteName": "МойСклад",
-  "siteRegexp": "online.moysklad.ru/app",
+  "siteRegexp": "online.moysklad.ru",
   "title": "Библиотека moysklad-client v0.2.6",
   "js": "moysklad-client.js",
   "description": "moysklad-client.md"
