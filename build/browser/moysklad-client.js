@@ -1,4 +1,4 @@
-// moysklad-client 0.2.6 (bundle length 418610)
+// moysklad-client 0.2.6 (bundle length 418600)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -1187,7 +1187,7 @@ var total = function (type, query, callback) {
     function _totalFromParts(paramsIndex, cumulativeTotal, callback) {
 
         if (_queryParametersList[paramsIndex]) {
-            var _params = _.extend({}, _queryParametersList[paramsIndex], { count: 0, start: 0 });
+            var _params = _.extend({}, _queryParametersList[paramsIndex], { count: 0 });
 
             _restClient.get(type, _params, function (err, data) {
                 if (err) return callback(err);
