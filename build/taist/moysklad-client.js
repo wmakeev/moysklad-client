@@ -2,7 +2,7 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.6 (bundle length 418600)
+// moysklad-client 0.2.7 (bundle length 418696)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -87,7 +87,7 @@ module.exports=require('gaBrea');
 },{}],7:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -105,7 +105,8 @@ module.exports={
   "keywords": [
     "moysklad",
     "warehouse",
-    "erp",
+    "wms",
+    "crm",
     "client"
   ],
   "devDependencies": {
@@ -858,7 +859,8 @@ module.exports={
     "sourceStore": "warehouse",
     "targetStore": "warehouse",
     "demands": "demand",
-    "invoicesOut": "invoice"
+    "invoicesOut": "invoice",
+    "supplier": "company"
 }
 },{}],23:[function(require,module,exports){
 /**
@@ -925,6 +927,7 @@ var first = function (type, query, callback) {
         _queryParametersList = query.getQueryParameters(this.options.filterLimit);
     }
 
+    //TODO Ничего не мешеает использовать first без query
     // .. ошибка
     else {
         return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
