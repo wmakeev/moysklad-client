@@ -16,5 +16,6 @@
     "sourceStore": "warehouse",
     "targetStore": "warehouse",
     "demands": "demand",
-    "invoicesOut": "invoice"
+    "invoicesOut": "invoice",
+    "supplier": "company"
 }

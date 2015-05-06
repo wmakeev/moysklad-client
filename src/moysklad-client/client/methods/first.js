@@ -47,6 +47,7 @@ var first = function (type, query, callback) {
         _queryParametersList = query.getQueryParameters(this.options.filterLimit);
     }
 
+    //TODO Ничего не мешеает использовать first без query
     // .. ошибка
     else {
         return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);

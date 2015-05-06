@@ -1,4 +1,4 @@
-// moysklad-client 0.2.6 (bundle length 309125)
+// moysklad-client 0.2.7 (bundle length 309125)
 // Сборка внешних библиотек: lodash, moment, stampit, xmldom, jsonix, moneytostr
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
