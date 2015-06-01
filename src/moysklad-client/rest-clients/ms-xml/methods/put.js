@@ -4,7 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _       = require('lodash'),
+    tools   = require('project/tools');
 
 /**
  *
@@ -33,7 +34,7 @@ var put = function () {
 
     var _fetchOptions = {
         method: 'PUT',
-        path: '/' + this.getObjectTypeName(type),
+        path: '/' + tools.getUriTypeName(type),
         payload: {
             name: {}
         }

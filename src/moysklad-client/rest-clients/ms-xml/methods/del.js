@@ -4,12 +4,13 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _       = require('lodash'),
+    tools   = require('project/tools');
 
 
 module.exports = function (type, data, callback) {
     var _fetchOptions = {
-            path: '/' + this.getObjectTypeName(type)
+            path: '/' + tools.getUriTypeName(type)
         };
 
     if (data instanceof Array) {
@@ -41,4 +42,4 @@ module.exports = function (type, data, callback) {
     }
 
     this.fetch(_fetchOptions, callback);
-}
+};

@@ -4,10 +4,11 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash');
+var _       = require('lodash'),
+    tools   = require('project/tools');
 
 module.exports = function (type, params, callback) {
-    var _path = '/' + this.getObjectTypeName(type);
+    var _path = '/' + tools.getUriTypeName(type);
 
     if (params.uuid && typeof params.uuid === 'string') {
         // GET /{type}/{id}
