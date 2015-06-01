@@ -1,21 +1,26 @@
 {
-    "moysklad.customerOrder": {
-        "sourceAgent": "company",
-        "targetAgent": "myCompany"
-    },
+  "moysklad.accountEntity": {
+    "sourceSlot": "moysklad.slot",
+    "sourceStore": "moysklad.warehouse",
+    "targetStore": "moysklad.warehouse",
+    "place": "moysklad.warehouse",
+    "demands": "moysklad.demand",
+    "invoicesOut": "moysklad.invoice",
+    "supplier": "moysklad.company",
+    "entity": "moysklad.customEntity"
+  },
 
-    "moysklad.invoiceOut": {
-        "sourceAgent": "myCompany",
-        "targetAgent": "company"
-    },
+  "moysklad.customerOrder": {
+    "sourceAgent": "moysklad.company",
+    "targetAgent": "moysklad.myCompany"
+  },
 
-    "moysklad.contract": {
-        "ownCompany": "myCompany"
-    },
+  "moysklad.invoiceOut": {
+    "sourceAgent": "moysklad.myCompany",
+    "targetAgent": "moysklad.company"
+  },
 
-    "sourceStore": "warehouse",
-    "targetStore": "warehouse",
-    "demands": "demand",
-    "invoicesOut": "invoice",
-    "supplier": "company"
+  "moysklad.contract": {
+    "ownCompany": "moysklad.myCompany"
+  }
 }

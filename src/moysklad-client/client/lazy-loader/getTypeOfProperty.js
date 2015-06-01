@@ -8,6 +8,12 @@ var propMap = require('./nameToTypeMap');
 
 
 function getTypeOfProperty(propertyName, entity) {
+    // entityValue (пользовательский атрибут)
+    if (propertyName.slice(-5) == 'Value') {
+        propertyName = propertyName.substring(0, propertyName.length - 5);
+        if (propertyName === 'entity') propertyName = 'customEntity'
+    }
+
     if (propMap[propertyName])
         return propMap[propertyName];
 
@@ -15,7 +21,7 @@ function getTypeOfProperty(propertyName, entity) {
         return propMap[entity.TYPE_NAME][propertyName];
 
     else
-        return propertyName;
+        return 'moysklad.' + propertyName;
 }
 
 module.exports = getTypeOfProperty;
