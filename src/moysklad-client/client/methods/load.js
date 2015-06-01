@@ -4,8 +4,9 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('../../../tools/index').callbackAdapter
-  , _ = require('lodash');
+var _               = require('lodash'),
+    have            = require('have'),
+    callbackAdapter = require('project/tools/callbackAdapter');
 
 //noinspection JSValidateJSDoc,JSCommentMatchesSignature
 /**
@@ -19,19 +20,19 @@ var callbackAdapter = require('../../../tools/index').callbackAdapter
  */
 var load = function (type, query) {
     //TODO Ensure
-    var args = _.toArray(arguments)
-      , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , options = typeof args[2] === 'object' ? args[2] : {}
-      , _queryParametersList
-      , _restClient = this.getProvider('ms-xml')
-      , _obj = null;
+    var args        = _.toArray(arguments)
+      , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
+      , options     = typeof args[2] === 'object' ? args[2] : {}
+      , restClient  = this.getProvider('ms-xml')
+      , queryParametersList
+      , obj;
 
     function loadPartial(paramsIndex, paging, cumulativeTotal, resultCollection, callback) {
 
-        if (_queryParametersList[paramsIndex] && ('count' in paging ? paging.count !== 0 : true)) {
-            var _params = _.extend({}, _queryParametersList[paramsIndex], paging);
+        if (queryParametersList[paramsIndex] && ('count' in paging ? paging.count !== 0 : true)) {
+            var _params = _.extend({}, queryParametersList[paramsIndex], paging);
 
-            _restClient.get(type, _params, function (err, data) {
+            restClient.get(type, _params, function (err, data) {
                 if (err) return callback(err);
 
                 var _collection = data.obj,
@@ -68,22 +69,22 @@ var load = function (type, query) {
 
         if (options.fileContent) params.fileContent = true;
 
-        _restClient.get(type, params, function (err, data) {
-            _obj = callbackAdapter(err, data.obj, callback);
+        restClient.get(type, params, function (err, data) {
+            obj = callbackAdapter(err, data.obj, callback);
         });
     }
 
     // .. или query
     else if (typeof query == 'object' && 'getQueryParameters' in query) {
         //TODO Не забыть про options при написании документации
-        _queryParametersList = query.getQueryParameters(this.options.filterLimit);
+        queryParametersList = query.getQueryParameters(this.options.filterLimit);
 
         var paging = {};
-        if (_queryParametersList[0].start) paging.start = _queryParametersList[0].start;
-        if (_queryParametersList[0].count) paging.count = _queryParametersList[0].count;
+        if (queryParametersList[0].start) paging.start = queryParametersList[0].start;
+        if (queryParametersList[0].count) paging.count = queryParametersList[0].count;
 
         loadPartial(0, paging, 0, [], function (err, data) {
-            _obj = callbackAdapter(err, data, callback);
+            obj = callbackAdapter(err, data, callback);
         });
     }
 
@@ -92,7 +93,7 @@ var load = function (type, query) {
         return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), null, callback);
     }
 
-    return _obj;
+    return obj;
 };
 
 module.exports = load;

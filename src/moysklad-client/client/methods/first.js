@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+var _               = require('lodash'),
+    callbackAdapter = require('project/tools/callbackAdapter');
 
 /**
  * First. Возвращает первую сущность из списка сущностей согласно запросу.

@@ -5,7 +5,7 @@
  */
 
 var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+  , callbackAdapter = require('project/tools/callbackAdapter');
 
 //TODO Ограничение на кол-во сохраняемых объектов в коллекции (проверить)
 
