@@ -2,11 +2,10 @@
 *.sublime*
 .idea
 .c9revisions
-some
+_some
 ~backup
 node_modules
 !src/node_modules
 auth.js
 properties.json
 npm-debug.log
-TODO.md
