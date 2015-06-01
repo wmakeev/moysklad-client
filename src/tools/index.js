@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 //TODO Разнести по отдельным модулям
 
-const UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
 
 var Base64 = {
 
@@ -127,8 +127,6 @@ exports.getBasicAuthHttpHeader = function (login, password) {
 
 };
 
-exports.callbackAdapter = require('./callbackAdapter');
-
 exports.Is = {
     'args': function () {
         var args = arguments[0],
@@ -161,9 +159,6 @@ exports.Is = {
     },
     'integer': function (value) {
         return _.isNumber(value) && ((value % 1) === 0);
-    },
-    'uuid': function (value) {
-        return UUID_REGEX.test(value);
     }
 };
 
