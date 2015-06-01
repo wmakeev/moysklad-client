@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 
                     require: [
                         'xmldom',
-                        './vendor/jsonix',
+                        'jsonix',
                         './vendor/moneytostr'
                     ],
                     alias: [
@@ -114,7 +114,7 @@ module.exports = function (grunt) {
                     ]),
                     external: [
                         'xmldom',
-                        './vendor/jsonix',
+                        'jsonix',
                         './vendor/moneytostr',
                         './res/mapping',
                         './res/mapping-xsd-fix'
