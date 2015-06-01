@@ -4,15 +4,13 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                           = require('lodash')
-  , moment                      = require('moment')
-  , client_properties           = require('./../../client-properties')
-  , fetchProviderRespHandler    = require('./../providerResponseHandler')
-  , endPoint                    = client_properties.baseUrl + '/rest';
+var _       = require('lodash'),
+    moment  = require('moment');
 
 var fetch = function (options, callback) {
+    var that = this;
 
-    var _fetchProvider = require('project/fetch'),
+    var fetchProvider = this.getProvider('fetch'),
         query;
 
     if (options.params) {
@@ -40,14 +38,16 @@ var fetch = function (options, callback) {
     }, {
         // parameters
         method: 'GET',
-        url: endPoint + '/' + options.service + '/json' + (options.path || '') + (query || '')
+        url: this.options.baseUrl
+            + '/rest/' + options.service + '/json'
+            + (options.path || '') + (query || '')
     });
 
     if (this.isAuth())
         fetchOptions.headers.Authorization = this.getBasicAuthHeader();
 
-    _fetchProvider.fetch(fetchOptions, function (err, result) {
-        return fetchProviderRespHandler(err, result, callback);
+    fetchProvider.fetch(fetchOptions, function (err, result) {
+        return that.responseHandler(err, result, callback);
     });
 };
 

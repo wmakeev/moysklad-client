@@ -4,31 +4,32 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var stampit = require('stampit');
+var stampit                  = require('stampit'),
+    authProviderBehavior     = require('project/behaviors/authProviderBehavior'),
+    providerAccessorBehavior = require('project/behaviors/providerAccessorBehavior');
 
 var stockJsonClient = stampit()
 
-    // Authable
-    .enclose(require('./../../../authProviderBehavior'))
+    .state({ options: {} })
 
-    // Pass options to provider from client
-    .enclose(function (client) {
-        if (client) this.options = client.options || {};
-    })
+    // Authable
+    .enclose(authProviderBehavior)
+
+    // Provider accessor
+    .enclose(providerAccessorBehavior)
 
     // Methods
     //
     .methods({
 
         // add client methods
-        stock:                          require('./methods/stock'),
-        stockForGood:                   require('./methods/stock-for-good'),
-        slot:                           require('./methods/slot'),
-        mutualSettlement:               require('./methods/mutualSettlement').list,
-        mutualSettlementForCustomer:    require('./methods/mutualSettlement').customer,
+        stock                       : require('./methods/stock'),
+        slot                        : require('./methods/slot'),
+        mutualSettlement            : require('./methods/mutualSettlement').list,
+        mutualSettlementForCustomer : require('./methods/mutualSettlement').customer,
 
-        fetch:                          require('./methods/fetch')
-
+        fetch                       : require('./methods/fetch'),
+        responseHandler             : require('./methods/responseHandler')
     });
 
 module.exports = stockJsonClient;

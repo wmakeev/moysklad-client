@@ -4,33 +4,30 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var stampit = require('stampit');
+var stampit                  = require('stampit'),
+    authProviderBehavior     = require('project/behaviors/authProviderBehavior'),
+    providerAccessorBehavior = require('project/behaviors/providerAccessorBehavior');
 
 var msXmlClient = stampit()
 
-    // Authable
-    .enclose(require('./../../../authProviderBehavior'))
+    .state({ options: {} })
 
-    // Pass options to provider from client
-    .enclose(function (client) {
-        if (client) this.options = client.options || {};
-    })
+    // Authable
+    .enclose(authProviderBehavior)
+
+    // Provider accessor
+    .enclose(providerAccessorBehavior)
 
     // Methods
-    //
     .methods({
 
         // add client methods
-        get:    require('./methods/get'),
-        put:    require('./methods/put'),
-        del:    require('./methods/del'),
-        fetch:  require('./methods/fetch'),
+        get             : require('./methods/get'),
+        put             : require('./methods/put'),
+        del             : require('./methods/del'),
+        fetch           : require('./methods/fetch'),
+        responseHandler : require('./methods/responseHandler')
 
-        // Tools
-        getObjectTypeName: function (className) {
-            if (className.indexOf('.') != -1) className = className.split('.')[1];
-            return className.charAt(0).toUpperCase() + className.substring(1);
-        }
     });
 
 module.exports = msXmlClient;
