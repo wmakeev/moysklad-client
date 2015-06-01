@@ -1,0 +1,3 @@
+--reporter spec
+test/init.js
+test/specs/*.js
