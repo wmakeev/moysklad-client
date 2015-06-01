@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                         './vendor/moneytostr'
                     ],
                     alias: [
-                        './node_modules/lodash/dist/lodash.min.js:lodash',
+                        //'./node_modules/lodash/dist/lodash.min.js:lodash',
                         './node_modules/moment/min/moment.min.js:moment',
                         './node_modules/stampit/dist/stampit.min.js:stampit'
                     ],
@@ -108,7 +108,7 @@ module.exports = function (grunt) {
                         'logger'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
-                        './node_modules/lodash/dist/lodash.min.js:lodash',
+                        //'./node_modules/lodash/dist/lodash.min.js:lodash',
                         './node_modules/moment/min/moment.min.js:moment',
                         './node_modules/stampit/dist/stampit.min.js:stampit'
                     ]),
@@ -121,7 +121,8 @@ module.exports = function (grunt) {
                     ],
                     exclude: [
                         'fs',
-                        './node_modules/lodash/dist/lodash.min.js',
+                        //'./node_modules/lodash/dist/lodash.min.js',
+                        'lodash',
                         './node_modules/moment/min/moment.min.js',
                         './node_modules/stampit/dist/stampit.min.js'
                     ],
@@ -146,7 +147,7 @@ module.exports = function (grunt) {
                         'logger'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
-                        './node_modules/lodash/dist/lodash.min.js:lodash',
+                        //'./node_modules/lodash/dist/lodash.min.js:lodash',
                         './node_modules/moment/min/moment.min.js:moment',
                         './node_modules/stampit/dist/stampit.min.js:stampit',
                         './src/node_modules/project/xmldom/browser:xmldom'
