@@ -4,15 +4,15 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools').callbackAdapter;
+var _               = require('lodash'),
+    callbackAdapter = require('project/tools/callbackAdapter');
 
 
 var providerResponseHandler = function (err, result, callback) {
     var data;
 
-var _log            = require('project/logger'),
-    _unmarshaller   = require('project/unmarshaller').create();
+    var log            = this.getProvider('logger'),
+        unmarshaller   = this.getProvider('unmarshaller');
 
     if (!err) {
 
@@ -34,7 +34,7 @@ var _log            = require('project/logger'),
             // любой другой код ответа - ошибка
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
-                _log.log('Server response: \n' + result.response.contentText);
+                log.log('Server response: \n' + result.response.contentText);
                 return callbackAdapter(
                     new Error('Server response error ' + result.response.responseCode), result, callback);
         }
@@ -44,8 +44,8 @@ var _log            = require('project/logger'),
             //_log.time('Response unmarshalling time');
 
             data = result.response.contentXml ?
-                _unmarshaller.unmarshalDocument(result.response.contentXml) :
-                _unmarshaller.unmarshalString(result.response.contentText);
+                unmarshaller.unmarshalDocument(result.response.contentXml) :
+                unmarshaller.unmarshalString(result.response.contentText);
 
             //_log.timeEnd('Response unmarshalling time');
 
