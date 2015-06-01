@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _ = require('lodash')
-    , callbackAdapter = require('../../../tools').callbackAdapter;
+var _               = require('lodash'),
+    callbackAdapter = require('project/tools/callbackAdapter');
 
 //TODO Часть кода providerResponseHandler'ов не оправданно дублируется .. >
 var providerResponseHandler = function (err, result, callback) {
