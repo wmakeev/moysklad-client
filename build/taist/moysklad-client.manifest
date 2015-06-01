@@ -1,5 +1,5 @@
 {
-  "id": "ms-moysklad-client",
+  "id": "ms-moysklad-client-beta",
   "shortDescription": "Сборка библиотеки <a href=\"https://github.com/wmakeev/moysklad-client\">moysklad-client</a> для взаимодействия с API МойСклад. Код библиотеки встраивается в контекст приложения МойСклад и доступен для сторонних аддонов.",
   "siteName": "МойСклад",
   "siteRegexp": "online.moysklad.ru",
