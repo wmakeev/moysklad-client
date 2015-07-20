@@ -29,6 +29,12 @@ var providerResponseHandler = function (err, result, callback) {
                 return callbackAdapter(
                     new Error('Request requires HTTP authentication'), result, callback);
 
+            // превыщено кол-во запросов за единицу времени
+            case 429:
+                return callbackAdapter(
+                    new Error('Превышено ограничение на количество запросов в единицу времени'), result, callback);
+
+
             // корректный ответ сервера (работаем с ним дальше)
             case 200:
                 break;
