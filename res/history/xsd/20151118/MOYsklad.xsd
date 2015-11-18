@@ -17,6 +17,7 @@
   <xs:element name="commissionReportOutPosition" type="commissionReportOutPosition"/>  
   <xs:element name="company" type="company"/>  
   <xs:element name="consignment" type="consignment"/>  
+  <xs:element name="consignmentBarcode" type="consignmentBarcode"/>  
   <xs:element name="contract" type="contract"/>  
   <xs:element name="contractDocument" type="contractDocument"/>  
   <xs:element name="country" type="country"/>  
@@ -36,6 +37,7 @@
   <xs:element name="factureIn" type="factureIn"/>  
   <xs:element name="factureOut" type="factureOut"/>  
   <xs:element name="feature" type="feature"/>  
+  <xs:element name="featureBarcode" type="featureBarcode"/>  
   <xs:element name="good" type="good"/>  
   <xs:element name="goodFolder" type="goodFolder"/>  
   <xs:element name="goodImage" type="goodImage"/>  
@@ -65,7 +67,6 @@
   <xs:element name="retailCashOut" type="retailCashOut"/>  
   <xs:element name="retailDemand" type="retailDemand"/>  
   <xs:element name="retailSalesReturn" type="retailSalesReturn"/>  
-  <xs:element name="retailShift" type="retailShift"/>  
   <xs:element name="retailStore" type="retailStore"/>  
   <xs:element name="salesReturn" type="salesReturn"/>  
   <xs:element name="service" type="service"/>  
@@ -78,6 +79,11 @@
   <xs:element name="warehouse" type="warehouse"/>  
   <xs:element name="workflow" type="workflow"/>  
   <xs:element name="ymlConnectorSettings" type="ymlConnectorSettings"/>  
+  <xs:complexType name="collectionContainer">
+    <xs:sequence>
+      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>  
   <xs:complexType name="uom">
     <xs:complexContent>
       <xs:extension base="predefinedLegendEntity">
@@ -578,7 +584,6 @@
         <xs:attribute name="applicable" type="xs:boolean" use="required"/>
         <xs:attribute name="projectUuid" type="xs:IDREF"/>
         <xs:attribute name="contractUuid" type="xs:IDREF"/>
-        <xs:attribute name="retailShiftUuid" type="xs:IDREF"/>
         <xs:attribute name="moment" type="xs:dateTime"/>
         <xs:attribute name="targetAccountUuid" type="xs:IDREF"/>
         <xs:attribute name="sourceAccountUuid" type="xs:IDREF"/>
@@ -1008,7 +1013,7 @@
     <xs:complexContent>
       <xs:extension base="legendEntity">
         <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" ref="barcode"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="barcode" type="consignmentBarcode"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="consignmentAttributeValue"/>
           <xs:element minOccurs="0" ref="feature"/>
         </xs:sequence>
@@ -1017,7 +1022,14 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
-  <xs:complexType name="barcode">
+  <xs:complexType name="consignmentBarcode">
+    <xs:complexContent>
+      <xs:extension base="abstractBarcode">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType abstract="true" name="abstractBarcode">
     <xs:complexContent>
       <xs:extension base="entity">
         <xs:sequence/>
@@ -1039,9 +1051,9 @@
       <xs:extension base="legendEntity">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="attribute" type="featureAttributeValue"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="barcode" type="featureBarcode"/>
         </xs:sequence>
         <xs:attribute name="archived" type="xs:boolean" use="required"/>
-        <xs:attribute name="isDefault" type="xs:boolean" use="required"/>
         <xs:attribute name="goodUuid" type="xs:IDREF" use="required"/>
       </xs:extension>
     </xs:complexContent>
@@ -1053,21 +1065,87 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
+  <xs:complexType name="featureBarcode">
+    <xs:complexContent>
+      <xs:extension base="abstractBarcode">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="good">
+    <xs:complexContent>
+      <xs:extension base="abstractGood">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="pack" type="goodPack"/>
+          <xs:element minOccurs="0" name="preferences">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="preference" type="goodSlotPreference"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="images">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="image" type="goodImage"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="isSerialTrackable" type="xs:boolean" use="required"/>
+        <xs:attribute name="buyPrice" type="xs:double"/>
+        <xs:attribute name="minimumBalance" type="xs:double"/>
+        <xs:attribute name="weight" type="xs:double" use="required"/>
+        <xs:attribute name="volume" type="xs:double" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
   <xs:complexType abstract="true" name="abstractGood">
     <xs:complexContent>
       <xs:extension base="goodFolder">
         <xs:sequence>
-          <xs:element minOccurs="0" name="salePrices" type="prices"/>
           <xs:element maxOccurs="unbounded" minOccurs="0" ref="barcode"/>
+          <xs:element minOccurs="0" name="salePrices" type="goodPrices"/>
         </xs:sequence>
+        <xs:attribute name="minPrice" type="xs:double" use="required"/>
         <xs:attribute name="uomUuid" type="xs:IDREF"/>
         <xs:attribute name="countryUuid" type="xs:IDREF"/>
         <xs:attribute name="supplierUuid" type="xs:IDREF"/>
-        <xs:attribute name="minPrice" type="xs:double" use="required"/>
         <xs:attribute name="salePrice" type="xs:double"/>
         <xs:attribute name="saleCurrencyUuid" type="xs:IDREF"/>
         <xs:attribute name="buyCurrencyUuid" type="xs:IDREF"/>
-        <xs:attribute name="buyPrice" type="xs:double"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="goodPack">
+    <xs:complexContent>
+      <xs:extension base="entity">
+        <xs:sequence/>
+        <xs:attribute name="quantity" type="xs:double" use="required"/>
+        <xs:attribute name="uomUuid" type="xs:IDREF"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="goodSlotPreference">
+    <xs:complexContent>
+      <xs:extension base="entity">
+        <xs:sequence/>
+        <xs:attribute name="slotUuid" type="xs:IDREF"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="goodImage">
+    <xs:complexContent>
+      <xs:extension base="attachableDocument">
+        <xs:sequence/>
+        <xs:attribute name="tinyUuid" type="xs:IDREF" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="tinyImage">
+    <xs:complexContent>
+      <xs:extension base="document">
+        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -1098,7 +1176,14 @@
     <xs:attribute name="s5" type="xs:string"/>
     <xs:attribute name="sex" type="xs:unsignedShort" use="required"/>
   </xs:complexType>  
-  <xs:complexType name="prices">
+  <xs:complexType name="barcode">
+    <xs:complexContent>
+      <xs:extension base="abstractBarcode">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="goodPrices">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" minOccurs="0" name="price" type="price"/>
     </xs:sequence>
@@ -1375,15 +1460,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
-  <xs:complexType name="goodPack">
-    <xs:complexContent>
-      <xs:extension base="entity">
-        <xs:sequence/>
-        <xs:attribute name="quantity" type="xs:double" use="required"/>
-        <xs:attribute name="uomUuid" type="xs:IDREF"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
   <xs:complexType name="supply">
     <xs:complexContent>
       <xs:extension base="comingInOperation">
@@ -1512,20 +1588,10 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
-  <xs:complexType name="retailShift">
-    <xs:complexContent>
-      <xs:extension base="operation">
-        <xs:sequence/>
-        <xs:attribute name="closeDate" type="xs:dateTime"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
   <xs:complexType name="retailStore">
     <xs:complexContent>
       <xs:extension base="legendEntity">
         <xs:sequence/>
-        <xs:attribute name="acquireUuid" type="xs:IDREF"/>
-        <xs:attribute name="acquireAccountUuid" type="xs:IDREF"/>
         <xs:attribute name="active" type="xs:boolean"/>
         <xs:attribute name="address" type="xs:string"/>
         <xs:attribute name="controlCashierChoice" type="xs:boolean" use="required"/>
@@ -1718,16 +1784,8 @@
         <xs:sequence>
           <xs:element maxOccurs="unbounded" minOccurs="0" name="lossPosition" type="lossPosition"/>
         </xs:sequence>
-        <xs:attribute name="expenseItemUuid" type="xs:IDREF"/>
         <xs:attribute name="inventoryUuid" type="xs:IDREF"/>
         <xs:attribute name="salesReturnUuid" type="xs:IDREF"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
-  <xs:complexType name="expenseItem">
-    <xs:complexContent>
-      <xs:extension base="predefinedLegendEntity">
-        <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -1812,6 +1870,13 @@
   <xs:complexType name="salesReturnPosition">
     <xs:complexContent>
       <xs:extension base="comingIn">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+  <xs:complexType name="expenseItem">
+    <xs:complexContent>
+      <xs:extension base="predefinedLegendEntity">
         <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
@@ -1914,56 +1979,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
-  <xs:complexType name="good">
-    <xs:complexContent>
-      <xs:extension base="abstractGood">
-        <xs:sequence>
-          <xs:element maxOccurs="unbounded" minOccurs="0" name="pack" type="goodPack"/>
-          <xs:element minOccurs="0" name="preferences">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="preference" type="goodSlotPreference"/>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" name="images">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="image" type="goodImage"/>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-        <xs:attribute name="isSerialTrackable" type="xs:boolean" use="required"/>
-        <xs:attribute name="minimumBalance" type="xs:double"/>
-        <xs:attribute name="weight" type="xs:double" use="required"/>
-        <xs:attribute name="volume" type="xs:double" use="required"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
-  <xs:complexType name="goodSlotPreference">
-    <xs:complexContent>
-      <xs:extension base="entity">
-        <xs:sequence/>
-        <xs:attribute name="slotUuid" type="xs:IDREF"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
-  <xs:complexType name="goodImage">
-    <xs:complexContent>
-      <xs:extension base="attachableDocument">
-        <xs:sequence/>
-        <xs:attribute name="tinyUuid" type="xs:IDREF" use="required"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
-  <xs:complexType name="tinyImage">
-    <xs:complexContent>
-      <xs:extension base="document">
-        <xs:sequence/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>  
   <xs:complexType name="service">
     <xs:complexContent>
       <xs:extension base="abstractGood">
@@ -2012,6 +2027,7 @@
     <xs:complexContent>
       <xs:extension base="processingPlanItem">
         <xs:sequence/>
+        <xs:attribute name="costShare" type="xs:double" use="required"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -2204,6 +2220,7 @@
     <xs:complexContent>
       <xs:extension base="comingOut">
         <xs:sequence/>
+        <xs:attribute name="planMaterialUuid" type="xs:IDREF"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -2229,7 +2246,7 @@
     <xs:complexContent>
       <xs:extension base="comingIn">
         <xs:sequence/>
-        <xs:attribute name="costShare" type="xs:double" use="required"/>
+        <xs:attribute name="planResultUuid" type="xs:IDREF"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>  
@@ -2318,11 +2335,6 @@
         <xs:sequence/>
       </xs:extension>
     </xs:complexContent>
-  </xs:complexType>  
-  <xs:complexType name="collectionContainer">
-    <xs:sequence>
-      <xs:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
-    </xs:sequence>
   </xs:complexType>  
   <xs:complexType name="cashier">
     <xs:complexContent>
@@ -2436,7 +2448,6 @@
       <xs:enumeration value="CSCART"/>
       <xs:enumeration value="WEBASYST5"/>
       <xs:enumeration value="GENERIC_CML"/>
-      <xs:enumeration value="NETHOUSE"/>
     </xs:restriction>
   </xs:simpleType> 
 </xs:schema>
