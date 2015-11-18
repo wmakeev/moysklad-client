@@ -1,6 +1,6 @@
 {
   "name": "moysklad-client",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -36,13 +36,12 @@
     "sinon": "^1.10.3"
   },
   "dependencies": {
-    "colors": "0.6.2",
-    "common-node": "0.10.15",
-    "lodash": "2.4.1",
-    "moment": "2.5.0",
-    "request": "2.37.0",
-    "stampit": "0.7.1",
-    "tracer": "0.6.1",
-    "xmldom": "0.1.17"
+    "colors": "~0.6.2",
+    "lodash": "^2.4.1",
+    "moment": "~2.5.0",
+    "request": "^2.37.0",
+    "stampit": "~0.7.1",
+    "tracer": "~0.6.1",
+    "xmldom": "~0.1.17"
   }
 }
