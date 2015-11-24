@@ -3,6 +3,7 @@
 .idea
 .c9revisions
 some
+_some
 ~backup
 node_modules
 !src/node_modules

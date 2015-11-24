@@ -143,7 +143,8 @@ module.exports = function (grunt) {
                     alias: getContextSpecificAliases('browser', [
                         'fetch',
                         'default-auth',
-                        'logger'
+                        'logger',
+                        'sleep'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',

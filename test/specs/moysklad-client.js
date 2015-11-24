@@ -5,7 +5,7 @@
  */
 
 var should = require('should');
-var moysklad = require('..');
+var moysklad = require('../..');
 
 describe('moysklad-client', function(){
     it('should have properties', function(){
