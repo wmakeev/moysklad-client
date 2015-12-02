@@ -1,5 +1,5 @@
 var should = require('should');
-// var util = require('util');
+var util = require('util');
 
 var Queue = require('../../src/node_modules/project/fetch/queue');
 
