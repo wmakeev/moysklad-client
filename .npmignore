@@ -2,13 +2,8 @@
 *.sublime*
 .idea
 .c9revisions
-some
 build
-res/xsd
-~backup
 node_modules
 !src/node_modules
-auth.js
-properties.json
 npm-debug.log
 

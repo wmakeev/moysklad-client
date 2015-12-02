@@ -33,20 +33,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: pkg,
 
-        copy: {
-            map: {
-                src: 'res/MOYsklad.xsd',
-                dest: 'res/mapping.json',
-                options: {
-                    process: function (content) {
-                        var mappingObj = require('./src/mapping').generate(content);
-                        return JSON.stringify(mappingObj);
-                    }
-                }
-            }
-        },
-
-        //TODO Очень запутанное описание зборки (нужно дать подробные пояснения)
+        //TODO Очень запутанное описание cборки (нужно дать подробные пояснения)
         browserify: {
 
             // Сборка для Google Script
@@ -86,8 +73,7 @@ module.exports = function (grunt) {
                     description: 'Сборка данных описывающих объектную модель сервиса МойСклад',
 
                     require: [
-                        './res/mapping',
-                        './res/mapping-xsd-fix'
+                        'moysklad-model'
                     ],
 
                     postBundleCB: postBundleProcessor
@@ -114,10 +100,9 @@ module.exports = function (grunt) {
                     ]),
                     external: [
                         'xmldom',
+                        'moysklad-model',
                         './vendor/jsonix',
-                        './vendor/moneytostr',
-                        './res/mapping',
-                        './res/mapping-xsd-fix'
+                        './vendor/moneytostr'
                     ],
                     exclude: [
                         'fs',
@@ -182,9 +167,6 @@ module.exports = function (grunt) {
 
 
 
-    // Генерация объектной модели на основе XSD
-    grunt.registerTask('object-map', ['copy:map']);
-
     // Сборка для Google Script
     grunt.registerTask('gs-vendor', ['browserify:vendor.gs']);
     grunt.registerTask('gs-map',    ['browserify:map.gs']);
@@ -203,6 +185,6 @@ module.exports = function (grunt) {
     grunt.registerTask('taist', ['browserify:moysklad-client.js', 'concat:taist']);
 
     // Генерация модели и сборок
-    grunt.registerTask('default', ['object-map', 'browserify', 'concat:taist']);
+    grunt.registerTask('default', ['browserify', 'concat:taist']);
 
 };
