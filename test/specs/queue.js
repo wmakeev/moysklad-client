@@ -1,5 +1,5 @@
 var should = require('should');
-var util = require('util');
+// var util = require('util');
 
 var Queue = require('../../src/node_modules/project/fetch/queue');
 
@@ -116,7 +116,7 @@ describe('Queue', function() {
              console.log('timeLog\n', util.inspect(timeLog));
              console.log(util.inspect(queue));
 
-            var cases = [0, 0, 20, 100, 120, 150, 200, 220, 270, 300, 320, 400];
+            var cases = [0, 0, 20, 120, 140, 240, 250, 270, 380, 420, 510, 550];
 
             cases.forEach(function (time, index) {
                 timeLog[index].action.should.eql('task' + (index + 1));
