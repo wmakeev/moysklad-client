@@ -12,7 +12,8 @@ describe('Queue', function() {
     it('should have instance methods', function () {
         var queue = new Queue();
         queue.should.have.property('addTask');
-        should(queue.timeout).eql(250);
+        should(queue.requestPeriod).eql(1000);
+        should(queue.requestsPerPeriod).eql(5);
         should(queue.parallelTaskCount).eql(2);
     });
 
@@ -62,78 +63,70 @@ describe('Queue', function() {
 
     it('should process async tasks', function (done) {
         var queue = new Queue({
-            timeout: 100
+            requestPeriod: 100,
+            requestsPerPeriod: 3
         });
-
-        var startTime = 0;
 
         var timeLog = [];
 
-        var task1 = function (cb) {
-            should(startTime).eql(0);
-            startTime = (+new Date());
-            timeLog.push({ elapsed: 0, action: 'task1' });
-            setTimeout(function () {
-                cb(null, 'task1-ok')
-            }, 400)
-        };
+        function getAsyncTask (name, executionTime, onStart) {
+            return function (cb) {
+                onStart(name);
+                setTimeout(function () {
+                    cb(null, name)
+                }, executionTime)
+            };
+        }
 
-        var task2 = function (cb) {
-            timeLog.push({ elapsed: (+new Date()) - startTime, action: 'task2' });
-            setTimeout(function () {
-                cb(null, 'task2-ok')
-            }, 100)
-        };
-
-        var task3 = function (cb) {
-            timeLog.push({ elapsed: (+new Date()) - startTime, action: 'task3' });
-            setTimeout(function () {
-                cb(null, 'task3-ok')
-            }, 250)
-        };
-
-        var task4 = function (cb) {
-            timeLog.push({ elapsed: (+new Date()) - startTime, action: 'task4' });
-            setTimeout(function () {
-                cb(null, 'task4-ok')
-            }, 200)
-        };
+        function logger (taskName) {
+            timeLog.push({ time: new Date() - startTime, action: taskName })
+        }
 
         var noopCalls = 0;
         var noop = function () { noopCalls++ };
 
-        queue.addTask(task1, noop);
-        queue.addTask(task2, noop);
-        queue.addTask(task3, noop);
+        var startTime = new Date();
+
+        queue.addTask(getAsyncTask('task1', 20, logger), noop);
+        queue.addTask(getAsyncTask('task2', 40, logger), noop);
+        queue.addTask(getAsyncTask('task3', 130, logger), noop);
+        queue.addTask(getAsyncTask('task4', 20, logger), noop);
+        queue.addTask(getAsyncTask('task5', 30, logger), noop);
+        queue.addTask(getAsyncTask('task6', 30, logger), noop);
+        queue.addTask(getAsyncTask('task7', 70, logger), noop);
+        queue.addTask(getAsyncTask('task8', 170, logger), noop);
 
         setTimeout(function () {
-            queue.addTask(task4, noop);
-        }, 150);
+            queue.addTask(getAsyncTask('task9', 20, logger), noop)
+        }, 240);
 
         setTimeout(function () {
-            // console.log('timeLog', util.inspect(timeLog));
-            // console.log(util.inspect(queue));
-            should(timeLog.length).eql(4);
+            queue.addTask(getAsyncTask('task10', 20, logger), noop)
+        }, 250);
 
-            // task 1
-            timeLog[0].action.should.eql('task1');
+        setTimeout(function () {
+            queue.addTask(getAsyncTask('task11', 70, logger), noop)
+        }, 260);
 
-            // task 2
-            timeLog[1].action.should.eql('task2');
-            timeLog[1].elapsed.should.be.within(100, 120);
+        setTimeout(function () {
+            queue.addTask(getAsyncTask('task12', 20, logger), noop)
+        }, 270);
 
-            // task 3
-            timeLog[2].action.should.eql('task3');
-            timeLog[2].elapsed.should.be.within(200, 220);
+        setTimeout(function () {
+             console.log('timeLog\n', util.inspect(timeLog));
+             console.log(util.inspect(queue));
 
-            // task 4
-            timeLog[3].action.should.eql('task4');
-            timeLog[3].elapsed.should.be.within(400, 420);
+            var cases = [0, 0, 20, 100, 120, 150, 200, 220, 270, 300, 320, 400];
 
-            noopCalls.should.eql(4);
+            cases.forEach(function (time, index) {
+                timeLog[index].action.should.eql('task' + (index + 1));
+                timeLog[index].time.should.be.within(time, time + 20);
+            });
+
+            noopCalls.should.eql(12);
 
             done()
-        }, 800)
+        }, 1000)
     });
 
 });
