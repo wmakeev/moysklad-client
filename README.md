@@ -2,12 +2,13 @@
 
 [![NPM](https://nodei.co/npm/moysklad-client.png?downloads=true&stars=true)](https://nodei.co/npm/moysklad-client/)
 
-**JavaScript клиент для работы с API SaaS сервиса** [МойСклад](http://moysklad.ru).
+**JavaScript клиент для работы с API сервиса** [МойСклад](http://moysklad.ru).
 
 > **ВНИМАНИЕ!**
-> Библиотека находится на стадии становления и пока не покрыта тестами, поэтому будьте осторожны при использовании функционала обновления данных, т.к. есть вероятность наличия ошибок.
+> Библиотека использует **устаревший** на текущий момент [XML REST API](https://support.moysklad.ru/hc/ru/articles/203404253-REST-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81-%D1%81%D0%B8%D0%BD%D1%85%D1%80%D0%BE%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85) сервиса МойСклад. Взамен МойСклад предлагает использовать новый [JSON API интерфейс](https://online.moysklad.ru/api/remap/1.0/doc/). Разработка библиотеки для нового API ведется в [другом репозитории](https://github.com/wmakeev/moysklad)
 
-> **Приветствуются** любые предложения касательно интерфейса и расширения функциональности библиотеки.
+> **ВНИМАНИЕ!**
+> Код не покрыт тестами, поэтому будьте осторожны при использовании функционала обновления данных, т.к. есть вероятность наличия ошибок.
 
 > Информацию об ошибках, вопросы и предложениях просьба оставлять в разделе [Issues](https://github.com/wmakeev/moysklad-client/issues?state=open)
 
@@ -47,7 +48,7 @@ client.save(agent);
 1. Установка пакета:
 
     ```bash
-    $ npm install moysklad-client --save-dev
+    $ npm install moysklad-client --save
     ```
 
 2. Подключение:
@@ -55,19 +56,19 @@ client.save(agent);
     ```js
     var client = require('moysklad-client').createClient();
     ```
-    
+
 Настройка библиотеки для других сред описана в разделе документации [Быстрый старт](https://github.com/wmakeev/moysklad-client/wiki/quick-start)
 
 ## Особенности
 
 - Взаимодействие с МойСклад на любой платформе и среде где может выполнятся JavaScript код.
-- Поддержка синхронного (браузер, [Google Script](http://www.google.com/script/start/), [Taist](http://www.tai.st/)) и асинхронного ([node.js](http://nodejs.org/)) режима разработки.
+- Поддержка синхронного (браузер, [Google Script](http://www.google.com/script/start/)) и асинхронного ([node.js](http://nodejs.org/)) режима разработки.
 - Поддержка всех возможностей API МойСклад.
 - Реализована полная объектная модель сервиса на основе официальной [схемы данных](https://online.moysklad.ru/exchange/schema/MOYsklad.xsd).
 - Описание объектной модели отделено от программного кода библиотеки, что сокращает расходы на поддержку при обновлениях МойСклад.
 
 ## Документация
-Полная документация представлена [в разделе Wiki](https://github.com/wmakeev/moysklad-client/wiki)
+Документация представлена [в разделе Wiki](https://github.com/wmakeev/moysklad-client/wiki)
 
 ## Версии
-Все изменения отмечаются в разделе [Releases](https://github.com/wmakeev/moysklad-client/releases)
+Все изменения в разделе [Releases](https://github.com/wmakeev/moysklad-client/releases)
