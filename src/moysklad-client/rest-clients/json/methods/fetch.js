@@ -4,22 +4,21 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                           = require('lodash')
-  , moment                      = require('moment')
-  , client_properties           = require('./../../client-properties')
-  , fetchProviderRespHandler    = require('./../providerResponseHandler')
-  , endPoint                    = client_properties.baseUrl + '/rest';
+var _                        = require('lodash'),
+    moment                   = require('moment'),
+    clientProperties         = require('./../../client-properties'),
+    fetchProviderRespHandler = require('./../providerResponseHandler'),
+    endPoint                 = clientProperties.baseUrl + '/rest';
 
-var fetch = function (options, callback) {
-
+module.exports = function fetch (options, callback) {
     var _fetchProvider = require('project/fetch'),
-        query;
+        queryString;
 
     if (options.params) {
-        query = _.reduce(options.params, function (result, value, key) {
+        queryString = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
-            _.forEach(itemValues, function (itemValue) {
+            itemValues.each(function (itemValue) {
                 if (itemValue instanceof Date || moment.isMoment(itemValue))
                     itemValue = moment(itemValue).format('YYYYMMDDHHmmss');
 
@@ -29,7 +28,7 @@ var fetch = function (options, callback) {
             return result;
         }, []).join('&');
 
-        query = query ? '/?' + query : null;
+        queryString = queryString ? '/?' + queryString : null;
     }
 
     var fetchOptions = _.extend({
@@ -40,15 +39,14 @@ var fetch = function (options, callback) {
     }, {
         // parameters
         method: 'GET',
-        url: endPoint + '/' + options.service + '/json' + (options.path || '') + (query || '')
+        url: endPoint + '/' + options.service + '/json' + (options.path || '') + (queryString || '')
     });
 
-    if (this.isAuth())
+    if (this.isAuth()) {
         fetchOptions.headers.Authorization = this.getBasicAuthHeader();
+    }
 
     _fetchProvider.fetch(fetchOptions, function (err, result) {
         return fetchProviderRespHandler(err, result, callback);
     });
 };
-
-module.exports = fetch;

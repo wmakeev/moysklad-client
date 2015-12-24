@@ -4,18 +4,15 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                           = require('lodash')
-  , client_properties           = require('./../../client-properties')
-  , fetchProviderRespHandler    = require('./../providerResponseHandler')
-  , endPoint                    = client_properties.baseUrl + '/rest/ms/xml';
+var _                        = require('lodash'),
+    clientProperties         = require('./../../client-properties'),
+    fetchProviderRespHandler = require('./../providerResponseHandler'),
+    endPoint                 = clientProperties.baseUrl + '/rest/ms/xml';
 
 
-var fetch = function (options, callback) {
-    var that = this;
-
-    var _fetchProvider  = require('project/fetch')
-      , _marshaller     = require('project/marshaller').create()
-      , _log            = require('project/logger');
+module.exports = function fetch (options, callback) {
+    var _fetchProvider = require('project/fetch'),
+        _marshaller    = require('project/marshaller').create();
 
     var fetchOptions = _.extend({
         // default
@@ -28,15 +25,15 @@ var fetch = function (options, callback) {
         url: endPoint + options.path
     });
 
-    if (this.isAuth())
-        fetchOptions.headers.Authorization = this.getBasicAuthHeader();
-
-    if (options.payload)
+    if (options.payload) {
         fetchOptions.payload = _marshaller.marshalString(options.payload);
+    }
+
+    if (this.isAuth()) {
+        fetchOptions.headers.Authorization = this.getBasicAuthHeader();
+    }
 
     _fetchProvider.fetch(fetchOptions, function (err, result) {
         return fetchProviderRespHandler(err, result, callback);
     });
 };
-
-module.exports = fetch;
