@@ -19,7 +19,6 @@ var ProviderAccessor = function () {
     var _providers = {};
 
     this.getProvider = function (name) {
-
         if (!_providers[name]) {
             var providerCtor = requireProviderCtor(name);
 
@@ -39,7 +38,6 @@ var ProviderAccessor = function () {
     };
 
     this.setProvider = function (name, provider) {
-
         if (name && provider) _providers[name] = provider;
         return this;
     }
