@@ -1,4 +1,4 @@
-// moysklad-client 0.2.9 (bundle length 424756)
+// moysklad-client 0.2.9 (bundle length 424733)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -154,10 +154,9 @@ module.exports={
   },
   "dependencies": {
     "colors": "~0.6.2",
-    "have2": "~0.2.0",
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
-    "moysklad-model": "~0.1.1",
+    "moysklad-model": "~0.2.0",
     "request": "^2.37.0",
     "stampit": "~0.7.1",
     "tracer": "~0.6.1",
