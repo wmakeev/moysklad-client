@@ -18,7 +18,7 @@ module.exports = function fetch (options, callback) {
         queryString = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
-            itemValues.each(function (itemValue) {
+            itemValues.forEach(function (itemValue) {
                 if (itemValue instanceof Date || moment.isMoment(itemValue))
                     itemValue = moment(itemValue).format('YYYYMMDDHHmmss');
 
