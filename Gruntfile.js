@@ -91,7 +91,9 @@ module.exports = function (grunt) {
                     alias: getContextSpecificAliases('gs', [
                         'fetch',
                         'default-auth',
-                        'logger'
+                        'logger',
+                        'sleep',
+                        'base64'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',
@@ -129,7 +131,8 @@ module.exports = function (grunt) {
                         'fetch',
                         'default-auth',
                         'logger',
-                        'sleep'
+                        'sleep',
+                        'base64'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',

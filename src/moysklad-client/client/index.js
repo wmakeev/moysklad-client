@@ -4,12 +4,12 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _                        = require('lodash'),
-    stampit                  = require('stampit'),
-    Query                    = require('./../rest-clients/ms-xml/query'),
-    operators                = require('./../rest-clients/ms-xml/query/operators'),
-    authProviderBehavior     = require('./../../authProviderBehavior'),
-    providerAccessorBehavior = require('./../../providerAccessorBehavior');
+var _                = require('lodash'),
+    stampit          = require('stampit'),
+    Query            = require('./../rest-clients/ms-xml/query'),
+    operators        = require('./../rest-clients/ms-xml/query/operators'),
+    authBehavior     = require('./../../authBehavior'),
+    providerBehavior = require('./../../providerBehavior');
 
 /**
  * @lends Client.prototype
@@ -52,10 +52,10 @@ var Client = stampit()
     })
 
     // Auth
-    .enclose(authProviderBehavior)
+    .enclose(authBehavior)
 
     // Providers accessor
-    .enclose(providerAccessorBehavior)
+    .enclose(providerBehavior)
 
     // Methods
     //

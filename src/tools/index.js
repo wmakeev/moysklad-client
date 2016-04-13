@@ -120,52 +120,8 @@ var Base64 = {
 
 exports.Base64 = Base64;
 
-exports.getBasicAuthHttpHeader = function (login, password) {
-
-    // TODO Надо подумать как лучше переключать функции в зависимости от среды исполнения
-    return "Basic " + Base64.encode(login + ":" + password);
-
-};
-
 exports.callbackAdapter = require('./callbackAdapter');
 
-exports.Is = {
-    'args': function () {
-        var args = arguments[0],
-            condition = Array.prototype.slice.call(arguments, -(arguments.length - 1));
-
-        if (args.length == condition.length) {
-            for (var i = 0, l = args.length; i < l; i++) {
-                if (typeof condition[i] === 'string') {
-                    if (typeof args[i] !== condition[i]) return false;
-
-                } else if (condition[i] && condition[i].isMoment && typeof condition[i].isMoment === 'function') {
-                    if (!condition[i].isMoment(args[i])) return false;
-
-                } else {
-                    if (!(args[i] instanceof condition[i])) return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    },
-    'exists': function (value) {
-        return (typeof value !== 'undefined' && value !== null);
-    },
-    'object': function (value) {
-        return typeof value === 'object';
-    },
-    'numberNotNaN': function (value) {
-        return (typeof value === 'number') && !isNaN(value);
-    },
-    'integer': function (value) {
-        return _.isNumber(value) && ((value % 1) === 0);
-    },
-    'uuid': function (value) {
-        return UUID_REGEX.test(value);
-    }
-};
 
 //TODO Сформировать эту структуру динамически
 exports.Ensure = {
