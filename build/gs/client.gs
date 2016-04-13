@@ -1,4 +1,4 @@
-// moysklad-client 0.2.9 (bundle length 102764)
+// moysklad-client 0.2.9 (bundle length 102775)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -44,7 +44,7 @@ module.exports={
     "colors": "~0.6.2",
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
-    "moysklad-model": "~0.2.0",
+    "moysklad-model": "~0.3.0",
     "request": "^2.37.0",
     "stampit": "~0.7.1",
     "tracer": "~0.6.1",
@@ -1274,7 +1274,7 @@ module.exports = function fetch (options, callback) {
         queryString = _.reduce(options.params, function (result, value, key) {
             var itemValues = value instanceof Array ? value : [value];
 
-            itemValues.each(function (itemValue) {
+            itemValues.forEach(function (itemValue) {
                 if (itemValue instanceof Date || moment.isMoment(itemValue))
                     itemValue = moment(itemValue).format('YYYYMMDDHHmmss');
 
@@ -2423,6 +2423,8 @@ module.exports = {
 };
 },{}],"project/default-auth":[function(require,module,exports){
 module.exports=require('u3XsFq');
+},{}],"project/fetch":[function(require,module,exports){
+module.exports=require('hhHkL+');
 },{}],"hhHkL+":[function(require,module,exports){
 /**
  * Google Script Http request provider factory
@@ -2459,12 +2461,12 @@ var fetch = {
 
         var response, httpResponse, err;
 
-        // Show request info
+        /*// Show request info
         log.info([
             'http',
             _options.method,
             _options.url
-        ].join(' '));
+        ].join(' '));*/
 
         var startTime = new Date();
 
@@ -2485,13 +2487,13 @@ var fetch = {
                 responseCode    : httpResponse.getResponseCode()
             };
 
-            // Show response info
+            /*// Show response info
             log.info([
                 'http',
                 response.responseCode,
                 _options.url,
                 (new Date() - startTime) + 'ms ' + response.contentText.length + 'b'
-            ].join(' '));
+            ].join(' '));*/
         }
 
         var result = {
@@ -2505,9 +2507,7 @@ var fetch = {
 
 module.exports = fetch;
 
-},{"./../../../tools/callbackAdapter":82,"./queue":58,"lodash":"EBUqFC","project/logger":"Z19TnT"}],"project/fetch":[function(require,module,exports){
-module.exports=require('hhHkL+');
-},{}],58:[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":82,"./queue":58,"lodash":"EBUqFC","project/logger":"Z19TnT"}],58:[function(require,module,exports){
 var sleep = require('project/sleep');
 // var util = require('util');
 
