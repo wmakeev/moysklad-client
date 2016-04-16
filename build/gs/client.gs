@@ -1,13 +1,700 @@
-// moysklad-client 0.2.9 (bundle length 102775)
+// moysklad-client 0.2.10 (bundle length 120889)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
 // https://github.com/wmakeev
 // 
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+},{}],2:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],3:[function(require,module,exports){
+module.exports = function isBuffer(arg) {
+  return arg && typeof arg === 'object'
+    && typeof arg.copy === 'function'
+    && typeof arg.fill === 'function'
+    && typeof arg.readUInt8 === 'function';
+}
+},{}],4:[function(require,module,exports){
+(function (process,global){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function(set) {
+  if (isUndefined(debugEnviron))
+    debugEnviron = process.env.NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = require('./support/isBuffer');
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = require('inherits');
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+}).call(this,require("g5I+bs"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":3,"g5I+bs":2,"inherits":1}],5:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -45,14 +732,13 @@ module.exports={
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
     "moysklad-model": "~0.3.0",
-    "request": "^2.37.0",
     "stampit": "~0.7.1",
     "tracer": "~0.6.1",
     "xmldom": "~0.1.17"
   }
 }
 
-},{}],2:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * auth
  * Date: 23.03.14
@@ -139,7 +825,7 @@ var AuthProvider = function (provider) {
 };
 
 module.exports = AuthProvider;
-},{"./tools":83,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],3:[function(require,module,exports){
+},{"./tools":88,"project/default-auth":"u3XsFq","project/logger":"Z19TnT"}],7:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -207,7 +893,7 @@ var Client = stampit()
 
 module.exports = Client;
 
-},{"./../../authProviderBehavior":2,"./../../providerAccessorBehavior":81,"./../rest-clients/ms-xml/query":40,"./../rest-clients/ms-xml/query/operators":50,"./lazy-loader":13,"./methods/chain":16,"./methods/del":17,"./methods/first":18,"./methods/from":19,"./methods/json-service":20,"./methods/load":21,"./methods/save":22,"./methods/total":23,"lodash":"EBUqFC","stampit":"gaBrea"}],4:[function(require,module,exports){
+},{"./../../authProviderBehavior":6,"./../../providerAccessorBehavior":86,"./../rest-clients/ms-xml/query":44,"./../rest-clients/ms-xml/query/operators":54,"./lazy-loader":17,"./methods/chain":20,"./methods/del":21,"./methods/first":22,"./methods/from":23,"./methods/json-service":24,"./methods/load":25,"./methods/save":26,"./methods/total":27,"lodash":"EBUqFC","stampit":"gaBrea"}],8:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -268,7 +954,7 @@ function batch () {
 }
 
 module.exports = batch;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],5:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],9:[function(require,module,exports){
 
 
 module.exports = {
@@ -282,7 +968,7 @@ module.exports = {
     payments:   require('./payments')
 
 };
-},{"./payments":6,"./slot":7,"./state":8}],6:[function(require,module,exports){
+},{"./payments":10,"./slot":11,"./state":12}],10:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -300,7 +986,7 @@ function fetchPayments(type, uuids, containerEntity) {
 }
 
 module.exports = fetchPayments;
-},{"lodash":"EBUqFC"}],7:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],11:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -342,7 +1028,7 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchSlots;
-},{"lodash":"EBUqFC"}],8:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],12:[function(require,module,exports){
 /**
  * state
  * Date: 14.06.14
@@ -383,7 +1069,7 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchState;
-},{"lodash":"EBUqFC","project/tools":77}],9:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":82}],13:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -428,7 +1114,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
 }
 
 module.exports = defProperty;
-},{"lodash":"EBUqFC"}],10:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],14:[function(require,module,exports){
 /**
  * entityHash
  * Date: 13.05.2014
@@ -492,7 +1178,7 @@ function entityHash () {
 }
 
 module.exports = entityHash;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],11:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],15:[function(require,module,exports){
 /**
  * getEntities
  * Date: 29.04.14
@@ -552,7 +1238,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = getEntities;
-},{"./customFetch":5,"lodash":"EBUqFC"}],12:[function(require,module,exports){
+},{"./customFetch":9,"lodash":"EBUqFC"}],16:[function(require,module,exports){
 /**
  * getTypeOfProperty
  * Date: 29.04.14
@@ -574,7 +1260,7 @@ function getTypeOfProperty(propertyName, entity) {
 }
 
 module.exports = getTypeOfProperty;
-},{"./nameToTypeMap":15}],13:[function(require,module,exports){
+},{"./nameToTypeMap":19}],17:[function(require,module,exports){
 /**
  * LazyLoader
  * Date: 15.04.14
@@ -641,7 +1327,7 @@ var createLazyLoader = function () {
 };
 
 module.exports = createLazyLoader;
-},{"./batch":4,"./defProperty":9,"./entityHash":10,"./getEntities":11,"./getTypeOfProperty":12,"./mapLazyLoader":14,"lodash":"EBUqFC","stampit":"gaBrea"}],14:[function(require,module,exports){
+},{"./batch":8,"./defProperty":13,"./entityHash":14,"./getEntities":15,"./getTypeOfProperty":16,"./mapLazyLoader":18,"lodash":"EBUqFC","stampit":"gaBrea"}],18:[function(require,module,exports){
 /**
  * mapLazyLoader
  * Date: 29.04.14
@@ -757,7 +1443,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":77}],15:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":82}],19:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -779,7 +1465,7 @@ module.exports={
     "invoicesOut": "invoice",
     "supplier": "company"
 }
-},{}],16:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * chain
  * Date: 25.06.14
@@ -794,7 +1480,7 @@ var chain = function () {
 };
 
 module.exports = chain;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],17:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],21:[function(require,module,exports){
 /**
  * del
  * Date: 10.02.15
@@ -834,7 +1520,7 @@ var del = function () {
 };
 
 module.exports = del;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],18:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],22:[function(require,module,exports){
 /**
  * first
  * Date: 14.04.14
@@ -898,7 +1584,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],19:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],23:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -942,7 +1628,7 @@ var from = function (type) {
 };
 
 module.exports = from;
-},{"./../../rest-clients/ms-xml/query/index":40,"lodash":"EBUqFC"}],20:[function(require,module,exports){
+},{"./../../rest-clients/ms-xml/query/index":44,"lodash":"EBUqFC"}],24:[function(require,module,exports){
 /**
  * json-service
  * Date: 24.06.14
@@ -986,7 +1672,7 @@ var callService = function (serviceName) {
 });
 
 
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],21:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],25:[function(require,module,exports){
 /**
  * load
  * Date: 24.03.14
@@ -1085,7 +1771,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],22:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],26:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -1125,7 +1811,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],23:[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],27:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -1184,7 +1870,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":83,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
+},{"../../../tools/index":88,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
 },{}],"1wiUUs":[function(require,module,exports){
 /**
@@ -1212,11 +1898,11 @@ module.exports = {
     logger: require('project/logger'),
     version: pkg.version
 };
-},{"../../package":1,"./client":3,"./rest-clients/ms-xml/query":40,"project/logger":"Z19TnT","project/tools":77}],26:[function(require,module,exports){
+},{"../../package":5,"./client":7,"./rest-clients/ms-xml/query":44,"project/logger":"Z19TnT","project/tools":82}],30:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
-},{}],27:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1253,7 +1939,7 @@ var stockJsonClient = stampit()
 module.exports = stockJsonClient;
 
 //TODO Написать необходимые Enum'ы
-},{"./../../../authProviderBehavior":2,"./methods/fetch":28,"./methods/mutualSettlement":29,"./methods/slot":30,"./methods/stock":32,"./methods/stock-for-good":31,"stampit":"gaBrea"}],28:[function(require,module,exports){
+},{"./../../../authProviderBehavior":6,"./methods/fetch":32,"./methods/mutualSettlement":33,"./methods/slot":34,"./methods/stock":36,"./methods/stock-for-good":35,"stampit":"gaBrea"}],32:[function(require,module,exports){
 /**
  * fetch
  * Date: 19.04.14
@@ -1307,7 +1993,7 @@ module.exports = function fetch (options, callback) {
     });
 };
 
-},{"./../../client-properties":26,"./../providerResponseHandler":33,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"hhHkL+"}],29:[function(require,module,exports){
+},{"./../../client-properties":30,"./../providerResponseHandler":37,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"hhHkL+"}],33:[function(require,module,exports){
 /**
  * mutualSettlement
  * Date: 24.03.14
@@ -1363,7 +2049,7 @@ module.exports = {
     list    : list,
     customer: customer
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],30:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],34:[function(require,module,exports){
 /**
  * slot
  * Date: 24.03.14
@@ -1400,7 +2086,7 @@ var slot = function (options, callback) {
 };
 
 module.exports = slot;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],31:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],35:[function(require,module,exports){
 /**
  * stockForGood
  * Date: 24.03.14
@@ -1421,7 +2107,7 @@ var stockForGood = function (options, callback) {
 };
 
 module.exports = stockForGood;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],32:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],36:[function(require,module,exports){
 /**
  * stock
  * Date: 24.03.14
@@ -1442,7 +2128,7 @@ var stock = function (options, callback) {
 };
 
 module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],33:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],37:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1495,7 +2181,7 @@ var providerResponseHandler = function (err, result, callback) {
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":83,"lodash":"EBUqFC","project/logger":"Z19TnT"}],34:[function(require,module,exports){
+},{"../../../tools":88,"lodash":"EBUqFC","project/logger":"Z19TnT"}],38:[function(require,module,exports){
 /**
  * index
  * Date: 24.03.14
@@ -1532,7 +2218,7 @@ var msXmlClient = stampit()
     });
 
 module.exports = msXmlClient;
-},{"./../../../authProviderBehavior":2,"./methods/del":35,"./methods/fetch":36,"./methods/get":37,"./methods/put":38,"stampit":"gaBrea"}],35:[function(require,module,exports){
+},{"./../../../authProviderBehavior":6,"./methods/del":39,"./methods/fetch":40,"./methods/get":41,"./methods/put":42,"stampit":"gaBrea"}],39:[function(require,module,exports){
 /**
  * del
  * Date: 24.03.14
@@ -1577,7 +2263,7 @@ module.exports = function (type, data, callback) {
 
     this.fetch(_fetchOptions, callback);
 }
-},{"lodash":"EBUqFC"}],36:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],40:[function(require,module,exports){
 /**
  * fetch
  * Date: 27.03.14
@@ -1618,7 +2304,7 @@ module.exports = function fetch (options, callback) {
     });
 };
 
-},{"./../../client-properties":26,"./../providerResponseHandler":39,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/marshaller":64}],37:[function(require,module,exports){
+},{"./../../client-properties":30,"./../providerResponseHandler":43,"lodash":"EBUqFC","project/fetch":"hhHkL+","project/marshaller":68}],41:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -1647,7 +2333,7 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
-},{"lodash":"EBUqFC"}],38:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],42:[function(require,module,exports){
 /**
  * put
  * Date: 24.03.14
@@ -1732,7 +2418,7 @@ var put = function () {
 };
 
 module.exports = put;
-},{"lodash":"EBUqFC"}],39:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],43:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1806,7 +2492,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":83,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":80}],40:[function(require,module,exports){
+},{"../../../tools":88,"lodash":"EBUqFC","project/logger":"Z19TnT","project/unmarshaller":85}],44:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -1825,7 +2511,7 @@ module.exports = {
 };
 
 
-},{"./query":52}],41:[function(require,module,exports){
+},{"./query":56}],45:[function(require,module,exports){
 /**
  * fileContent
  * Date: 22.03.14
@@ -1845,7 +2531,7 @@ var fileContent = function () {
 };
 
 module.exports = fileContent;
-},{"../../../../../tools/index":83}],42:[function(require,module,exports){
+},{"../../../../../tools/index":88}],46:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -1859,7 +2545,7 @@ var filter = function (key, value) {
 };
 
 module.exports = filter;
-},{}],43:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /**
  * getQueryParameters
  * Date: 22.03.14
@@ -1989,7 +2675,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":83,"../operators":50,"lodash":"EBUqFC","moment":"2V8r5n"}],44:[function(require,module,exports){
+},{"../../../../../tools/index":88,"../operators":54,"lodash":"EBUqFC","moment":"2V8r5n"}],48:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -2025,7 +2711,7 @@ module.exports = {
 
 };
 
-},{"../../../../../tools/index":83}],45:[function(require,module,exports){
+},{"../../../../../tools/index":88}],49:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -2057,7 +2743,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":83}],46:[function(require,module,exports){
+},{"../../../../../tools/index":88}],50:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -2081,7 +2767,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":83}],47:[function(require,module,exports){
+},{"../../../../../tools/index":88}],51:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -2111,7 +2797,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":83}],48:[function(require,module,exports){
+},{"../../../../../tools/index":88}],52:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -2135,7 +2821,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":83}],49:[function(require,module,exports){
+},{"../../../../../tools/index":88}],53:[function(require,module,exports){
 /**
  * uuids
  * Date: 17.06.14
@@ -2159,7 +2845,7 @@ var uuids = function (uuids) {
 };
 
 module.exports = uuids;
-},{}],50:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -2265,7 +2951,7 @@ operators.$lt   = operators.lessThan;
 operators.$lte  = operators.lessThanOrEqualTo;
 
 module.exports = operators;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],51:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],55:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -2305,7 +2991,7 @@ module.exports = function () {
 
     if (arguments[0]) this.appendFilter(arguments[0]);
 };
-},{"../../../../tools/index":83,"lodash":"EBUqFC"}],52:[function(require,module,exports){
+},{"../../../../tools/index":88,"lodash":"EBUqFC"}],56:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -2343,7 +3029,7 @@ var Query = stampit()
 
 
 module.exports = Query;
-},{"./methods/fileContent":41,"./methods/filter":42,"./methods/getQueryParameters":43,"./methods/paging":44,"./methods/select":45,"./methods/showArchived":46,"./methods/sort":47,"./methods/sortMode":48,"./methods/uuids":49,"./query.filter.js":51,"./query.params.js":53,"stampit":"gaBrea"}],53:[function(require,module,exports){
+},{"./methods/fileContent":45,"./methods/filter":46,"./methods/getQueryParameters":47,"./methods/paging":48,"./methods/select":49,"./methods/showArchived":50,"./methods/sort":51,"./methods/sortMode":52,"./methods/uuids":53,"./query.filter.js":55,"./query.params.js":57,"stampit":"gaBrea"}],57:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -2384,7 +3070,7 @@ module.exports = function () {
         });
     }
 };
-},{"../../../../tools":83,"lodash":"EBUqFC"}],"u3XsFq":[function(require,module,exports){
+},{"../../../../tools":88,"lodash":"EBUqFC"}],"u3XsFq":[function(require,module,exports){
 /**
  * default Google Script auth
  * Date: 23.03.14
@@ -2461,15 +3147,6 @@ var fetch = {
 
         var response, httpResponse, err;
 
-        /*// Show request info
-        log.info([
-            'http',
-            _options.method,
-            _options.url
-        ].join(' '));*/
-
-        var startTime = new Date();
-
         try {
             queue.addTask(function (cb) {
                 httpResponse = UrlFetchApp.fetch(_options.url, _options);
@@ -2486,14 +3163,6 @@ var fetch = {
                 contentText     : httpResponse.getContentText(),
                 responseCode    : httpResponse.getResponseCode()
             };
-
-            /*// Show response info
-            log.info([
-                'http',
-                response.responseCode,
-                _options.url,
-                (new Date() - startTime) + 'ms ' + response.contentText.length + 'b'
-            ].join(' '));*/
         }
 
         var result = {
@@ -2507,9 +3176,9 @@ var fetch = {
 
 module.exports = fetch;
 
-},{"./../../../tools/callbackAdapter":82,"./queue":58,"lodash":"EBUqFC","project/logger":"Z19TnT"}],58:[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":87,"./queue":62,"lodash":"EBUqFC","project/logger":"Z19TnT"}],62:[function(require,module,exports){
 var sleep = require('project/sleep');
-// var util = require('util');
+var util = require('util');
 
 // TODO: В асинхронном режиме, временем запроса может быть время получения первого пакета
 // TODO: Узнать более точную информацию в ТП
@@ -2573,7 +3242,7 @@ Queue.prototype._processQueueTask = function () {
             that._tasksInProgress--;
             that._timeline.push(new Date());
             if (task.cb) {
-                that._processQueueTask();
+                if (that.async) { that._processQueueTask(); }
                 task.cb.apply(null, arguments);
             } else {
                 if (err) {
@@ -2591,7 +3260,7 @@ module.exports = Queue;
 
 
 
-},{"project/sleep":65}],59:[function(require,module,exports){
+},{"project/sleep":69,"util":4}],63:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -2606,7 +3275,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":60,"project/mapping":63}],60:[function(require,module,exports){
+},{"project/jsonix":64,"project/mapping":67}],64:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -2645,7 +3314,7 @@ module.exports = {
         }
     }
 };
-},{}],63:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -2657,7 +3326,7 @@ module.exports = {
 
 module.exports = require('moysklad-model');
 
-},{"moysklad-model":"CRgiS6"}],64:[function(require,module,exports){
+},{"moysklad-model":"CRgiS6"}],68:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -2672,16 +3341,20 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":59}],65:[function(require,module,exports){
+},{"project/jsonix/context":63}],69:[function(require,module,exports){
+module.exports = require('./node');
+
+},{"./node":70}],70:[function(require,module,exports){
 module.exports = function sleep (ms, async, cb) {
     if (async) {
+        if (!cb) throw new Error('sleep: callback must be defined in async mode');
         setTimeout(cb, ms);
     } else {
-        throw new Error('Can\'t sleep in node.js async env.')
+        throw new Error('Can\'t sync sleep in node.js async environment.')
     }
 };
 
-},{}],66:[function(require,module,exports){
+},{}],71:[function(require,module,exports){
 /**
  * clone
  * Date: 15.06.14
@@ -2736,7 +3409,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
-},{"lodash":"EBUqFC"}],67:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],72:[function(require,module,exports){
 /**
  * createAttrValue
  * Date: 17.06.14
@@ -2871,7 +3544,7 @@ var createAttrValue = function () {
 };
 
 module.exports = createAttrValue;
-},{"lodash":"EBUqFC"}],68:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],73:[function(require,module,exports){
 /**
  * description
  * Date: 16.06.14
@@ -2919,7 +3592,7 @@ function description (entity) {
 }
 
 module.exports = description;
-},{}],69:[function(require,module,exports){
+},{}],74:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 20.04.14
@@ -2958,7 +3631,7 @@ var getAttr = function (entity, metadataUuid) {
 };
 
 module.exports = getAttr;
-},{"lodash":"EBUqFC"}],70:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],75:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 01.06.14
@@ -3011,7 +3684,7 @@ var getAttrValue = function (entity, metadataUuid) {
 };
 
 module.exports = getAttrValue;
-},{"./getType":75,"lodash":"EBUqFC"}],71:[function(require,module,exports){
+},{"./getType":80,"lodash":"EBUqFC"}],76:[function(require,module,exports){
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
@@ -3043,7 +3716,7 @@ var getPositions = function (entity) {
 };
 
 module.exports = getPositions;
-},{"./instanceOf":78,"lodash":"EBUqFC"}],72:[function(require,module,exports){
+},{"./instanceOf":83,"lodash":"EBUqFC"}],77:[function(require,module,exports){
 /**
  * getPrice
  * Date: 20.04.14
@@ -3080,7 +3753,7 @@ var getPrice = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPrice;
-},{"lodash":"EBUqFC"}],73:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],78:[function(require,module,exports){
 /**
  * getPriceValue
  * Date: 01.06.14
@@ -3104,7 +3777,7 @@ var getPriceValue = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPriceValue;
-},{"lodash":"EBUqFC"}],74:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],79:[function(require,module,exports){
 /**
  * getProperty
  * Date: 26.06.14
@@ -3128,7 +3801,7 @@ var getProperty = function (entity, propertyName, defaultValue) {
 
 
 module.exports = getProperty;
-},{}],75:[function(require,module,exports){
+},{}],80:[function(require,module,exports){
 /**
  * getType
  * Date: 14.06.14
@@ -3157,7 +3830,7 @@ var getType = function(typeName) {
 };
 
 module.exports = getType;
-},{"lodash":"EBUqFC","project/mapping":63}],76:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/mapping":67}],81:[function(require,module,exports){
 /**
  * getTypeName
  * Date: 14.06.14
@@ -3187,7 +3860,7 @@ var getUriTypeName = function (obj) {
 };
 
 module.exports = getUriTypeName;
-},{}],77:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * index
  * Date: 14.06.14
@@ -3222,7 +3895,7 @@ module.exports = {
     //:              require('./'),
 };
 
-},{"./../../../../vendor/moneytostr":"sicwBz","./clone":66,"./createAttrValue":67,"./description":68,"./getAttr":69,"./getAttrValue":70,"./getPositions":71,"./getPrice":72,"./getPriceValue":73,"./getProperty":74,"./getType":75,"./getUriTypeName":76,"./instanceOf":78,"./reserve":79}],78:[function(require,module,exports){
+},{"./../../../../vendor/moneytostr":"sicwBz","./clone":71,"./createAttrValue":72,"./description":73,"./getAttr":74,"./getAttrValue":75,"./getPositions":76,"./getPrice":77,"./getPriceValue":78,"./getProperty":79,"./getType":80,"./getUriTypeName":81,"./instanceOf":83,"./reserve":84}],83:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -3264,7 +3937,7 @@ var instanceOf = function (entity, typeName) {
 };
 
 module.exports = instanceOf;
-},{"./getType":75,"lodash":"EBUqFC"}],79:[function(require,module,exports){
+},{"./getType":80,"lodash":"EBUqFC"}],84:[function(require,module,exports){
 /**
  * reserve
  * Date: 16.06.14
@@ -3288,7 +3961,7 @@ var reserve = function (order) {
 };
 
 module.exports = reserve;
-},{"./getPositions":71,"./instanceOf":78,"lodash":"EBUqFC"}],80:[function(require,module,exports){
+},{"./getPositions":76,"./instanceOf":83,"lodash":"EBUqFC"}],85:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -3301,7 +3974,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":59}],81:[function(require,module,exports){
+},{"project/jsonix/context":63}],86:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -3349,7 +4022,7 @@ var ProviderAccessor = function () {
 
 module.exports = ProviderAccessor;
 
-},{"./moysklad-client/rest-clients/json":27,"./moysklad-client/rest-clients/ms-xml":34}],82:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/json":31,"./moysklad-client/rest-clients/ms-xml":38}],87:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -3370,7 +4043,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],83:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -3629,4 +4302,4 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":82,"lodash":"EBUqFC"}]},{},["1wiUUs"]);
+},{"./callbackAdapter":87,"lodash":"EBUqFC"}]},{},["1wiUUs"]);

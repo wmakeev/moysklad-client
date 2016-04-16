@@ -2,13 +2,38 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.9 (bundle length 424937)
+// moysklad-client 0.2.10 (bundle length 443206)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
 // https://github.com/wmakeev
 // 
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"lodash":[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    ctor.prototype = Object.create(superCtor.prototype, {
+      constructor: {
+        value: ctor,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    ctor.super_ = superCtor
+    var TempCtor = function () {}
+    TempCtor.prototype = superCtor.prototype
+    ctor.prototype = new TempCtor()
+    ctor.prototype.constructor = ctor
+  }
+}
+
+},{}],"lodash":[function(require,module,exports){
 module.exports=require('EBUqFC');
 },{}],"EBUqFC":[function(require,module,exports){
 (function (global){
@@ -109,21 +134,683 @@ module.exports=require('2V8r5n');
 //! license : MIT
 //! momentjs.com
 (function(a){function b(){return{empty:!1,unusedTokens:[],unusedInput:[],overflow:-2,charsLeftOver:0,nullInput:!1,invalidMonth:null,invalidFormat:!1,userInvalidated:!1,iso:!1}}function c(a,b){return function(c){return k(a.call(this,c),b)}}function d(a,b){return function(c){return this.lang().ordinal(a.call(this,c),b)}}function e(){}function f(a){w(a),h(this,a)}function g(a){var b=q(a),c=b.year||0,d=b.month||0,e=b.week||0,f=b.day||0,g=b.hour||0,h=b.minute||0,i=b.second||0,j=b.millisecond||0;this._milliseconds=+j+1e3*i+6e4*h+36e5*g,this._days=+f+7*e,this._months=+d+12*c,this._data={},this._bubble()}function h(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c]);return b.hasOwnProperty("toString")&&(a.toString=b.toString),b.hasOwnProperty("valueOf")&&(a.valueOf=b.valueOf),a}function i(a){var b,c={};for(b in a)a.hasOwnProperty(b)&&qb.hasOwnProperty(b)&&(c[b]=a[b]);return c}function j(a){return 0>a?Math.ceil(a):Math.floor(a)}function k(a,b,c){for(var d=""+Math.abs(a),e=a>=0;d.length<b;)d="0"+d;return(e?c?"+":"":"-")+d}function l(a,b,c,d){var e,f,g=b._milliseconds,h=b._days,i=b._months;g&&a._d.setTime(+a._d+g*c),(h||i)&&(e=a.minute(),f=a.hour()),h&&a.date(a.date()+h*c),i&&a.month(a.month()+i*c),g&&!d&&db.updateOffset(a),(h||i)&&(a.minute(e),a.hour(f))}function m(a){return"[object Array]"===Object.prototype.toString.call(a)}function n(a){return"[object Date]"===Object.prototype.toString.call(a)||a instanceof Date}function o(a,b,c){var d,e=Math.min(a.length,b.length),f=Math.abs(a.length-b.length),g=0;for(d=0;e>d;d++)(c&&a[d]!==b[d]||!c&&s(a[d])!==s(b[d]))&&g++;return g+f}function p(a){if(a){var b=a.toLowerCase().replace(/(.)s$/,"$1");a=Tb[a]||Ub[b]||b}return a}function q(a){var b,c,d={};for(c in a)a.hasOwnProperty(c)&&(b=p(c),b&&(d[b]=a[c]));return d}function r(b){var c,d;if(0===b.indexOf("week"))c=7,d="day";else{if(0!==b.indexOf("month"))return;c=12,d="month"}db[b]=function(e,f){var g,h,i=db.fn._lang[b],j=[];if("number"==typeof e&&(f=e,e=a),h=function(a){var b=db().utc().set(d,a);return i.call(db.fn._lang,b,e||"")},null!=f)return h(f);for(g=0;c>g;g++)j.push(h(g));return j}}function s(a){var b=+a,c=0;return 0!==b&&isFinite(b)&&(c=b>=0?Math.floor(b):Math.ceil(b)),c}function t(a,b){return new Date(Date.UTC(a,b+1,0)).getUTCDate()}function u(a){return v(a)?366:365}function v(a){return a%4===0&&a%100!==0||a%400===0}function w(a){var b;a._a&&-2===a._pf.overflow&&(b=a._a[jb]<0||a._a[jb]>11?jb:a._a[kb]<1||a._a[kb]>t(a._a[ib],a._a[jb])?kb:a._a[lb]<0||a._a[lb]>23?lb:a._a[mb]<0||a._a[mb]>59?mb:a._a[nb]<0||a._a[nb]>59?nb:a._a[ob]<0||a._a[ob]>999?ob:-1,a._pf._overflowDayOfYear&&(ib>b||b>kb)&&(b=kb),a._pf.overflow=b)}function x(a){return null==a._isValid&&(a._isValid=!isNaN(a._d.getTime())&&a._pf.overflow<0&&!a._pf.empty&&!a._pf.invalidMonth&&!a._pf.nullInput&&!a._pf.invalidFormat&&!a._pf.userInvalidated,a._strict&&(a._isValid=a._isValid&&0===a._pf.charsLeftOver&&0===a._pf.unusedTokens.length)),a._isValid}function y(a){return a?a.toLowerCase().replace("_","-"):a}function z(a,b){return b._isUTC?db(a).zone(b._offset||0):db(a).local()}function A(a,b){return b.abbr=a,pb[a]||(pb[a]=new e),pb[a].set(b),pb[a]}function B(a){delete pb[a]}function C(a){var b,c,d,e,f=0,g=function(a){if(!pb[a]&&rb)try{require("./lang/"+a)}catch(b){}return pb[a]};if(!a)return db.fn._lang;if(!m(a)){if(c=g(a))return c;a=[a]}for(;f<a.length;){for(e=y(a[f]).split("-"),b=e.length,d=y(a[f+1]),d=d?d.split("-"):null;b>0;){if(c=g(e.slice(0,b).join("-")))return c;if(d&&d.length>=b&&o(e,d,!0)>=b-1)break;b--}f++}return db.fn._lang}function D(a){return a.match(/\[[\s\S]/)?a.replace(/^\[|\]$/g,""):a.replace(/\\/g,"")}function E(a){var b,c,d=a.match(vb);for(b=0,c=d.length;c>b;b++)d[b]=Yb[d[b]]?Yb[d[b]]:D(d[b]);return function(e){var f="";for(b=0;c>b;b++)f+=d[b]instanceof Function?d[b].call(e,a):d[b];return f}}function F(a,b){return a.isValid()?(b=G(b,a.lang()),Vb[b]||(Vb[b]=E(b)),Vb[b](a)):a.lang().invalidDate()}function G(a,b){function c(a){return b.longDateFormat(a)||a}var d=5;for(wb.lastIndex=0;d>=0&&wb.test(a);)a=a.replace(wb,c),wb.lastIndex=0,d-=1;return a}function H(a,b){var c,d=b._strict;switch(a){case"DDDD":return Ib;case"YYYY":case"GGGG":case"gggg":return d?Jb:zb;case"Y":case"G":case"g":return Lb;case"YYYYYY":case"YYYYY":case"GGGGG":case"ggggg":return d?Kb:Ab;case"S":if(d)return Gb;case"SS":if(d)return Hb;case"SSS":if(d)return Ib;case"DDD":return yb;case"MMM":case"MMMM":case"dd":case"ddd":case"dddd":return Cb;case"a":case"A":return C(b._l)._meridiemParse;case"X":return Fb;case"Z":case"ZZ":return Db;case"T":return Eb;case"SSSS":return Bb;case"MM":case"DD":case"YY":case"GG":case"gg":case"HH":case"hh":case"mm":case"ss":case"ww":case"WW":return d?Hb:xb;case"M":case"D":case"d":case"H":case"h":case"m":case"s":case"w":case"W":case"e":case"E":return xb;default:return c=new RegExp(P(O(a.replace("\\","")),"i"))}}function I(a){a=a||"";var b=a.match(Db)||[],c=b[b.length-1]||[],d=(c+"").match(Qb)||["-",0,0],e=+(60*d[1])+s(d[2]);return"+"===d[0]?-e:e}function J(a,b,c){var d,e=c._a;switch(a){case"M":case"MM":null!=b&&(e[jb]=s(b)-1);break;case"MMM":case"MMMM":d=C(c._l).monthsParse(b),null!=d?e[jb]=d:c._pf.invalidMonth=b;break;case"D":case"DD":null!=b&&(e[kb]=s(b));break;case"DDD":case"DDDD":null!=b&&(c._dayOfYear=s(b));break;case"YY":e[ib]=s(b)+(s(b)>68?1900:2e3);break;case"YYYY":case"YYYYY":case"YYYYYY":e[ib]=s(b);break;case"a":case"A":c._isPm=C(c._l).isPM(b);break;case"H":case"HH":case"h":case"hh":e[lb]=s(b);break;case"m":case"mm":e[mb]=s(b);break;case"s":case"ss":e[nb]=s(b);break;case"S":case"SS":case"SSS":case"SSSS":e[ob]=s(1e3*("0."+b));break;case"X":c._d=new Date(1e3*parseFloat(b));break;case"Z":case"ZZ":c._useUTC=!0,c._tzm=I(b);break;case"w":case"ww":case"W":case"WW":case"d":case"dd":case"ddd":case"dddd":case"e":case"E":a=a.substr(0,1);case"gg":case"gggg":case"GG":case"GGGG":case"GGGGG":a=a.substr(0,2),b&&(c._w=c._w||{},c._w[a]=b)}}function K(a){var b,c,d,e,f,g,h,i,j,k,l=[];if(!a._d){for(d=M(a),a._w&&null==a._a[kb]&&null==a._a[jb]&&(f=function(b){var c=parseInt(b,10);return b?b.length<3?c>68?1900+c:2e3+c:c:null==a._a[ib]?db().weekYear():a._a[ib]},g=a._w,null!=g.GG||null!=g.W||null!=g.E?h=Z(f(g.GG),g.W||1,g.E,4,1):(i=C(a._l),j=null!=g.d?V(g.d,i):null!=g.e?parseInt(g.e,10)+i._week.dow:0,k=parseInt(g.w,10)||1,null!=g.d&&j<i._week.dow&&k++,h=Z(f(g.gg),k,j,i._week.doy,i._week.dow)),a._a[ib]=h.year,a._dayOfYear=h.dayOfYear),a._dayOfYear&&(e=null==a._a[ib]?d[ib]:a._a[ib],a._dayOfYear>u(e)&&(a._pf._overflowDayOfYear=!0),c=U(e,0,a._dayOfYear),a._a[jb]=c.getUTCMonth(),a._a[kb]=c.getUTCDate()),b=0;3>b&&null==a._a[b];++b)a._a[b]=l[b]=d[b];for(;7>b;b++)a._a[b]=l[b]=null==a._a[b]?2===b?1:0:a._a[b];l[lb]+=s((a._tzm||0)/60),l[mb]+=s((a._tzm||0)%60),a._d=(a._useUTC?U:T).apply(null,l)}}function L(a){var b;a._d||(b=q(a._i),a._a=[b.year,b.month,b.day,b.hour,b.minute,b.second,b.millisecond],K(a))}function M(a){var b=new Date;return a._useUTC?[b.getUTCFullYear(),b.getUTCMonth(),b.getUTCDate()]:[b.getFullYear(),b.getMonth(),b.getDate()]}function N(a){a._a=[],a._pf.empty=!0;var b,c,d,e,f,g=C(a._l),h=""+a._i,i=h.length,j=0;for(d=G(a._f,g).match(vb)||[],b=0;b<d.length;b++)e=d[b],c=(h.match(H(e,a))||[])[0],c&&(f=h.substr(0,h.indexOf(c)),f.length>0&&a._pf.unusedInput.push(f),h=h.slice(h.indexOf(c)+c.length),j+=c.length),Yb[e]?(c?a._pf.empty=!1:a._pf.unusedTokens.push(e),J(e,c,a)):a._strict&&!c&&a._pf.unusedTokens.push(e);a._pf.charsLeftOver=i-j,h.length>0&&a._pf.unusedInput.push(h),a._isPm&&a._a[lb]<12&&(a._a[lb]+=12),a._isPm===!1&&12===a._a[lb]&&(a._a[lb]=0),K(a),w(a)}function O(a){return a.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g,function(a,b,c,d,e){return b||c||d||e})}function P(a){return a.replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&")}function Q(a){var c,d,e,f,g;if(0===a._f.length)return a._pf.invalidFormat=!0,a._d=new Date(0/0),void 0;for(f=0;f<a._f.length;f++)g=0,c=h({},a),c._pf=b(),c._f=a._f[f],N(c),x(c)&&(g+=c._pf.charsLeftOver,g+=10*c._pf.unusedTokens.length,c._pf.score=g,(null==e||e>g)&&(e=g,d=c));h(a,d||c)}function R(a){var b,c,d=a._i,e=Mb.exec(d);if(e){for(a._pf.iso=!0,b=0,c=Ob.length;c>b;b++)if(Ob[b][1].exec(d)){a._f=Ob[b][0]+(e[6]||" ");break}for(b=0,c=Pb.length;c>b;b++)if(Pb[b][1].exec(d)){a._f+=Pb[b][0];break}d.match(Db)&&(a._f+="Z"),N(a)}else a._d=new Date(d)}function S(b){var c=b._i,d=sb.exec(c);c===a?b._d=new Date:d?b._d=new Date(+d[1]):"string"==typeof c?R(b):m(c)?(b._a=c.slice(0),K(b)):n(c)?b._d=new Date(+c):"object"==typeof c?L(b):b._d=new Date(c)}function T(a,b,c,d,e,f,g){var h=new Date(a,b,c,d,e,f,g);return 1970>a&&h.setFullYear(a),h}function U(a){var b=new Date(Date.UTC.apply(null,arguments));return 1970>a&&b.setUTCFullYear(a),b}function V(a,b){if("string"==typeof a)if(isNaN(a)){if(a=b.weekdaysParse(a),"number"!=typeof a)return null}else a=parseInt(a,10);return a}function W(a,b,c,d,e){return e.relativeTime(b||1,!!c,a,d)}function X(a,b,c){var d=hb(Math.abs(a)/1e3),e=hb(d/60),f=hb(e/60),g=hb(f/24),h=hb(g/365),i=45>d&&["s",d]||1===e&&["m"]||45>e&&["mm",e]||1===f&&["h"]||22>f&&["hh",f]||1===g&&["d"]||25>=g&&["dd",g]||45>=g&&["M"]||345>g&&["MM",hb(g/30)]||1===h&&["y"]||["yy",h];return i[2]=b,i[3]=a>0,i[4]=c,W.apply({},i)}function Y(a,b,c){var d,e=c-b,f=c-a.day();return f>e&&(f-=7),e-7>f&&(f+=7),d=db(a).add("d",f),{week:Math.ceil(d.dayOfYear()/7),year:d.year()}}function Z(a,b,c,d,e){var f,g,h=U(a,0,1).getUTCDay();return c=null!=c?c:e,f=e-h+(h>d?7:0)-(e>h?7:0),g=7*(b-1)+(c-e)+f+1,{year:g>0?a:a-1,dayOfYear:g>0?g:u(a-1)+g}}function $(a){var b=a._i,c=a._f;return null===b?db.invalid({nullInput:!0}):("string"==typeof b&&(a._i=b=C().preparse(b)),db.isMoment(b)?(a=i(b),a._d=new Date(+b._d)):c?m(c)?Q(a):N(a):S(a),new f(a))}function _(a,b){db.fn[a]=db.fn[a+"s"]=function(a){var c=this._isUTC?"UTC":"";return null!=a?(this._d["set"+c+b](a),db.updateOffset(this),this):this._d["get"+c+b]()}}function ab(a){db.duration.fn[a]=function(){return this._data[a]}}function bb(a,b){db.duration.fn["as"+a]=function(){return+this/b}}function cb(a){var b=!1,c=db;"undefined"==typeof ender&&(a?(gb.moment=function(){return!b&&console&&console.warn&&(b=!0,console.warn("Accessing Moment through the global scope is deprecated, and will be removed in an upcoming release.")),c.apply(null,arguments)},h(gb.moment,c)):gb.moment=db)}for(var db,eb,fb="2.5.1",gb=this,hb=Math.round,ib=0,jb=1,kb=2,lb=3,mb=4,nb=5,ob=6,pb={},qb={_isAMomentObject:null,_i:null,_f:null,_l:null,_strict:null,_isUTC:null,_offset:null,_pf:null,_lang:null},rb="undefined"!=typeof module&&module.exports&&"undefined"!=typeof require,sb=/^\/?Date\((\-?\d+)/i,tb=/(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,ub=/^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,vb=/(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,wb=/(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,xb=/\d\d?/,yb=/\d{1,3}/,zb=/\d{1,4}/,Ab=/[+\-]?\d{1,6}/,Bb=/\d+/,Cb=/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,Db=/Z|[\+\-]\d\d:?\d\d/gi,Eb=/T/i,Fb=/[\+\-]?\d+(\.\d{1,3})?/,Gb=/\d/,Hb=/\d\d/,Ib=/\d{3}/,Jb=/\d{4}/,Kb=/[+-]?\d{6}/,Lb=/[+-]?\d+/,Mb=/^\s*(?:[+-]\d{6}|\d{4})-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,Nb="YYYY-MM-DDTHH:mm:ssZ",Ob=[["YYYYYY-MM-DD",/[+-]\d{6}-\d{2}-\d{2}/],["YYYY-MM-DD",/\d{4}-\d{2}-\d{2}/],["GGGG-[W]WW-E",/\d{4}-W\d{2}-\d/],["GGGG-[W]WW",/\d{4}-W\d{2}/],["YYYY-DDD",/\d{4}-\d{3}/]],Pb=[["HH:mm:ss.SSSS",/(T| )\d\d:\d\d:\d\d\.\d{1,3}/],["HH:mm:ss",/(T| )\d\d:\d\d:\d\d/],["HH:mm",/(T| )\d\d:\d\d/],["HH",/(T| )\d\d/]],Qb=/([\+\-]|\d\d)/gi,Rb="Date|Hours|Minutes|Seconds|Milliseconds".split("|"),Sb={Milliseconds:1,Seconds:1e3,Minutes:6e4,Hours:36e5,Days:864e5,Months:2592e6,Years:31536e6},Tb={ms:"millisecond",s:"second",m:"minute",h:"hour",d:"day",D:"date",w:"week",W:"isoWeek",M:"month",y:"year",DDD:"dayOfYear",e:"weekday",E:"isoWeekday",gg:"weekYear",GG:"isoWeekYear"},Ub={dayofyear:"dayOfYear",isoweekday:"isoWeekday",isoweek:"isoWeek",weekyear:"weekYear",isoweekyear:"isoWeekYear"},Vb={},Wb="DDD w W M D d".split(" "),Xb="M D H h m s w W".split(" "),Yb={M:function(){return this.month()+1},MMM:function(a){return this.lang().monthsShort(this,a)},MMMM:function(a){return this.lang().months(this,a)},D:function(){return this.date()},DDD:function(){return this.dayOfYear()},d:function(){return this.day()},dd:function(a){return this.lang().weekdaysMin(this,a)},ddd:function(a){return this.lang().weekdaysShort(this,a)},dddd:function(a){return this.lang().weekdays(this,a)},w:function(){return this.week()},W:function(){return this.isoWeek()},YY:function(){return k(this.year()%100,2)},YYYY:function(){return k(this.year(),4)},YYYYY:function(){return k(this.year(),5)},YYYYYY:function(){var a=this.year(),b=a>=0?"+":"-";return b+k(Math.abs(a),6)},gg:function(){return k(this.weekYear()%100,2)},gggg:function(){return k(this.weekYear(),4)},ggggg:function(){return k(this.weekYear(),5)},GG:function(){return k(this.isoWeekYear()%100,2)},GGGG:function(){return k(this.isoWeekYear(),4)},GGGGG:function(){return k(this.isoWeekYear(),5)},e:function(){return this.weekday()},E:function(){return this.isoWeekday()},a:function(){return this.lang().meridiem(this.hours(),this.minutes(),!0)},A:function(){return this.lang().meridiem(this.hours(),this.minutes(),!1)},H:function(){return this.hours()},h:function(){return this.hours()%12||12},m:function(){return this.minutes()},s:function(){return this.seconds()},S:function(){return s(this.milliseconds()/100)},SS:function(){return k(s(this.milliseconds()/10),2)},SSS:function(){return k(this.milliseconds(),3)},SSSS:function(){return k(this.milliseconds(),3)},Z:function(){var a=-this.zone(),b="+";return 0>a&&(a=-a,b="-"),b+k(s(a/60),2)+":"+k(s(a)%60,2)},ZZ:function(){var a=-this.zone(),b="+";return 0>a&&(a=-a,b="-"),b+k(s(a/60),2)+k(s(a)%60,2)},z:function(){return this.zoneAbbr()},zz:function(){return this.zoneName()},X:function(){return this.unix()},Q:function(){return this.quarter()}},Zb=["months","monthsShort","weekdays","weekdaysShort","weekdaysMin"];Wb.length;)eb=Wb.pop(),Yb[eb+"o"]=d(Yb[eb],eb);for(;Xb.length;)eb=Xb.pop(),Yb[eb+eb]=c(Yb[eb],2);for(Yb.DDDD=c(Yb.DDD,3),h(e.prototype,{set:function(a){var b,c;for(c in a)b=a[c],"function"==typeof b?this[c]=b:this["_"+c]=b},_months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_"),months:function(a){return this._months[a.month()]},_monthsShort:"Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec".split("_"),monthsShort:function(a){return this._monthsShort[a.month()]},monthsParse:function(a){var b,c,d;for(this._monthsParse||(this._monthsParse=[]),b=0;12>b;b++)if(this._monthsParse[b]||(c=db.utc([2e3,b]),d="^"+this.months(c,"")+"|^"+this.monthsShort(c,""),this._monthsParse[b]=new RegExp(d.replace(".",""),"i")),this._monthsParse[b].test(a))return b},_weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),weekdays:function(a){return this._weekdays[a.day()]},_weekdaysShort:"Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),weekdaysShort:function(a){return this._weekdaysShort[a.day()]},_weekdaysMin:"Su_Mo_Tu_We_Th_Fr_Sa".split("_"),weekdaysMin:function(a){return this._weekdaysMin[a.day()]},weekdaysParse:function(a){var b,c,d;for(this._weekdaysParse||(this._weekdaysParse=[]),b=0;7>b;b++)if(this._weekdaysParse[b]||(c=db([2e3,1]).day(b),d="^"+this.weekdays(c,"")+"|^"+this.weekdaysShort(c,"")+"|^"+this.weekdaysMin(c,""),this._weekdaysParse[b]=new RegExp(d.replace(".",""),"i")),this._weekdaysParse[b].test(a))return b},_longDateFormat:{LT:"h:mm A",L:"MM/DD/YYYY",LL:"MMMM D YYYY",LLL:"MMMM D YYYY LT",LLLL:"dddd, MMMM D YYYY LT"},longDateFormat:function(a){var b=this._longDateFormat[a];return!b&&this._longDateFormat[a.toUpperCase()]&&(b=this._longDateFormat[a.toUpperCase()].replace(/MMMM|MM|DD|dddd/g,function(a){return a.slice(1)}),this._longDateFormat[a]=b),b},isPM:function(a){return"p"===(a+"").toLowerCase().charAt(0)},_meridiemParse:/[ap]\.?m?\.?/i,meridiem:function(a,b,c){return a>11?c?"pm":"PM":c?"am":"AM"},_calendar:{sameDay:"[Today at] LT",nextDay:"[Tomorrow at] LT",nextWeek:"dddd [at] LT",lastDay:"[Yesterday at] LT",lastWeek:"[Last] dddd [at] LT",sameElse:"L"},calendar:function(a,b){var c=this._calendar[a];return"function"==typeof c?c.apply(b):c},_relativeTime:{future:"in %s",past:"%s ago",s:"a few seconds",m:"a minute",mm:"%d minutes",h:"an hour",hh:"%d hours",d:"a day",dd:"%d days",M:"a month",MM:"%d months",y:"a year",yy:"%d years"},relativeTime:function(a,b,c,d){var e=this._relativeTime[c];return"function"==typeof e?e(a,b,c,d):e.replace(/%d/i,a)},pastFuture:function(a,b){var c=this._relativeTime[a>0?"future":"past"];return"function"==typeof c?c(b):c.replace(/%s/i,b)},ordinal:function(a){return this._ordinal.replace("%d",a)},_ordinal:"%d",preparse:function(a){return a},postformat:function(a){return a},week:function(a){return Y(a,this._week.dow,this._week.doy).week},_week:{dow:0,doy:6},_invalidDate:"Invalid date",invalidDate:function(){return this._invalidDate}}),db=function(c,d,e,f){var g;return"boolean"==typeof e&&(f=e,e=a),g={},g._isAMomentObject=!0,g._i=c,g._f=d,g._l=e,g._strict=f,g._isUTC=!1,g._pf=b(),$(g)},db.utc=function(c,d,e,f){var g;return"boolean"==typeof e&&(f=e,e=a),g={},g._isAMomentObject=!0,g._useUTC=!0,g._isUTC=!0,g._l=e,g._i=c,g._f=d,g._strict=f,g._pf=b(),$(g).utc()},db.unix=function(a){return db(1e3*a)},db.duration=function(a,b){var c,d,e,f=a,h=null;return db.isDuration(a)?f={ms:a._milliseconds,d:a._days,M:a._months}:"number"==typeof a?(f={},b?f[b]=a:f.milliseconds=a):(h=tb.exec(a))?(c="-"===h[1]?-1:1,f={y:0,d:s(h[kb])*c,h:s(h[lb])*c,m:s(h[mb])*c,s:s(h[nb])*c,ms:s(h[ob])*c}):(h=ub.exec(a))&&(c="-"===h[1]?-1:1,e=function(a){var b=a&&parseFloat(a.replace(",","."));return(isNaN(b)?0:b)*c},f={y:e(h[2]),M:e(h[3]),d:e(h[4]),h:e(h[5]),m:e(h[6]),s:e(h[7]),w:e(h[8])}),d=new g(f),db.isDuration(a)&&a.hasOwnProperty("_lang")&&(d._lang=a._lang),d},db.version=fb,db.defaultFormat=Nb,db.updateOffset=function(){},db.lang=function(a,b){var c;return a?(b?A(y(a),b):null===b?(B(a),a="en"):pb[a]||C(a),c=db.duration.fn._lang=db.fn._lang=C(a),c._abbr):db.fn._lang._abbr},db.langData=function(a){return a&&a._lang&&a._lang._abbr&&(a=a._lang._abbr),C(a)},db.isMoment=function(a){return a instanceof f||null!=a&&a.hasOwnProperty("_isAMomentObject")},db.isDuration=function(a){return a instanceof g},eb=Zb.length-1;eb>=0;--eb)r(Zb[eb]);for(db.normalizeUnits=function(a){return p(a)},db.invalid=function(a){var b=db.utc(0/0);return null!=a?h(b._pf,a):b._pf.userInvalidated=!0,b},db.parseZone=function(a){return db(a).parseZone()},h(db.fn=f.prototype,{clone:function(){return db(this)},valueOf:function(){return+this._d+6e4*(this._offset||0)},unix:function(){return Math.floor(+this/1e3)},toString:function(){return this.clone().lang("en").format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ")},toDate:function(){return this._offset?new Date(+this):this._d},toISOString:function(){var a=db(this).utc();return 0<a.year()&&a.year()<=9999?F(a,"YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"):F(a,"YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]")},toArray:function(){var a=this;return[a.year(),a.month(),a.date(),a.hours(),a.minutes(),a.seconds(),a.milliseconds()]},isValid:function(){return x(this)},isDSTShifted:function(){return this._a?this.isValid()&&o(this._a,(this._isUTC?db.utc(this._a):db(this._a)).toArray())>0:!1},parsingFlags:function(){return h({},this._pf)},invalidAt:function(){return this._pf.overflow},utc:function(){return this.zone(0)},local:function(){return this.zone(0),this._isUTC=!1,this},format:function(a){var b=F(this,a||db.defaultFormat);return this.lang().postformat(b)},add:function(a,b){var c;return c="string"==typeof a?db.duration(+b,a):db.duration(a,b),l(this,c,1),this},subtract:function(a,b){var c;return c="string"==typeof a?db.duration(+b,a):db.duration(a,b),l(this,c,-1),this},diff:function(a,b,c){var d,e,f=z(a,this),g=6e4*(this.zone()-f.zone());return b=p(b),"year"===b||"month"===b?(d=432e5*(this.daysInMonth()+f.daysInMonth()),e=12*(this.year()-f.year())+(this.month()-f.month()),e+=(this-db(this).startOf("month")-(f-db(f).startOf("month")))/d,e-=6e4*(this.zone()-db(this).startOf("month").zone()-(f.zone()-db(f).startOf("month").zone()))/d,"year"===b&&(e/=12)):(d=this-f,e="second"===b?d/1e3:"minute"===b?d/6e4:"hour"===b?d/36e5:"day"===b?(d-g)/864e5:"week"===b?(d-g)/6048e5:d),c?e:j(e)},from:function(a,b){return db.duration(this.diff(a)).lang(this.lang()._abbr).humanize(!b)},fromNow:function(a){return this.from(db(),a)},calendar:function(){var a=z(db(),this).startOf("day"),b=this.diff(a,"days",!0),c=-6>b?"sameElse":-1>b?"lastWeek":0>b?"lastDay":1>b?"sameDay":2>b?"nextDay":7>b?"nextWeek":"sameElse";return this.format(this.lang().calendar(c,this))},isLeapYear:function(){return v(this.year())},isDST:function(){return this.zone()<this.clone().month(0).zone()||this.zone()<this.clone().month(5).zone()},day:function(a){var b=this._isUTC?this._d.getUTCDay():this._d.getDay();return null!=a?(a=V(a,this.lang()),this.add({d:a-b})):b},month:function(a){var b,c=this._isUTC?"UTC":"";return null!=a?"string"==typeof a&&(a=this.lang().monthsParse(a),"number"!=typeof a)?this:(b=this.date(),this.date(1),this._d["set"+c+"Month"](a),this.date(Math.min(b,this.daysInMonth())),db.updateOffset(this),this):this._d["get"+c+"Month"]()},startOf:function(a){switch(a=p(a)){case"year":this.month(0);case"month":this.date(1);case"week":case"isoWeek":case"day":this.hours(0);case"hour":this.minutes(0);case"minute":this.seconds(0);case"second":this.milliseconds(0)}return"week"===a?this.weekday(0):"isoWeek"===a&&this.isoWeekday(1),this},endOf:function(a){return a=p(a),this.startOf(a).add("isoWeek"===a?"week":a,1).subtract("ms",1)},isAfter:function(a,b){return b="undefined"!=typeof b?b:"millisecond",+this.clone().startOf(b)>+db(a).startOf(b)},isBefore:function(a,b){return b="undefined"!=typeof b?b:"millisecond",+this.clone().startOf(b)<+db(a).startOf(b)},isSame:function(a,b){return b=b||"ms",+this.clone().startOf(b)===+z(a,this).startOf(b)},min:function(a){return a=db.apply(null,arguments),this>a?this:a},max:function(a){return a=db.apply(null,arguments),a>this?this:a},zone:function(a){var b=this._offset||0;return null==a?this._isUTC?b:this._d.getTimezoneOffset():("string"==typeof a&&(a=I(a)),Math.abs(a)<16&&(a=60*a),this._offset=a,this._isUTC=!0,b!==a&&l(this,db.duration(b-a,"m"),1,!0),this)},zoneAbbr:function(){return this._isUTC?"UTC":""},zoneName:function(){return this._isUTC?"Coordinated Universal Time":""},parseZone:function(){return this._tzm?this.zone(this._tzm):"string"==typeof this._i&&this.zone(this._i),this},hasAlignedHourOffset:function(a){return a=a?db(a).zone():0,(this.zone()-a)%60===0},daysInMonth:function(){return t(this.year(),this.month())},dayOfYear:function(a){var b=hb((db(this).startOf("day")-db(this).startOf("year"))/864e5)+1;return null==a?b:this.add("d",a-b)},quarter:function(){return Math.ceil((this.month()+1)/3)},weekYear:function(a){var b=Y(this,this.lang()._week.dow,this.lang()._week.doy).year;return null==a?b:this.add("y",a-b)},isoWeekYear:function(a){var b=Y(this,1,4).year;return null==a?b:this.add("y",a-b)},week:function(a){var b=this.lang().week(this);return null==a?b:this.add("d",7*(a-b))},isoWeek:function(a){var b=Y(this,1,4).week;return null==a?b:this.add("d",7*(a-b))},weekday:function(a){var b=(this.day()+7-this.lang()._week.dow)%7;return null==a?b:this.add("d",a-b)},isoWeekday:function(a){return null==a?this.day()||7:this.day(this.day()%7?a:a-7)},get:function(a){return a=p(a),this[a]()},set:function(a,b){return a=p(a),"function"==typeof this[a]&&this[a](b),this},lang:function(b){return b===a?this._lang:(this._lang=C(b),this)}}),eb=0;eb<Rb.length;eb++)_(Rb[eb].toLowerCase().replace(/s$/,""),Rb[eb]);_("year","FullYear"),db.fn.days=db.fn.day,db.fn.months=db.fn.month,db.fn.weeks=db.fn.week,db.fn.isoWeeks=db.fn.isoWeek,db.fn.toJSON=db.fn.toISOString,h(db.duration.fn=g.prototype,{_bubble:function(){var a,b,c,d,e=this._milliseconds,f=this._days,g=this._months,h=this._data;h.milliseconds=e%1e3,a=j(e/1e3),h.seconds=a%60,b=j(a/60),h.minutes=b%60,c=j(b/60),h.hours=c%24,f+=j(c/24),h.days=f%30,g+=j(f/30),h.months=g%12,d=j(g/12),h.years=d},weeks:function(){return j(this.days()/7)},valueOf:function(){return this._milliseconds+864e5*this._days+this._months%12*2592e6+31536e6*s(this._months/12)},humanize:function(a){var b=+this,c=X(b,!a,this.lang());return a&&(c=this.lang().pastFuture(b,c)),this.lang().postformat(c)},add:function(a,b){var c=db.duration(a,b);return this._milliseconds+=c._milliseconds,this._days+=c._days,this._months+=c._months,this._bubble(),this},subtract:function(a,b){var c=db.duration(a,b);return this._milliseconds-=c._milliseconds,this._days-=c._days,this._months-=c._months,this._bubble(),this},get:function(a){return a=p(a),this[a.toLowerCase()+"s"]()},as:function(a){return a=p(a),this["as"+a.charAt(0).toUpperCase()+a.slice(1)+"s"]()},lang:db.fn.lang,toIsoString:function(){var a=Math.abs(this.years()),b=Math.abs(this.months()),c=Math.abs(this.days()),d=Math.abs(this.hours()),e=Math.abs(this.minutes()),f=Math.abs(this.seconds()+this.milliseconds()/1e3);return this.asSeconds()?(this.asSeconds()<0?"-":"")+"P"+(a?a+"Y":"")+(b?b+"M":"")+(c?c+"D":"")+(d||e||f?"T":"")+(d?d+"H":"")+(e?e+"M":"")+(f?f+"S":""):"P0D"}});for(eb in Sb)Sb.hasOwnProperty(eb)&&(bb(eb,Sb[eb]),ab(eb.toLowerCase()));bb("Weeks",6048e5),db.duration.fn.asMonths=function(){return(+this-31536e6*this.years())/2592e6+12*this.years()},db.lang("en",{ordinal:function(a){var b=a%10,c=1===s(a%100/10)?"th":1===b?"st":2===b?"nd":3===b?"rd":"th";return a+c}}),rb?(module.exports=db,cb(!0)):"function"==typeof define&&define.amd?define("moment",function(b,c,d){return d.config&&d.config()&&d.config().noGlobal!==!0&&cb(d.config().noGlobal===a),db}):cb()}).call(this);
-},{}],5:[function(require,module,exports){
-module.exports={"name":"moysklad","enums":{"uomType":{"MASS":"mass","VOLUME":"volume","PIECE":"piece"},"accessMode":{"NONE":"NONE","SELF":"SELF","PARENT":"PARENT","NEIGHBOUR":"NEIGHBOUR","ALL":"ALL"},"attributeType":{"STRING":"STRING","LONG":"LONG","TIME":"TIME","ID_CUSTOM":"ID_CUSTOM","FILE":"FILE","DOUBLE":"DOUBLE","BOOLEAN":"BOOLEAN","ID_EMBEDDED":"ID_EMBEDDED","TEXT":"TEXT","LINK":"LINK"},"editablePeriodType":{"ALL":"ALL","CALENDAR_DAYS":"CALENDAR_DAYS","WORK_DAYS":"WORK_DAYS","DATE":"DATE"},"barcodeType":{"EAN8":"EAN8","EAN13":"EAN13","CODE128":"Code128"},"contractType":{"SALES":"Sales","COMMISSION":"Commission"},"rewardType":{"PERCENTOFSALES":"PercentOfSales","NONE":"None"},"companyType":{"URLI":"URLI","INPR":"INPR","FILI":"FILI"},"overheadDistribution":{"BY_PRICE":"BY_PRICE","BY_WEIGHT":"BY_WEIGHT","BY_VOLUME":"BY_VOLUME"},"cmlType":{"BITRIX":"BITRIX","UMICMS":"UMICMS","HOSTCMS":"HOSTCMS","INSALES":"INSALES","WEBASYST":"WEBASYST","SIMPLA":"SIMPLA","UMIRU":"UMIRU","PRESTASHOP":"PRESTASHOP","SITEEDIT":"SITEEDIT","BITRIXSMB":"BITRIXSMB","FASTSALES":"FASTSALES","MAGENTO":"MAGENTO","DIAFAN":"DIAFAN","SHOPIUM":"SHOPIUM","VIRTUEMART":"VIRTUEMART","ADVANTSHOP":"ADVANTSHOP","AGORAPLATFORM":"AGORAPLATFORM","CSCART":"CSCART","WEBASYST5":"WEBASYST5","GENERIC_CML":"GENERIC_CML","NETHOUSE":"NETHOUSE"}},"elementInfos":[{"elementName":"accumulationDiscount","typeInfo":"moysklad.accumulationDiscount"},{"elementName":"agent","typeInfo":"moysklad.agent"},{"elementName":"agentDiscount","typeInfo":"moysklad.agentDiscount"},{"elementName":"agentPictureDocument","typeInfo":"moysklad.agentPictureDocument"},{"elementName":"amiroConnectorSettings","typeInfo":"moysklad.amiroConnectorSettings"},{"elementName":"attachmentDocument","typeInfo":"moysklad.attachmentDocument"},{"elementName":"barcode","typeInfo":"moysklad.barcode"},{"elementName":"cashIn","typeInfo":"moysklad.cashIn"},{"elementName":"cashOut","typeInfo":"moysklad.cashOut"},{"elementName":"cashier","typeInfo":"moysklad.cashier"},{"elementName":"cmlConnectorSettings","typeInfo":"moysklad.cmlConnectorSettings"},{"elementName":"collection","typeInfo":"moysklad.collection"},{"elementName":"commissionReportIn","typeInfo":"moysklad.commissionReportIn"},{"elementName":"commissionReportInPosition","typeInfo":"moysklad.commissionReportInPosition"},{"elementName":"commissionReportOut","typeInfo":"moysklad.commissionReportOut"},{"elementName":"commissionReportOutPosition","typeInfo":"moysklad.commissionReportOutPosition"},{"elementName":"company","typeInfo":"moysklad.company"},{"elementName":"consignment","typeInfo":"moysklad.consignment"},{"elementName":"contract","typeInfo":"moysklad.contract"},{"elementName":"contractDocument","typeInfo":"moysklad.contractDocument"},{"elementName":"country","typeInfo":"moysklad.country"},{"elementName":"currency","typeInfo":"moysklad.currency"},{"elementName":"customEntity","typeInfo":"moysklad.customEntity"},{"elementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"elementName":"customerOrder","typeInfo":"moysklad.customerOrder"},{"elementName":"demand","typeInfo":"moysklad.demand"},{"elementName":"discount","typeInfo":"moysklad.discount"},{"elementName":"document","typeInfo":"moysklad.document"},{"elementName":"documentMiniature","typeInfo":"moysklad.documentMiniature"},{"elementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"elementName":"employee","typeInfo":"moysklad.employee"},{"elementName":"enter","typeInfo":"moysklad.enter"},{"elementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"elementName":"exchange","typeInfo":"moysklad.exchangeContainer"},{"elementName":"expenseItem","typeInfo":"moysklad.expenseItem"},{"elementName":"factureIn","typeInfo":"moysklad.factureIn"},{"elementName":"factureOut","typeInfo":"moysklad.factureOut"},{"elementName":"feature","typeInfo":"moysklad.feature"},{"elementName":"good","typeInfo":"moysklad.good"},{"elementName":"goodFolder","typeInfo":"moysklad.goodFolder"},{"elementName":"goodImage","typeInfo":"moysklad.goodImage"},{"elementName":"group","typeInfo":"moysklad.group"},{"elementName":"gtd","typeInfo":"moysklad.gtd"},{"elementName":"internalOrder","typeInfo":"moysklad.internalOrder"},{"elementName":"inventory","typeInfo":"moysklad.inventory"},{"elementName":"invoiceIn","typeInfo":"moysklad.invoiceIn"},{"elementName":"invoiceOut","typeInfo":"moysklad.invoiceOut"},{"elementName":"loss","typeInfo":"moysklad.loss"},{"elementName":"move","typeInfo":"moysklad.move"},{"elementName":"myCompany","typeInfo":"moysklad.myCompany"},{"elementName":"operationDocument","typeInfo":"moysklad.operationDocument"},{"elementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"elementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"elementName":"personalDiscount","typeInfo":"moysklad.personalDiscount"},{"elementName":"priceList","typeInfo":"moysklad.priceList"},{"elementName":"priceType","typeInfo":"moysklad.priceType"},{"elementName":"processing","typeInfo":"moysklad.processing"},{"elementName":"processingOrder","typeInfo":"moysklad.processingOrder"},{"elementName":"processingPlan","typeInfo":"moysklad.processingPlan"},{"elementName":"processingPlanFolder","typeInfo":"moysklad.processingPlanFolder"},{"elementName":"project","typeInfo":"moysklad.project"},{"elementName":"purchaseOrder","typeInfo":"moysklad.purchaseOrder"},{"elementName":"purchaseReturn","typeInfo":"moysklad.purchaseReturn"},{"elementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"elementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"elementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"elementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"elementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"elementName":"retailShift","typeInfo":"moysklad.retailShift"},{"elementName":"retailStore","typeInfo":"moysklad.retailStore"},{"elementName":"salesReturn","typeInfo":"moysklad.salesReturn"},{"elementName":"service","typeInfo":"moysklad.service"},{"elementName":"slot","typeInfo":"moysklad.slot"},{"elementName":"specialPriceDiscount","typeInfo":"moysklad.specialPriceDiscount"},{"elementName":"supply","typeInfo":"moysklad.supply"},{"elementName":"template","typeInfo":"moysklad.template"},{"elementName":"thing","typeInfo":"moysklad.thing"},{"elementName":"tinyImage","typeInfo":"moysklad.tinyImage"},{"elementName":"uom","typeInfo":"moysklad.uom"},{"elementName":"warehouse","typeInfo":"moysklad.warehouse"},{"elementName":"workflow","typeInfo":"moysklad.workflow"},{"elementName":"ymlConnectorSettings","typeInfo":"moysklad.ymlConnectorSettings"},{"elementName":"uuid","typeInfo":"String"},{"elementName":"id","typeInfo":"String"},{"elementName":"error","typeInfo":"moysklad.error"}],"typeInfos":[{"type":"classInfo","localName":"service","propertyInfos":[],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"abstractGood","propertyInfos":[{"type":"attribute","name":"uomUuid","typeInfo":"String"},{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"supplierUuid","typeInfo":"String"},{"type":"attribute","name":"minPrice","typeInfo":"Double"},{"type":"attribute","name":"salePrice","typeInfo":"Double"},{"type":"attribute","name":"saleCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyPrice","typeInfo":"Double"},{"type":"element","name":"salePrices","typeInfo":"moysklad.price","elementName":"price","collection":true,"wrapperElementName":"salePrices"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"}],"baseTypeInfo":"moysklad.goodFolder"},{"type":"classInfo","localName":"goodFolder","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"attribute","name":"productCode","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.goodAttributeValue"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"classifier","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"legendEntity","propertyInfos":[{"type":"attribute","name":"name","typeInfo":"String"},{"type":"element","name":"code","typeInfo":"String"},{"type":"element","name":"externalcode","typeInfo":"String"},{"type":"element","name":"description","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"infoEntity","propertyInfos":[{"type":"attribute","name":"updated","typeInfo":"DateTime"},{"type":"attribute","name":"updatedBy","typeInfo":"String"},{"type":"element","name":"deleted","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"entity","propertyInfos":[{"type":"attribute","name":"readMode","typeInfo":"String"},{"type":"attribute","name":"changeMode","typeInfo":"String"},{"type":"element","name":"groupUuid","typeInfo":"String"},{"type":"element","name":"ownerUid","typeInfo":"String"},{"type":"element","name":"shared","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.accountEntity"},{"type":"classInfo","localName":"accountEntity","propertyInfos":[{"type":"element","name":"accountUuid","typeInfo":"String"},{"type":"element","name":"accountId","typeInfo":"String"},{"type":"element","name":"uuid","typeInfo":"String"}]},{"type":"classInfo","localName":"uom","propertyInfos":[{"type":"attribute","name":"type","typeInfo":"String"}],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"predefinedLegendEntity","propertyInfos":[{"type":"attribute","name":"favourite","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"country","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"company","propertyInfos":[{"type":"attribute","name":"director","typeInfo":"String"},{"type":"attribute","name":"chiefAccountant","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"companyType","typeInfo":"String"},{"type":"attribute","name":"discountCardNumber","typeInfo":"String"},{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.agentAttributeValue"},{"type":"element","name":"requisite","typeInfo":"moysklad.requisite"},{"type":"element","name":"bankAccount","collection":true,"typeInfo":"moysklad.agentAccount"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"contactPerson","collection":true,"typeInfo":"moysklad.contactPerson"},{"type":"element","name":"agentNewsItem","collection":true,"typeInfo":"moysklad.agentNewsItem"},{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"},{"type":"element","name":"sign","typeInfo":"moysklad.agentPictureDocument"},{"type":"element","name":"stamp","typeInfo":"moysklad.agentPictureDocument"}],"baseTypeInfo":"moysklad.agent"},{"type":"classInfo","localName":"agent","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentAttributeValue","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attributeValue","propertyInfos":[{"type":"attribute","name":"metadataUuid","typeInfo":"String"},{"type":"attribute","name":"valueText","typeInfo":"String"},{"type":"attribute","name":"valueString","typeInfo":"String"},{"type":"attribute","name":"doubleValue","typeInfo":"Double"},{"type":"attribute","name":"longValue","typeInfo":"Long"},{"type":"attribute","name":"booleanValue","typeInfo":"Boolean"},{"type":"attribute","name":"timeValue","typeInfo":"DateTime"},{"type":"attribute","name":"entityValueUuid","typeInfo":"String"},{"type":"attribute","name":"agentValueUuid","typeInfo":"String"},{"type":"attribute","name":"goodValueUuid","typeInfo":"String"},{"type":"attribute","name":"placeValueUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentValueUuid","typeInfo":"String"},{"type":"attribute","name":"contractValueUuid","typeInfo":"String"},{"type":"attribute","name":"projectValueUuid","typeInfo":"String"},{"type":"attribute","name":"employeeValueUuid","typeInfo":"String"},{"type":"element","name":"file","typeInfo":"moysklad.attachmentDocument"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"attributeMetadata","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"attrType","typeInfo":"String"},{"type":"attribute","name":"dictionaryMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"feature","typeInfo":"Boolean"},{"type":"attribute","name":"position","typeInfo":"Int"},{"type":"attribute","name":"required","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"entityMetadata","propertyInfos":[{"type":"attribute","name":"uniqueCode","typeInfo":"Boolean"},{"type":"attribute","name":"codeValueType","typeInfo":"Int"},{"type":"attribute","name":"independentNameGenerator","typeInfo":"Boolean"},{"type":"attribute","name":"partialReserve","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"editablePeriod","typeInfo":"String"},{"type":"attribute","name":"editableCalendarDays","typeInfo":"Int"},{"type":"attribute","name":"editableWorkDays","typeInfo":"Int"},{"type":"attribute","name":"editableFromDate","typeInfo":"DateTime"},{"type":"element","name":"attributeMetadata","collection":true,"typeInfo":"moysklad.attributeMetadata"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntity","propertyInfos":[{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.customEntityAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"customEntityAttributeValue","propertyInfos":[{"type":"attribute","name":"customEntityUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attachmentDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"attachableDocument","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"document","propertyInfos":[{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"filename","typeInfo":"String"},{"type":"attribute","name":"miniatureUuid","typeInfo":"String"},{"type":"element","name":"contents","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"documentMiniature","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"goodAttributeValue","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"warehouse","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.placeAttributeValue"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"slots","elementName":"slot","collection":true,"wrapperElementName":"slots","typeInfo":"moysklad.slot"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"placeAttributeValue","propertyInfos":[{"type":"attribute","name":"placeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"contact","propertyInfos":[{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"phones","typeInfo":"String"},{"type":"attribute","name":"faxes","typeInfo":"String"},{"type":"attribute","name":"mobiles","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"}]},{"type":"classInfo","localName":"slot","propertyInfos":[{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"consignment","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.consignmentAttributeValue"},{"type":"element","name":"feature","typeInfo":"moysklad.feature"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"barcode","propertyInfos":[{"type":"attribute","name":"barcode","typeInfo":"String"},{"type":"attribute","name":"barcodeType","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"consignmentAttributeValue","propertyInfos":[{"type":"attribute","name":"consignmentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"feature","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.featureAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"featureAttributeValue","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"contract","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"agentAccountUuid","typeInfo":"String"},{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"contractType","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"ownCompanyUuid","typeInfo":"String"},{"type":"attribute","name":"ownCompanyAccountUuid","typeInfo":"String"},{"type":"attribute","name":"rewardPercent","typeInfo":"Double"},{"type":"attribute","name":"rewardType","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.contractAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.contractDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentAccount","propertyInfos":[{"type":"attribute","name":"accountNumber","typeInfo":"String"},{"type":"attribute","name":"bankLocation","typeInfo":"String"},{"type":"attribute","name":"bankName","typeInfo":"String"},{"type":"attribute","name":"bic","typeInfo":"String"},{"type":"attribute","name":"correspondentAccount","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"contractAttributeValue","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"currency","propertyInfos":[{"type":"attribute","name":"enteredRate","typeInfo":"Double"},{"type":"attribute","name":"invertRate","typeInfo":"Boolean"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"element","name":"major","typeInfo":"moysklad.unit"},{"type":"element","name":"minor","typeInfo":"moysklad.unit"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"unit","propertyInfos":[{"type":"attribute","name":"s1","typeInfo":"String"},{"type":"attribute","name":"s24","typeInfo":"String"},{"type":"attribute","name":"s5","typeInfo":"String"},{"type":"attribute","name":"sex","typeInfo":"UnsignedShort"}]},{"type":"classInfo","localName":"contractDocument","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"printedDocument","propertyInfos":[{"type":"attribute","name":"emailedDate","typeInfo":"DateTime"},{"type":"attribute","name":"publicId","typeInfo":"String"}],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"moneyAmount","propertyInfos":[{"type":"attribute","name":"sum","typeInfo":"Double"},{"type":"attribute","name":"sumInCurrency","typeInfo":"Double"}]},{"type":"classInfo","localName":"project","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.projectAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"projectAttributeValue","propertyInfos":[{"type":"attribute","name":"projectUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"employee","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"city","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"fax","typeInfo":"String"},{"type":"attribute","name":"firstName","typeInfo":"String"},{"type":"attribute","name":"icqNumber","typeInfo":"String"},{"type":"attribute","name":"lastName","typeInfo":"String"},{"type":"attribute","name":"middleName","typeInfo":"String"},{"type":"attribute","name":"mobile","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"postalAddress","typeInfo":"String"},{"type":"attribute","name":"postalCode","typeInfo":"String"},{"type":"attribute","name":"pzInternalNumber","typeInfo":"String"},{"type":"attribute","name":"skypeName","typeInfo":"String"},{"type":"attribute","name":"uid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.employeeAttributeValue"}],"baseTypeInfo":"moysklad.agent"},{"type":"classInfo","localName":"employeeAttributeValue","propertyInfos":[{"type":"attribute","name":"employeeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"requisite","propertyInfos":[{"type":"element","name":"bankAccount","typeInfo":"moysklad.agentAccount"},{"type":"attribute","name":"legalTitle","typeInfo":"String"},{"type":"attribute","name":"legalAddress","typeInfo":"String"},{"type":"attribute","name":"actualAddress","typeInfo":"String"},{"type":"attribute","name":"inn","typeInfo":"String"},{"type":"attribute","name":"kpp","typeInfo":"String"},{"type":"attribute","name":"okpo","typeInfo":"String"},{"type":"attribute","name":"ogrn","typeInfo":"String"},{"type":"attribute","name":"ogrnip","typeInfo":"String"},{"type":"attribute","name":"nomerSvidetelstva","typeInfo":"String"},{"type":"attribute","name":"dataSvidetelstva","typeInfo":"DateTime"}]},{"type":"classInfo","localName":"contactPerson","propertyInfos":[{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"position","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentNewsItem","propertyInfos":[{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"element","name":"text","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"agentPictureDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"state","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceType","propertyInfos":[{"type":"attribute","name":"index","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"prices","propertyInfos":[{"type":"element","name":"price","collection":true,"typeInfo":"moysklad.price"}]},{"type":"classInfo","localName":"price","propertyInfos":[{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"value","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"enter","propertyInfos":[{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"enterPosition","collection":true,"typeInfo":"moysklad.enterPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"comingInOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"stockOperation","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"operationWithPositions","propertyInfos":[],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"operation","propertyInfos":[{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"targetAgentUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAgentUuid","typeInfo":"String"},{"type":"attribute","name":"targetStoreUuid","typeInfo":"String"},{"type":"attribute","name":"sourceStoreUuid","typeInfo":"String"},{"type":"attribute","name":"applicable","typeInfo":"Boolean"},{"type":"attribute","name":"projectUuid","typeInfo":"String"},{"type":"attribute","name":"contractUuid","typeInfo":"String"},{"type":"attribute","name":"retailShiftUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"targetAccountUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAccountUuid","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"retailStoreUuid","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"attribute","name":"vatIncluded","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"createdBy","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.operationAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.operationDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"inventory","propertyInfos":[{"type":"element","name":"entersUuid","elementName":"enterRef","collection":true,"wrapperElementName":"entersUuid","typeInfo":"String"},{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"inventoryPosition","collection":true,"typeInfo":"moysklad.inventoryPosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"loss","propertyInfos":[{"type":"attribute","name":"expenseItemUuid","typeInfo":"String"},{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"element","name":"lossPosition","collection":true,"typeInfo":"moysklad.lossPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"comingOutOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"expenseItem","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"lossPosition","propertyInfos":[{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"comingOut","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"stockMotion","propertyInfos":[{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"gtdUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"motion","propertyInfos":[{"type":"attribute","name":"discount","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"goodPackUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentUuid","typeInfo":"String"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"slotUuid","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"basePrice","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"things","elementName":"thingRef","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"gtd","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"thing","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.thingAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"thingAttributeValue","propertyInfos":[{"type":"attribute","name":"thingUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"goodPack","propertyInfos":[{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"uomUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"abstractSalesReturn","propertyInfos":[{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"salesReturnPosition","collection":true,"typeInfo":"moysklad.salesReturnPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"financeOut","propertyInfos":[{"type":"attribute","name":"commissionreportoutUuid","typeInfo":"String"},{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceInUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"finance","propertyInfos":[{"type":"attribute","name":"expenseItemUuid","typeInfo":"String"},{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"paymentPurpose","typeInfo":"String"},{"type":"attribute","name":"vatSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"commissionReportOut","propertyInfos":[{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"commissionReportOutPositions","collection":true,"typeInfo":"moysklad.commissionReportOutPosition"}],"baseTypeInfo":"moysklad.commissionReport"},{"type":"classInfo","localName":"commissionReport","propertyInfos":[{"type":"attribute","name":"endCommissionPeriod","typeInfo":"DateTime"},{"type":"attribute","name":"rewardPercent","typeInfo":"Double"},{"type":"attribute","name":"rewardType","typeInfo":"String"},{"type":"attribute","name":"startCommissionPeriod","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"commissionReportOutPosition","propertyInfos":[],"baseTypeInfo":"moysklad.commissionReportPosition"},{"type":"classInfo","localName":"commissionReportPosition","propertyInfos":[{"type":"element","name":"reward","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"operationAttributeValue","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"operationDocument","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"retailShift","propertyInfos":[{"type":"attribute","name":"closeDate","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"retailStore","propertyInfos":[{"type":"attribute","name":"acquireUuid","typeInfo":"String"},{"type":"attribute","name":"acquireAccountUuid","typeInfo":"String"},{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"atolDeviceId","typeInfo":"String"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"controlCashierChoice","typeInfo":"Boolean"},{"type":"attribute","name":"controlShippingStock","typeInfo":"Boolean"},{"type":"attribute","name":"demandPrefix","typeInfo":"String"},{"type":"attribute","name":"enableDiscount","typeInfo":"Boolean"},{"type":"attribute","name":"maxDiscount","typeInfo":"Double"},{"type":"attribute","name":"myCompanyUuid","typeInfo":"String"},{"type":"attribute","name":"myCompanyAccountUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"myCompany","propertyInfos":[],"baseTypeInfo":"moysklad.company"},{"type":"classInfo","localName":"factureIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"facture","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"supply","propertyInfos":[{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"invoicesInUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesInUuid","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentIn","collection":true,"typeInfo":"moysklad.shipmentIn"},{"type":"element","name":"purchaseReturnsUuid","elementName":"purchaseReturnRef","collection":true,"wrapperElementName":"purchaseReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"invoiceIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"financesOutUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"financesOutUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"invoice","propertyInfos":[{"type":"attribute","name":"paymentPlannedMoment","typeInfo":"DateTime"},{"type":"element","name":"invoicePosition","collection":true,"typeInfo":"moysklad.invoicePosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"purchaseOrder","propertyInfos":[{"type":"element","name":"customerOrdersUuid","elementName":"customerOrderRef","collection":true,"wrapperElementName":"customerOrdersUuid","typeInfo":"String"},{"type":"element","name":"internalOrders","elementName":"internalOrderRef","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"invoicesUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"order","propertyInfos":[{"type":"attribute","name":"deliveryPlannedMoment","typeInfo":"DateTime"},{"type":"attribute","name":"reservedSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"customerOrder","propertyInfos":[{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"customerOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"abstractDemand","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentOut","collection":true,"typeInfo":"moysklad.shipmentOut"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"factureOut","propertyInfos":[{"type":"attribute","name":"paymentDate","typeInfo":"DateTime"},{"type":"attribute","name":"paymentNumber","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"extension","typeInfo":"moysklad.factureOutExtension"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"returnsUuid","elementName":"returnRef","collection":true,"wrapperElementName":"returnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"factureOutExtension","propertyInfos":[],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"operationExtension","propertyInfos":[{"type":"attribute","name":"consigneeUuid","typeInfo":"String"}]},{"type":"classInfo","localName":"financeIn","propertyInfos":[{"type":"attribute","name":"commissionReportUuid","typeInfo":"String"},{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureOutUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceOutUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseReturnUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"commissionReportIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"commissionReportInPositions","collection":true,"typeInfo":"moysklad.commissionReportInPosition"}],"baseTypeInfo":"moysklad.commissionReport"},{"type":"classInfo","localName":"commissionReportInPosition","propertyInfos":[],"baseTypeInfo":"moysklad.commissionReportPosition"},{"type":"classInfo","localName":"invoiceOut","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"invoicePosition","propertyInfos":[],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"purchaseReturn","propertyInfos":[{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseReturnPosition","collection":true,"typeInfo":"moysklad.purchaseReturnPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"purchaseReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"abstractShipmentOut","propertyInfos":[],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"shipmentOut","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"}],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"customerOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"orderPosition","propertyInfos":[{"type":"element","name":"reserve","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"internalOrder","propertyInfos":[{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"moveRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"purchaseOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"move","propertyInfos":[{"type":"attribute","name":"internalOrderUuid","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"movePosition","collection":true,"typeInfo":"moysklad.movePosition"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"movePosition","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"},{"type":"attribute","name":"sourceSlotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"shipmentIn","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"comingIn","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"salesReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"inventoryPosition","propertyInfos":[{"type":"attribute","name":"correctionAmount","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"enterPosition","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"},{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"collectionContainer","propertyInfos":[{"type":"anyElement","name":"items","collection":true}]},{"type":"classInfo","localName":"exchangeContainer","propertyInfos":[{"type":"element","name":"commissionReportIn","collection":true,"wrapperElementName":"commissionReportIn","typeInfo":"moysklad.commissionReportIn"},{"type":"element","name":"commissionReportOut","collection":true,"wrapperElementName":"commissionReportOut","typeInfo":"moysklad.commissionReportOut"},{"type":"element","name":"workflow","collection":true,"wrapperElementName":"workflow","typeInfo":"moysklad.workflow"},{"type":"element","name":"customEntityMetadata","collection":true,"wrapperElementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"type":"element","name":"embeddedEntityMetadata","collection":true,"wrapperElementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"type":"element","name":"entityTemplatesMetadata","collection":true,"wrapperElementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"type":"element","name":"reportTemplatesMetadata","collection":true,"wrapperElementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"type":"element","name":"customEntity","collection":true,"wrapperElementName":"customEntity","typeInfo":"moysklad.customEntity"},{"type":"element","name":"currencies","elementName":"currency","collection":true,"wrapperElementName":"currencies","typeInfo":"moysklad.currency"},{"type":"element","name":"country","collection":true,"wrapperElementName":"country","typeInfo":"moysklad.country"},{"type":"element","name":"gtd","collection":true,"wrapperElementName":"gtd","typeInfo":"moysklad.gtd"},{"type":"element","name":"uoms","elementName":"uom","collection":true,"wrapperElementName":"uoms","typeInfo":"moysklad.uom"},{"type":"element","name":"myCompany","collection":true,"wrapperElementName":"myCompany","typeInfo":"moysklad.myCompany"},{"type":"element","name":"agents","elementName":"agent","collection":true,"wrapperElementName":"agents","typeInfo":"moysklad.agent"},{"type":"element","name":"companies","elementName":"company","collection":true,"wrapperElementName":"companies","typeInfo":"moysklad.company"},{"type":"element","name":"goodFolders","elementName":"goodFolder","collection":true,"wrapperElementName":"goodFolders","typeInfo":"moysklad.goodFolder"},{"type":"element","name":"goods","elementName":"good","collection":true,"wrapperElementName":"goods","typeInfo":"moysklad.good"},{"type":"element","name":"service","collection":true,"wrapperElementName":"service","typeInfo":"moysklad.service"},{"type":"element","name":"things","elementName":"thing","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"},{"type":"element","name":"employees","elementName":"employee","collection":true,"wrapperElementName":"employees","typeInfo":"moysklad.employee"},{"type":"element","name":"warehouses","elementName":"warehouse","collection":true,"wrapperElementName":"warehouses","typeInfo":"moysklad.warehouse"},{"type":"element","name":"project","collection":true,"wrapperElementName":"project","typeInfo":"moysklad.project"},{"type":"element","name":"contract","collection":true,"wrapperElementName":"contract","typeInfo":"moysklad.contract"},{"type":"element","name":"processingPlans","elementName":"processingPlan","collection":true,"wrapperElementName":"processingPlans","typeInfo":"moysklad.processingPlan"},{"type":"element","name":"features","elementName":"feature","collection":true,"wrapperElementName":"features","typeInfo":"moysklad.feature"},{"type":"element","name":"consignments","elementName":"consignment","collection":true,"wrapperElementName":"consignments","typeInfo":"moysklad.consignment"},{"type":"element","name":"priceLists","elementName":"priceList","collection":true,"wrapperElementName":"priceLists","typeInfo":"moysklad.priceList"},{"type":"element","name":"paymentIn","collection":true,"wrapperElementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"type":"element","name":"paymentOut","collection":true,"wrapperElementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"type":"element","name":"factureIn","collection":true,"wrapperElementName":"factureIn","typeInfo":"moysklad.factureIn"},{"type":"element","name":"factureOut","collection":true,"wrapperElementName":"factureOut","typeInfo":"moysklad.factureOut"},{"type":"element","name":"cashIn","collection":true,"wrapperElementName":"cashIn","typeInfo":"moysklad.cashIn"},{"type":"element","name":"cashOut","collection":true,"wrapperElementName":"cashOut","typeInfo":"moysklad.cashOut"},{"type":"element","name":"deliveries-demand","elementName":"demand","collection":true,"wrapperElementName":"deliveries-demand","typeInfo":"moysklad.demand"},{"type":"element","name":"deliveries-supply","elementName":"supply","collection":true,"wrapperElementName":"deliveries-supply","typeInfo":"moysklad.supply"},{"type":"element","name":"retailCashIn","collection":true,"wrapperElementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"type":"element","name":"retailCashOut","collection":true,"wrapperElementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"type":"element","name":"retailDemand","collection":true,"wrapperElementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"type":"element","name":"retailSalesReturn","collection":true,"wrapperElementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"type":"element","name":"inventories","elementName":"inventory","collection":true,"wrapperElementName":"inventories","typeInfo":"moysklad.inventory"},{"type":"element","name":"moves","elementName":"move","collection":true,"wrapperElementName":"moves","typeInfo":"moysklad.move"},{"type":"element","name":"losses","elementName":"loss","collection":true,"wrapperElementName":"losses","typeInfo":"moysklad.loss"},{"type":"element","name":"enters","elementName":"enter","collection":true,"wrapperElementName":"enters","typeInfo":"moysklad.enter"},{"type":"element","name":"invoicesIn","elementName":"invoiceIn","collection":true,"wrapperElementName":"invoicesIn","typeInfo":"moysklad.invoiceIn"},{"type":"element","name":"invoicesOut","elementName":"invoiceOut","collection":true,"wrapperElementName":"invoicesOut","typeInfo":"moysklad.invoiceOut"},{"type":"element","name":"salesReturns","elementName":"salesReturn","collection":true,"wrapperElementName":"salesReturns","typeInfo":"moysklad.salesReturn"},{"type":"element","name":"purchaseReturns","elementName":"purchaseReturn","collection":true,"wrapperElementName":"purchaseReturns","typeInfo":"moysklad.purchaseReturn"},{"type":"element","name":"processings","elementName":"processing","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"},{"type":"element","name":"customerOrders","elementName":"customerOrder","collection":true,"wrapperElementName":"customerOrders","typeInfo":"moysklad.customerOrder"},{"type":"element","name":"purchaseOrders","elementName":"purchaseOrder","collection":true,"wrapperElementName":"purchaseOrders","typeInfo":"moysklad.purchaseOrder"},{"type":"element","name":"internalOrders","elementName":"internalOrder","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"proccessingOrders","elementName":"processingOrder","collection":true,"wrapperElementName":"proccessingOrders","typeInfo":"moysklad.processingOrder"},{"type":"element","name":"amiroConnectors","elementName":"amiroConnectorSettings","collection":true,"wrapperElementName":"amiroConnectors","typeInfo":"moysklad.amiroConnectorSettings"},{"type":"element","name":"cmlConnectors","elementName":"cmlConnectorSettings","collection":true,"wrapperElementName":"cmlConnectors","typeInfo":"moysklad.cmlConnectorSettings"},{"type":"element","name":"ymlConnectors","elementName":"ymlConnectorSettings","collection":true,"wrapperElementName":"ymlConnectors","typeInfo":"moysklad.ymlConnectorSettings"}]},{"type":"classInfo","localName":"workflow","propertyInfos":[{"type":"element","name":"state","collection":true,"typeInfo":"moysklad.state"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"embeddedEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"entityTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"templatesMetadata","propertyInfos":[{"type":"element","name":"template","collection":true,"typeInfo":"moysklad.template"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"template","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"reportTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"good","propertyInfos":[{"type":"attribute","name":"isSerialTrackable","typeInfo":"Boolean"},{"type":"attribute","name":"soldByWeight","typeInfo":"Boolean"},{"type":"attribute","name":"minimumBalance","typeInfo":"Double"},{"type":"attribute","name":"weight","typeInfo":"Double"},{"type":"attribute","name":"volume","typeInfo":"Double"},{"type":"element","name":"pack","collection":true,"typeInfo":"moysklad.goodPack"},{"type":"element","name":"preferences","elementName":"preference","collection":true,"wrapperElementName":"preferences","typeInfo":"moysklad.goodSlotPreference"},{"type":"element","name":"images","elementName":"image","collection":true,"wrapperElementName":"images","typeInfo":"moysklad.goodImage"}],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"goodSlotPreference","propertyInfos":[{"type":"attribute","name":"slotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"goodImage","propertyInfos":[{"type":"attribute","name":"tinyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"tinyImage","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"processingPlan","propertyInfos":[{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.material"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"product","collection":true,"typeInfo":"moysklad.product"}],"baseTypeInfo":"moysklad.processingPlanFolder"},{"type":"classInfo","localName":"processingPlanFolder","propertyInfos":[{"type":"attribute","name":"parentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"material","propertyInfos":[{"type":"attribute","name":"isOptional","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"processingPlanItem","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"product","propertyInfos":[],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"priceList","propertyInfos":[{"type":"element","name":"metadata","typeInfo":"moysklad.priceListMetadata"},{"type":"element","name":"priceListRow","collection":true,"typeInfo":"moysklad.priceListRow"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"priceListMetadata","propertyInfos":[{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"element","name":"column","collection":true,"typeInfo":"moysklad.priceListMetadataColumn"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListMetadataColumn","propertyInfos":[{"type":"attribute","name":"percentageDiscount","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListRow","propertyInfos":[{"type":"element","name":"cell","collection":true,"typeInfo":"moysklad.priceListCell"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"priceListCell","propertyInfos":[{"type":"attribute","name":"columnName","typeInfo":"String"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"paymentIn","propertyInfos":[],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"paymentOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"cashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"abstractCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"cashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"abstractCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"demand","propertyInfos":[{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"extension","typeInfo":"moysklad.demandExtension"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"salesReturnsUuid","elementName":"salesReturnRef","collection":true,"wrapperElementName":"salesReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"demandExtension","propertyInfos":[{"type":"attribute","name":"opened","typeInfo":"Boolean"},{"type":"attribute","name":"carrierUuid","typeInfo":"String"},{"type":"attribute","name":"loadName","typeInfo":"String"},{"type":"attribute","name":"consignorIndication","typeInfo":"String"},{"type":"attribute","name":"transportFacility","typeInfo":"String"},{"type":"attribute","name":"goodPackQuantity","typeInfo":"Int"},{"type":"attribute","name":"carNumber","typeInfo":"String"}],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"salesReturn","propertyInfos":[{"type":"attribute","name":"demandUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"retailCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"retailCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"retailDemand","propertyInfos":[{"type":"attribute","name":"nonCash","typeInfo":"Boolean"},{"type":"element","name":"noCashSum","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"salesReturnsUuid","elementName":"salesReturnRef","collection":true,"wrapperElementName":"salesReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"retailSalesReturn","propertyInfos":[{"type":"attribute","name":"demandUuid","typeInfo":"String"},{"type":"element","name":"noCashSum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"processing","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"processingOrderUuid","typeInfo":"String"},{"type":"attribute","name":"processingSum","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.processingPositionMaterial"},{"type":"element","name":"results","elementName":"result","collection":true,"wrapperElementName":"results","typeInfo":"moysklad.processingPositionResult"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"processingPositionMaterial","propertyInfos":[],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"processingOrder","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"processings","elementName":"processingRef","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"processingPositionResult","propertyInfos":[{"type":"attribute","name":"costShare","typeInfo":"Double"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"amiroConnectorSettings","propertyInfos":[{"type":"attribute","name":"commentsColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerAddressColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerCodeColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerEmailColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerFirstNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerLastNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerNickColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerPhoneColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderDateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"prefixForAgent","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForGood","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForOperation","typeInfo":"Boolean"},{"type":"attribute","name":"priceColumnNum","typeInfo":"Int"},{"type":"attribute","name":"quantityColumnNum","typeInfo":"Int"},{"type":"attribute","name":"shippingAmountColumnNum","typeInfo":"Int"},{"type":"attribute","name":"stateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"taxColumnNum","typeInfo":"Int"},{"type":"element","name":"customAttribute","collection":true,"typeInfo":"moysklad.amiroCustomAttributeInfo"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"operationConnectorSetting","propertyInfos":[{"type":"attribute","name":"adminDomain","typeInfo":"String"},{"type":"attribute","name":"autoReserve","typeInfo":"Boolean"},{"type":"attribute","name":"orderplaceUuid","typeInfo":"String"},{"type":"attribute","name":"shopDomain","typeInfo":"String"},{"type":"attribute","name":"syncFeatures","typeInfo":"Boolean"},{"type":"attribute","name":"useShopOperationName","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"abstractConnectorSetting","propertyInfos":[{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"login","typeInfo":"String"},{"type":"attribute","name":"organizationUuid","typeInfo":"String"},{"type":"attribute","name":"password","typeInfo":"String"},{"type":"attribute","name":"pollPeriod","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"amiroCustomAttributeInfo","propertyInfos":[{"type":"attribute","name":"columnNumber","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"},{"type":"attribute","name":"settingsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"cmlConnectorSettings","propertyInfos":[{"type":"attribute","name":"features","typeInfo":"Boolean"},{"type":"attribute","name":"goodFolderUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"shopType","typeInfo":"String"},{"type":"attribute","name":"stockActive","typeInfo":"Boolean"},{"type":"attribute","name":"stockplaceUuid","typeInfo":"String"},{"type":"attribute","name":"stockPollPeriod","typeInfo":"Int"},{"type":"attribute","name":"syncOrderState","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"ymlConnectorSettings","propertyInfos":[],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"cashier","propertyInfos":[{"type":"attribute","name":"createAndPrintRetailCashOut","typeInfo":"Boolean"},{"type":"attribute","name":"employeeUuid","typeInfo":"String"},{"type":"attribute","name":"printCheck","typeInfo":"Boolean"},{"type":"attribute","name":"printCheckFR","typeInfo":"Boolean"},{"type":"attribute","name":"retailStoreUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"agentDiscount","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"discountUuid","typeInfo":"String"},{"type":"element","name":"demandSumCorrection","typeInfo":"Double"},{"type":"element","name":"personalDiscount","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"discount","propertyInfos":[{"type":"attribute","name":"name","typeInfo":"String"},{"type":"attribute","name":"active","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"personalDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"accumulationDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"specialPriceDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"group","propertyInfos":[{"type":"element","name":"uuid","typeInfo":"String"},{"type":"element","name":"accountUuid","typeInfo":"String"},{"type":"attribute","name":"name","typeInfo":"String"}]},{"type":"classInfo","localName":"collection","propertyInfos":[{"type":"attribute","name":"total","typeInfo":"Int"},{"type":"attribute","name":"start","typeInfo":"Int"},{"type":"attribute","name":"count","typeInfo":"Int"}],"baseTypeInfo":"moysklad.collectionContainer"},{"type":"classInfo","localName":"error","propertyInfos":[{"type":"element","name":"uid","typeInfo":"String"},{"type":"element","name":"moment","typeInfo":"String"},{"type":"element","name":"message","typeInfo":"String"},{"type":"element","name":"stack","typeInfo":"String"}]}]}
 },{}],6:[function(require,module,exports){
+module.exports={"name":"moysklad","enums":{"uomType":{"MASS":"mass","VOLUME":"volume","PIECE":"piece"},"accessMode":{"NONE":"NONE","SELF":"SELF","PARENT":"PARENT","NEIGHBOUR":"NEIGHBOUR","ALL":"ALL"},"attributeType":{"STRING":"STRING","LONG":"LONG","TIME":"TIME","ID_CUSTOM":"ID_CUSTOM","FILE":"FILE","DOUBLE":"DOUBLE","BOOLEAN":"BOOLEAN","ID_EMBEDDED":"ID_EMBEDDED","TEXT":"TEXT","LINK":"LINK"},"editablePeriodType":{"ALL":"ALL","CALENDAR_DAYS":"CALENDAR_DAYS","WORK_DAYS":"WORK_DAYS","DATE":"DATE"},"barcodeType":{"EAN8":"EAN8","EAN13":"EAN13","CODE128":"Code128"},"contractType":{"SALES":"Sales","COMMISSION":"Commission"},"rewardType":{"PERCENTOFSALES":"PercentOfSales","NONE":"None"},"companyType":{"URLI":"URLI","INPR":"INPR","FILI":"FILI"},"overheadDistribution":{"BY_PRICE":"BY_PRICE","BY_WEIGHT":"BY_WEIGHT","BY_VOLUME":"BY_VOLUME"},"cmlType":{"BITRIX":"BITRIX","UMICMS":"UMICMS","HOSTCMS":"HOSTCMS","INSALES":"INSALES","WEBASYST":"WEBASYST","SIMPLA":"SIMPLA","UMIRU":"UMIRU","PRESTASHOP":"PRESTASHOP","SITEEDIT":"SITEEDIT","BITRIXSMB":"BITRIXSMB","FASTSALES":"FASTSALES","MAGENTO":"MAGENTO","DIAFAN":"DIAFAN","SHOPIUM":"SHOPIUM","VIRTUEMART":"VIRTUEMART","ADVANTSHOP":"ADVANTSHOP","AGORAPLATFORM":"AGORAPLATFORM","CSCART":"CSCART","WEBASYST5":"WEBASYST5","GENERIC_CML":"GENERIC_CML","NETHOUSE":"NETHOUSE"}},"elementInfos":[{"elementName":"accumulationDiscount","typeInfo":"moysklad.accumulationDiscount"},{"elementName":"agent","typeInfo":"moysklad.agent"},{"elementName":"agentDiscount","typeInfo":"moysklad.agentDiscount"},{"elementName":"agentPictureDocument","typeInfo":"moysklad.agentPictureDocument"},{"elementName":"amiroConnectorSettings","typeInfo":"moysklad.amiroConnectorSettings"},{"elementName":"attachmentDocument","typeInfo":"moysklad.attachmentDocument"},{"elementName":"barcode","typeInfo":"moysklad.barcode"},{"elementName":"cashIn","typeInfo":"moysklad.cashIn"},{"elementName":"cashOut","typeInfo":"moysklad.cashOut"},{"elementName":"cashier","typeInfo":"moysklad.cashier"},{"elementName":"cmlConnectorSettings","typeInfo":"moysklad.cmlConnectorSettings"},{"elementName":"collection","typeInfo":"moysklad.collection"},{"elementName":"commissionReportIn","typeInfo":"moysklad.commissionReportIn"},{"elementName":"commissionReportInPosition","typeInfo":"moysklad.commissionReportInPosition"},{"elementName":"commissionReportOut","typeInfo":"moysklad.commissionReportOut"},{"elementName":"commissionReportOutPosition","typeInfo":"moysklad.commissionReportOutPosition"},{"elementName":"company","typeInfo":"moysklad.company"},{"elementName":"consignment","typeInfo":"moysklad.consignment"},{"elementName":"contract","typeInfo":"moysklad.contract"},{"elementName":"contractDocument","typeInfo":"moysklad.contractDocument"},{"elementName":"country","typeInfo":"moysklad.country"},{"elementName":"currency","typeInfo":"moysklad.currency"},{"elementName":"customEntity","typeInfo":"moysklad.customEntity"},{"elementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"elementName":"customerOrder","typeInfo":"moysklad.customerOrder"},{"elementName":"demand","typeInfo":"moysklad.demand"},{"elementName":"discount","typeInfo":"moysklad.discount"},{"elementName":"document","typeInfo":"moysklad.document"},{"elementName":"documentMiniature","typeInfo":"moysklad.documentMiniature"},{"elementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"elementName":"employee","typeInfo":"moysklad.employee"},{"elementName":"enter","typeInfo":"moysklad.enter"},{"elementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"elementName":"exchange","typeInfo":"moysklad.exchangeContainer"},{"elementName":"expenseItem","typeInfo":"moysklad.expenseItem"},{"elementName":"factureIn","typeInfo":"moysklad.factureIn"},{"elementName":"factureOut","typeInfo":"moysklad.factureOut"},{"elementName":"feature","typeInfo":"moysklad.feature"},{"elementName":"good","typeInfo":"moysklad.good"},{"elementName":"goodFolder","typeInfo":"moysklad.goodFolder"},{"elementName":"goodImage","typeInfo":"moysklad.goodImage"},{"elementName":"group","typeInfo":"moysklad.group"},{"elementName":"gtd","typeInfo":"moysklad.gtd"},{"elementName":"internalOrder","typeInfo":"moysklad.internalOrder"},{"elementName":"inventory","typeInfo":"moysklad.inventory"},{"elementName":"invoiceIn","typeInfo":"moysklad.invoiceIn"},{"elementName":"invoiceOut","typeInfo":"moysklad.invoiceOut"},{"elementName":"loss","typeInfo":"moysklad.loss"},{"elementName":"move","typeInfo":"moysklad.move"},{"elementName":"myCompany","typeInfo":"moysklad.myCompany"},{"elementName":"operationDocument","typeInfo":"moysklad.operationDocument"},{"elementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"elementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"elementName":"personalDiscount","typeInfo":"moysklad.personalDiscount"},{"elementName":"priceList","typeInfo":"moysklad.priceList"},{"elementName":"priceType","typeInfo":"moysklad.priceType"},{"elementName":"processing","typeInfo":"moysklad.processing"},{"elementName":"processingOrder","typeInfo":"moysklad.processingOrder"},{"elementName":"processingPlan","typeInfo":"moysklad.processingPlan"},{"elementName":"processingPlanFolder","typeInfo":"moysklad.processingPlanFolder"},{"elementName":"project","typeInfo":"moysklad.project"},{"elementName":"purchaseOrder","typeInfo":"moysklad.purchaseOrder"},{"elementName":"purchaseReturn","typeInfo":"moysklad.purchaseReturn"},{"elementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"elementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"elementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"elementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"elementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"elementName":"retailShift","typeInfo":"moysklad.retailShift"},{"elementName":"retailStore","typeInfo":"moysklad.retailStore"},{"elementName":"salesReturn","typeInfo":"moysklad.salesReturn"},{"elementName":"service","typeInfo":"moysklad.service"},{"elementName":"slot","typeInfo":"moysklad.slot"},{"elementName":"specialPriceDiscount","typeInfo":"moysklad.specialPriceDiscount"},{"elementName":"supply","typeInfo":"moysklad.supply"},{"elementName":"template","typeInfo":"moysklad.template"},{"elementName":"thing","typeInfo":"moysklad.thing"},{"elementName":"tinyImage","typeInfo":"moysklad.tinyImage"},{"elementName":"uom","typeInfo":"moysklad.uom"},{"elementName":"warehouse","typeInfo":"moysklad.warehouse"},{"elementName":"workflow","typeInfo":"moysklad.workflow"},{"elementName":"ymlConnectorSettings","typeInfo":"moysklad.ymlConnectorSettings"},{"elementName":"uuid","typeInfo":"String"},{"elementName":"id","typeInfo":"String"},{"elementName":"error","typeInfo":"moysklad.error"}],"typeInfos":[{"type":"classInfo","localName":"service","propertyInfos":[],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"abstractGood","propertyInfos":[{"type":"attribute","name":"uomUuid","typeInfo":"String"},{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"supplierUuid","typeInfo":"String"},{"type":"attribute","name":"minPrice","typeInfo":"Double"},{"type":"attribute","name":"salePrice","typeInfo":"Double"},{"type":"attribute","name":"saleCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyCurrencyUuid","typeInfo":"String"},{"type":"attribute","name":"buyPrice","typeInfo":"Double"},{"type":"element","name":"salePrices","typeInfo":"moysklad.price","elementName":"price","collection":true,"wrapperElementName":"salePrices"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"}],"baseTypeInfo":"moysklad.goodFolder"},{"type":"classInfo","localName":"goodFolder","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"attribute","name":"productCode","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.goodAttributeValue"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"classifier","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"legendEntity","propertyInfos":[{"type":"attribute","name":"name","typeInfo":"String"},{"type":"element","name":"code","typeInfo":"String"},{"type":"element","name":"externalcode","typeInfo":"String"},{"type":"element","name":"description","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"infoEntity","propertyInfos":[{"type":"attribute","name":"updated","typeInfo":"DateTime"},{"type":"attribute","name":"updatedBy","typeInfo":"String"},{"type":"element","name":"deleted","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"entity","propertyInfos":[{"type":"attribute","name":"readMode","typeInfo":"String"},{"type":"attribute","name":"changeMode","typeInfo":"String"},{"type":"element","name":"groupUuid","typeInfo":"String"},{"type":"element","name":"ownerUid","typeInfo":"String"},{"type":"element","name":"shared","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.accountEntity"},{"type":"classInfo","localName":"accountEntity","propertyInfos":[{"type":"element","name":"accountUuid","typeInfo":"String"},{"type":"element","name":"accountId","typeInfo":"String"},{"type":"element","name":"uuid","typeInfo":"String"}]},{"type":"classInfo","localName":"uom","propertyInfos":[{"type":"attribute","name":"type","typeInfo":"String"}],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"predefinedLegendEntity","propertyInfos":[{"type":"attribute","name":"favourite","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"country","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"company","propertyInfos":[{"type":"attribute","name":"director","typeInfo":"String"},{"type":"attribute","name":"chiefAccountant","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"companyType","typeInfo":"String"},{"type":"attribute","name":"discountCardNumber","typeInfo":"String"},{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.agentAttributeValue"},{"type":"element","name":"requisite","typeInfo":"moysklad.requisite"},{"type":"element","name":"bankAccount","collection":true,"typeInfo":"moysklad.agentAccount"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"contactPerson","collection":true,"typeInfo":"moysklad.contactPerson"},{"type":"element","name":"agentNewsItem","collection":true,"typeInfo":"moysklad.agentNewsItem"},{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"},{"type":"element","name":"sign","typeInfo":"moysklad.agentPictureDocument"},{"type":"element","name":"stamp","typeInfo":"moysklad.agentPictureDocument"}],"baseTypeInfo":"moysklad.agent"},{"type":"classInfo","localName":"agent","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentAttributeValue","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attributeValue","propertyInfos":[{"type":"attribute","name":"metadataUuid","typeInfo":"String"},{"type":"attribute","name":"valueText","typeInfo":"String"},{"type":"attribute","name":"valueString","typeInfo":"String"},{"type":"attribute","name":"doubleValue","typeInfo":"Double"},{"type":"attribute","name":"longValue","typeInfo":"Long"},{"type":"attribute","name":"booleanValue","typeInfo":"Boolean"},{"type":"attribute","name":"timeValue","typeInfo":"DateTime"},{"type":"attribute","name":"entityValueUuid","typeInfo":"String"},{"type":"attribute","name":"agentValueUuid","typeInfo":"String"},{"type":"attribute","name":"goodValueUuid","typeInfo":"String"},{"type":"attribute","name":"placeValueUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentValueUuid","typeInfo":"String"},{"type":"attribute","name":"contractValueUuid","typeInfo":"String"},{"type":"attribute","name":"projectValueUuid","typeInfo":"String"},{"type":"attribute","name":"employeeValueUuid","typeInfo":"String"},{"type":"element","name":"file","typeInfo":"moysklad.attachmentDocument"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"attributeMetadata","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"attrType","typeInfo":"String"},{"type":"attribute","name":"dictionaryMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"attribute","name":"feature","typeInfo":"Boolean"},{"type":"attribute","name":"position","typeInfo":"Int"},{"type":"attribute","name":"required","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"entityMetadata","propertyInfos":[{"type":"attribute","name":"uniqueCode","typeInfo":"Boolean"},{"type":"attribute","name":"codeValueType","typeInfo":"Int"},{"type":"attribute","name":"independentNameGenerator","typeInfo":"Boolean"},{"type":"attribute","name":"partialReserve","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceSource","typeInfo":"Boolean"},{"type":"attribute","name":"noEditFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"noApplicableFromOtherPlaceTarget","typeInfo":"Boolean"},{"type":"attribute","name":"editablePeriod","typeInfo":"String"},{"type":"attribute","name":"editableCalendarDays","typeInfo":"Int"},{"type":"attribute","name":"editableWorkDays","typeInfo":"Int"},{"type":"attribute","name":"editableFromDate","typeInfo":"DateTime"},{"type":"element","name":"attributeMetadata","collection":true,"typeInfo":"moysklad.attributeMetadata"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntity","propertyInfos":[{"type":"attribute","name":"entityMetadataUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.customEntityAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"customEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"customEntityAttributeValue","propertyInfos":[{"type":"attribute","name":"customEntityUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"attachmentDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"attachableDocument","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"document","propertyInfos":[{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"filename","typeInfo":"String"},{"type":"attribute","name":"miniatureUuid","typeInfo":"String"},{"type":"element","name":"contents","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"documentMiniature","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"goodAttributeValue","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"warehouse","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"parentUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.placeAttributeValue"},{"type":"element","name":"contact","typeInfo":"moysklad.contact"},{"type":"element","name":"slots","elementName":"slot","collection":true,"wrapperElementName":"slots","typeInfo":"moysklad.slot"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"placeAttributeValue","propertyInfos":[{"type":"attribute","name":"placeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"contact","propertyInfos":[{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"phones","typeInfo":"String"},{"type":"attribute","name":"faxes","typeInfo":"String"},{"type":"attribute","name":"mobiles","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"}]},{"type":"classInfo","localName":"slot","propertyInfos":[{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"consignment","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"},{"type":"element","name":"barcode","collection":true,"typeInfo":"moysklad.barcode"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.consignmentAttributeValue"},{"type":"element","name":"feature","typeInfo":"moysklad.feature"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"barcode","propertyInfos":[{"type":"attribute","name":"barcode","typeInfo":"String"},{"type":"attribute","name":"barcodeType","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"consignmentAttributeValue","propertyInfos":[{"type":"attribute","name":"consignmentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"feature","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.featureAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"featureAttributeValue","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"contract","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"agentAccountUuid","typeInfo":"String"},{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"attribute","name":"contractType","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"ownCompanyUuid","typeInfo":"String"},{"type":"attribute","name":"ownCompanyAccountUuid","typeInfo":"String"},{"type":"attribute","name":"rewardPercent","typeInfo":"Double"},{"type":"attribute","name":"rewardType","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.contractAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.contractDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentAccount","propertyInfos":[{"type":"attribute","name":"accountNumber","typeInfo":"String"},{"type":"attribute","name":"bankLocation","typeInfo":"String"},{"type":"attribute","name":"bankName","typeInfo":"String"},{"type":"attribute","name":"bic","typeInfo":"String"},{"type":"attribute","name":"correspondentAccount","typeInfo":"String"},{"type":"attribute","name":"isDefault","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"contractAttributeValue","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"currency","propertyInfos":[{"type":"attribute","name":"enteredRate","typeInfo":"Double"},{"type":"attribute","name":"invertRate","typeInfo":"Boolean"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"element","name":"major","typeInfo":"moysklad.unit"},{"type":"element","name":"minor","typeInfo":"moysklad.unit"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"unit","propertyInfos":[{"type":"attribute","name":"s1","typeInfo":"String"},{"type":"attribute","name":"s24","typeInfo":"String"},{"type":"attribute","name":"s5","typeInfo":"String"},{"type":"attribute","name":"sex","typeInfo":"UnsignedShort"}]},{"type":"classInfo","localName":"contractDocument","propertyInfos":[{"type":"attribute","name":"contractUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"printedDocument","propertyInfos":[{"type":"attribute","name":"emailedDate","typeInfo":"DateTime"},{"type":"attribute","name":"publicId","typeInfo":"String"}],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"moneyAmount","propertyInfos":[{"type":"attribute","name":"sum","typeInfo":"Double"},{"type":"attribute","name":"sumInCurrency","typeInfo":"Double"}]},{"type":"classInfo","localName":"project","propertyInfos":[{"type":"attribute","name":"archived","typeInfo":"Boolean"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.projectAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"projectAttributeValue","propertyInfos":[{"type":"attribute","name":"projectUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"employee","propertyInfos":[{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"city","typeInfo":"String"},{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"fax","typeInfo":"String"},{"type":"attribute","name":"firstName","typeInfo":"String"},{"type":"attribute","name":"icqNumber","typeInfo":"String"},{"type":"attribute","name":"lastName","typeInfo":"String"},{"type":"attribute","name":"middleName","typeInfo":"String"},{"type":"attribute","name":"mobile","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"postalAddress","typeInfo":"String"},{"type":"attribute","name":"postalCode","typeInfo":"String"},{"type":"attribute","name":"pzInternalNumber","typeInfo":"String"},{"type":"attribute","name":"skypeName","typeInfo":"String"},{"type":"attribute","name":"uid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.employeeAttributeValue"}],"baseTypeInfo":"moysklad.agent"},{"type":"classInfo","localName":"employeeAttributeValue","propertyInfos":[{"type":"attribute","name":"employeeUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"requisite","propertyInfos":[{"type":"element","name":"bankAccount","typeInfo":"moysklad.agentAccount"},{"type":"attribute","name":"legalTitle","typeInfo":"String"},{"type":"attribute","name":"legalAddress","typeInfo":"String"},{"type":"attribute","name":"actualAddress","typeInfo":"String"},{"type":"attribute","name":"inn","typeInfo":"String"},{"type":"attribute","name":"kpp","typeInfo":"String"},{"type":"attribute","name":"okpo","typeInfo":"String"},{"type":"attribute","name":"ogrn","typeInfo":"String"},{"type":"attribute","name":"ogrnip","typeInfo":"String"},{"type":"attribute","name":"nomerSvidetelstva","typeInfo":"String"},{"type":"attribute","name":"dataSvidetelstva","typeInfo":"DateTime"}]},{"type":"classInfo","localName":"contactPerson","propertyInfos":[{"type":"attribute","name":"email","typeInfo":"String"},{"type":"attribute","name":"phone","typeInfo":"String"},{"type":"attribute","name":"position","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"agentNewsItem","propertyInfos":[{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"element","name":"text","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"agentPictureDocument","propertyInfos":[],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"state","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceType","propertyInfos":[{"type":"attribute","name":"index","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"}],"baseTypeInfo":"moysklad.infoEntity"},{"type":"classInfo","localName":"prices","propertyInfos":[{"type":"element","name":"price","collection":true,"typeInfo":"moysklad.price"}]},{"type":"classInfo","localName":"price","propertyInfos":[{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"value","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"enter","propertyInfos":[{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"enterPosition","collection":true,"typeInfo":"moysklad.enterPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"comingInOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"stockOperation","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"operationWithPositions","propertyInfos":[],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"operation","propertyInfos":[{"type":"attribute","name":"stateUuid","typeInfo":"String"},{"type":"attribute","name":"targetAgentUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAgentUuid","typeInfo":"String"},{"type":"attribute","name":"targetStoreUuid","typeInfo":"String"},{"type":"attribute","name":"sourceStoreUuid","typeInfo":"String"},{"type":"attribute","name":"applicable","typeInfo":"Boolean"},{"type":"attribute","name":"projectUuid","typeInfo":"String"},{"type":"attribute","name":"contractUuid","typeInfo":"String"},{"type":"attribute","name":"retailShiftUuid","typeInfo":"String"},{"type":"attribute","name":"moment","typeInfo":"DateTime"},{"type":"attribute","name":"targetAccountUuid","typeInfo":"String"},{"type":"attribute","name":"sourceAccountUuid","typeInfo":"String"},{"type":"attribute","name":"payerVat","typeInfo":"Boolean"},{"type":"attribute","name":"retailStoreUuid","typeInfo":"String"},{"type":"attribute","name":"currencyUuid","typeInfo":"String"},{"type":"attribute","name":"rate","typeInfo":"Double"},{"type":"attribute","name":"vatIncluded","typeInfo":"Boolean"},{"type":"attribute","name":"created","typeInfo":"DateTime"},{"type":"attribute","name":"createdBy","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.operationAttributeValue"},{"type":"element","name":"document","collection":true,"typeInfo":"moysklad.operationDocument"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"inventory","propertyInfos":[{"type":"element","name":"entersUuid","elementName":"enterRef","collection":true,"wrapperElementName":"entersUuid","typeInfo":"String"},{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"inventoryPosition","collection":true,"typeInfo":"moysklad.inventoryPosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"loss","propertyInfos":[{"type":"attribute","name":"expenseItemUuid","typeInfo":"String"},{"type":"attribute","name":"inventoryUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"element","name":"lossPosition","collection":true,"typeInfo":"moysklad.lossPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"comingOutOperation","propertyInfos":[],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"expenseItem","propertyInfos":[],"baseTypeInfo":"moysklad.predefinedLegendEntity"},{"type":"classInfo","localName":"lossPosition","propertyInfos":[{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"comingOut","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"stockMotion","propertyInfos":[{"type":"attribute","name":"countryUuid","typeInfo":"String"},{"type":"attribute","name":"gtdUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"motion","propertyInfos":[{"type":"attribute","name":"discount","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"goodPackUuid","typeInfo":"String"},{"type":"attribute","name":"consignmentUuid","typeInfo":"String"},{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"slotUuid","typeInfo":"String"},{"type":"attribute","name":"vat","typeInfo":"Long"},{"type":"element","name":"basePrice","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"things","elementName":"thingRef","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"gtd","propertyInfos":[],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"thing","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"element","name":"attribute","collection":true,"typeInfo":"moysklad.thingAttributeValue"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"thingAttributeValue","propertyInfos":[{"type":"attribute","name":"thingUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"goodPack","propertyInfos":[{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"attribute","name":"uomUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"abstractSalesReturn","propertyInfos":[{"type":"element","name":"lossesUuid","elementName":"lossRef","collection":true,"wrapperElementName":"lossesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"salesReturnPosition","collection":true,"typeInfo":"moysklad.salesReturnPosition"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"financeOut","propertyInfos":[{"type":"attribute","name":"commissionreportoutUuid","typeInfo":"String"},{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceInUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"attribute","name":"salesReturnUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"finance","propertyInfos":[{"type":"attribute","name":"expenseItemUuid","typeInfo":"String"},{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"paymentPurpose","typeInfo":"String"},{"type":"attribute","name":"vatSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"commissionReportOut","propertyInfos":[{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"commissionReportOutPositions","collection":true,"typeInfo":"moysklad.commissionReportOutPosition"}],"baseTypeInfo":"moysklad.commissionReport"},{"type":"classInfo","localName":"commissionReport","propertyInfos":[{"type":"attribute","name":"endCommissionPeriod","typeInfo":"DateTime"},{"type":"attribute","name":"rewardPercent","typeInfo":"Double"},{"type":"attribute","name":"rewardType","typeInfo":"String"},{"type":"attribute","name":"startCommissionPeriod","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"commissionReportOutPosition","propertyInfos":[],"baseTypeInfo":"moysklad.commissionReportPosition"},{"type":"classInfo","localName":"commissionReportPosition","propertyInfos":[{"type":"element","name":"reward","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"operationAttributeValue","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attributeValue"},{"type":"classInfo","localName":"operationDocument","propertyInfos":[{"type":"attribute","name":"operationUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.printedDocument"},{"type":"classInfo","localName":"retailShift","propertyInfos":[{"type":"attribute","name":"closeDate","typeInfo":"DateTime"}],"baseTypeInfo":"moysklad.operation"},{"type":"classInfo","localName":"retailStore","propertyInfos":[{"type":"attribute","name":"acquireUuid","typeInfo":"String"},{"type":"attribute","name":"acquireAccountUuid","typeInfo":"String"},{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"address","typeInfo":"String"},{"type":"attribute","name":"atolDeviceId","typeInfo":"String"},{"type":"attribute","name":"atolId","typeInfo":"Int"},{"type":"attribute","name":"controlCashierChoice","typeInfo":"Boolean"},{"type":"attribute","name":"controlShippingStock","typeInfo":"Boolean"},{"type":"attribute","name":"demandPrefix","typeInfo":"String"},{"type":"attribute","name":"enableDiscount","typeInfo":"Boolean"},{"type":"attribute","name":"maxDiscount","typeInfo":"Double"},{"type":"attribute","name":"myCompanyUuid","typeInfo":"String"},{"type":"attribute","name":"myCompanyAccountUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"warehouseUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"myCompany","propertyInfos":[],"baseTypeInfo":"moysklad.company"},{"type":"classInfo","localName":"factureIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"facture","propertyInfos":[],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"supply","propertyInfos":[{"type":"attribute","name":"factureInUuid","typeInfo":"String"},{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"invoicesInUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesInUuid","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentIn","collection":true,"typeInfo":"moysklad.shipmentIn"},{"type":"element","name":"purchaseReturnsUuid","elementName":"purchaseReturnRef","collection":true,"wrapperElementName":"purchaseReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingInOperation"},{"type":"classInfo","localName":"invoiceIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"attribute","name":"purchaseOrderUuid","typeInfo":"String"},{"type":"element","name":"financesOutUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"financesOutUuid","typeInfo":"String"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"invoice","propertyInfos":[{"type":"attribute","name":"paymentPlannedMoment","typeInfo":"DateTime"},{"type":"element","name":"invoicePosition","collection":true,"typeInfo":"moysklad.invoicePosition"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"purchaseOrder","propertyInfos":[{"type":"element","name":"customerOrdersUuid","elementName":"customerOrderRef","collection":true,"wrapperElementName":"customerOrdersUuid","typeInfo":"String"},{"type":"element","name":"internalOrders","elementName":"internalOrderRef","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"invoicesUuid","elementName":"invoiceInRef","collection":true,"wrapperElementName":"invoicesUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeOutRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"suppliesUuid","elementName":"supplyRef","collection":true,"wrapperElementName":"suppliesUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"order","propertyInfos":[{"type":"attribute","name":"deliveryPlannedMoment","typeInfo":"DateTime"},{"type":"attribute","name":"reservedSum","typeInfo":"Double"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"customerOrder","propertyInfos":[{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"customerOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"abstractDemand","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"element","name":"invoicesOutUuid","elementName":"invoiceOutRef","collection":true,"wrapperElementName":"invoicesOutUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"shipmentOut","collection":true,"typeInfo":"moysklad.shipmentOut"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"factureOut","propertyInfos":[{"type":"attribute","name":"paymentDate","typeInfo":"DateTime"},{"type":"attribute","name":"paymentNumber","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"extension","typeInfo":"moysklad.factureOutExtension"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"returnsUuid","elementName":"returnRef","collection":true,"wrapperElementName":"returnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.facture"},{"type":"classInfo","localName":"factureOutExtension","propertyInfos":[],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"operationExtension","propertyInfos":[{"type":"attribute","name":"consigneeUuid","typeInfo":"String"}]},{"type":"classInfo","localName":"financeIn","propertyInfos":[{"type":"attribute","name":"commissionReportUuid","typeInfo":"String"},{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"attribute","name":"factureOutUuid","typeInfo":"String"},{"type":"attribute","name":"invoiceOutUuid","typeInfo":"String"},{"type":"attribute","name":"purchaseReturnUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.finance"},{"type":"classInfo","localName":"commissionReportIn","propertyInfos":[{"type":"attribute","name":"incomingDate","typeInfo":"DateTime"},{"type":"attribute","name":"incomingNumber","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"commissionReportInPositions","collection":true,"typeInfo":"moysklad.commissionReportInPosition"}],"baseTypeInfo":"moysklad.commissionReport"},{"type":"classInfo","localName":"commissionReportInPosition","propertyInfos":[],"baseTypeInfo":"moysklad.commissionReportPosition"},{"type":"classInfo","localName":"invoiceOut","propertyInfos":[{"type":"attribute","name":"customerOrderUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"demandRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.invoice"},{"type":"classInfo","localName":"invoicePosition","propertyInfos":[],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"purchaseReturn","propertyInfos":[{"type":"attribute","name":"factureUuid","typeInfo":"String"},{"type":"attribute","name":"supplyUuid","typeInfo":"String"},{"type":"element","name":"paymentsUuid","elementName":"financeInRef","collection":true,"wrapperElementName":"paymentsUuid","typeInfo":"String"},{"type":"element","name":"purchaseReturnPosition","collection":true,"typeInfo":"moysklad.purchaseReturnPosition"}],"baseTypeInfo":"moysklad.comingOutOperation"},{"type":"classInfo","localName":"purchaseReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"abstractShipmentOut","propertyInfos":[],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"shipmentOut","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"}],"baseTypeInfo":"moysklad.abstractShipmentOut"},{"type":"classInfo","localName":"customerOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"orderPosition","propertyInfos":[{"type":"element","name":"reserve","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"internalOrder","propertyInfos":[{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.purchaseOrderPosition"},{"type":"element","name":"purchaseOrdersUuid","elementName":"purchaseOrderRef","collection":true,"wrapperElementName":"purchaseOrdersUuid","typeInfo":"String"},{"type":"element","name":"demandsUuid","elementName":"moveRef","collection":true,"wrapperElementName":"demandsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"purchaseOrderPosition","propertyInfos":[],"baseTypeInfo":"moysklad.orderPosition"},{"type":"classInfo","localName":"move","propertyInfos":[{"type":"attribute","name":"internalOrderUuid","typeInfo":"String"},{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"movePosition","collection":true,"typeInfo":"moysklad.movePosition"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"movePosition","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"},{"type":"attribute","name":"sourceSlotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"shipmentIn","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"comingIn","propertyInfos":[],"baseTypeInfo":"moysklad.stockMotion"},{"type":"classInfo","localName":"salesReturnPosition","propertyInfos":[],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"inventoryPosition","propertyInfos":[{"type":"attribute","name":"correctionAmount","typeInfo":"Double"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"enterPosition","propertyInfos":[{"type":"attribute","name":"overhead","typeInfo":"Double"},{"type":"element","name":"tags","elementName":"tag","collection":true,"wrapperElementName":"tags","typeInfo":"String"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"collectionContainer","propertyInfos":[{"type":"anyElement","name":"items","collection":true}]},{"type":"classInfo","localName":"exchangeContainer","propertyInfos":[{"type":"element","name":"commissionReportIn","collection":true,"wrapperElementName":"commissionReportIn","typeInfo":"moysklad.commissionReportIn"},{"type":"element","name":"commissionReportOut","collection":true,"wrapperElementName":"commissionReportOut","typeInfo":"moysklad.commissionReportOut"},{"type":"element","name":"workflow","collection":true,"wrapperElementName":"workflow","typeInfo":"moysklad.workflow"},{"type":"element","name":"customEntityMetadata","collection":true,"wrapperElementName":"customEntityMetadata","typeInfo":"moysklad.customEntityMetadata"},{"type":"element","name":"embeddedEntityMetadata","collection":true,"wrapperElementName":"embeddedEntityMetadata","typeInfo":"moysklad.embeddedEntityMetadata"},{"type":"element","name":"entityTemplatesMetadata","collection":true,"wrapperElementName":"entityTemplatesMetadata","typeInfo":"moysklad.entityTemplatesMetadata"},{"type":"element","name":"reportTemplatesMetadata","collection":true,"wrapperElementName":"reportTemplatesMetadata","typeInfo":"moysklad.reportTemplatesMetadata"},{"type":"element","name":"customEntity","collection":true,"wrapperElementName":"customEntity","typeInfo":"moysklad.customEntity"},{"type":"element","name":"currencies","elementName":"currency","collection":true,"wrapperElementName":"currencies","typeInfo":"moysklad.currency"},{"type":"element","name":"country","collection":true,"wrapperElementName":"country","typeInfo":"moysklad.country"},{"type":"element","name":"gtd","collection":true,"wrapperElementName":"gtd","typeInfo":"moysklad.gtd"},{"type":"element","name":"uoms","elementName":"uom","collection":true,"wrapperElementName":"uoms","typeInfo":"moysklad.uom"},{"type":"element","name":"myCompany","collection":true,"wrapperElementName":"myCompany","typeInfo":"moysklad.myCompany"},{"type":"element","name":"agents","elementName":"agent","collection":true,"wrapperElementName":"agents","typeInfo":"moysklad.agent"},{"type":"element","name":"companies","elementName":"company","collection":true,"wrapperElementName":"companies","typeInfo":"moysklad.company"},{"type":"element","name":"goodFolders","elementName":"goodFolder","collection":true,"wrapperElementName":"goodFolders","typeInfo":"moysklad.goodFolder"},{"type":"element","name":"goods","elementName":"good","collection":true,"wrapperElementName":"goods","typeInfo":"moysklad.good"},{"type":"element","name":"service","collection":true,"wrapperElementName":"service","typeInfo":"moysklad.service"},{"type":"element","name":"things","elementName":"thing","collection":true,"wrapperElementName":"things","typeInfo":"moysklad.thing"},{"type":"element","name":"employees","elementName":"employee","collection":true,"wrapperElementName":"employees","typeInfo":"moysklad.employee"},{"type":"element","name":"warehouses","elementName":"warehouse","collection":true,"wrapperElementName":"warehouses","typeInfo":"moysklad.warehouse"},{"type":"element","name":"project","collection":true,"wrapperElementName":"project","typeInfo":"moysklad.project"},{"type":"element","name":"contract","collection":true,"wrapperElementName":"contract","typeInfo":"moysklad.contract"},{"type":"element","name":"processingPlans","elementName":"processingPlan","collection":true,"wrapperElementName":"processingPlans","typeInfo":"moysklad.processingPlan"},{"type":"element","name":"features","elementName":"feature","collection":true,"wrapperElementName":"features","typeInfo":"moysklad.feature"},{"type":"element","name":"consignments","elementName":"consignment","collection":true,"wrapperElementName":"consignments","typeInfo":"moysklad.consignment"},{"type":"element","name":"priceLists","elementName":"priceList","collection":true,"wrapperElementName":"priceLists","typeInfo":"moysklad.priceList"},{"type":"element","name":"paymentIn","collection":true,"wrapperElementName":"paymentIn","typeInfo":"moysklad.paymentIn"},{"type":"element","name":"paymentOut","collection":true,"wrapperElementName":"paymentOut","typeInfo":"moysklad.paymentOut"},{"type":"element","name":"factureIn","collection":true,"wrapperElementName":"factureIn","typeInfo":"moysklad.factureIn"},{"type":"element","name":"factureOut","collection":true,"wrapperElementName":"factureOut","typeInfo":"moysklad.factureOut"},{"type":"element","name":"cashIn","collection":true,"wrapperElementName":"cashIn","typeInfo":"moysklad.cashIn"},{"type":"element","name":"cashOut","collection":true,"wrapperElementName":"cashOut","typeInfo":"moysklad.cashOut"},{"type":"element","name":"deliveries-demand","elementName":"demand","collection":true,"wrapperElementName":"deliveries-demand","typeInfo":"moysklad.demand"},{"type":"element","name":"deliveries-supply","elementName":"supply","collection":true,"wrapperElementName":"deliveries-supply","typeInfo":"moysklad.supply"},{"type":"element","name":"retailCashIn","collection":true,"wrapperElementName":"retailCashIn","typeInfo":"moysklad.retailCashIn"},{"type":"element","name":"retailCashOut","collection":true,"wrapperElementName":"retailCashOut","typeInfo":"moysklad.retailCashOut"},{"type":"element","name":"retailDemand","collection":true,"wrapperElementName":"retailDemand","typeInfo":"moysklad.retailDemand"},{"type":"element","name":"retailSalesReturn","collection":true,"wrapperElementName":"retailSalesReturn","typeInfo":"moysklad.retailSalesReturn"},{"type":"element","name":"inventories","elementName":"inventory","collection":true,"wrapperElementName":"inventories","typeInfo":"moysklad.inventory"},{"type":"element","name":"moves","elementName":"move","collection":true,"wrapperElementName":"moves","typeInfo":"moysklad.move"},{"type":"element","name":"losses","elementName":"loss","collection":true,"wrapperElementName":"losses","typeInfo":"moysklad.loss"},{"type":"element","name":"enters","elementName":"enter","collection":true,"wrapperElementName":"enters","typeInfo":"moysklad.enter"},{"type":"element","name":"invoicesIn","elementName":"invoiceIn","collection":true,"wrapperElementName":"invoicesIn","typeInfo":"moysklad.invoiceIn"},{"type":"element","name":"invoicesOut","elementName":"invoiceOut","collection":true,"wrapperElementName":"invoicesOut","typeInfo":"moysklad.invoiceOut"},{"type":"element","name":"salesReturns","elementName":"salesReturn","collection":true,"wrapperElementName":"salesReturns","typeInfo":"moysklad.salesReturn"},{"type":"element","name":"purchaseReturns","elementName":"purchaseReturn","collection":true,"wrapperElementName":"purchaseReturns","typeInfo":"moysklad.purchaseReturn"},{"type":"element","name":"processings","elementName":"processing","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"},{"type":"element","name":"customerOrders","elementName":"customerOrder","collection":true,"wrapperElementName":"customerOrders","typeInfo":"moysklad.customerOrder"},{"type":"element","name":"purchaseOrders","elementName":"purchaseOrder","collection":true,"wrapperElementName":"purchaseOrders","typeInfo":"moysklad.purchaseOrder"},{"type":"element","name":"internalOrders","elementName":"internalOrder","collection":true,"wrapperElementName":"internalOrders","typeInfo":"moysklad.internalOrder"},{"type":"element","name":"proccessingOrders","elementName":"processingOrder","collection":true,"wrapperElementName":"proccessingOrders","typeInfo":"moysklad.processingOrder"},{"type":"element","name":"amiroConnectors","elementName":"amiroConnectorSettings","collection":true,"wrapperElementName":"amiroConnectors","typeInfo":"moysklad.amiroConnectorSettings"},{"type":"element","name":"cmlConnectors","elementName":"cmlConnectorSettings","collection":true,"wrapperElementName":"cmlConnectors","typeInfo":"moysklad.cmlConnectorSettings"},{"type":"element","name":"ymlConnectors","elementName":"ymlConnectorSettings","collection":true,"wrapperElementName":"ymlConnectors","typeInfo":"moysklad.ymlConnectorSettings"}]},{"type":"classInfo","localName":"workflow","propertyInfos":[{"type":"element","name":"state","collection":true,"typeInfo":"moysklad.state"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"embeddedEntityMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.entityMetadata"},{"type":"classInfo","localName":"entityTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"templatesMetadata","propertyInfos":[{"type":"element","name":"template","collection":true,"typeInfo":"moysklad.template"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"template","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"reportTemplatesMetadata","propertyInfos":[],"baseTypeInfo":"moysklad.templatesMetadata"},{"type":"classInfo","localName":"good","propertyInfos":[{"type":"attribute","name":"isSerialTrackable","typeInfo":"Boolean"},{"type":"attribute","name":"soldByWeight","typeInfo":"Boolean"},{"type":"attribute","name":"minimumBalance","typeInfo":"Double"},{"type":"attribute","name":"weight","typeInfo":"Double"},{"type":"attribute","name":"volume","typeInfo":"Double"},{"type":"element","name":"pack","collection":true,"typeInfo":"moysklad.goodPack"},{"type":"element","name":"preferences","elementName":"preference","collection":true,"wrapperElementName":"preferences","typeInfo":"moysklad.goodSlotPreference"},{"type":"element","name":"images","elementName":"image","collection":true,"wrapperElementName":"images","typeInfo":"moysklad.goodImage"}],"baseTypeInfo":"moysklad.abstractGood"},{"type":"classInfo","localName":"goodSlotPreference","propertyInfos":[{"type":"attribute","name":"slotUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"goodImage","propertyInfos":[{"type":"attribute","name":"tinyUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.attachableDocument"},{"type":"classInfo","localName":"tinyImage","propertyInfos":[],"baseTypeInfo":"moysklad.document"},{"type":"classInfo","localName":"processingPlan","propertyInfos":[{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.material"},{"type":"element","name":"price","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"product","collection":true,"typeInfo":"moysklad.product"}],"baseTypeInfo":"moysklad.processingPlanFolder"},{"type":"classInfo","localName":"processingPlanFolder","propertyInfos":[{"type":"attribute","name":"parentUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.classifier"},{"type":"classInfo","localName":"material","propertyInfos":[{"type":"attribute","name":"isOptional","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"processingPlanItem","propertyInfos":[{"type":"attribute","name":"goodUuid","typeInfo":"String"},{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"product","propertyInfos":[],"baseTypeInfo":"moysklad.processingPlanItem"},{"type":"classInfo","localName":"priceList","propertyInfos":[{"type":"element","name":"metadata","typeInfo":"moysklad.priceListMetadata"},{"type":"element","name":"priceListRow","collection":true,"typeInfo":"moysklad.priceListRow"}],"baseTypeInfo":"moysklad.operationWithPositions"},{"type":"classInfo","localName":"priceListMetadata","propertyInfos":[{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"element","name":"column","collection":true,"typeInfo":"moysklad.priceListMetadataColumn"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListMetadataColumn","propertyInfos":[{"type":"attribute","name":"percentageDiscount","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"priceListRow","propertyInfos":[{"type":"element","name":"cell","collection":true,"typeInfo":"moysklad.priceListCell"}],"baseTypeInfo":"moysklad.motion"},{"type":"classInfo","localName":"priceListCell","propertyInfos":[{"type":"attribute","name":"columnName","typeInfo":"String"},{"type":"element","name":"sum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"paymentIn","propertyInfos":[],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"paymentOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"cashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"abstractCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.financeIn"},{"type":"classInfo","localName":"cashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"abstractCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.financeOut"},{"type":"classInfo","localName":"demand","propertyInfos":[{"type":"attribute","name":"overheadDistribution","typeInfo":"String"},{"type":"element","name":"extension","typeInfo":"moysklad.demandExtension"},{"type":"element","name":"overhead","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"salesReturnsUuid","elementName":"salesReturnRef","collection":true,"wrapperElementName":"salesReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"demandExtension","propertyInfos":[{"type":"attribute","name":"opened","typeInfo":"Boolean"},{"type":"attribute","name":"carrierUuid","typeInfo":"String"},{"type":"attribute","name":"loadName","typeInfo":"String"},{"type":"attribute","name":"consignorIndication","typeInfo":"String"},{"type":"attribute","name":"transportFacility","typeInfo":"String"},{"type":"attribute","name":"goodPackQuantity","typeInfo":"Int"},{"type":"attribute","name":"carNumber","typeInfo":"String"}],"baseTypeInfo":"moysklad.operationExtension"},{"type":"classInfo","localName":"salesReturn","propertyInfos":[{"type":"attribute","name":"demandUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"retailCashIn","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashIn"},{"type":"classInfo","localName":"retailCashOut","propertyInfos":[],"baseTypeInfo":"moysklad.abstractCashOut"},{"type":"classInfo","localName":"retailDemand","propertyInfos":[{"type":"attribute","name":"nonCash","typeInfo":"Boolean"},{"type":"element","name":"noCashSum","typeInfo":"moysklad.moneyAmount"},{"type":"element","name":"salesReturnsUuid","elementName":"salesReturnRef","collection":true,"wrapperElementName":"salesReturnsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.abstractDemand"},{"type":"classInfo","localName":"retailSalesReturn","propertyInfos":[{"type":"attribute","name":"demandUuid","typeInfo":"String"},{"type":"element","name":"noCashSum","typeInfo":"moysklad.moneyAmount"}],"baseTypeInfo":"moysklad.abstractSalesReturn"},{"type":"classInfo","localName":"processing","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"processingOrderUuid","typeInfo":"String"},{"type":"attribute","name":"processingSum","typeInfo":"Double"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"material","collection":true,"typeInfo":"moysklad.processingPositionMaterial"},{"type":"element","name":"results","elementName":"result","collection":true,"wrapperElementName":"results","typeInfo":"moysklad.processingPositionResult"}],"baseTypeInfo":"moysklad.stockOperation"},{"type":"classInfo","localName":"processingPositionMaterial","propertyInfos":[],"baseTypeInfo":"moysklad.comingOut"},{"type":"classInfo","localName":"processingOrder","propertyInfos":[{"type":"attribute","name":"planUuid","typeInfo":"String"},{"type":"attribute","name":"quantity","typeInfo":"Double"},{"type":"element","name":"purchaseOrderPosition","collection":true,"typeInfo":"moysklad.customerOrderPosition"},{"type":"element","name":"processings","elementName":"processingRef","collection":true,"wrapperElementName":"processings","typeInfo":"moysklad.processing"}],"baseTypeInfo":"moysklad.order"},{"type":"classInfo","localName":"processingPositionResult","propertyInfos":[{"type":"attribute","name":"costShare","typeInfo":"Double"}],"baseTypeInfo":"moysklad.comingIn"},{"type":"classInfo","localName":"amiroConnectorSettings","propertyInfos":[{"type":"attribute","name":"commentsColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerAddressColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerCodeColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerEmailColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerFirstNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerLastNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerNickColumnNum","typeInfo":"Int"},{"type":"attribute","name":"customerPhoneColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"goodNameColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderDateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"orderIdColumnNum","typeInfo":"Int"},{"type":"attribute","name":"prefixForAgent","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForGood","typeInfo":"Boolean"},{"type":"attribute","name":"prefixForOperation","typeInfo":"Boolean"},{"type":"attribute","name":"priceColumnNum","typeInfo":"Int"},{"type":"attribute","name":"quantityColumnNum","typeInfo":"Int"},{"type":"attribute","name":"shippingAmountColumnNum","typeInfo":"Int"},{"type":"attribute","name":"stateColumnNum","typeInfo":"Int"},{"type":"attribute","name":"taxColumnNum","typeInfo":"Int"},{"type":"element","name":"customAttribute","collection":true,"typeInfo":"moysklad.amiroCustomAttributeInfo"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"operationConnectorSetting","propertyInfos":[{"type":"attribute","name":"adminDomain","typeInfo":"String"},{"type":"attribute","name":"autoReserve","typeInfo":"Boolean"},{"type":"attribute","name":"orderplaceUuid","typeInfo":"String"},{"type":"attribute","name":"shopDomain","typeInfo":"String"},{"type":"attribute","name":"syncFeatures","typeInfo":"Boolean"},{"type":"attribute","name":"useShopOperationName","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"abstractConnectorSetting","propertyInfos":[{"type":"attribute","name":"active","typeInfo":"Boolean"},{"type":"attribute","name":"login","typeInfo":"String"},{"type":"attribute","name":"organizationUuid","typeInfo":"String"},{"type":"attribute","name":"password","typeInfo":"String"},{"type":"attribute","name":"pollPeriod","typeInfo":"Int"}],"baseTypeInfo":"moysklad.legendEntity"},{"type":"classInfo","localName":"amiroCustomAttributeInfo","propertyInfos":[{"type":"attribute","name":"columnNumber","typeInfo":"Int"},{"type":"attribute","name":"name","typeInfo":"String"},{"type":"attribute","name":"settingsUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"cmlConnectorSettings","propertyInfos":[{"type":"attribute","name":"features","typeInfo":"Boolean"},{"type":"attribute","name":"goodFolderUuid","typeInfo":"String"},{"type":"attribute","name":"priceTypeUuid","typeInfo":"String"},{"type":"attribute","name":"shopType","typeInfo":"String"},{"type":"attribute","name":"stockActive","typeInfo":"Boolean"},{"type":"attribute","name":"stockplaceUuid","typeInfo":"String"},{"type":"attribute","name":"stockPollPeriod","typeInfo":"Int"},{"type":"attribute","name":"syncOrderState","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.operationConnectorSetting"},{"type":"classInfo","localName":"ymlConnectorSettings","propertyInfos":[],"baseTypeInfo":"moysklad.abstractConnectorSetting"},{"type":"classInfo","localName":"cashier","propertyInfos":[{"type":"attribute","name":"createAndPrintRetailCashOut","typeInfo":"Boolean"},{"type":"attribute","name":"employeeUuid","typeInfo":"String"},{"type":"attribute","name":"printCheck","typeInfo":"Boolean"},{"type":"attribute","name":"printCheckFR","typeInfo":"Boolean"},{"type":"attribute","name":"retailStoreUuid","typeInfo":"String"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"agentDiscount","propertyInfos":[{"type":"attribute","name":"agentUuid","typeInfo":"String"},{"type":"attribute","name":"discountUuid","typeInfo":"String"},{"type":"element","name":"demandSumCorrection","typeInfo":"Double"},{"type":"element","name":"personalDiscount","typeInfo":"Double"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"discount","propertyInfos":[{"type":"attribute","name":"name","typeInfo":"String"},{"type":"attribute","name":"active","typeInfo":"Boolean"}],"baseTypeInfo":"moysklad.entity"},{"type":"classInfo","localName":"personalDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"accumulationDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"specialPriceDiscount","propertyInfos":[],"baseTypeInfo":"moysklad.discount"},{"type":"classInfo","localName":"group","propertyInfos":[{"type":"element","name":"uuid","typeInfo":"String"},{"type":"element","name":"accountUuid","typeInfo":"String"},{"type":"attribute","name":"name","typeInfo":"String"}]},{"type":"classInfo","localName":"collection","propertyInfos":[{"type":"attribute","name":"total","typeInfo":"Int"},{"type":"attribute","name":"start","typeInfo":"Int"},{"type":"attribute","name":"count","typeInfo":"Int"}],"baseTypeInfo":"moysklad.collectionContainer"},{"type":"classInfo","localName":"error","propertyInfos":[{"type":"element","name":"uid","typeInfo":"String"},{"type":"element","name":"moment","typeInfo":"String"},{"type":"element","name":"message","typeInfo":"String"},{"type":"element","name":"stack","typeInfo":"String"}]}]}
+},{}],7:[function(require,module,exports){
 module.exports = require('./dist/moysklad-model')
 
-},{"./dist/moysklad-model":5}],"gaBrea":[function(require,module,exports){
+},{"./dist/moysklad-model":6}],8:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],"gaBrea":[function(require,module,exports){
 (function (global){
 !function(a){if("object"==typeof exports)module.exports=a();else if("function"==typeof define&&define.amd)define(a);else{var b;"undefined"!=typeof window?b=window:"undefined"!=typeof global?b=global:"undefined"!=typeof self&&(b=self),b.stampit=a()}}(function(){return function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;if(!h&&i)return i(g,!0);if(f)return f(g,!0);throw new Error("Cannot find module '"+g+"'")}var j=c[g]={exports:{}};b[g][0].call(j.exports,function(a){var c=b[g][1][a];return e(c?c:a)},j,j.exports,a,b,c,d)}return c[g].exports}for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}({1:[function(a,b){function c(a,b){this[b]=a}var d=a("mout/object/forIn");b.exports=function(a){for(var b,e=0,f=arguments.length;++e<f;)b=arguments[e],null!=b&&d(b,c,a);return a}},{"mout/object/forIn":14}],2:[function(a,b){function c(a,b,c){if(null!=a)for(var d=-1,e=a.length;++d<e&&b.call(c,a[d],d,a)!==!1;);}b.exports=c},{}],3:[function(a,b){function c(a,b,c){b=d(b,c);var e=[];if(null==a)return e;for(var f=-1,g=a.length;++f<g;)e[f]=b(a[f],f,a);return e}var d=(a("./forEach"),a("../function/makeIterator_"));b.exports=c},{"../function/makeIterator_":4,"./forEach":2}],4:[function(a,b){function c(a,b){switch(typeof a){case"object":return null!=a?function(b){return e(b,a)}:a;case"string":case"number":return d(a);case"function":return"undefined"==typeof b?a:function(c,d,e){return a.call(b,c,d,e)};default:return a}}var d=a("./prop"),e=a("../object/deepMatches");b.exports=c},{"../object/deepMatches":13,"./prop":5}],5:[function(a,b){function c(a){return function(b){return b[a]}}b.exports=c},{}],6:[function(a,b){function c(a){switch(h(a)){case"Object":return d(a);case"Array":return g(a);case"RegExp":return e(a);case"Date":return f(a);default:return a}}function d(a){return i(a)?j({},a):a}function e(a){var b="";return b+=a.multiline?"m":"",b+=a.global?"g":"",b+=a.ignorecase?"i":"",new RegExp(a.source,b)}function f(a){return new Date(+a)}function g(a){return a.slice()}var h=a("./kindOf"),i=a("./isPlainObject"),j=a("../object/mixIn");b.exports=c},{"../object/mixIn":18,"./isPlainObject":11,"./kindOf":12}],7:[function(a,b){function c(a,b){switch(h(a)){case"Object":return d(a,b);case"Array":return e(a,b);default:return f(a)}}function d(a,b){if(i(a)){var d={};return g(a,function(a,d){this[d]=c(a,b)},d),d}return b?b(a):a}function e(a,b){for(var d=[],e=-1,f=a.length;++e<f;)d[e]=c(a[e],b);return d}var f=a("./clone"),g=a("../object/forOwn"),h=a("./kindOf"),i=a("./isPlainObject");b.exports=c},{"../object/forOwn":15,"./clone":6,"./isPlainObject":11,"./kindOf":12}],8:[function(a,b){var c=a("./isKind"),d=Array.isArray||function(a){return c(a,"Array")};b.exports=d},{"./isKind":9}],9:[function(a,b){function c(a,b){return d(a)===b}var d=a("./kindOf");b.exports=c},{"./kindOf":12}],10:[function(a,b){function c(a){return d(a,"Object")}var d=a("./isKind");b.exports=c},{"./isKind":9}],11:[function(a,b){function c(a){return!!a&&"object"==typeof a&&a.constructor===Object}b.exports=c},{}],12:[function(a,b){function c(a){return null===a?"Null":a===d?"Undefined":e.exec(f.call(a))[1]}var d,e=/^\[object (.*)\]$/,f=Object.prototype.toString;b.exports=c},{}],13:[function(a,b){function c(a,b){for(var c=-1,d=a.length;++c<d;)if(f(a[c],b))return!0;return!1}function d(a,b){for(var d=-1,e=b.length;++d<e;)if(!c(a,b[d]))return!1;return!0}function e(a,b){var c=!0;return g(b,function(b,d){return f(a[d],b)?void 0:c=!1}),c}function f(a,b){return a&&"object"==typeof a?h(a)&&h(b)?d(a,b):e(a,b):a===b}var g=a("./forOwn"),h=a("../lang/isArray");b.exports=f},{"../lang/isArray":8,"./forOwn":15}],14:[function(a,b){function c(){g=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],f=!0;for(var a in{toString:null})f=!1}function d(a,b,d){var h,i=0;null==f&&c();for(h in a)if(e(b,a,h,d)===!1)break;if(f)for(;(h=g[i++])&&(a[h]===Object.prototype[h]||e(b,a,h,d)!==!1););}function e(a,b,c,d){return a.call(d,b[c],c,b)}var f,g;b.exports=d},{}],15:[function(a,b){function c(a,b,c){e(a,function(e,f){return d(a,f)?b.call(c,a[f],f,a):void 0})}var d=a("./hasOwn"),e=a("./forIn");b.exports=c},{"./forIn":14,"./hasOwn":16}],16:[function(a,b){function c(a,b){return Object.prototype.hasOwnProperty.call(a,b)}b.exports=c},{}],17:[function(a,b){function c(){var a,b,g,h,i=1;for(h=e(arguments[0]);g=arguments[i++];)for(a in g)d(g,a)&&(b=g[a],h[a]=f(b)&&f(h[a])?c(h[a],b):e(b));return h}var d=a("./hasOwn"),e=a("../lang/deepClone"),f=a("../lang/isObject");b.exports=c},{"../lang/deepClone":7,"../lang/isObject":10,"./hasOwn":16}],18:[function(a,b){function c(a){for(var b,c=0,f=arguments.length;++c<f;)b=arguments[c],null!=b&&e(b,d,a);return a}function d(a,b){this[b]=a}var e=a("./forOwn");b.exports=c},{"./forOwn":15}],19:[function(a,b){"use strict";var c=a("mout/array/forEach"),d=a("mout/object/mixIn"),e=a("mout/object/merge"),f=a("mout/array/map"),g=a("mout/object/forOwn"),h=a("./mixinchain.js"),i=[].slice,j=function(a){function b(){}if(arguments.length>1)throw new Error("Object.create implementation only accepts the first parameter.");return b.prototype=a,new b};Array.isArray||(Array.isArray=function(a){return"[object Array]"===Object.prototype.toString.call(a)});var k=function(a){var b=[],d=[].slice.call(arguments);return"function"==typeof a?b=f(d,function(a){return"function"==typeof a?a:void 0}):"object"==typeof a?c(d,function(a){g(a,function(a){b.push(a)})}):Array.isArray(a)&&c(a,function(a){b.push(a)}),b},l=function(a,b,f){var g={methods:a||{},state:b,enclose:k(f)},l=function(a){var b=e({},g.state),f=d(j(g.methods||{}),b,a),h=g.enclose,k=i.call(arguments,1);return c(h,function(a){"function"==typeof a&&(f=a.apply(f,k)||f)}),f};return d(l,{create:l,fixed:g,methods:function(){var a=g.methods||{},b=[a].concat([].slice.call(arguments));return g.methods=h.apply(this,b),this},state:function(){var a=g.state||{},b=[a].concat([].slice.call(arguments));return g.state=d.apply(this,b),this},enclose:function(){return g.enclose=g.enclose.concat(k.apply(null,arguments)),this}})},m=function(){var a=[].slice.call(arguments),b=l();return c(a,function(a){a&&(a.fixed.methods&&(b.fixed.methods=h({},b.fixed.methods,a.fixed.methods)),a.fixed.state&&(b.fixed.state=d({},b.fixed.state,a.fixed.state)),a.fixed.enclose&&(b.fixed.enclose=b.fixed.enclose.concat(a.fixed.enclose)))}),l(b.fixed.methods,b.fixed.state,b.fixed.enclose)},n=function(a){return l().methods(a.prototype).enclose(a)};b.exports=d(l,{compose:m,extend:d,mixIn:d,convertConstructor:n})},{"./mixinchain.js":1,"mout/array/forEach":2,"mout/array/map":3,"mout/object/forOwn":15,"mout/object/merge":17,"mout/object/mixIn":18}]},{},[19])(19)});
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],"stampit":[function(require,module,exports){
 module.exports=require('gaBrea');
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
+module.exports = function isBuffer(arg) {
+  return arg && typeof arg === 'object'
+    && typeof arg.copy === 'function'
+    && typeof arg.fill === 'function'
+    && typeof arg.readUInt8 === 'function';
+}
+},{}],12:[function(require,module,exports){
+(function (process,global){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  // Allow for deprecating things in the process of starting up.
+  if (isUndefined(global.process)) {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  if (process.noDeprecation === true) {
+    return fn;
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnviron;
+exports.debuglog = function(set) {
+  if (isUndefined(debugEnviron))
+    debugEnviron = process.env.NODE_DEBUG || '';
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').substr(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.substr(1, name.length - 2);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = require('./support/isBuffer');
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = require('inherits');
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+}).call(this,require("g5I+bs"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./support/isBuffer":11,"g5I+bs":8,"inherits":1}],13:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -161,14 +848,13 @@ module.exports={
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
     "moysklad-model": "~0.3.0",
-    "request": "^2.37.0",
     "stampit": "~0.7.1",
     "tracer": "~0.6.1",
     "xmldom": "~0.1.17"
   }
 }
 
-},{}],10:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * auth
  * Date: 23.03.14
@@ -255,7 +941,7 @@ var AuthProvider = function (provider) {
 };
 
 module.exports = AuthProvider;
-},{"./tools":94,"project/default-auth":"rUG5Il","project/logger":"37nxtW"}],11:[function(require,module,exports){
+},{"./tools":98,"project/default-auth":"rUG5Il","project/logger":"37nxtW"}],15:[function(require,module,exports){
 /**
  * Client
  * Date: 25.03.14
@@ -323,7 +1009,7 @@ var Client = stampit()
 
 module.exports = Client;
 
-},{"./../../authProviderBehavior":10,"./../../providerAccessorBehavior":92,"./../rest-clients/ms-xml/query":48,"./../rest-clients/ms-xml/query/operators":58,"./lazy-loader":21,"./methods/chain":24,"./methods/del":25,"./methods/first":26,"./methods/from":27,"./methods/json-service":28,"./methods/load":29,"./methods/save":30,"./methods/total":31,"lodash":"EBUqFC","stampit":"gaBrea"}],12:[function(require,module,exports){
+},{"./../../authProviderBehavior":14,"./../../providerAccessorBehavior":96,"./../rest-clients/ms-xml/query":52,"./../rest-clients/ms-xml/query/operators":62,"./lazy-loader":25,"./methods/chain":28,"./methods/del":29,"./methods/first":30,"./methods/from":31,"./methods/json-service":32,"./methods/load":33,"./methods/save":34,"./methods/total":35,"lodash":"EBUqFC","stampit":"gaBrea"}],16:[function(require,module,exports){
 /**
  * batch
  * Date: 13.05.2014
@@ -384,7 +1070,7 @@ function batch () {
 }
 
 module.exports = batch;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],13:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],17:[function(require,module,exports){
 
 
 module.exports = {
@@ -398,7 +1084,7 @@ module.exports = {
     payments:   require('./payments')
 
 };
-},{"./payments":14,"./slot":15,"./state":16}],14:[function(require,module,exports){
+},{"./payments":18,"./slot":19,"./state":20}],18:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -416,7 +1102,7 @@ function fetchPayments(type, uuids, containerEntity) {
 }
 
 module.exports = fetchPayments;
-},{"lodash":"EBUqFC"}],15:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],19:[function(require,module,exports){
 /**
  * slot
  * Date: 29.04.14
@@ -458,7 +1144,7 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchSlots;
-},{"lodash":"EBUqFC"}],16:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],20:[function(require,module,exports){
 /**
  * state
  * Date: 14.06.14
@@ -499,7 +1185,7 @@ function fetchState(type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = fetchState;
-},{"lodash":"EBUqFC","project/tools":86}],17:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":90}],21:[function(require,module,exports){
 /**
  * defProperty
  * Date: 29.04.14
@@ -544,7 +1230,7 @@ function defProperty (entity, propertyName, uuids, path, batches, containerEntit
 }
 
 module.exports = defProperty;
-},{"lodash":"EBUqFC"}],18:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],22:[function(require,module,exports){
 /**
  * entityHash
  * Date: 13.05.2014
@@ -608,7 +1294,7 @@ function entityHash () {
 }
 
 module.exports = entityHash;
-},{"lodash":"EBUqFC","stampit":"gaBrea"}],19:[function(require,module,exports){
+},{"lodash":"EBUqFC","stampit":"gaBrea"}],23:[function(require,module,exports){
 /**
  * getEntities
  * Date: 29.04.14
@@ -668,7 +1354,7 @@ function getEntities (type, uuids, path, batchName, batches, containerEntity) {
 }
 
 module.exports = getEntities;
-},{"./customFetch":13,"lodash":"EBUqFC"}],20:[function(require,module,exports){
+},{"./customFetch":17,"lodash":"EBUqFC"}],24:[function(require,module,exports){
 /**
  * getTypeOfProperty
  * Date: 29.04.14
@@ -690,7 +1376,7 @@ function getTypeOfProperty(propertyName, entity) {
 }
 
 module.exports = getTypeOfProperty;
-},{"./nameToTypeMap":23}],21:[function(require,module,exports){
+},{"./nameToTypeMap":27}],25:[function(require,module,exports){
 /**
  * LazyLoader
  * Date: 15.04.14
@@ -757,7 +1443,7 @@ var createLazyLoader = function () {
 };
 
 module.exports = createLazyLoader;
-},{"./batch":12,"./defProperty":17,"./entityHash":18,"./getEntities":19,"./getTypeOfProperty":20,"./mapLazyLoader":22,"lodash":"EBUqFC","stampit":"gaBrea"}],22:[function(require,module,exports){
+},{"./batch":16,"./defProperty":21,"./entityHash":22,"./getEntities":23,"./getTypeOfProperty":24,"./mapLazyLoader":26,"lodash":"EBUqFC","stampit":"gaBrea"}],26:[function(require,module,exports){
 /**
  * mapLazyLoader
  * Date: 29.04.14
@@ -873,7 +1559,7 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":86}],23:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/tools":90}],27:[function(require,module,exports){
 module.exports={
     "moysklad.customerOrder": {
         "sourceAgent": "company",
@@ -895,7 +1581,7 @@ module.exports={
     "invoicesOut": "invoice",
     "supplier": "company"
 }
-},{}],24:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /**
  * chain
  * Date: 25.06.14
@@ -910,7 +1596,7 @@ var chain = function () {
 };
 
 module.exports = chain;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],25:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],29:[function(require,module,exports){
 /**
  * del
  * Date: 10.02.15
@@ -950,7 +1636,7 @@ var del = function () {
 };
 
 module.exports = del;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],26:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],30:[function(require,module,exports){
 /**
  * first
  * Date: 14.04.14
@@ -1014,7 +1700,7 @@ var first = function (type, query, callback) {
 };
 
 module.exports = first;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],27:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],31:[function(require,module,exports){
 /**
  * from
  * Date: 23.03.14
@@ -1058,7 +1744,7 @@ var from = function (type) {
 };
 
 module.exports = from;
-},{"./../../rest-clients/ms-xml/query/index":48,"lodash":"EBUqFC"}],28:[function(require,module,exports){
+},{"./../../rest-clients/ms-xml/query/index":52,"lodash":"EBUqFC"}],32:[function(require,module,exports){
 /**
  * json-service
  * Date: 24.06.14
@@ -1102,7 +1788,7 @@ var callService = function (serviceName) {
 });
 
 
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],29:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],33:[function(require,module,exports){
 /**
  * load
  * Date: 24.03.14
@@ -1201,7 +1887,7 @@ var load = function (type, query) {
 };
 
 module.exports = load;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],30:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],34:[function(require,module,exports){
 /**
  * save
  * Date: 15.04.14
@@ -1241,7 +1927,7 @@ var save = function () {
 };
 
 module.exports = save;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],31:[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],35:[function(require,module,exports){
 /**
  * total
  * Date: 14.04.14
@@ -1300,7 +1986,7 @@ var total = function (type, query, callback) {
 };
 
 module.exports = total;
-},{"../../../tools/index":94,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
+},{"../../../tools/index":98,"lodash":"EBUqFC"}],"moysklad-client":[function(require,module,exports){
 module.exports=require('1wiUUs');
 },{}],"1wiUUs":[function(require,module,exports){
 /**
@@ -1328,11 +2014,11 @@ module.exports = {
     logger: require('project/logger'),
     version: pkg.version
 };
-},{"../../package":9,"./client":11,"./rest-clients/ms-xml/query":48,"project/logger":"37nxtW","project/tools":86}],34:[function(require,module,exports){
+},{"../../package":13,"./client":15,"./rest-clients/ms-xml/query":52,"project/logger":"37nxtW","project/tools":90}],38:[function(require,module,exports){
 module.exports={
     "baseUrl": "https://online.moysklad.ru/exchange"
 }
-},{}],35:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /**
  * stock
  * Date: 19.04.14
@@ -1369,7 +2055,7 @@ var stockJsonClient = stampit()
 module.exports = stockJsonClient;
 
 //TODO Написать необходимые Enum'ы
-},{"./../../../authProviderBehavior":10,"./methods/fetch":36,"./methods/mutualSettlement":37,"./methods/slot":38,"./methods/stock":40,"./methods/stock-for-good":39,"stampit":"gaBrea"}],36:[function(require,module,exports){
+},{"./../../../authProviderBehavior":14,"./methods/fetch":40,"./methods/mutualSettlement":41,"./methods/slot":42,"./methods/stock":44,"./methods/stock-for-good":43,"stampit":"gaBrea"}],40:[function(require,module,exports){
 /**
  * fetch
  * Date: 19.04.14
@@ -1423,7 +2109,7 @@ module.exports = function fetch (options, callback) {
     });
 };
 
-},{"./../../client-properties":34,"./../providerResponseHandler":41,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"Q962xy"}],37:[function(require,module,exports){
+},{"./../../client-properties":38,"./../providerResponseHandler":45,"lodash":"EBUqFC","moment":"2V8r5n","project/fetch":"Q962xy"}],41:[function(require,module,exports){
 /**
  * mutualSettlement
  * Date: 24.03.14
@@ -1479,7 +2165,7 @@ module.exports = {
     list    : list,
     customer: customer
 };
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],38:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],42:[function(require,module,exports){
 /**
  * slot
  * Date: 24.03.14
@@ -1516,7 +2202,7 @@ var slot = function (options, callback) {
 };
 
 module.exports = slot;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],39:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],43:[function(require,module,exports){
 /**
  * stockForGood
  * Date: 24.03.14
@@ -1537,7 +2223,7 @@ var stockForGood = function (options, callback) {
 };
 
 module.exports = stockForGood;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],40:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],44:[function(require,module,exports){
 /**
  * stock
  * Date: 24.03.14
@@ -1558,7 +2244,7 @@ var stock = function (options, callback) {
 };
 
 module.exports = stock;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],41:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],45:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1611,7 +2297,7 @@ var providerResponseHandler = function (err, result, callback) {
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":94,"lodash":"EBUqFC","project/logger":"37nxtW"}],42:[function(require,module,exports){
+},{"../../../tools":98,"lodash":"EBUqFC","project/logger":"37nxtW"}],46:[function(require,module,exports){
 /**
  * index
  * Date: 24.03.14
@@ -1648,7 +2334,7 @@ var msXmlClient = stampit()
     });
 
 module.exports = msXmlClient;
-},{"./../../../authProviderBehavior":10,"./methods/del":43,"./methods/fetch":44,"./methods/get":45,"./methods/put":46,"stampit":"gaBrea"}],43:[function(require,module,exports){
+},{"./../../../authProviderBehavior":14,"./methods/del":47,"./methods/fetch":48,"./methods/get":49,"./methods/put":50,"stampit":"gaBrea"}],47:[function(require,module,exports){
 /**
  * del
  * Date: 24.03.14
@@ -1693,7 +2379,7 @@ module.exports = function (type, data, callback) {
 
     this.fetch(_fetchOptions, callback);
 }
-},{"lodash":"EBUqFC"}],44:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],48:[function(require,module,exports){
 /**
  * fetch
  * Date: 27.03.14
@@ -1734,7 +2420,7 @@ module.exports = function fetch (options, callback) {
     });
 };
 
-},{"./../../client-properties":34,"./../providerResponseHandler":47,"lodash":"EBUqFC","project/fetch":"Q962xy","project/marshaller":72}],45:[function(require,module,exports){
+},{"./../../client-properties":38,"./../providerResponseHandler":51,"lodash":"EBUqFC","project/fetch":"Q962xy","project/marshaller":76}],49:[function(require,module,exports){
 /**
  * get
  * Date: 24.03.14
@@ -1763,7 +2449,7 @@ module.exports = function (type, params, callback) {
 
     this.fetch({ method: 'GET', path: _path }, callback);
 };
-},{"lodash":"EBUqFC"}],46:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],50:[function(require,module,exports){
 /**
  * put
  * Date: 24.03.14
@@ -1848,7 +2534,7 @@ var put = function () {
 };
 
 module.exports = put;
-},{"lodash":"EBUqFC"}],47:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],51:[function(require,module,exports){
 /**
  * providerResponseHandler
  * Date: 23.03.14
@@ -1922,7 +2608,7 @@ var _log            = require('project/logger'),
 };
 
 module.exports = providerResponseHandler;
-},{"../../../tools":94,"lodash":"EBUqFC","project/logger":"37nxtW","project/unmarshaller":89}],48:[function(require,module,exports){
+},{"../../../tools":98,"lodash":"EBUqFC","project/logger":"37nxtW","project/unmarshaller":93}],52:[function(require,module,exports){
 /**
  * index
  * Date: 22.03.14
@@ -1941,7 +2627,7 @@ module.exports = {
 };
 
 
-},{"./query":60}],49:[function(require,module,exports){
+},{"./query":64}],53:[function(require,module,exports){
 /**
  * fileContent
  * Date: 22.03.14
@@ -1961,7 +2647,7 @@ var fileContent = function () {
 };
 
 module.exports = fileContent;
-},{"../../../../../tools/index":94}],50:[function(require,module,exports){
+},{"../../../../../tools/index":98}],54:[function(require,module,exports){
 /**
  * Created by mvv on 17.05.14.
  */
@@ -1975,7 +2661,7 @@ var filter = function (key, value) {
 };
 
 module.exports = filter;
-},{}],51:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 /**
  * getQueryParameters
  * Date: 22.03.14
@@ -2105,7 +2791,7 @@ var getQueryParameters = function (filterLimit) {
 };
 
 module.exports = getQueryParameters;
-},{"../../../../../tools/index":94,"../operators":58,"lodash":"EBUqFC","moment":"2V8r5n"}],52:[function(require,module,exports){
+},{"../../../../../tools/index":98,"../operators":62,"lodash":"EBUqFC","moment":"2V8r5n"}],56:[function(require,module,exports){
 /**
  * count
  * Date: 22.03.14
@@ -2141,7 +2827,7 @@ module.exports = {
 
 };
 
-},{"../../../../../tools/index":94}],53:[function(require,module,exports){
+},{"../../../../../tools/index":98}],57:[function(require,module,exports){
 /**
  * select
  * Date: 21.03.14
@@ -2173,7 +2859,7 @@ module.exports = function () {
 
     throw new TypeError('filter: incorrect parameter');
 };
-},{"../../../../../tools/index":94}],54:[function(require,module,exports){
+},{"../../../../../tools/index":98}],58:[function(require,module,exports){
 /**
  * showArchived
  * Date: 22.03.14
@@ -2197,7 +2883,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":94}],55:[function(require,module,exports){
+},{"../../../../../tools/index":98}],59:[function(require,module,exports){
 /**
  * sort
  * Date: 22.03.14
@@ -2227,7 +2913,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":94}],56:[function(require,module,exports){
+},{"../../../../../tools/index":98}],60:[function(require,module,exports){
 /**
  * sortMode
  * Date: 22.03.14
@@ -2251,7 +2937,7 @@ module.exports = function () {
     return this;
 };
 
-},{"../../../../../tools/index":94}],57:[function(require,module,exports){
+},{"../../../../../tools/index":98}],61:[function(require,module,exports){
 /**
  * uuids
  * Date: 17.06.14
@@ -2275,7 +2961,7 @@ var uuids = function (uuids) {
 };
 
 module.exports = uuids;
-},{}],58:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 /**
  * operators
  * Date: 17.04.14
@@ -2381,7 +3067,7 @@ operators.$lt   = operators.lessThan;
 operators.$lte  = operators.lessThanOrEqualTo;
 
 module.exports = operators;
-},{"lodash":"EBUqFC","moment":"2V8r5n"}],59:[function(require,module,exports){
+},{"lodash":"EBUqFC","moment":"2V8r5n"}],63:[function(require,module,exports){
 /**
  * query.filter
  * Date: 22.03.14
@@ -2421,7 +3107,7 @@ module.exports = function () {
 
     if (arguments[0]) this.appendFilter(arguments[0]);
 };
-},{"../../../../tools/index":94,"lodash":"EBUqFC"}],60:[function(require,module,exports){
+},{"../../../../tools/index":98,"lodash":"EBUqFC"}],64:[function(require,module,exports){
 /**
  * Query
  * Date: 21.03.14
@@ -2459,7 +3145,7 @@ var Query = stampit()
 
 
 module.exports = Query;
-},{"./methods/fileContent":49,"./methods/filter":50,"./methods/getQueryParameters":51,"./methods/paging":52,"./methods/select":53,"./methods/showArchived":54,"./methods/sort":55,"./methods/sortMode":56,"./methods/uuids":57,"./query.filter.js":59,"./query.params.js":61,"stampit":"gaBrea"}],61:[function(require,module,exports){
+},{"./methods/fileContent":53,"./methods/filter":54,"./methods/getQueryParameters":55,"./methods/paging":56,"./methods/select":57,"./methods/showArchived":58,"./methods/sort":59,"./methods/sortMode":60,"./methods/uuids":61,"./query.filter.js":63,"./query.params.js":65,"stampit":"gaBrea"}],65:[function(require,module,exports){
 /**
  * query.params
  * Date: 22.03.14
@@ -2500,7 +3186,7 @@ module.exports = function () {
         });
     }
 };
-},{"../../../../tools":94,"lodash":"EBUqFC"}],"project/default-auth":[function(require,module,exports){
+},{"../../../../tools":98,"lodash":"EBUqFC"}],"project/default-auth":[function(require,module,exports){
 module.exports=require('rUG5Il');
 },{}],"rUG5Il":[function(require,module,exports){
 /**
@@ -2612,11 +3298,11 @@ var fetch = {
 
 module.exports = fetch;
 
-},{"./../../../tools/callbackAdapter":93,"./queue":66,"lodash":"EBUqFC","project/logger":"37nxtW"}],"project/fetch":[function(require,module,exports){
+},{"./../../../tools/callbackAdapter":97,"./queue":70,"lodash":"EBUqFC","project/logger":"37nxtW"}],"project/fetch":[function(require,module,exports){
 module.exports=require('Q962xy');
-},{}],66:[function(require,module,exports){
+},{}],70:[function(require,module,exports){
 var sleep = require('project/sleep');
-// var util = require('util');
+var util = require('util');
 
 // TODO: В асинхронном режиме, временем запроса может быть время получения первого пакета
 // TODO: Узнать более точную информацию в ТП
@@ -2680,7 +3366,7 @@ Queue.prototype._processQueueTask = function () {
             that._tasksInProgress--;
             that._timeline.push(new Date());
             if (task.cb) {
-                that._processQueueTask();
+                if (that.async) { that._processQueueTask(); }
                 task.cb.apply(null, arguments);
             } else {
                 if (err) {
@@ -2698,7 +3384,7 @@ module.exports = Queue;
 
 
 
-},{"project/sleep":"ODkJit"}],67:[function(require,module,exports){
+},{"project/sleep":"ODkJit","util":12}],71:[function(require,module,exports){
 /**
  * Context
  * Date: 28.03.14
@@ -2713,7 +3399,7 @@ module.exports = {
         return new Jsonix.Context([map]);
     }
 };
-},{"project/jsonix":68,"project/mapping":71}],68:[function(require,module,exports){
+},{"project/jsonix":72,"project/mapping":75}],72:[function(require,module,exports){
 /**
  * Jsonix (node.js context)
  * Date: 13.01.14
@@ -2722,7 +3408,7 @@ module.exports = {
 
 
 module.exports = require('../../../../vendor/jsonix');
-},{"../../../../vendor/jsonix":95}],"project/logger":[function(require,module,exports){
+},{"../../../../vendor/jsonix":99}],"project/logger":[function(require,module,exports){
 module.exports=require('37nxtW');
 },{}],"37nxtW":[function(require,module,exports){
 /**
@@ -2752,7 +3438,7 @@ module.exports = {
         }
     }
 };
-},{}],71:[function(require,module,exports){
+},{}],75:[function(require,module,exports){
 /**
  * object mapping data factory
  * Date: 14.04.14
@@ -2764,7 +3450,7 @@ module.exports = {
 
 module.exports = require('moysklad-model');
 
-},{"moysklad-model":6}],72:[function(require,module,exports){
+},{"moysklad-model":7}],76:[function(require,module,exports){
 /**
  * marshaller factory
  * Date: 14.04.14
@@ -2779,16 +3465,13 @@ module.exports = {
         return context.createMarshaller();   // JSON to XML
     }
 };
-},{"project/jsonix/context":67}],"project/sleep":[function(require,module,exports){
+},{"project/jsonix/context":71}],"project/sleep":[function(require,module,exports){
 module.exports=require('ODkJit');
 },{}],"ODkJit":[function(require,module,exports){
 module.exports = function sleep (ms, async, cb) {
     if (async) {
         setTimeout(cb, ms);
     } else {
-        if (ms > 5000) {
-            return cb(new Error('Sleep time must be less then 5000 ms'));
-        }
         var startTime = new Date();
         while (true) {
             if (new Date() - startTime > ms) { break }
@@ -2797,7 +3480,7 @@ module.exports = function sleep (ms, async, cb) {
     }
 };
 
-},{}],75:[function(require,module,exports){
+},{}],79:[function(require,module,exports){
 /**
  * clone
  * Date: 15.06.14
@@ -2852,7 +3535,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
-},{"lodash":"EBUqFC"}],76:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],80:[function(require,module,exports){
 /**
  * createAttrValue
  * Date: 17.06.14
@@ -2987,7 +3670,7 @@ var createAttrValue = function () {
 };
 
 module.exports = createAttrValue;
-},{"lodash":"EBUqFC"}],77:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],81:[function(require,module,exports){
 /**
  * description
  * Date: 16.06.14
@@ -3035,7 +3718,7 @@ function description (entity) {
 }
 
 module.exports = description;
-},{}],78:[function(require,module,exports){
+},{}],82:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 20.04.14
@@ -3074,7 +3757,7 @@ var getAttr = function (entity, metadataUuid) {
 };
 
 module.exports = getAttr;
-},{"lodash":"EBUqFC"}],79:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],83:[function(require,module,exports){
 /**
  * getAttribute
  * Date: 01.06.14
@@ -3127,7 +3810,7 @@ var getAttrValue = function (entity, metadataUuid) {
 };
 
 module.exports = getAttrValue;
-},{"./getType":84,"lodash":"EBUqFC"}],80:[function(require,module,exports){
+},{"./getType":88,"lodash":"EBUqFC"}],84:[function(require,module,exports){
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
@@ -3159,7 +3842,7 @@ var getPositions = function (entity) {
 };
 
 module.exports = getPositions;
-},{"./instanceOf":87,"lodash":"EBUqFC"}],81:[function(require,module,exports){
+},{"./instanceOf":91,"lodash":"EBUqFC"}],85:[function(require,module,exports){
 /**
  * getPrice
  * Date: 20.04.14
@@ -3196,7 +3879,7 @@ var getPrice = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPrice;
-},{"lodash":"EBUqFC"}],82:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],86:[function(require,module,exports){
 /**
  * getPriceValue
  * Date: 01.06.14
@@ -3220,7 +3903,7 @@ var getPriceValue = function (entity, priceTypeUuid) {
 };
 
 module.exports = getPriceValue;
-},{"lodash":"EBUqFC"}],83:[function(require,module,exports){
+},{"lodash":"EBUqFC"}],87:[function(require,module,exports){
 /**
  * getProperty
  * Date: 26.06.14
@@ -3244,7 +3927,7 @@ var getProperty = function (entity, propertyName, defaultValue) {
 
 
 module.exports = getProperty;
-},{}],84:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 /**
  * getType
  * Date: 14.06.14
@@ -3273,7 +3956,7 @@ var getType = function(typeName) {
 };
 
 module.exports = getType;
-},{"lodash":"EBUqFC","project/mapping":71}],85:[function(require,module,exports){
+},{"lodash":"EBUqFC","project/mapping":75}],89:[function(require,module,exports){
 /**
  * getTypeName
  * Date: 14.06.14
@@ -3303,7 +3986,7 @@ var getUriTypeName = function (obj) {
 };
 
 module.exports = getUriTypeName;
-},{}],86:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 /**
  * index
  * Date: 14.06.14
@@ -3338,7 +4021,7 @@ module.exports = {
     //:              require('./'),
 };
 
-},{"./../../../../vendor/moneytostr":96,"./clone":75,"./createAttrValue":76,"./description":77,"./getAttr":78,"./getAttrValue":79,"./getPositions":80,"./getPrice":81,"./getPriceValue":82,"./getProperty":83,"./getType":84,"./getUriTypeName":85,"./instanceOf":87,"./reserve":88}],87:[function(require,module,exports){
+},{"./../../../../vendor/moneytostr":100,"./clone":79,"./createAttrValue":80,"./description":81,"./getAttr":82,"./getAttrValue":83,"./getPositions":84,"./getPrice":85,"./getPriceValue":86,"./getProperty":87,"./getType":88,"./getUriTypeName":89,"./instanceOf":91,"./reserve":92}],91:[function(require,module,exports){
 /**
  * instanceOf
  * Date: 29.04.14
@@ -3380,7 +4063,7 @@ var instanceOf = function (entity, typeName) {
 };
 
 module.exports = instanceOf;
-},{"./getType":84,"lodash":"EBUqFC"}],88:[function(require,module,exports){
+},{"./getType":88,"lodash":"EBUqFC"}],92:[function(require,module,exports){
 /**
  * reserve
  * Date: 16.06.14
@@ -3404,7 +4087,7 @@ var reserve = function (order) {
 };
 
 module.exports = reserve;
-},{"./getPositions":80,"./instanceOf":87,"lodash":"EBUqFC"}],89:[function(require,module,exports){
+},{"./getPositions":84,"./instanceOf":91,"lodash":"EBUqFC"}],93:[function(require,module,exports){
 /**
  * unmarshaller factory
  * Date: 14.04.14
@@ -3417,7 +4100,7 @@ module.exports = {
         return context.createUnmarshaller();   // XML to JSON
     }
 };
-},{"project/jsonix/context":67}],"xmldom":[function(require,module,exports){
+},{"project/jsonix/context":71}],"xmldom":[function(require,module,exports){
 module.exports=require('JFUvMs');
 },{}],"JFUvMs":[function(require,module,exports){
 /**
@@ -3438,7 +4121,7 @@ module.exports = {
 
     XMLSerializer: XMLSerializer
 };
-},{}],92:[function(require,module,exports){
+},{}],96:[function(require,module,exports){
 /**
  * providerAccessor
  * Date: 03.04.14
@@ -3486,7 +4169,7 @@ var ProviderAccessor = function () {
 
 module.exports = ProviderAccessor;
 
-},{"./moysklad-client/rest-clients/json":35,"./moysklad-client/rest-clients/ms-xml":42}],93:[function(require,module,exports){
+},{"./moysklad-client/rest-clients/json":39,"./moysklad-client/rest-clients/ms-xml":46}],97:[function(require,module,exports){
 /**
  * callbackAdapter
  * Date: 03.04.14
@@ -3507,7 +4190,7 @@ var callbackAdapter = function (err, data, callback) {
 
 module.exports = callbackAdapter;
 
-},{}],94:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 /**
  * Common Tools
  * Date: 11.01.14
@@ -3766,7 +4449,7 @@ exports.Ensure = {
         }
     }
 };
-},{"./callbackAdapter":93,"lodash":"EBUqFC"}],95:[function(require,module,exports){
+},{"./callbackAdapter":97,"lodash":"EBUqFC"}],99:[function(require,module,exports){
 /*
  * Jsonix is a JavaScript library which allows you to convert between XML
  * and JavaScript object structures.
@@ -8608,7 +9291,7 @@ Jsonix.Context.Unmarshaller = Jsonix.Class({
 	CLASS_NAME : 'Jsonix.Context.Unmarshaller'
 });
 
-},{"xmldom":"JFUvMs"}],96:[function(require,module,exports){
+},{"xmldom":"JFUvMs"}],100:[function(require,module,exports){
 /*
  * Copyright 2013 Valentyn Kolesnikov
  *
