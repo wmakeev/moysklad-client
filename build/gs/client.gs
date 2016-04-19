@@ -1,4 +1,4 @@
-// moysklad-client 0.2.10 (bundle length 121156)
+// moysklad-client 0.2.11 (bundle length 123415)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -694,7 +694,7 @@ function hasOwnProperty(obj, prop) {
 },{"./support/isBuffer":3,"g5I+bs":2,"inherits":1}],5:[function(require,module,exports){
 module.exports={
   "name": "moysklad-client",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "author": {
     "name": "Vitaliy Makeev",
     "email": "w.makeev@gmail.com",
@@ -958,34 +958,52 @@ module.exports = batch;
 
 
 module.exports = {
-    
+
     slot:       require('./slot'),
 
     state:      require('./state'),
-    
+
     sourceSlot: require('./slot'),
-    
+
     payments:   require('./payments')
 
+    // metadata:   require('./metadata'),
+
+    // entityMetadata: require('./entityMetadata'),
+
+    // dictionaryMetadata: require('./dictionaryMetadata')
 };
+
 },{"./payments":10,"./slot":11,"./state":12}],10:[function(require,module,exports){
 /**
- * slot
- * Date: 29.04.14
+ * payments
+ * Date: 02.04.16
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
 var _ = require('lodash');
 
-function fetchPayments(type, uuids, containerEntity) {
+function fetchPayments(type, uuids, path, batchName, batches, containerEntity) {
+    if (!uuids && !uuids.length) return [];
+
     var client = this.client;
+    var that = this;
 
-    // ...
-    throw new Error('fetchPayments not implemented')
+    var payments = [];
+    payments.push(client.from('paymentOut').uuids(uuids).load());
+    payments.push(client.from('paymentIn').uuids(uuids).load());
 
+    _.forEach(payments, function (payment) {
+        that.entityHash.add(
+            that.mapLazyLoader(payment, path, batches, entityItem)
+        );
+    });
+
+    return that.entityHash.get(uuids)
 }
 
 module.exports = fetchPayments;
+
 },{"lodash":"EBUqFC"}],11:[function(require,module,exports){
 /**
  * slot
@@ -998,23 +1016,23 @@ var _ = require('lodash');
 function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
     var client = this.client,
         that = this;
-    
+
     var query = client.from('warehouse');
-    
+
     var warehouseUuid = (type == 'sourceSlot' ?
-        containerEntity.sourceStoreUuid :
-        containerEntity.targetStoreUuid);
-    
+        (containerEntity || {}).sourceStoreUuid :
+        (containerEntity || {}).targetStoreUuid);
+
     var warehouses = warehouseUuid ?
         [client.load('warehouse', warehouseUuid)] :
         client.from('warehouse').load();
-    
+
     var slots = _.reduce(warehouses, function(slots, warehouse) {
         that.entityHash.add(this.mapLazyLoader(warehouse, path, batches, warehouse));
         if (warehouse.slots) slots = slots.concat(warehouse.slots);
         return slots;
     }, []);
-    
+
     if (typeof uuids === 'string') {
         //TODO Добавляем без привязки LazyLoader'а (не критично для slot)
         that.entityHash.add(slots);
@@ -1022,12 +1040,13 @@ function fetchSlots(type, uuids, path, batchName, batches, containerEntity) {
     }
     else if (uuids instanceof Array) {
         // Возвращаем все ячейки (выше они будут добавелны в Hash и привязан LazyLoader)
-        // TODO Нужно учитывать, что фактически возвращаем не то, что запрошено 
+        // TODO Нужно учитывать, что фактически возвращаем не то, что запрошено
         return slots;
     }
 }
 
 module.exports = fetchSlots;
+
 },{"lodash":"EBUqFC"}],12:[function(require,module,exports){
 /**
  * state
@@ -1249,17 +1268,19 @@ var propMap = require('./nameToTypeMap');
 
 
 function getTypeOfProperty(propertyName, entity) {
-    if (propMap[propertyName])
-        return propMap[propertyName];
 
-    else if (entity.TYPE_NAME && propMap[entity.TYPE_NAME] && propMap[entity.TYPE_NAME][propertyName])
+    if (entity.TYPE_NAME && propMap[entity.TYPE_NAME] && propMap[entity.TYPE_NAME][propertyName])
         return propMap[entity.TYPE_NAME][propertyName];
+
+    else if (propMap[propertyName])
+        return propMap[propertyName];
 
     else
         return propertyName;
 }
 
 module.exports = getTypeOfProperty;
+
 },{"./nameToTypeMap":19}],17:[function(require,module,exports){
 /**
  * LazyLoader
@@ -1401,70 +1422,137 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 
     //TODO Перепроверить логику обхода гарфа объекта
     for (var key in entity) {
-        var subEntity = entity[key];
 
-        if (subEntity && entity.hasOwnProperty(key) && !(subEntity instanceof Date)) {
+        if (entity.hasOwnProperty(key)) {
 
-            // строка идентификатор или массив идентификаторов [name]Uuid, напр. ".goodUuid", ".demandsUuid[]"
-            if (isNaN(key) && key.substring(key.length - 4) == 'Uuid') {
+            var subEntity = entity[key];
+            if (subEntity && !(subEntity instanceof Date)) {
 
-                // demandsUuid -> demands
-                propertyName = key.substring(0, key.length - 4);
-                curPath = path + '.' + propertyName;
+                // строка идентификатор или массив идентификаторов [name]Uuid, напр. ".goodUuid", ".demandsUuid[]"
+                if (isNaN(key) && key.substring(key.length - 4) == 'Uuid') {
 
-                // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
-                if (subEntity instanceof Array) {
-                    (batches = batches || []).push(curPath);
+                    // demandsUuid -> demands
+                    propertyName = key.substring(0, key.length - 4);
+                    curPath = path + '.' + propertyName;
+
+                    // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
+                    if (subEntity instanceof Array) {
+                        (batches = batches || []).push(curPath);
+                    }
+
+                    this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
                 }
 
-                this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
-            }
+                // массив
+                else if (subEntity instanceof Array) {
+                    entity instanceof Array ?
+                        // [[]] - вложенный массив
+                        this.mapLazyLoader(subEntity, path + '.object', batches, containerEntity) :
+                        // свойство массив, напр. ".customerOrderPosition[]"
+                        this.mapLazyLoader(subEntity, path, batches, containerEntity);
+                }
 
-            // массив
-            else if (subEntity instanceof Array) {
-                entity instanceof Array ?
-                    // [[]] - вложенный массив
-                    this.mapLazyLoader(subEntity, path + '.object', batches, containerEntity) :
-                    // свойство массив, напр. ".customerOrderPosition[]"
-                    this.mapLazyLoader(subEntity, path, batches, containerEntity);
-            }
-
-            // объект
-            else if (typeof subEntity === 'object') {
-                var typeName = subEntity.TYPE_NAME ? subEntity.TYPE_NAME.split('.')[1] : null;
-                this.mapLazyLoader(subEntity,
+                // объект
+                else if (typeof subEntity === 'object') {
+                    var typeName = subEntity.TYPE_NAME ? subEntity.TYPE_NAME.split('.')[1] : null;
+                    this.mapLazyLoader(subEntity,
                         path + '.' + (typeName || 'object'), batches,
                         containerEntity || (subEntity.TYPE_NAME ? subEntity : null));
-            }
+                }
 
+            }
         }
     }
     return entity;
 }
 
 module.exports = mapLazyLoader;
-},{"lodash":"EBUqFC","project/tools":82}],19:[function(require,module,exports){
-module.exports={
-    "moysklad.customerOrder": {
-        "sourceAgent": "company",
-        "targetAgent": "myCompany"
-    },
 
-    "moysklad.invoiceOut": {
-        "sourceAgent": "myCompany",
-        "targetAgent": "company"
-    },
+},{"lodash":"EBUqFC","project/tools":82}],19:[function(require,module,exports){
+var outOperationAgents = {
+    "sourceAgent": "myCompany",
+    "targetAgent": "company"
+};
+
+var inboundOperationAgents = {
+    "sourceAgent": "myCompany",
+    "targetAgent": "myCompany"
+};
+
+module.exports = {
+
+    "moysklad.invoiceOut": outOperationAgents,
+    "moysklad.demand": outOperationAgents,
+    "moysklad.purchaseReturn": outOperationAgents,
+    "moysklad.factureOut": outOperationAgents,
+    "moysklad.cashOut": outOperationAgents,
+    "moysklad.paymentOut": outOperationAgents,
+
+    "moysklad.loss": inboundOperationAgents,
+    "moysklad.move": inboundOperationAgents,
+    "moysklad.inventory": inboundOperationAgents,
+    "moysklad.processingOrder": inboundOperationAgents,
+
 
     "moysklad.contract": {
         "ownCompany": "myCompany"
     },
 
+    "moysklad.good": {
+        "parent": "goodFolder"
+    },
+
+    "moysklad.processingPlanFolder": {
+        "parent": "processingPlanFolder"
+    },
+
+    "moysklad.warehouse": {
+        "parent": "warehouse"
+    },
+
+    "moysklad.attributeMetadata": {
+        "entityMetadata": "embeddedEntityMetadata"
+    },
+
+    "moysklad.customEntity": {
+        "entityMetadata": "customEntityMetadata"
+    },
+
+    // InOperation
+    "sourceAgent": "company",
+    "targetAgent": "myCompany",
+
     "sourceStore": "warehouse",
     "targetStore": "warehouse",
+    "place": "warehouse",
+    "acquire": "company",
+    "carrier": "company",
+    "agentUuid": "company",
+    "supplier": "company",
+
     "demands": "demand",
-    "invoicesOut": "invoice",
-    "supplier": "company"
-}
+    "invoicesOut": "invoiceOut",
+    "invoicesIn": "invoiceIn",
+    "purchaseReturns": "purchaseReturn",
+    "customerOrders": "customerOrder",
+    "supplies": "supply",
+    "salesReturns": "salesReturn",
+    "enters": "enter",
+    "losses": "loss",
+    "returns": "return",
+    "commissionreportout": "commissionReportOut",
+
+    "entityValue": "customEntity",
+    "agentValue": "company",
+    "goodValue": "good",
+    "placeValue": "warehouse",
+    "consignmentValue": "consignment",
+    "contractValue": "contract",
+    "projectValue": "project",
+    "employeeValue": "employee"
+
+};
+
 },{}],20:[function(require,module,exports){
 /**
  * chain
