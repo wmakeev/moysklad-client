@@ -71,42 +71,45 @@ function mapLazyLoader (entity, path, batches, containerEntity) {
 
     //TODO Перепроверить логику обхода гарфа объекта
     for (var key in entity) {
-        var subEntity = entity[key];
 
-        if (subEntity && entity.hasOwnProperty(key) && !(subEntity instanceof Date)) {
+        if (entity.hasOwnProperty(key)) {
 
-            // строка идентификатор или массив идентификаторов [name]Uuid, напр. ".goodUuid", ".demandsUuid[]"
-            if (isNaN(key) && key.substring(key.length - 4) == 'Uuid') {
+            var subEntity = entity[key];
+            if (subEntity && !(subEntity instanceof Date)) {
 
-                // demandsUuid -> demands
-                propertyName = key.substring(0, key.length - 4);
-                curPath = path + '.' + propertyName;
+                // строка идентификатор или массив идентификаторов [name]Uuid, напр. ".goodUuid", ".demandsUuid[]"
+                if (isNaN(key) && key.substring(key.length - 4) == 'Uuid') {
 
-                // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
-                if (subEntity instanceof Array) {
-                    (batches = batches || []).push(curPath);
+                    // demandsUuid -> demands
+                    propertyName = key.substring(0, key.length - 4);
+                    curPath = path + '.' + propertyName;
+
+                    // напр. "demandsUuid" .. то при обращении нужно загрузить все сущности по массиву идентификаторов
+                    if (subEntity instanceof Array) {
+                        (batches = batches || []).push(curPath);
+                    }
+
+                    this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
                 }
 
-                this.defProperty(entity, propertyName, subEntity, curPath, batches, containerEntity);
-            }
+                // массив
+                else if (subEntity instanceof Array) {
+                    entity instanceof Array ?
+                        // [[]] - вложенный массив
+                        this.mapLazyLoader(subEntity, path + '.object', batches, containerEntity) :
+                        // свойство массив, напр. ".customerOrderPosition[]"
+                        this.mapLazyLoader(subEntity, path, batches, containerEntity);
+                }
 
-            // массив
-            else if (subEntity instanceof Array) {
-                entity instanceof Array ?
-                    // [[]] - вложенный массив
-                    this.mapLazyLoader(subEntity, path + '.object', batches, containerEntity) :
-                    // свойство массив, напр. ".customerOrderPosition[]"
-                    this.mapLazyLoader(subEntity, path, batches, containerEntity);
-            }
-
-            // объект
-            else if (typeof subEntity === 'object') {
-                var typeName = subEntity.TYPE_NAME ? subEntity.TYPE_NAME.split('.')[1] : null;
-                this.mapLazyLoader(subEntity,
+                // объект
+                else if (typeof subEntity === 'object') {
+                    var typeName = subEntity.TYPE_NAME ? subEntity.TYPE_NAME.split('.')[1] : null;
+                    this.mapLazyLoader(subEntity,
                         path + '.' + (typeName || 'object'), batches,
                         containerEntity || (subEntity.TYPE_NAME ? subEntity : null));
-            }
+                }
 
+            }
         }
     }
     return entity;
