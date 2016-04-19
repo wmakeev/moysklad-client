@@ -2,7 +2,7 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.10 (bundle length 443206)
+// moysklad-client 0.2.10 (bundle length 443473)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -3304,8 +3304,13 @@ module.exports=require('Q962xy');
 var sleep = require('project/sleep');
 var util = require('util');
 
-// TODO: В асинхронном режиме, временем запроса может быть время получения первого пакета
-// TODO: Узнать более точную информацию в ТП
+// TODO В асинхронном режиме, временем запроса может быть время получения первого пакета
+// TODO Узнать более точную информацию в ТП
+
+// TODO Для синхронной задачи возможно сделать отдельный метод processSyncTask
+// .. Синхронная задача возможна только в браузере и GS
+// .. Как выполнить синхронную задачу если в очереди ждут асинхронные?
+// .. Для синхронной задачи нет очереди, есть только ожидание
 
 var Queue = function (options) {
     options = options || {};
