@@ -4,10 +4,10 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+var _               = require('lodash'), 
+    callbackAdapter = require('project/callbackAdapter');
 
-//TODO Ограничение на кол-во сохраняемых объектов в коллекции (проверить)
+//TODO Ограничение на кол-во удаляемых объектов в коллекции (проверить)
 
 /**
  * Del. Удаляет сущность или список сущностей.
@@ -19,8 +19,9 @@ var _               = require('lodash')
  */
 var del = function () {
     //TODO Ensure
-    var args        = _.toArray(arguments)
-      , callback    = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
+    var that     = this,
+        args     = _.toArray(arguments), 
+        callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null;
 
     var restClient  = this.getProvider('ms-xml'),
         obj = null;
@@ -28,7 +29,7 @@ var del = function () {
     var putArgs = args.slice(0, args.length);
 
     putArgs.push(function (err, data) {
-        obj = callbackAdapter(err, data.obj, callback);
+        obj = callbackAdapter(err, data.obj, callback, that.options.flowControl);
     });
 
     restClient.del.apply(restClient, putArgs);

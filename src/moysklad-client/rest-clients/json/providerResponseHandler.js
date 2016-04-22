@@ -1,11 +1,4 @@
-/**
- * providerResponseHandler
- * Date: 23.03.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-    , callbackAdapter = require('../../../tools').callbackAdapter;
+var _ = require('lodash');
 
 //TODO Часть кода providerResponseHandler'ов не оправданно дублируется .. >
 var providerResponseHandler = function (err, result, callback) {
@@ -13,7 +6,6 @@ var providerResponseHandler = function (err, result, callback) {
 
     // .. этот кусок общий для всех
     if (!err) {
-
         switch (result.response.responseCode) {
 
             //TODO Прописать все ошибки stock сервисов
@@ -21,13 +13,13 @@ var providerResponseHandler = function (err, result, callback) {
 
             // ошибка пришла ввиде XML сериализуем и обработаем ниже
             case 500:
-                return callbackAdapter(
-                    new Error('Server error 500'), result, callback);
+                return callback(
+                    new Error('Server error 500'), result);
 
             // ошибка авторизации
             case 401:
-                return callbackAdapter(
-                    new Error('Request requires HTTP authentication'), result, callback);
+                return callback(
+                    new Error('Request requires HTTP authentication'), result);
 
             // корректный ответ сервера (работаем с ним дальше)
             case 200:
@@ -36,9 +28,9 @@ var providerResponseHandler = function (err, result, callback) {
             // любой другой код ответа - ошибка
             default:
                 //TODO ??? Надо парсить Html ответа и выделять описание ошибки
-                _log.log('Ответ сервера: \n' + result.response.contentText);
-                return callbackAdapter(
-                    new Error('Server response error ' + result.response.responseCode), result, callback);
+                _log.log('Server response: \n' + result.response.contentText);
+                return callback(
+                    new Error('Server response error ' + result.response.responseCode), result);
         }
 
         if (result.response.contentText.length > 0) {
@@ -46,7 +38,7 @@ var providerResponseHandler = function (err, result, callback) {
         }
     }
 
-    return callbackAdapter(err, result, callback);
+    return callback(err, result);
 };
 
 module.exports = providerResponseHandler;

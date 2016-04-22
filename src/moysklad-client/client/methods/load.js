@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var callbackAdapter = require('../../../tools/index').callbackAdapter
-  , _ = require('lodash');
+var _ = require('lodash'),
+    callbackAdapter = require('project/callbackAdapter');
 
 //noinspection JSValidateJSDoc,JSCommentMatchesSignature
 /**
@@ -19,12 +19,13 @@ var callbackAdapter = require('../../../tools/index').callbackAdapter
  */
 var load = function (type, query) {
     //TODO Ensure
-    var args = _.toArray(arguments)
-      , callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null
-      , options = typeof args[2] === 'object' ? args[2] : {}
-      , _queryParametersList
-      , _restClient = this.getProvider('ms-xml')
-      , _obj = null;
+    var that = this,
+        args = _.toArray(arguments), 
+        callback = typeof args.slice(-1)[0] === 'function' ? args.slice(-1)[0] : null, 
+        options = typeof args[2] === 'object' ? args[2] : {}, 
+        _queryParametersList, 
+        _restClient = this.getProvider('ms-xml'), 
+        _obj = null;
 
     function loadPartial(paramsIndex, paging, cumulativeTotal, resultCollection, callback) {
 
@@ -69,27 +70,28 @@ var load = function (type, query) {
         if (options.fileContent) params.fileContent = true;
 
         _restClient.get(type, params, function (err, data) {
-            _obj = callbackAdapter(err, data.obj, callback);
+            _obj = callbackAdapter(err, data.obj, callback, that.options.flowControl);
         });
     }
 
     // .. или query
     else if (typeof query == 'object' && 'getQueryParameters' in query) {
         //TODO Не забыть про options при написании документации
-        _queryParametersList = query.getQueryParameters(this.options.filterLimit);
+        _queryParametersList = query.getQueryParameters(that.options.filterLimit);
 
         var paging = {};
         if (_queryParametersList[0].start) paging.start = _queryParametersList[0].start;
         if (_queryParametersList[0].count) paging.count = _queryParametersList[0].count;
 
         loadPartial(0, paging, 0, [], function (err, data) {
-            _obj = callbackAdapter(err, data, callback);
+            _obj = callbackAdapter(err, data, callback, that.options.flowControl);
         });
     }
 
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), null, callback);
+        return callbackAdapter(new TypeError('Incorrect uuid or query parameter'), 
+            null, callback, that.options.flowControl);
     }
 
     return _obj;

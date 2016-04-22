@@ -1,18 +1,9 @@
-/**
- * providerResponseHandler
- * Date: 23.03.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools').callbackAdapter;
-
+var _ = require('lodash');
 
 var providerResponseHandler = function (err, result, callback) {
-    var data;
-
-var _log            = require('project/logger'),
-    _unmarshaller   = require('project/unmarshaller').create();
+    var data,
+        _log            = require('project/logger'),
+        _unmarshaller   = require('project/unmarshaller').create();
 
     if (!err) {
 
@@ -24,8 +15,8 @@ var _log            = require('project/logger'),
 
             // ошибка авторизации
             case 401:
-                return callbackAdapter(
-                    new Error('Request requires HTTP authentication'), result, callback);
+                return callback(
+                    new Error('Request requires HTTP authentication'), result);
 
             // корректный ответ сервера (работаем с ним дальше)
             case 200:
@@ -35,8 +26,8 @@ var _log            = require('project/logger'),
             default:
                 //TODO Надо парсить Html ответа и выделять описание ошибки
                 _log.log('Server response: \n' + result.response.contentText);
-                return callbackAdapter(
-                    new Error('Server response error ' + result.response.responseCode), result, callback);
+                return callback(
+                    new Error('Server response error ' + result.response.responseCode), result);
         }
 
         if (result.response.contentText.length > 0) {
@@ -51,7 +42,7 @@ var _log            = require('project/logger'),
 
             result.type = data.name.localPart;
 
-            if (result.type == 'error') return callbackAdapter(new Error(data.value.message));
+            if (result.type == 'error') return callback(new Error(data.value.message), result);
 
             if (result.type == 'collection') {
                 result.obj = _.pluck(data.value.items, 'value');
@@ -67,7 +58,7 @@ var _log            = require('project/logger'),
         }
     }
 
-    return callbackAdapter(err, result, callback);
+    return callback(err, result);
 };
 
 module.exports = providerResponseHandler;

@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+var _               = require('lodash'), 
+    callbackAdapter = require('project/callbackAdapter');
 
 /**
  * First. Возвращает первую сущность из списка сущностей согласно запросу.
@@ -17,6 +17,7 @@ var _               = require('lodash')
  */
 var first = function (type, query, callback) {
     //TODO Ensure
+    var that = this;
     var _restClient = this.getProvider('ms-xml'),
         _obj = null,
         _queryParametersList;
@@ -25,7 +26,6 @@ var first = function (type, query, callback) {
         var _params = _queryParametersList[paramsIndex];
 
         if (_params && ('count' in _params ? _params.count !== 0 : true)) {
-
             _restClient.get(type, _.extend({}, _params, { count: 1 }), function (err, data) {
                 if (err) return callback(err);
 
@@ -36,25 +36,25 @@ var first = function (type, query, callback) {
                     _firstFromParts(++paramsIndex, callback)
                 }
             });
-
         } else {
             return callback(null, null);
         }
     }
 
     // query
-    if (typeof query == 'object' && 'getQueryParameters' in query) {
+    if (typeof query === 'object' && 'getQueryParameters' in query) {
         _queryParametersList = query.getQueryParameters(this.options.filterLimit);
     }
 
     //TODO Ничего не мешеает использовать first без query
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
+        return callbackAdapter(new TypeError('Incorrect query parameter'), 
+            null, callback, that.options.flowControl);
     }
 
     _firstFromParts(0, function (err, data) {
-        _obj = callbackAdapter(err, data, callback);
+        _obj = callbackAdapter(err, data, callback, that.options.flowControl);
     });
 
     return _obj;

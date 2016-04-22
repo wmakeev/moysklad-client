@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+var _               = require('lodash'), 
+    callbackAdapter = require('project/callbackAdapter');
 
 /**
  *
@@ -16,7 +16,8 @@ var _               = require('lodash')
  */
 var total = function (type, query, callback) {
     //TODO Ensure
-    var _restClient = this.getProvider('ms-xml'),
+    var that = this,
+        _restClient = this.getProvider('ms-xml'),
         _total = null,
         _queryParametersList;
 
@@ -43,13 +44,14 @@ var total = function (type, query, callback) {
         _queryParametersList = query.getQueryParameters();
 
         _totalFromParts(0, 0, function (err, data) {
-            _total = callbackAdapter(err, data, callback);
+            _total = callbackAdapter(err, data, callback, that.options.flowControl);
         });
     }
 
     // .. error
     else {
-        return callbackAdapter(new TypeError('Incorrect query parameter'), null, callback);
+        return callbackAdapter(new TypeError('Incorrect query parameter'), 
+            null, callback, that.options.flowControl);
     }
 
     return _total;

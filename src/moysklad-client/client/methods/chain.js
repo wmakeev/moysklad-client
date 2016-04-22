@@ -4,8 +4,7 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash')
-  , callbackAdapter = require('../../../tools/index').callbackAdapter;
+var _ = require('lodash');
 
 var chain = function () {
     return _.chain(this.load.apply(this, arguments));

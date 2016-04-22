@@ -127,8 +127,6 @@ exports.getBasicAuthHttpHeader = function (login, password) {
 
 };
 
-exports.callbackAdapter = require('./callbackAdapter');
-
 exports.Is = {
     'args': function () {
         var args = arguments[0],

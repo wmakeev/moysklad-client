@@ -7,11 +7,13 @@
 var _                        = require('lodash'),
     moment                   = require('moment'),
     clientProperties         = require('./../../client-properties'),
+    callbackAdapter          = require('project/callbackAdapter'),
     fetchProviderRespHandler = require('./../providerResponseHandler'),
     endPoint                 = clientProperties.baseUrl + '/rest';
 
 module.exports = function fetch (options, callback) {
-    var _fetchProvider = require('project/fetch'),
+    var that = this,
+        _fetchProvider = require('project/fetch'),
         queryString;
 
     if (options.params) {
