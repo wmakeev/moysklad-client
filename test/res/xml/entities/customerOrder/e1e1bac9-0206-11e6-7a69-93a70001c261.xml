@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customerOrder reservedSum="1015200.0" stateUuid="660df488-08f7-4f43-ad24-3ddc4500765a" targetAgentUuid="bf6bc7ce-444e-4fd2-9826-3134ce89c54b" sourceAgentUuid="11a9fabe-9c42-4720-99df-eb7581ed7f46" sourceStoreUuid="6deeb985-0244-4ba9-88e5-d391b5f42c16" applicable="true" projectUuid="ce13e90e-2372-457b-97a5-a27c519d7494" moment="2013-09-04T17:02:00+04:00" targetAccountUuid="36ae149e-e5dc-11e3-b3e3-002590a28eca" sourceAccountUuid="36c15517-e5dc-11e3-6c5f-002590a28eca" payerVat="false" rate="1.0" vatIncluded="false" created="2013-09-04T18:24:05.999+04:00" createdBy="rsp@vensi-shop" name="NA-ord-11193" updated="2014-07-23T00:16:03.611+04:00" updatedBy="mvv@vensi-shop">
+	<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+	<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+	<uuid>a7acd190-156d-11e3-1c9e-7054d21a8d1e</uuid>
+	<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+	<ownerUid>rsp@vensi-shop</ownerUid>
+	<shared>false</shared>
+	<externalcode>kG5RI-aagjm_beUQ8MDzE2</externalcode>
+	<description>== Обработка задания на сбор 04.09.2013 18:30:54 ==
+Позиции в заказе соответствуют собранным товарам.
+Создано перемещение - NA-mov-06445
+==</description>
+	<attribute operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" metadataUuid="c24b7296-1f0a-11e3-0677-7054d21a8d1e" entityValueUuid="9a569158-239d-11e3-1596-7054d21a8d1e" updated="2014-07-23T00:16:03.630+04:00" updatedBy="mvv@vensi-shop">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>543770b6-98d1-11e3-4508-002590a28eca</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+	</attribute>
+	<attribute operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" metadataUuid="ea8a56b1-9653-42bf-8ee8-1c5596c678f3" valueString="NA-mov-06445" updated="2014-07-23T00:16:03.630+04:00" updatedBy="mvv@vensi-shop">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>9d6cc555-156e-11e3-2e7f-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+	</attribute>
+	<attribute operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" metadataUuid="0067d0e1-bfb7-4f26-aa6a-b54ad64cc633" entityValueUuid="5fe6cf9d-fe04-4a2a-8f4c-9e38e4d26050" updated="2014-07-23T00:16:03.630+04:00" updatedBy="mvv@vensi-shop">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad29f0-156d-11e3-1970-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+	</attribute>
+	<attribute operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" metadataUuid="39f9f7bc-d4da-11e4-95df-0cc47a05161a" employeeValueUuid="3bf340db-b6b5-4bf1-9271-2d75300df8e4" updated="2015-03-27T23:37:26.928+03:00" updatedBy="system@system">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>45047876-d4da-11e4-ae1d-0cc47a05161a</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+	</attribute>
+	<attribute operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" metadataUuid="48a9dbca-75f3-4f1c-933b-57df18b5169f" entityValueUuid="55e6f545-b41f-4a72-8b85-363058b68598" updated="2014-07-23T00:16:03.630+04:00" updatedBy="mvv@vensi-shop">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad28c1-156d-11e3-0a7e-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+	</attribute>
+	<document operationUuid="a7acd190-156d-11e3-1c9e-7054d21a8d1e" created="2013-09-04T19:35:24.457+04:00" filename="vensi_storekeeper_task_v2-NA-ord-11193.xls" name="NA-ord-11193" updated="2013-09-04T19:35:24.457+04:00" updatedBy="mvv@vensi-shop">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>9dd5ae53-1577-11e3-a075-7054d21a8d1e</uuid>
+		<externalcode>uU58kxbshJ63TQEIO4WnV2</externalcode>
+	</document>
+	<sum sum="1015200.0" sumInCurrency="1015200.0"/>
+	<demandsUuid>
+		<demandRef>d19026a5-156e-11e3-c3e0-7054d21a8d1e</demandRef>
+	</demandsUuid>
+	<invoicesOutUuid/>
+	<paymentsUuid/>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="ac5e8096-f922-11e2-04d5-7054d21a8d1e" goodUuid="f0520975-f921-11e2-33e9-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad2b41-156d-11e3-6230-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="98000.0" sumInCurrency="98000.0"/>
+		<price sum="88200.0" sumInCurrency="88200.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="6fc754d9-cd13-468b-b91c-a1148aed0bd4" goodUuid="18079830-7ce1-44fe-b5ed-0a82dc1fc36b" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad2c7b-156d-11e3-c9ee-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="110000.0" sumInCurrency="110000.0"/>
+		<price sum="99000.0" sumInCurrency="99000.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="a6c1c36b-03fb-11e3-7b63-7054d21a8d1e" goodUuid="a12f1949-036b-11e3-d6a9-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad2d55-156d-11e3-9dc8-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="138000.0" sumInCurrency="138000.0"/>
+		<price sum="124200.0" sumInCurrency="124200.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="ac1e1675-03fb-11e3-c3a3-7054d21a8d1e" goodUuid="1f37acfc-036c-11e3-22be-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad2e9c-156d-11e3-14d6-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="128000.0" sumInCurrency="128000.0"/>
+		<price sum="115200.0" sumInCurrency="115200.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="ac166eb6-03fb-11e3-5f94-7054d21a8d1e" goodUuid="1aa14e19-036c-11e3-7cce-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad2f77-156d-11e3-e6fa-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="134000.0" sumInCurrency="134000.0"/>
+		<price sum="120600.0" sumInCurrency="120600.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="afb6a20e-03fb-11e3-f04b-7054d21a8d1e" goodUuid="7815c55a-036e-11e3-2e44-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad304f-156d-11e3-9cb8-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="137000.0" sumInCurrency="137000.0"/>
+		<price sum="123300.0" sumInCurrency="123300.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="ac1322bd-03fb-11e3-1bfd-7054d21a8d1e" goodUuid="187da4b5-036c-11e3-978d-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad3140-156d-11e3-3214-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="133000.0" sumInCurrency="133000.0"/>
+		<price sum="119700.0" sumInCurrency="119700.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="a5a9937f-03fb-11e3-0492-7054d21a8d1e" goodUuid="972c663f-036b-11e3-fcbe-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad322b-156d-11e3-0350-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="136000.0" sumInCurrency="136000.0"/>
+		<price sum="122400.0" sumInCurrency="122400.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<customerOrderPosition discount="10.0" quantity="1.0" consignmentUuid="b163006a-03fb-11e3-3346-7054d21a8d1e" goodUuid="7ba48d4d-036e-11e3-6f51-7054d21a8d1e" vat="0">
+		<accountUuid>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountUuid>
+		<accountId>47896027-0e7b-11e2-c959-3c4a92f3a0a7</accountId>
+		<uuid>a7ad32ff-156d-11e3-a598-7054d21a8d1e</uuid>
+		<groupUuid>07a74747-d269-11e4-90a2-8ecb00041136</groupUuid>
+		<ownerUid>rsp@vensi-shop</ownerUid>
+		<shared>false</shared>
+		<basePrice sum="114000.0" sumInCurrency="114000.0"/>
+		<price sum="102600.0" sumInCurrency="102600.0"/>
+		<things/>
+		<reserve>1.0</reserve>
+	</customerOrderPosition>
+	<purchaseOrdersUuid/>
+</customerOrder>
