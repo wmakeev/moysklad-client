@@ -1,0 +1,13 @@
+{
+  "extends": "standard",
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+      "valid-jsdoc": ["warn"],
+      "max-len": ["error", 100],
+      "arrow-parens": 0,
+      "indent": ["error", 4]
+  }
+}
