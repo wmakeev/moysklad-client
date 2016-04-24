@@ -39,7 +39,7 @@
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
     "moysklad-model": "~0.3.0",
-    "stampit": "~0.7.1",
+    "stampit": "stampit-org/stampit#63311af569dbc0fac167ccae5e3c591b64ddbc64",
     "tracer": "~0.6.1",
     "xmldom": "~0.1.17"
   }
