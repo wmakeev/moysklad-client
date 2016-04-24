@@ -1,44 +1,35 @@
-/**
- * del
- * Date: 24.03.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash');
-
+var _ = require('lodash')
 
 module.exports = function (type, data, callback) {
-    var _fetchOptions = {
-            path: '/' + this.getObjectTypeName(type)
-        };
+  var _fetchOptions = {
+    path: '/' + this.getObjectTypeName(type)
+  }
 
-    if (data instanceof Array) {
-        // POST /{type}/list/delete
-        _fetchOptions.path += '/list/delete';
-        _fetchOptions.method = 'POST';
+  if (data instanceof Array) {
+    // POST /{type}/list/delete
+    _fetchOptions.path += '/list/delete'
+    _fetchOptions.method = 'POST'
 
-        _fetchOptions.payload = {
+    _fetchOptions.payload = {
+      name: {
+        localPart: 'collection'
+      },
+      value: {
+        items: _.map(data, function (item) {
+          return {
             name: {
-                localPart: 'collection'
+              localPart: 'String'
             },
-            value: {
-                items: _.map(data, function (item) {
-                    return {
-                        name: {
-                            localPart: 'String'
-                        },
-                        value: item
-                    };
-                })
-            }
-        };
-
-    } else {
-        // PUT /{type}/{id}
-        _fetchOptions.path += '/' + data;
-        _fetchOptions.method = 'DELETE';
-
+            value: item
+          }
+        })
+      }
     }
+  } else {
+    // PUT /{type}/{id}
+    _fetchOptions.path += '/' + data
+    _fetchOptions.method = 'DELETE'
+  }
 
-    this.fetch(_fetchOptions, callback);
+  this.fetch(_fetchOptions, callback)
 }
