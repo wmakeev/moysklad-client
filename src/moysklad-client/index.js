@@ -1,48 +1,60 @@
-/**
- * MoyskladClient
- * Date: 11.01.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
+var _ = require('lodash')
+var have = require('project/have')
+var tools = require('project/tools')
+var logger = require('project/logger')
+var AuthStore = require('project/auth-store')
+var pkg = require('../../package')
 
-var clientStamp = require('./client'),
-    query  = require('./rest-clients/ms-xml/query'),
-    tools  = require('project/tools'),
-    logger = require('project/logger'),
-    Auth   = require('project/auth'),
-    pkg    = require('../../package');
+var resolverBehavior = require('project/behaviors/resolver')
 
-var xmlClientStamp = require('../rest-clients/ms-xml'),
-    jsonServicesClientStamp = require('../rest-clients/json');
+var Query = require('./rest-clients/ms-xml/query')
+var ClientBase = require('./client')
+var MsXmlClient = require('../rest-clients/ms-xml')
+var JsonClient = require('../rest-clients/json') // TODO Переименовать в json-services
 
-logger.info('moysklad-client v' + pkg.version);
+var Client = ClientBase
+  .init(resolverBehavior)
+  .init(function (options, context) {
+    var authStore = new AuthStore()
+
+    this.addDependency({
+      'logger': logger,
+      'ms-xml': MsXmlClient().init(resolverBehavior).create(),
+      'json-service': JsonClient().init(resolverBehavior).create(),
+      'auth': authStore
+    })
+
+    if (options.login) {
+      authStore.setAuth(options.login, options.password)
+    }
+  })
+
+logger.info('moysklad-client v' + pkg.version)
 
 module.exports = {
+  createClient: function () {
+    var args = have(arguments, [
+      {},
+      { login: 'string', password: 'string' },
+      { options: 'object' }
+    ])
+    var options = {}
 
-    createClient: function (login, password) {
-        var auth = new Auth(login, password);
+    if (args.options) {
+      options = _.assign(options, args.options)
+    }
 
-        var client = clientStamp();
-        client.setAuthStore(auth);
+    return Client.init(function () {
+      if (args.login) {
+        this.resolve('auth').setAuth(args.login, args.password)
+      }
+    }).create(options)
+  },
 
-        var xmlClient = xmlClientStamp();
-        xmlClient.setAuthStore(auth);
-        xmlClient.setProvider('logger', logger);
-        xmlClient.options = client.options;
+  Client: Client,
 
-        var jsonServicesClient = jsonServicesClientStamp();
-        jsonServicesClient.setAuthStore(auth);
-        jsonServicesClient.setProvider('logger', logger);
-        jsonServicesClient.options = client.options;
-
-        client.setProvider('ms-xml', xmlClient);
-        client.setProvider('json-services', jsonServicesClient);
-        client.setProvider('logger', logger);
-
-        return client;
-    },
-
-    createQuery: query.createQuery,
-    tools: tools,
-    logger: logger,
-    version: pkg.version
-};
+  createQuery: Query.createQuery,
+  tools: tools,
+  logger: logger,
+  version: pkg.version
+}
