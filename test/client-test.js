@@ -31,20 +31,21 @@ module.exports = function (t) {
             client.load()
         }, /Incorrect uuid or query parameter/, 'should throw with no arguments')
 
-        var customerOrderByUuidGet = xmlEndpoint.get(`/CustomerOrder/${CUSTOMER_ORDER_UUID}`)
+        // TODO Test client.load('customerOrder')
+
+        var getCustomerOrderByUuid = xmlEndpoint.get(`/CustomerOrder/${CUSTOMER_ORDER_UUID}`)
 
         t.test('client.load by uuid', t => {
-            customerOrderByUuidGet.reply(200)
+            getCustomerOrderByUuid.reply(200, CUSTOMER_ORDER_XML)
 
-            client.load('customerOrder', CUSTOMER_ORDER_UUID, (err, res) => {
-                if (err) {
-                    t.end(err)
-                } else {
-                    t.ok(res)
+            return client.load('customerOrder', CUSTOMER_ORDER_UUID)
+                .then(order => {
+                    t.ok(order)
+                    t.equal(order.TYPE_NAME, 'moysklad.customerOrder')
                     t.end()
-                }
-            })
+                })
         })
     })
+
     t.end()
 }

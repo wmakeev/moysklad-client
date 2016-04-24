@@ -4,8 +4,8 @@
  * Vitaliy V. Makeev (w.makeev@gmail.com)
  */
 
-var _               = require('lodash'), 
-    callbackAdapter = require('project/callbackAdapter');
+var _               = require('lodash'),
+    CallbackAdapter = require('project/callback-adapter');
 
 /**
  * First. Возвращает первую сущность из списка сущностей согласно запросу.
@@ -21,6 +21,8 @@ var first = function (type, query, callback) {
     var _restClient = this.getProvider('ms-xml'),
         _obj = null,
         _queryParametersList;
+
+    var callbackAdapter = new CallbackAdapter(that.options.flowControl, callback)
 
     function _firstFromParts (paramsIndex, callback) {
         var _params = _queryParametersList[paramsIndex];
@@ -49,7 +51,7 @@ var first = function (type, query, callback) {
     //TODO Ничего не мешеает использовать first без query
     // .. ошибка
     else {
-        return callbackAdapter(new TypeError('Incorrect query parameter'), 
+        return callbackAdapter(new TypeError('Incorrect query parameter'),
             null, callback, that.options.flowControl);
     }
 

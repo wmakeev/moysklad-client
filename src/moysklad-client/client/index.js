@@ -9,11 +9,10 @@ var _                        = require('lodash'),
     Query                    = require('./../rest-clients/ms-xml/query'),
     operators                = require('./../rest-clients/ms-xml/query/operators'),
     authProviderBehavior     = require('./../../authProviderBehavior'),
-    providerAccessorBehavior = require('./../../providerAccessorBehavior');
+    providerAccessorBehavior = require('./../../providerAccessorBehavior'),
+    env                      = require('project/env'),
+    envTypes                 = require('project/envTypes');
 
-/**
- * @lends Client.prototype
- */
 var clientMethods = {
     // Ms
     from: require('./methods/from'),
@@ -40,9 +39,8 @@ var Client = stampit()
 // Options
     .state({
         options: {
-            filterLimit: 50,
-            allowNotFilterOperators: false,
-            flowControl: 'sync'
+            filterLimit: env === envTypes.GOOGLE_SCRIPT ? 30 : 50,
+            flowControl: env === envTypes.NODE ? 'async' : 'sync'
         },
 
         sortMode: {

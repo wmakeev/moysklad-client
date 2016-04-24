@@ -58,7 +58,8 @@ module.exports = function (grunt) {
                         './node_modules/stampit/dist/stampit.min.js:stampit'
                     ],
                     exclude: [
-                        'xmlhttprequest'
+                        'xmlhttprequest',
+                        'fibers'
                     ],
 
                     postBundleCB: postBundleProcessor
@@ -91,7 +92,9 @@ module.exports = function (grunt) {
                     alias: getContextSpecificAliases('gs', [
                         'fetch',
                         'default-auth',
-                        'logger'
+                        'logger',
+                        'sleep',
+                        'env'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',
@@ -106,6 +109,7 @@ module.exports = function (grunt) {
                     ],
                     exclude: [
                         'fs',
+                        'fibers',
                         './node_modules/lodash/dist/lodash.min.js',
                         './node_modules/moment/min/moment.min.js',
                         './node_modules/stampit/dist/stampit.min.js'
@@ -129,7 +133,8 @@ module.exports = function (grunt) {
                         'fetch',
                         'default-auth',
                         'logger',
-                        'sleep'
+                        'sleep',
+                        'env'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',
