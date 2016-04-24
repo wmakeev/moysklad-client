@@ -94,7 +94,8 @@ module.exports = function (grunt) {
                         'default-auth',
                         'logger',
                         'sleep',
-                        'env'
+                        'env',
+                        'base64'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',
@@ -134,7 +135,8 @@ module.exports = function (grunt) {
                         'default-auth',
                         'logger',
                         'sleep',
-                        'env'
+                        'env',
+                        'base64'
                     ]).concat([
                         './src/moysklad-client/index.js:moysklad-client',
                         './node_modules/lodash/dist/lodash.min.js:lodash',

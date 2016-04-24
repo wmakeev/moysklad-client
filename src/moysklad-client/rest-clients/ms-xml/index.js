@@ -5,11 +5,12 @@
  */
 
 var stampit = require('stampit');
+var authBehavior = require('project/authBehavior');
 
 var msXmlClient = stampit()
 
     // Authable
-    .enclose(require('./../../../authProviderBehavior'))
+    .enclose(authBehavior)
 
     // Pass options to provider from client
     .enclose(function (client) {
