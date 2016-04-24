@@ -1,8 +1,12 @@
 // Поместите параметры в этот файл, чтобы перезаписать параметры по умолчанию и пользовательские параметры.
 {
-    "search.exclude": {
-			"**/build": true
-		},
-		"files.trimTrailingWhitespace": true,
-    "editor.rulers": [100]
+	//-------- Конфигурация редактора --------
+	"editor.rulers": [100],
+  "editor.tabSize": 2,
+
+	"search.exclude": {
+		"**/build": true
+	},
+
+	"files.trimTrailingWhitespace": true
 }

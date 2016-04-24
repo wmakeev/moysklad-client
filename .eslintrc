@@ -8,6 +8,10 @@
       "valid-jsdoc": ["warn"],
       "max-len": ["error", 100],
       "arrow-parens": 0,
-      "indent": ["error", 4]
+      "indent": ["error", 2],
+      "no-shadow": ["error", {
+        "builtinGlobals": true, "hoist": "all", "allow": ["cb", "done", "resolve", "reject"]
+      }],
+      "no-use-before-define": ["error", { "functions": true, "classes": true }]
   }
 }
