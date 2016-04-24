@@ -10,8 +10,12 @@
       "arrow-parens": 0,
       "indent": ["error", 2],
       "no-shadow": ["error", {
-        "builtinGlobals": true, "hoist": "all", "allow": ["cb", "done", "resolve", "reject"]
+        "builtinGlobals": true, "hoist": "all", "allow": [
+          "cb", "done", "resolve", "reject", "name"
+        ]
       }],
-      "no-use-before-define": ["error", { "functions": true, "classes": true }]
+      "no-use-before-define": ["error", { "functions": true, "classes": true }],
+      "no-inner-declarations": [2, "both"],
+      "vars-on-top": 2
   }
 }
