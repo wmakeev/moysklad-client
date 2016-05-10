@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 123415)
+// moysklad-client 0.2.11 (bundle length 123496)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -1535,6 +1535,7 @@ module.exports = {
     "invoicesIn": "invoiceIn",
     "purchaseReturns": "purchaseReturn",
     "customerOrders": "customerOrder",
+    "purchaseOrders": "purchaseOrder",
     "supplies": "supply",
     "salesReturns": "salesReturn",
     "enters": "enter",
@@ -2668,6 +2669,7 @@ function _flattenFilter(obj, path, filter) {
         } else if (moment.isMoment(value)) {
             filter[curPath] = [ '=' + value.format('YYYYMMDDHHmmss') ];
 
+        // TODO value может быть null    
         } else if (value.type === 'QueryOperatorResult' && value.filter) {
             filter[curPath] = value.filter;
 

@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 445732)
+// moysklad-client 0.2.11 (bundle length 445998)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -1647,6 +1647,7 @@ module.exports = {
     "invoicesIn": "invoiceIn",
     "purchaseReturns": "purchaseReturn",
     "customerOrders": "customerOrder",
+    "purchaseOrders": "purchaseOrder",
     "supplies": "supply",
     "salesReturns": "salesReturn",
     "enters": "enter",
@@ -2780,6 +2781,7 @@ function _flattenFilter(obj, path, filter) {
         } else if (moment.isMoment(value)) {
             filter[curPath] = [ '=' + value.format('YYYYMMDDHHmmss') ];
 
+        // TODO value может быть null    
         } else if (value.type === 'QueryOperatorResult' && value.filter) {
             filter[curPath] = value.filter;
 
@@ -7129,6 +7131,9 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
             calendar.hour,
             calendar.minute,
             calendar.second);
+		
+		// wmakeev: save originalTimezone in date object
+		var result;
 
 		if (Jsonix.Util.Type.isNumber(calendar.fractionalSecond)) {
 			date.setMilliseconds(Math.floor(1000 * calendar.fractionalSecond));
@@ -7140,10 +7145,15 @@ Jsonix.Schema.XSD.DateTime = Jsonix.Class(Jsonix.Schema.XSD.Calendar, {
         // The time-zone offset is the difference, in minutes, between UTC and local time.
         // The value returned by the getTime method is the number of milliseconds since 1 January 1970 00:00:00 UTC.
 
-		if (Jsonix.Util.NumberUtils.isInteger(calendar.timezone))
-            return new Date(date.getTime() - (60000 * date.getTimezoneOffset()) - (calendar.timezone * 60000));
-		else
-            return new Date(date.getTime() - (60000 * date.getTimezoneOffset()));
+		if (Jsonix.Util.NumberUtils.isInteger(calendar.timezone)) {
+            result = new Date(date.getTime() - (60000 * date.getTimezoneOffset()) - (calendar.timezone * 60000));
+			result.originalTimezone = calendar.timezone;
+		} else {
+            result = new Date(date.getTime() - (60000 * date.getTimezoneOffset()));
+			result.originalTimezone = null;
+		}
+		
+		return result;
 	},
 	print : function(value) {
 		Jsonix.Util.Ensure.ensureDate(value);
