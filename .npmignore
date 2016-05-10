@@ -1,9 +1,0 @@
-*.DS_Store
-*.sublime*
-.idea
-.c9revisions
-build
-node_modules
-!src/node_modules
-npm-debug.log
-
