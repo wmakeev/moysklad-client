@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 123496)
+// moysklad-client 0.2.11 (bundle length 123363)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -3463,15 +3463,15 @@ var fieldsToReset = [
     'updated',
     'updatedBy',
     'uuid',
-    'operationUuid'
+    'operationUuid',
+    'externalcode'
 ];
 
 var resetUuids = function (obj) {
 
     if (obj) {
-        //TODO Может быть использовать _.omit, вместо обнуления полей?
         _.forEach(fieldsToReset, function (fieldName) {
-            if (obj[fieldName]) obj[fieldName] = null;
+            if (obj[fieldName]) delete obj[fieldName];
         });
 
         for (var property in obj) {
@@ -3504,6 +3504,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
+
 },{"lodash":"EBUqFC"}],72:[function(require,module,exports){
 /**
  * createAttrValue
@@ -3780,37 +3781,31 @@ var getAttrValue = function (entity, metadataUuid) {
 
 module.exports = getAttrValue;
 },{"./getType":80,"lodash":"EBUqFC"}],76:[function(require,module,exports){
+var _ = require('lodash');
+var instanceOf = require('./instanceOf');
+
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
  * доступа к позициям документа, т.к. для разных типов объектов наименование свойств с позициями различно)
  *
- * Date: 02.06.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-  , instanceOf = require('./instanceOf');
-
-/**
- * Возвращает свойство с массивом позиций для указанного документа
- *
  * @param entity Сущность с аттрибутами
  * @returns Array
  */
 var getPositions = function (entity) {
-
+    var positions;
     if (instanceOf(entity, 'operationWithPositions')) {
-
-        return _.find(entity, function (value, key) {
+        positions = _.find(entity, function (value, key) {
             return instanceOf(key, 'motion');
         })
+        return positions || [];
     }
 
     return null;
 };
 
 module.exports = getPositions;
+
 },{"./instanceOf":83,"lodash":"EBUqFC"}],77:[function(require,module,exports){
 /**
  * getPrice

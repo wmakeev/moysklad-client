@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 445948)
+// moysklad-client 0.2.11 (bundle length 445865)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -3903,37 +3903,31 @@ var getAttrValue = function (entity, metadataUuid) {
 
 module.exports = getAttrValue;
 },{"./getType":88,"lodash":"EBUqFC"}],84:[function(require,module,exports){
+var _ = require('lodash');
+var instanceOf = require('./instanceOf');
+
 /**
  * getPositions
  * Возвращает свойство с массивом позиций для указанного документа (полезно для унификации
  * доступа к позициям документа, т.к. для разных типов объектов наименование свойств с позициями различно)
  *
- * Date: 02.06.14
- * Vitaliy V. Makeev (w.makeev@gmail.com)
- */
-
-var _ = require('lodash')
-  , instanceOf = require('./instanceOf');
-
-/**
- * Возвращает свойство с массивом позиций для указанного документа
- *
  * @param entity Сущность с аттрибутами
  * @returns Array
  */
 var getPositions = function (entity) {
-
+    var positions;
     if (instanceOf(entity, 'operationWithPositions')) {
-
-        return _.find(entity, function (value, key) {
+        positions = _.find(entity, function (value, key) {
             return instanceOf(key, 'motion');
         })
+        return positions || [];
     }
 
     return null;
 };
 
 module.exports = getPositions;
+
 },{"./instanceOf":91,"lodash":"EBUqFC"}],85:[function(require,module,exports){
 /**
  * getPrice
