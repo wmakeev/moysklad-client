@@ -64,6 +64,7 @@ module.exports = {
     "invoicesIn": "invoiceIn",
     "purchaseReturns": "purchaseReturn",
     "customerOrders": "customerOrder",
+    "purchaseOrders": "purchaseOrder",
     "supplies": "supply",
     "salesReturns": "salesReturn",
     "enters": "enter",
