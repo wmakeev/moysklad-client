@@ -32,6 +32,7 @@ function _flattenFilter(obj, path, filter) {
         } else if (moment.isMoment(value)) {
             filter[curPath] = [ '=' + value.format('YYYYMMDDHHmmss') ];
 
+        // TODO value может быть null    
         } else if (value.type === 'QueryOperatorResult' && value.filter) {
             filter[curPath] = value.filter;
 
