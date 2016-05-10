@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 445998)
+// moysklad-client 0.2.11 (bundle length 445948)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -3585,15 +3585,15 @@ var fieldsToReset = [
     'updated',
     'updatedBy',
     'uuid',
-    'operationUuid'
+    'operationUuid',
+    'externalcode'
 ];
 
 var resetUuids = function (obj) {
 
     if (obj) {
-        //TODO Может быть использовать _.omit, вместо обнуления полей?
         _.forEach(fieldsToReset, function (fieldName) {
-            if (obj[fieldName]) obj[fieldName] = null;
+            if (obj[fieldName]) delete obj[fieldName];
         });
 
         for (var property in obj) {
@@ -3626,6 +3626,7 @@ var clone = function (obj) {
 };
 
 module.exports = clone;
+
 },{"lodash":"EBUqFC"}],80:[function(require,module,exports){
 /**
  * createAttrValue
