@@ -2,7 +2,7 @@ function init() {
     // script
 
 
-// moysklad-client 0.2.11 (bundle length 445865)
+// moysklad-client 0.2.11 (bundle length 445863)
 // Сборка библиотеки moysklad-client для браузера
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -1385,14 +1385,15 @@ var propMap = require('./nameToTypeMap');
 
 function getTypeOfProperty(propertyName, entity) {
 
-    if (entity.TYPE_NAME && propMap[entity.TYPE_NAME] && propMap[entity.TYPE_NAME][propertyName])
+    if (entity.TYPE_NAME && propMap[entity.TYPE_NAME] && propMap[entity.TYPE_NAME][propertyName]) {
         return propMap[entity.TYPE_NAME][propertyName];
+    }
 
-    else if (propMap[propertyName])
+    if (propMap[propertyName]) {
         return propMap[propertyName];
+    }
 
-    else
-        return propertyName;
+    return propertyName;
 }
 
 module.exports = getTypeOfProperty;
