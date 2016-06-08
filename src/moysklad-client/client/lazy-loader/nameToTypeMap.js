@@ -56,7 +56,7 @@ module.exports = {
     "place": "warehouse",
     "acquire": "company",
     "carrier": "company",
-    "agentUuid": "company",
+    "agent": "company",
     "supplier": "company",
 
     "demands": "demand",
