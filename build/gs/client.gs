@@ -1,4 +1,4 @@
-// moysklad-client 0.2.11 (bundle length 123361)
+// moysklad-client 0.2.11 (bundle length 123357)
 // Сборка с кодом основной библиотеки moysklad-client
 //
 // Vitaliy Makeev (w.makeev@gmail.com)
@@ -1528,7 +1528,7 @@ module.exports = {
     "place": "warehouse",
     "acquire": "company",
     "carrier": "company",
-    "agentUuid": "company",
+    "agent": "company",
     "supplier": "company",
 
     "demands": "demand",
