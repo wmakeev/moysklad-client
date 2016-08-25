@@ -731,7 +731,7 @@ module.exports={
     "colors": "~0.6.2",
     "lodash": "^2.4.1",
     "moment": "~2.5.0",
-    "moysklad-model": "^0.4.1",
+    "moysklad-model": "^0.5.0",
     "stampit": "~0.7.1",
     "tracer": "~0.6.1",
     "xmldom": "~0.1.17"

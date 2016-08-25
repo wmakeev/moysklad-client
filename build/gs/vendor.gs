@@ -6955,8 +6955,6 @@ Jsonix.Context.Unmarshaller = Jsonix.Class({
 
 },{"fs":1,"xmldom":"7cRTiX"}],"./vendor/jsonix":[function(require,module,exports){
 module.exports=require('kw5LsE');
-},{}],"./vendor/moneytostr":[function(require,module,exports){
-module.exports=require('sicwBz');
 },{}],"sicwBz":[function(require,module,exports){
 /*
  * Copyright 2013 Valentyn Kolesnikov
@@ -7835,4 +7833,6 @@ module.exports = {
     Language: Language,
     Currency: Currency
 };
+},{}],"./vendor/moneytostr":[function(require,module,exports){
+module.exports=require('sicwBz');
 },{}]},{},[]);
