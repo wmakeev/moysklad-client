@@ -1,5 +1,7 @@
 # **moysklad-client**
 
+[![Join the chat at https://gitter.im/wmakeev/moysklad-client](https://badges.gitter.im/wmakeev/moysklad-client.svg)](https://gitter.im/wmakeev/moysklad-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![NPM](https://nodei.co/npm/moysklad-client.png?downloads=true&stars=true)](https://nodei.co/npm/moysklad-client/)
 
 **JavaScript клиент для работы с API сервиса** [МойСклад](http://moysklad.ru).
